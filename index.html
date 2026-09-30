@@ -82,19 +82,27 @@
   img { max-width: 100%; display: block; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-  /* ---------- Шапка ---------- */
-  .top { background: var(--head); color: #fff; padding-top: env(safe-area-inset-top, 0px); margin-bottom: 16px; }
-  .top-row { display: flex; align-items: center; gap: 16px; min-height: 64px; }
-  .logo { color: #fff; display: flex; flex-direction: column; line-height: 1; flex: none; }
-  .nav a { white-space: nowrap; }
+  /* ---------- Общая полоса olk.ru (на всех страницах) ---------- */
+  .gbar { background: var(--head-deep); color: #fff; padding-top: env(safe-area-inset-top, 0px); font-size: 14px; }
+  .gbar-row { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+  .glogo { color: #fff; font-weight: 700; font-size: 19px; letter-spacing: -0.04em; flex: none; }
+  .glogo:hover { text-decoration: none; }
+  .nav { display: flex; gap: 2px; margin-left: 6px; }
+  .nav a { color: rgba(255,255,255,.86); padding: 6px 10px; border-radius: 6px; font-weight: 500; white-space: nowrap; }
+  .nav a:hover { background: rgba(255,255,255,.1); color: #fff; text-decoration: none; }
+  .nav a.active { background: rgba(255,255,255,.16); color: #fff; }
+  .spacer { flex: 1; }
+  .burger { display: none; background: none; border: 0; color: #fff; width: 40px; height: 40px; margin-right: -8px; cursor: pointer; border-radius: 8px; }
+  .burger svg { width: 24px; height: 24px; }
+
+  /* ---------- Шапка раздела ---------- */
+  .top { background: var(--head); color: #fff; margin-bottom: 16px; }
+  .top-row { display: flex; align-items: center; gap: 16px; min-height: 68px; }
+  .logo { color: #fff; display: flex; flex-direction: column; line-height: 1; flex: none; min-width: 0; }
   .logo:hover { text-decoration: none; }
   .logo b { font-weight: 700; font-size: 30px; letter-spacing: -0.04em; }
+  .logo b em { font-style: normal; color: var(--accent); }
   .logo small { font-size: 12px; opacity: .75; margin-top: 3px; }
-  .nav { display: flex; gap: 2px; margin-left: 12px; }
-  .nav a { color: #fff; padding: 8px 11px; border-radius: 8px; font-weight: 500; }
-  .nav a:hover { background: rgba(255,255,255,.1); text-decoration: none; }
-  .nav a.active { background: rgba(255,255,255,.16); }
-  .spacer { flex: 1; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     font: inherit; font-weight: 600; font-size: 15px;
@@ -108,8 +116,32 @@
   .btn-brand { background: var(--head); color: #fff; }
   .btn-brand:hover { background: var(--head-deep); }
   .add-mobile { display: none; padding: 8px 12px; font-size: 14px; }
-  .burger { display: none; background: none; border: 0; color: #fff; width: 44px; height: 44px; cursor: pointer; border-radius: 8px; }
-  .burger svg { width: 24px; height: 24px; }
+
+  /* ---------- Поиск доски в шапке ---------- */
+  .bsearch { padding-bottom: 16px; }
+  .bsearch-row { display: flex; gap: 8px; max-width: 760px; }
+  .bsearch-row input {
+    flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 11px 14px;
+    border-radius: 10px; border: 0; background: var(--card); color: var(--ink);
+  }
+  .bsearch-row input::placeholder { color: var(--mute); }
+  .bsearch-opts { display: flex; align-items: center; gap: 20px; margin-top: 10px; font-size: 15px; }
+  .bsearch-opts label { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; }
+  .bsearch-opts input { width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+  .ptoggle { background: none; border: 0; color: #fff; font: inherit; font-size: 15px; cursor: pointer; padding: 4px 0; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .bparams { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px 12px; margin-top: 12px; max-width: 760px; }
+  .bparams[hidden] { display: none; }
+  .bparams label { display: block; font-size: 13px; color: rgba(255,255,255,.8); margin-bottom: 4px; }
+  .bparams input, .bparams select {
+    width: 100%; font: inherit; font-size: 16px; padding: 9px 10px;
+    border-radius: 8px; border: 0; background: var(--card); color: var(--ink);
+  }
+  .bparams .bp-reset { grid-column: 1 / -1; }
+  .bparams .bp-reset a { color: #fff; text-decoration: underline; font-size: 14px; }
+  @media (max-width: 700px) {
+    .bparams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bparams .bp-wide { grid-column: 1 / -1; }
+  }
 
   /* ---------- Боковое меню ---------- */
   .backdrop {
@@ -285,6 +317,9 @@
   }
   .user-chip:hover { text-decoration: none; background: rgba(255,255,255,.1); }
   .user-chip span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gbar .btn-ghost { padding: 5px 14px; font-size: 14px; }
+  .gbar .user-chip { padding: 2px 10px 2px 2px; font-size: 14px; }
+  .gbar .avatar { width: 28px; height: 28px; font-size: 13px; }
   .avatar-row { display: flex; gap: 16px; align-items: center; margin-bottom: 22px; }
   .avatar-row .actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
   .avatar-row .btn { width: auto; padding: 8px 14px; font-size: 14px; }
@@ -372,6 +407,57 @@
     .ad-view { grid-template-columns: 1fr; gap: 0; }
     .ad-side { position: static; }
     .ad-view h1 { font-size: 22px; }
+  }
+
+  /* ---------- Доска: разделы и карточки ---------- */
+  .bhead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin: 4px 0 12px; }
+  .bhead h1, .bhead h2 { font-size: 24px; font-weight: 600; margin: 0; line-height: 1.2; }
+  .bhead .n { color: var(--mute); font-weight: 400; font-size: 17px; margin-left: 4px; white-space: nowrap; }
+  .bhead a { font-weight: 500; white-space: nowrap; }
+  .bcats {
+    list-style: none; margin: 0 0 24px; padding: 12px 16px;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    columns: 3 210px; column-gap: 28px;
+  }
+  .bcats li { break-inside: avoid; padding: 5px 0; line-height: 1.3; }
+  .bcats a { color: var(--ink); font-weight: 500; }
+  .bcats a:hover { color: var(--brand); }
+  .bcats a.on { color: var(--brand); font-weight: 700; }
+  .bcats .n { color: var(--mute); font-size: 13px; margin-left: 5px; white-space: nowrap; }
+  .bfeed { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+  .bcard { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+  .bph { position: relative; aspect-ratio: 4 / 3; background: var(--thumb); }
+  .bph-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .bph-track::-webkit-scrollbar { display: none; }
+  .bph-track:hover { text-decoration: none; }
+  .bph-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+  .bph-empty { display: flex; flex: 1; align-items: center; justify-content: center; color: var(--thumb-ink); }
+  .bph-empty svg { width: 36px; height: 36px; }
+  .bph-n { position: absolute; right: 6px; bottom: 6px; background: rgba(0,0,0,.6); color: #fff; font-size: 12px; padding: 1px 7px; border-radius: 999px; pointer-events: none; }
+  .barr {
+    display: none; position: absolute; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(0,0,0,.5); color: #fff;
+    cursor: pointer; align-items: center; justify-content: center; font-size: 20px; line-height: 1; padding: 0;
+  }
+  .barr.prev { left: 6px; }
+  .barr.next { right: 6px; }
+  @media (hover: hover) { .bph:hover .barr { display: flex; } }
+  .bbody { display: block; padding: 8px 10px 10px; color: inherit; flex: 1; }
+  .bbody:hover { text-decoration: none; }
+  .bbody:hover .btitle { color: var(--brand); }
+  .bbody .price { font-size: 17px; }
+  .bbody .meta { display: block; line-height: 1.35; }
+  .btitle { display: -webkit-box; font-size: 15px; line-height: 1.3; margin: 3px 0 4px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .deal { display: inline-block; font-size: 12px; font-weight: 600; color: var(--brand); border: 1px solid currentColor; border-radius: 999px; padding: 0 7px; margin: 0 6px 2px 0; vertical-align: 2px; }
+  .bfound { color: var(--mute); margin: -4px 0 14px; font-size: 15px; }
+  @media (max-width: 600px) {
+    .bcats { columns: 2; column-gap: 16px; padding: 8px 12px; font-size: 15px; }
+    .bcats li { padding: 4px 0; }
+    .bhead h1, .bhead h2 { font-size: 21px; }
+    .bfeed { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .bbody { padding: 7px 8px 9px; }
+    .btitle { font-size: 14px; }
+    .bbody .price { font-size: 16px; }
   }
 
   /* ---------- Лента: состояние ---------- */
@@ -487,22 +573,24 @@
     .grid { grid-template-columns: 1fr; gap: 8px; }
     .ads { grid-template-columns: 1fr; }
   }
-  /* Планшет боком и небольшие ноутбуки: полное меню, но шапка ужата */
-  @media (min-width: 861px) and (max-width: 1180px) {
-    .top-row { gap: 10px; }
-    .nav { margin-left: 4px; gap: 0; }
-    .nav a { padding: 8px 7px; font-size: 15px; }
-    .top-row .btn-accent:not(.add-mobile) { display: none; }
-    .top-row .add-mobile { display: inline-flex; }
-    .user-chip { padding: 3px; }
-    .user-chip span:last-child { display: none; }
+  /* Планшет боком и небольшие ноутбуки: полное меню, но полоса ужата */
+  @media (min-width: 861px) and (max-width: 1100px) {
+    .nav { margin-left: 0; gap: 0; }
+    .nav a { padding: 6px 7px; }
+    .gbar .user-chip { padding: 2px; }
+    .gbar .user-chip span:last-child { display: none; }
   }
   @media (max-width: 860px) {
-    .nav, .top-row .btn { display: none; }
-    .top-row .add-mobile { display: inline-flex; }
-    .top-row .user-chip { display: none; }
+    .nav, .gbar .user-chip, .gbar .btn-ghost { display: none; }
     .burger { display: inline-flex; align-items: center; justify-content: center; }
+    .top-row .btn:not(.add-mobile) { display: none; }
+    .top-row .add-mobile { display: inline-flex; }
+    .top-row { min-height: 60px; gap: 12px; }
+    .logo b { font-size: 26px; }
     .lead-news h3 { font-size: 22px; }
+  }
+  @media (max-width: 380px) {
+    .logo b { font-size: 23px; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -511,31 +599,26 @@
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <div class="top-row">
-      <a class="logo" href="#/" aria-label="olk.ru — на главную">
-        <b>olk.ru</b>
-        <small>Олёкминский район</small>
-      </a>
-      <nav class="nav" aria-label="Разделы">
-        <a href="#/news" data-route="news">Новости</a>
-        <a href="#/ads" data-route="ads">Объявления</a>
-        <a href="#/rabota" data-route="rabota">Работа</a>
-        <a href="#/events" data-route="events">Афиша</a>
-        <a href="#/catalog" data-route="catalog">Справочник</a>
-        <a href="#/admin" data-route="admin" id="nav-admin" hidden>Админка</a>
-      </nav>
-      <span class="spacer"></span>
-      <a class="btn btn-ghost" id="auth-link" href="#/login">Войти</a>
-      <a class="btn btn-accent" href="#/ads/new">Подать объявление</a>
-      <a class="btn btn-accent add-mobile" href="#/ads/new">+ Подать</a>
-      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
+<header class="gbar">
+  <div class="wrap gbar-row">
+    <a class="glogo" href="#/" aria-label="olk.ru — на главную">olk.ru</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#/news" data-route="news">Новости</a>
+      <a href="#/ads" data-route="ads">Объявления</a>
+      <a href="#/rabota" data-route="rabota">Работа</a>
+      <a href="#/events" data-route="events">Афиша</a>
+      <a href="#/catalog" data-route="catalog">Справочник</a>
+      <a href="#/admin" data-route="admin" id="nav-admin" hidden>Админка</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="btn btn-ghost" id="auth-link" href="#/login">Войти</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </header>
+
+<header class="top" id="shead"></header>
 
 <div class="backdrop" id="backdrop"></div>
 <nav class="drawer" id="drawer" aria-label="Меню" inert>
@@ -555,7 +638,7 @@
   <div class="drawer-foot"><span>© 2026 Евсеев А.В.</span><a href="#/privacy">Политика конфиденциальности</a></div>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="portal-bar">
   <div class="intro" id="intro" hidden>
     <h1>Всё об Олёкминском районе</h1>
     <p>Новости, события, объявления и вакансии Олёкминска и наслегов района в одном месте.</p>
@@ -1500,7 +1583,7 @@ async function renderAdView(id) {
   app.innerHTML = '<p class="loading">Загружаем объявление…</p>';
   const [cats, res] = await Promise.all([
     loadCats().catch(() => null),
-    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)')
+    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)')
       .eq('id', id).maybeSingle()
   ]);
   if (res.error) { app.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
@@ -1527,7 +1610,8 @@ async function renderAdView(id) {
 
   const cat = cats?.byId[ad.category_id];
   const parent = cat?.parent_id ? cats.byId[cat.parent_id] : null;
-  const crumbs = '<div class="crumbs"><a href="#/ads">Объявления</a>' +
+  document.title = ad.title + ' — ' + BOARD_TITLE;
+  const crumbs = '<div class="crumbs"><a href="#/ads">Все объявления</a>' +
     (parent ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
     (cat ? ' → <a href="#/ads?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
 
@@ -1551,6 +1635,7 @@ async function renderAdView(id) {
           ad.views + ' ' + plural(ad.views, 'просмотр', 'просмотра', 'просмотров') + '</p>' +
       '</div>' +
       '<aside class="ad-side aside-block">' +
+        (ad.deal && ad.deal !== 'sell' && DEALS[ad.deal] ? '<span class="deal">' + DEALS[ad.deal] + '</span>' : '') +
         fmtPrice(ad.price, ad.price_type) +
         (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
         '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
@@ -1644,7 +1729,7 @@ async function renderAdForm(query, editId) {
     cats = await loadCats();
     if (editId) {
       const { data, error } = await sb.from('ads')
-        .select('id, author_id, category_id, title, description, price, price_type, settlement, contact_phone, status, ad_photos(id, path, sort)')
+        .select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, ad_photos(id, path, sort)')
         .eq('id', editId).maybeSingle();
       if (error) throw error;
       ad = data ? mapAd(data) : null;
@@ -1664,6 +1749,7 @@ async function renderAdForm(query, editId) {
   try { savedPhone = localStorage.getItem('olk_phone') || ''; } catch {}
 
   const pt = ad ? ad.price_type : 'fixed';
+  const dl = ad?.deal || 'sell';
   const priceTypes = [['fixed', 'Цена'], ['negotiable', 'Договорная'], ['free', 'Даром'], ['exchange', 'Обмен']];
 
   app.innerHTML =
@@ -1672,9 +1758,13 @@ async function renderAdForm(query, editId) {
       '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
       '<div id="msg"></div>' +
       '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
-        cats.top.map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
+        cats.top.filter(c => c.slug !== 'rabota' || preTop === c)
+          .map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
       '</select></div>' +
       '<div class="field" id="sub-wrap" hidden><label for="a-sub">Подраздел</label><select id="a-sub"></select></div>' +
+      '<div class="field" id="deal-wrap"><span class="flabel">Тип объявления</span><div class="seg" role="radiogroup" aria-label="Тип объявления">' +
+        Object.entries(DEALS).map(([v, l]) => '<label><input type="radio" name="deal" value="' + v + '"' + (dl === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+      '</div></div>' +
       '<div class="field"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="Например, лодка «Казанка-5М» с мотором"></div>' +
       '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="Состояние, размеры, что входит в комплект">' + esc(ad?.description || '') + '</textarea>' +
         '<div class="hint"><span id="a-count">0</span> из 5000</div></div>' +
@@ -1696,6 +1786,7 @@ async function renderAdForm(query, editId) {
   const topSel = $('#a-top'), subSel = $('#a-sub'), subWrap = $('#sub-wrap');
   function fillSub() {
     const t = cats.byId[+topSel.value];
+    $('#deal-wrap').hidden = t?.slug === 'rabota';
     if (t && t.children.length) {
       subSel.innerHTML = '<option value="">Выберите подраздел</option>' +
         t.children.map(c => '<option value="' + c.id + '"' + (preSub === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('');
@@ -1782,7 +1873,8 @@ async function renderAdForm(query, editId) {
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
 
     const price = (price_type === 'free' || price_type === 'exchange' || priceRaw === '') ? null : Math.round(+priceRaw);
-    const fields = { category_id: catId, title, description, price, price_type, settlement, contact_phone };
+    const deal = top.slug === 'rabota' ? 'sell' : app.querySelector('input[name=deal]:checked').value;
+    const fields = { category_id: catId, title, description, price, price_type, deal, settlement, contact_phone };
     const btn = $('#a-submit');
     btn.disabled = true; btn.textContent = ad ? 'Сохраняем…' : 'Публикуем…';
     setMsg(msg, '');
@@ -1839,8 +1931,258 @@ async function renderAdForm(query, editId) {
   });
 }
 
+/* ---------------- Шапки разделов ---------------- */
+let HEAD_KIND = null, BOARD_CAT = '';
+const DEALS = { sell: 'Продам', buy: 'Куплю', rent_out: 'Сдам', rent_in: 'Сниму', exchange: 'Обменяю' };
+const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминского района';
+
+// kind: 'portal' — общая шапка olk.ru, 'doska' — своя шапка доски
+function setHead(kind) {
+  $('#portal-bar').hidden = kind !== 'portal';
+  if (HEAD_KIND === kind) return;
+  HEAD_KIND = kind;
+  const h = $('#shead');
+  if (kind === 'doska') {
+    h.innerHTML = '<div class="wrap">' +
+      '<div class="top-row">' +
+        '<a class="logo" href="#/ads" aria-label="doska.olk.ru — главная доски"><b><em>doska</em>.olk.ru</b><small>Объявления Олёкминского района</small></a>' +
+        '<span class="spacer"></span>' +
+        '<a class="btn btn-accent" href="#/ads/new">Добавить объявление</a>' +
+        '<a class="btn btn-accent add-mobile" href="#/ads/new">+ Добавить</a>' +
+      '</div>' +
+      '<form class="bsearch" id="bs" role="search">' +
+        '<div class="bsearch-row"><input id="bs-q" type="search" placeholder="Поиск по объявлениям" aria-label="Поиск по объявлениям" enterkeyhint="search">' +
+          '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+        '<div class="bsearch-opts"><label><input type="checkbox" id="bs-photo">с фото</label>' +
+          '<button class="ptoggle" type="button" id="bs-pt" aria-expanded="false" aria-controls="bs-params">Параметры</button></div>' +
+        '<div class="bparams" id="bs-params" hidden>' +
+          '<div><label for="bs-min">Цена от, ₽</label><input id="bs-min" type="number" inputmode="numeric" min="0"></div>' +
+          '<div><label for="bs-max">до, ₽</label><input id="bs-max" type="number" inputmode="numeric" min="0"></div>' +
+          '<div class="bp-wide"><label for="bs-place">Населённый пункт</label><input id="bs-place" list="places-h"></div>' +
+          '<div><label for="bs-deal">Тип</label><select id="bs-deal"><option value="">Все</option>' +
+            Object.entries(DEALS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
+          '<div><label for="bs-sort">Сначала</label><select id="bs-sort"><option value="new">новые</option><option value="cheap">дешевле</option><option value="dear">дороже</option></select></div>' +
+          '<div class="bp-reset" id="bs-reset" hidden><a href="#/ads">Сбросить поиск и параметры</a></div>' +
+        '</div>' +
+        '<datalist id="places-h">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>' +
+      '</form></div>';
+    $('#bs-pt').addEventListener('click', () => {
+      const pnl = $('#bs-params');
+      pnl.hidden = !pnl.hidden;
+      $('#bs-pt').setAttribute('aria-expanded', String(!pnl.hidden));
+    });
+    $('#bs').addEventListener('submit', e => {
+      e.preventDefault();
+      const next = '#/ads' + qs({
+        cat: BOARD_CAT, q: $('#bs-q').value.trim(), photo: $('#bs-photo').checked ? '1' : '',
+        min: $('#bs-min').value.trim(), max: $('#bs-max').value.trim(), place: $('#bs-place').value.trim(),
+        deal: $('#bs-deal').value, sort: $('#bs-sort').value
+      });
+      $('#bs-q').blur();
+      if (location.hash === next) route(); else location.hash = next;
+    });
+  } else {
+    h.innerHTML = '<div class="wrap"><div class="top-row">' +
+      '<a class="logo" href="#/" aria-label="olk.ru — на главную"><b>olk.ru</b><small>Олёкминский район</small></a>' +
+      '<span class="spacer"></span>' +
+      '<a class="btn btn-accent" href="#/ads/new">Подать объявление</a>' +
+      '<a class="btn btn-accent add-mobile" href="#/ads/new">+ Подать</a>' +
+    '</div></div>';
+  }
+}
+
+// Заполнить поиск доски текущими значениями
+function fillBoardHead(st) {
+  if (HEAD_KIND !== 'doska') return;
+  $('#bs-q').value = st.q || '';
+  $('#bs-photo').checked = !!st.photo;
+  $('#bs-min').value = st.min || '';
+  $('#bs-max').value = st.max || '';
+  $('#bs-place').value = st.place || '';
+  $('#bs-deal').value = st.deal || '';
+  $('#bs-sort').value = st.sort || 'new';
+  const n = ['min', 'max', 'place', 'deal'].filter(k => st[k]).length + (st.sort && st.sort !== 'new' ? 1 : 0);
+  $('#bs-pt').textContent = 'Параметры' + (n ? ' (' + n + ')' : '');
+  $('#bs-params').hidden = !n;
+  $('#bs-pt').setAttribute('aria-expanded', String(!!n));
+  $('#bs-reset').hidden = !(n || st.q || st.photo);
+}
+
+/* ---------------- Доска: главная, разделы, поиск ---------------- */
+async function loadCounts() {
+  const { data, error } = await sb.rpc('ad_category_counts');
+  if (error) throw error;
+  const m = {};
+  (data || []).forEach(r => { m[r.category_id] = Number(r.n) || 0; });
+  return m;
+}
+
+function catTotal(c, counts) {
+  return (counts[c.id] || 0) + c.children.reduce((sum, x) => sum + (counts[x.id] || 0), 0);
+}
+
+function jobIds(cats) {
+  const j = cats.bySlug.rabota;
+  return j ? [j.id, ...j.children.map(c => c.id)] : [];
+}
+
+function catsListHtml(list, counts, activeId, st) {
+  return '<ul class="bcats">' + list.map(c => {
+    const n = counts ? catTotal(c, counts) : 0;
+    return '<li><a' + (c.id === activeId ? ' class="on" aria-current="page"' : '') +
+      ' href="#/ads' + qs({ ...st, cat: c.slug }) + '">' + esc(c.name) + '</a>' +
+      (n ? '<span class="n">' + n.toLocaleString('ru-RU') + '</span>' : '') + '</li>';
+  }).join('') + '</ul>';
+}
+
+function buildBoardQuery(st, ids, exclude, from, countOnly) {
+  let q;
+  if (countOnly) {
+    q = sb.from('ads').select(st.photo ? 'id, ad_photos!inner(id)' : 'id', { count: 'exact', head: true });
+  } else {
+    q = sb.from('ads').select('id, title, price, price_type, deal, settlement, bumped_at, ' +
+      (st.photo ? 'ad_photos!inner(path, sort)' : 'ad_photos(path, sort)'));
+  }
+  q = q.eq('status', 'active').gt('expires_at', new Date().toISOString());
+  if (ids) q = q.in('category_id', ids);
+  else if (exclude.length) q = q.not('category_id', 'in', '(' + exclude.join(',') + ')');
+  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
+  if (st.min !== '' && !isNaN(+st.min)) q = q.gte('price', +st.min);
+  if (st.max !== '' && !isNaN(+st.max)) q = q.lte('price', +st.max);
+  if (st.place) q = q.ilike('settlement', '%' + st.place.replace(/[%_\\]/g, m => '\\' + m) + '%');
+  if (DEALS[st.deal]) q = q.eq('deal', st.deal);
+  if (countOnly) return q;
+  if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
+  if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
+  return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
+}
+
+// Карточка в ленте: фото листаются пальцем, на компьютере — стрелками
+function boardCard(a) {
+  const href = '#/ads/' + a.id;
+  const photos = a.photos.slice(0, 8);
+  const track = '<a class="bph-track" href="' + href + '" tabindex="-1" aria-hidden="true">' +
+    (photos.length
+      ? photos.map((x, i) => '<img ' + (i ? 'data-src' : 'loading="lazy" src') + '="' + esc(photoUrl(x.path)) + '" alt="" decoding="async">').join('')
+      : '<span class="bph-empty">' + ICON_PHOTO + '</span>') + '</a>';
+  const nav = photos.length > 1
+    ? '<button class="barr prev" type="button" tabindex="-1" aria-label="Предыдущее фото">‹</button>' +
+      '<button class="barr next" type="button" tabindex="-1" aria-label="Следующее фото">›</button>' +
+      '<span class="bph-n">1 / ' + photos.length + '</span>'
+    : '';
+  return '<li><div class="bcard"><div class="bph">' + track + nav + '</div>' +
+    '<a class="bbody" href="' + href + '">' +
+      (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
+      fmtPrice(a.price, a.price_type) +
+      '<span class="btitle">' + esc(a.title) + '</span>' +
+      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+    '</a></div></li>';
+}
+
+// Остальные фото карточки грузим, только когда к ней прикоснулись — бережём мобильный интернет
+function wakePhotos(tr) {
+  if (!tr) return;
+  tr.querySelectorAll('img[data-src]').forEach(img => { img.src = img.dataset.src; img.removeAttribute('data-src'); });
+}
+
+function bindCardPhotos(listEl) {
+  const wake = e => wakePhotos(e.target.closest && e.target.closest('.bph')?.querySelector('.bph-track'));
+  listEl.addEventListener('touchstart', wake, { passive: true });
+  listEl.addEventListener('pointerover', wake);
+  listEl.addEventListener('click', e => {
+    const b = e.target.closest('.barr');
+    if (!b) return;
+    e.preventDefault();
+    const tr = b.parentElement.querySelector('.bph-track');
+    tr.scrollBy({ left: (b.classList.contains('next') ? 1 : -1) * tr.clientWidth, behavior: 'smooth' });
+  });
+  listEl.addEventListener('scroll', e => {
+    const tr = e.target;
+    if (!tr.classList || !tr.classList.contains('bph-track')) return;
+    wakePhotos(tr);
+    const n = tr.parentElement.querySelector('.bph-n');
+    if (n) n.textContent = (Math.round(tr.scrollLeft / tr.clientWidth) + 1) + ' / ' + tr.children.length;
+  }, { capture: true, passive: true });
+}
+
+async function renderBoard(query) {
+  if (!sb) return renderNoDb('Объявления');
+  const app = $('#app');
+  const seq = routeSeq;
+  const p = new URLSearchParams(query);
+  const st = {
+    cat: p.get('cat') || '', q: p.get('q') || '', photo: p.get('photo') ? '1' : '',
+    min: p.get('min') || '', max: p.get('max') || '', place: p.get('place') || '',
+    deal: DEALS[p.get('deal')] ? p.get('deal') : '', sort: p.get('sort') || 'new'
+  };
+  fillBoardHead(st);
+  app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
+
+  let cats, counts;
+  try {
+    [cats, counts] = await Promise.all([loadCats(), loadCounts().catch(e => { console.error(e); return null; })]);
+  } catch (e) {
+    console.error(e);
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+
+  const jobs = jobIds(cats);
+  let sel = cats.bySlug[st.cat] || null;
+  if (sel && jobs.includes(sel.id)) { location.hash = '#/rabota' + qs({ cat: sel.slug }); return; }
+  BOARD_CAT = sel ? sel.slug : '';
+  const top = sel ? (sel.parent_id ? cats.byId[sel.parent_id] : sel) : null;
+  const searching = !!(st.q || st.photo || st.min || st.max || st.place || st.deal || st.sort !== 'new');
+  const keep = { ...st, cat: '' };
+  document.title = (sel ? sel.name + ' — ' : '') + BOARD_TITLE;
+
+  let html = '';
+  if (sel) {
+    html += '<div class="crumbs"><a href="#/ads">Все объявления</a>' +
+      (sel.parent_id ? ' → <a href="#/ads' + qs({ ...keep, cat: top.slug }) + '">' + esc(top.name) + '</a>' : '') + '</div>';
+    const n = counts ? catTotal(sel, counts) : 0;
+    html += '<div class="bhead"><h1>' + esc(sel.name) + (n ? '<span class="n">' + n.toLocaleString('ru-RU') + '</span>' : '') + '</h1>' +
+      '<a href="#/ads/new?cat=' + sel.slug + '">+ Добавить сюда</a></div>';
+    if (top.children.length) html += catsListHtml(top.children, counts, sel.id, keep);
+  } else if (!searching) {
+    const boardTop = cats.top.filter(c => !jobs.includes(c.id));
+    html += catsListHtml(boardTop, counts, null, keep);
+    html += '<div class="bhead"><h2>Свежие объявления</h2>' + (session ? '<a href="#/ads/my">Мои объявления</a>' : '') + '</div>';
+  } else {
+    html += '<div class="crumbs"><a href="#/ads">Все объявления</a></div>' +
+      '<div class="bhead"><h1>' + (st.q ? 'Поиск «' + esc(st.q) + '»' : 'Поиск по объявлениям') + '</h1></div>';
+  }
+  if (searching) html += '<p class="bfound" id="bfound">Считаем…</p>';
+  html += '<ul class="bfeed" id="list"></ul><div id="list-state"></div>';
+  app.innerHTML = html;
+
+  const ids = sel ? [sel.id, ...sel.children.map(c => c.id)] : null;
+  if (searching) {
+    buildBoardQuery(st, ids, jobs, 0, true).then(({ count, error }) => {
+      const box = $('#bfound');
+      if (!box || seq !== routeSeq) return;
+      if (error || count == null) { box.remove(); return; }
+      box.innerHTML = 'Найдено ' + count.toLocaleString('ru-RU') + ' ' + plural(count, 'объявление', 'объявления', 'объявлений') +
+        (sel ? ' в разделе «' + esc(sel.name) + '». <a href="#/ads' + qs(keep) + '">Искать во всех разделах</a>' : '');
+    }, () => { const box = $('#bfound'); if (box) box.remove(); });
+  }
+
+  const listEl = $('#list');
+  bindCardPhotos(listEl);
+  startFeed({
+    listEl, stateEl: $('#list-state'),
+    fetchPage: from => buildBoardQuery(st, ids, jobs, from, false),
+    renderItems: rows => rows.map(mapAd).map(boardCard).join(''),
+    emptyHtml: searching
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить запрос или параметры.</p>'
+      : '<p class="empty">' + (sel ? 'В этом разделе пока нет объявлений.' : 'Объявлений пока нет.') +
+        ' <a href="#/ads/new' + (sel ? '?cat=' + sel.slug : '') + '">Подайте первое</a>.</p>'
+  });
+}
+
 function routeAds(query, parts) {
-  if (!parts.length) return renderAdsList(query, 'ads');
+  if (!parts.length) return renderBoard(query);
   if (parts[0] === 'new') return renderAdForm(query, null);
   if (parts[0] === 'my') return renderMyAds();
   if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0]) : renderAdView(+parts[0]);
@@ -2538,6 +2880,13 @@ function route() {
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
+  const kind = section === 'ads' ? 'doska' : 'portal';
+  setHead(kind);
+  if (kind === 'doska') {
+    BOARD_CAT = '';
+    fillBoardHead({});
+    document.title = BOARD_TITLE;
+  }
   if (PAGES[section]) { showFlash(); return PAGES[section](query, path.split('/').slice(1)); }
   showFlash();
   if (!path) return renderHome();
