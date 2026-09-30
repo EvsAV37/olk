@@ -82,27 +82,20 @@
   img { max-width: 100%; display: block; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-  /* ---------- Общая полоса olk.ru (на всех страницах) ---------- */
-  .gbar { background: var(--head-deep); color: #fff; padding-top: env(safe-area-inset-top, 0px); font-size: 14px; }
-  .gbar-row { display: flex; align-items: center; gap: 10px; min-height: 44px; }
-  .glogo { color: #fff; font-weight: 700; font-size: 19px; letter-spacing: -0.04em; flex: none; }
-  .glogo:hover { text-decoration: none; }
-  .nav { display: flex; gap: 2px; margin-left: 6px; }
-  .nav a { color: rgba(255,255,255,.86); padding: 6px 10px; border-radius: 6px; font-weight: 500; white-space: nowrap; }
-  .nav a:hover { background: rgba(255,255,255,.1); color: #fff; text-decoration: none; }
-  .nav a.active { background: rgba(255,255,255,.16); color: #fff; }
-  .spacer { flex: 1; }
-  .burger { display: none; background: none; border: 0; color: #fff; width: 40px; height: 40px; margin-right: -8px; cursor: pointer; border-radius: 8px; }
-  .burger svg { width: 24px; height: 24px; }
-
-  /* ---------- Шапка раздела ---------- */
-  .top { background: var(--head); color: #fff; margin-bottom: 16px; }
-  .top-row { display: flex; align-items: center; gap: 16px; min-height: 68px; }
-  .logo { color: #fff; display: flex; flex-direction: column; line-height: 1; flex: none; min-width: 0; }
+  /* ---------- Шапка (у каждого раздела своя: olk.ru, doska.olk.ru…) ---------- */
+  .top { background: var(--head); color: #fff; padding-top: env(safe-area-inset-top, 0px); margin-bottom: 16px; }
+  .top-row { display: flex; align-items: center; gap: 16px; min-height: 64px; }
+  .logo { color: #fff; display: flex; flex-direction: column; line-height: 1; flex: none; }
   .logo:hover { text-decoration: none; }
   .logo b { font-weight: 700; font-size: 30px; letter-spacing: -0.04em; }
   .logo b em { font-style: normal; color: var(--accent); }
   .logo small { font-size: 12px; opacity: .75; margin-top: 3px; }
+  .nav { display: flex; gap: 2px; margin-left: 12px; }
+  .nav a { color: #fff; padding: 8px 11px; border-radius: 8px; font-weight: 500; white-space: nowrap; }
+  .nav a[hidden] { display: none; }
+  .nav a:hover { background: rgba(255,255,255,.1); text-decoration: none; }
+  .nav a.active { background: rgba(255,255,255,.16); }
+  .spacer { flex: 1; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     font: inherit; font-weight: 600; font-size: 15px;
@@ -116,6 +109,8 @@
   .btn-brand { background: var(--head); color: #fff; }
   .btn-brand:hover { background: var(--head-deep); }
   .add-mobile { display: none; padding: 8px 12px; font-size: 14px; }
+  .burger { display: none; background: none; border: 0; color: #fff; width: 44px; height: 44px; cursor: pointer; border-radius: 8px; }
+  .burger svg { width: 24px; height: 24px; }
 
   /* ---------- Поиск доски в шапке ---------- */
   .bsearch { padding-bottom: 16px; }
@@ -317,9 +312,6 @@
   }
   .user-chip:hover { text-decoration: none; background: rgba(255,255,255,.1); }
   .user-chip span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .gbar .btn-ghost { padding: 5px 14px; font-size: 14px; }
-  .gbar .user-chip { padding: 2px 10px 2px 2px; font-size: 14px; }
-  .gbar .avatar { width: 28px; height: 28px; font-size: 13px; }
   .avatar-row { display: flex; gap: 16px; align-items: center; margin-bottom: 22px; }
   .avatar-row .actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
   .avatar-row .btn { width: auto; padding: 8px 14px; font-size: 14px; }
@@ -573,24 +565,62 @@
     .grid { grid-template-columns: 1fr; gap: 8px; }
     .ads { grid-template-columns: 1fr; }
   }
-  /* Планшет боком и небольшие ноутбуки: полное меню, но полоса ужата */
-  @media (min-width: 861px) and (max-width: 1100px) {
-    .nav { margin-left: 0; gap: 0; }
-    .nav a { padding: 6px 7px; }
-    .gbar .user-chip { padding: 2px; }
-    .gbar .user-chip span:last-child { display: none; }
+  /* Планшет боком и небольшие ноутбуки: полное меню, но шапка ужата */
+  @media (min-width: 861px) and (max-width: 1180px) {
+    .top-row { gap: 10px; }
+    .nav { margin-left: 4px; gap: 0; }
+    .nav a { padding: 8px 7px; font-size: 15px; }
+    .top-row .btn-accent:not(.add-mobile) { display: none; }
+    .top-row .add-mobile { display: inline-flex; }
+    .user-chip { padding: 3px; }
+    .user-chip span:last-child { display: none; }
   }
   @media (max-width: 860px) {
-    .nav, .gbar .user-chip, .gbar .btn-ghost { display: none; }
-    .burger { display: inline-flex; align-items: center; justify-content: center; }
-    .top-row .btn:not(.add-mobile) { display: none; }
+    .nav, .top-row .btn { display: none; }
     .top-row .add-mobile { display: inline-flex; }
-    .top-row { min-height: 60px; gap: 12px; }
-    .logo b { font-size: 26px; }
+    .top-row .user-chip { display: none; }
+    .burger { display: inline-flex; align-items: center; justify-content: center; }
     .lead-news h3 { font-size: 22px; }
   }
-  @media (max-width: 380px) {
-    .logo b { font-size: 23px; }
+  /* В шапке у вошедшего только аватар (имя во всплывающей подсказке и в меню).
+     Шапка доски длиннее: логотип doska.olk.ru и пункт «Главная», поэтому кнопка короткая */
+  .top .user-chip { padding: 3px; }
+  .top .user-chip span:last-child { display: none; }
+  .top.doska .logo b { font-size: 26px; }
+  .top.doska .nav { margin-left: 6px; }
+  .top.doska .nav a { padding: 8px 9px; }
+  .top.doska .top-row .btn-accent:not(.add-mobile) { display: none; }
+  .top.doska .top-row .add-mobile { display: inline-flex; }
+  @media (min-width: 861px) and (max-width: 1180px) {
+    .top.doska .logo b { font-size: 21px; }
+    .top.doska .top-row { gap: 8px; }
+    .top.doska .nav { margin-left: 0; }
+    .top.doska .nav a { padding: 8px 5px; font-size: 14px; }
+  }
+  @media (min-width: 861px) and (max-width: 940px) {
+    .top.doska .logo b { font-size: 19px; }
+    .top.doska .logo small { font-size: 11px; }
+    .top.doska .nav a { padding: 8px 4px; font-size: 13.5px; }
+    .top.doska .add-mobile { padding: 8px 9px; }
+  }
+  @media (max-width: 860px) {
+    .top.doska .logo b { font-size: 24px; }
+    .top.doska .top-row { gap: 10px; }
+    .top.doska .top-row .btn-ghost, .top.doska .top-row .user-chip { display: none; }
+  }
+  @media (max-width: 400px) {
+    .top-row { gap: 10px; }
+    .top.doska .logo b { font-size: 20px; }
+    .logo small { font-size: 11px; }
+    .add-mobile { padding: 8px 10px; }
+    .burger { width: 40px; margin-right: -4px; }
+  }
+  @media (max-width: 340px) {
+    .logo b { font-size: 25px; }
+    .top.doska .logo b { font-size: 17px; }
+  }
+  @media (min-width: 861px) and (max-width: 900px) {
+    .top:not(.doska) .nav a { padding: 8px 6px; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -599,26 +629,33 @@
 </head>
 <body>
 
-<header class="gbar">
-  <div class="wrap gbar-row">
-    <a class="glogo" href="#/" aria-label="olk.ru — на главную">olk.ru</a>
-    <nav class="nav" aria-label="Разделы">
-      <a href="#/news" data-route="news">Новости</a>
-      <a href="#/ads" data-route="ads">Объявления</a>
-      <a href="#/rabota" data-route="rabota">Работа</a>
-      <a href="#/events" data-route="events">Афиша</a>
-      <a href="#/catalog" data-route="catalog">Справочник</a>
-      <a href="#/admin" data-route="admin" id="nav-admin" hidden>Админка</a>
-    </nav>
-    <span class="spacer"></span>
-    <a class="btn btn-ghost" id="auth-link" href="#/login">Войти</a>
-    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="logo" id="logo" href="#/" aria-label="olk.ru — на главную">
+        <b>olk.ru</b>
+        <small>Олёкминский район</small>
+      </a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#/" id="nav-home" hidden>Главная</a>
+        <a href="#/news" data-route="news">Новости</a>
+        <a href="#/ads" data-route="ads">Объявления</a>
+        <a href="#/rabota" data-route="rabota">Работа</a>
+        <a href="#/events" data-route="events">Афиша</a>
+        <a href="#/catalog" data-route="catalog">Справочник</a>
+        <a href="#/admin" data-route="admin" id="nav-admin" hidden>Админка</a>
+      </nav>
+      <span class="spacer"></span>
+      <a class="btn btn-ghost" id="auth-link" href="#/login">Войти</a>
+      <a class="btn btn-accent" id="add-btn" href="#/ads/new">Подать объявление</a>
+      <a class="btn btn-accent add-mobile" id="add-btn-m" href="#/ads/new">+ Подать</a>
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <div id="head-extra"></div>
   </div>
 </header>
-
-<header class="top" id="shead"></header>
 
 <div class="backdrop" id="backdrop"></div>
 <nav class="drawer" id="drawer" aria-label="Меню" inert>
@@ -627,6 +664,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
+  <a href="#/" data-route="">Главная</a>
   <a href="#/news" data-route="news">Новости</a>
   <a href="#/ads" data-route="ads">Объявления</a>
   <a href="#/rabota" data-route="rabota">Работа</a>
@@ -734,6 +772,21 @@ function cacheSet(key, v) {
 
 function photoUrl(path) {
   return CONFIG.SUPABASE_URL + '/storage/v1/object/public/ads/' + path;
+}
+
+// Маленькая копия фото для лент: рядом с большим, с приставкой _s (…/123-0_s.webp)
+function thumbPath(path) {
+  return path.replace(/(\.[a-z0-9]+)?$/i, '_s$1');
+}
+// Если маленькой копии нет (фото загружено раньше) — показываем большое
+function thumbFail(img) {
+  const full = img.dataset.full;
+  if (!full) return;
+  img.removeAttribute('data-full');
+  img.src = full;
+}
+function thumbAttrs(path) {
+  return 'src="' + esc(photoUrl(thumbPath(path))) + '" data-full="' + esc(photoUrl(path)) + '" onerror="thumbFail(this)"';
 }
 
 const ICON_PHOTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg>';
@@ -1029,7 +1082,13 @@ async function fetchProfile() {
   if (!session) return null;
   const { data, error } = await sb.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
   if (error) { console.error(error); return null; }
+  if (data) cacheSet('olk_profile', data);
   return data;
+}
+
+function cachedProfile(uid) {
+  const p = cacheGet('olk_profile', 30 * 864e5);
+  return p && p.id === uid ? p : null;
 }
 
 function updateHeader() {
@@ -1039,6 +1098,7 @@ function updateHeader() {
     link.className = 'user-chip';
     link.href = '#/profile';
     link.innerHTML = avatarHtml(profile, '') + '<span>' + esc(name) + '</span>';
+    link.title = name;
     dlink.href = '#/profile';
     dlink.textContent = name;
     dlink.dataset.route = 'profile';
@@ -1048,6 +1108,7 @@ function updateHeader() {
     link.className = 'btn btn-ghost';
     link.href = '#/login';
     link.textContent = 'Войти';
+    link.removeAttribute('title');
     dlink.href = '#/login';
     dlink.textContent = 'Войти';
     delete dlink.dataset.route;
@@ -1305,6 +1366,7 @@ async function renderProfile() {
   $('#logout').addEventListener('click', async () => {
     await sb.auth.signOut();
     session = null; profile = null;
+    try { localStorage.removeItem('olk_profile'); } catch {}
     updateHeader();
     location.hash = '#/';
   });
@@ -1343,7 +1405,12 @@ async function initAuth() {
   const params = new URLSearchParams(location.search);
   const { data } = await sb.auth.getSession(); // здесь же обменивается ?code= из письма
   session = data.session;
-  if (session) profile = await fetchProfile();
+  if (session) {
+    // Сразу берём профиль из браузера, свежий подтягиваем параллельно
+    profile = cachedProfile(session.user.id);
+    const fresh = fetchProfile().then(p => { if (p) { profile = p; updateHeader(); } return p; });
+    if (!profile) await fresh;
+  }
 
   if (params.has('error') || params.has('error_description')) {
     flashMsg = { text: 'Ссылка из письма не сработала: она устарела или уже использована. Запросите новую.', ok: false };
@@ -1388,10 +1455,18 @@ function requireLogin(next) {
   return false;
 }
 
+// Разделы почти не меняются: держим в браузере 12 часов, чтобы не ждать сервер на каждой странице
+const CATS_KEY = 'olk_cats_0006';
 async function loadCats() {
   if (CATS) return CATS;
-  const { data, error } = await sb.from('ad_categories').select('id, parent_id, slug, name, sort').order('sort');
-  if (error) throw error;
+  let data = cacheGet(CATS_KEY, 12 * 3600e3);
+  if (!data) {
+    const res = await sb.from('ad_categories').select('id, parent_id, slug, name, sort').order('sort');
+    if (res.error) throw res.error;
+    data = res.data;
+    cacheSet(CATS_KEY, data);
+  }
+  data = data.map(c => ({ ...c }));
   const bySlug = {}, byId = {}, top = [];
   data.forEach(c => { c.children = []; bySlug[c.slug] = c; byId[c.id] = c; });
   data.forEach(c => { if (c.parent_id) byId[c.parent_id]?.children.push(c); else top.push(c); });
@@ -1406,7 +1481,7 @@ function mapAd(a) {
 
 function adItem(a) {
   return '<li><a class="ad" href="#/ads/' + a.id + '">' +
-    (a.photo ? '<img class="thumb" src="' + esc(a.photo) + '" alt="" loading="lazy">'
+    (a.photos && a.photos[0] ? '<img class="thumb" ' + thumbAttrs(a.photos[0].path) + ' alt="" loading="lazy">'
              : '<span class="thumb">' + ICON_PHOTO + '</span>') +
     '<span><span class="ad-title">' + esc(a.title) + '</span>' +
     fmtPrice(a.price, a.price_type) +
@@ -1543,7 +1618,7 @@ function ownerToolsHtml(ad) {
 }
 
 async function deleteAd(ad) {
-  const paths = (ad.ad_photos || ad.photos || []).map(p => p.path);
+  const paths = (ad.ad_photos || ad.photos || []).flatMap(p => [p.path, thumbPath(p.path)]);
   if (paths.length) await sb.storage.from('ads').remove(paths);
   const { error } = await sb.from('ads').delete().eq('id', ad.id);
   if (error) throw error;
@@ -1841,7 +1916,8 @@ async function renderAdForm(query, editId) {
     for (const f of files) {
       try {
         const blob = await compressPhoto(f);
-        items.push({ kind: 'new', blob, url: URL.createObjectURL(blob) });
+        const thumb = await compressPhoto(f, 640).catch(() => null);
+        items.push({ kind: 'new', blob, thumb, url: URL.createObjectURL(blob) });
       } catch (e) {
         console.error(e);
         setMsg(msg, 'Одно из фото не получилось открыть. Попробуйте другое.');
@@ -1887,7 +1963,7 @@ async function renderAdForm(query, editId) {
         if (error) throw error;
         adId = ad.id;
         if (removed.length) {
-          await sb.storage.from('ads').remove(removed.map(r => r.path));
+          await sb.storage.from('ads').remove(removed.flatMap(r => [r.path, thumbPath(r.path)]));
           const { error: e2 } = await sb.from('ad_photos').delete().in('id', removed.map(r => r.id));
           if (e2) throw e2;
         }
@@ -1911,6 +1987,10 @@ async function renderAdForm(query, editId) {
         btn.textContent = 'Загружаем фото ' + (i + 1) + ' из ' + items.length + '…';
         const up = await sb.storage.from('ads').upload(path, it.blob, { contentType: it.blob.type, cacheControl: '31536000' });
         if (up.error) { console.error(up.error); failed++; continue; }
+        if (it.thumb) {
+          const t = await sb.storage.from('ads').upload(thumbPath(path), it.thumb, { contentType: it.thumb.type, cacheControl: '31536000' });
+          if (t.error) console.error(t.error); // не страшно: лента покажет большое фото
+        }
         rows.push({ ad_id: adId, path, sort: i });
       }
       if (rows.length) {
@@ -1936,20 +2016,21 @@ let HEAD_KIND = null, BOARD_CAT = '';
 const DEALS = { sell: 'Продам', buy: 'Куплю', rent_out: 'Сдам', rent_in: 'Сниму', exchange: 'Обменяю' };
 const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминского района';
 
-// kind: 'portal' — общая шапка olk.ru, 'doska' — своя шапка доски
+// kind: 'portal' — шапка olk.ru (главная и разделы, которые ещё не переделаны), 'doska' — шапка доски
 function setHead(kind) {
   $('#portal-bar').hidden = kind !== 'portal';
   if (HEAD_KIND === kind) return;
   HEAD_KIND = kind;
-  const h = $('#shead');
+  const logo = $('#logo'), extra = $('#head-extra');
+  $('#top').classList.toggle('doska', kind === 'doska');
+  $('#nav-home').hidden = kind === 'portal';
   if (kind === 'doska') {
-    h.innerHTML = '<div class="wrap">' +
-      '<div class="top-row">' +
-        '<a class="logo" href="#/ads" aria-label="doska.olk.ru — главная доски"><b><em>doska</em>.olk.ru</b><small>Объявления Олёкминского района</small></a>' +
-        '<span class="spacer"></span>' +
-        '<a class="btn btn-accent" href="#/ads/new">Добавить объявление</a>' +
-        '<a class="btn btn-accent add-mobile" href="#/ads/new">+ Добавить</a>' +
-      '</div>' +
+    logo.href = '#/ads';
+    logo.setAttribute('aria-label', 'doska.olk.ru — главная доски');
+    logo.innerHTML = '<b><em>doska</em>.olk.ru</b><small>Доска объявлений</small>';
+    $('#add-btn').textContent = 'Добавить объявление';
+    $('#add-btn-m').textContent = '+ Добавить';
+    extra.innerHTML =
       '<form class="bsearch" id="bs" role="search">' +
         '<div class="bsearch-row"><input id="bs-q" type="search" placeholder="Поиск по объявлениям" aria-label="Поиск по объявлениям" enterkeyhint="search">' +
           '<button class="btn btn-accent" type="submit">Найти</button></div>' +
@@ -1965,7 +2046,7 @@ function setHead(kind) {
           '<div class="bp-reset" id="bs-reset" hidden><a href="#/ads">Сбросить поиск и параметры</a></div>' +
         '</div>' +
         '<datalist id="places-h">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>' +
-      '</form></div>';
+      '</form>';
     $('#bs-pt').addEventListener('click', () => {
       const pnl = $('#bs-params');
       pnl.hidden = !pnl.hidden;
@@ -1982,12 +2063,12 @@ function setHead(kind) {
       if (location.hash === next) route(); else location.hash = next;
     });
   } else {
-    h.innerHTML = '<div class="wrap"><div class="top-row">' +
-      '<a class="logo" href="#/" aria-label="olk.ru — на главную"><b>olk.ru</b><small>Олёкминский район</small></a>' +
-      '<span class="spacer"></span>' +
-      '<a class="btn btn-accent" href="#/ads/new">Подать объявление</a>' +
-      '<a class="btn btn-accent add-mobile" href="#/ads/new">+ Подать</a>' +
-    '</div></div>';
+    logo.href = '#/';
+    logo.setAttribute('aria-label', 'olk.ru — на главную');
+    logo.innerHTML = '<b>olk.ru</b><small>Олёкминский район</small>';
+    $('#add-btn').textContent = 'Подать объявление';
+    $('#add-btn-m').textContent = '+ Подать';
+    extra.innerHTML = '';
   }
 }
 
@@ -2026,13 +2107,22 @@ function jobIds(cats) {
   return j ? [j.id, ...j.children.map(c => c.id)] : [];
 }
 
-function catsListHtml(list, counts, activeId, st) {
-  return '<ul class="bcats">' + list.map(c => {
-    const n = counts ? catTotal(c, counts) : 0;
-    return '<li><a' + (c.id === activeId ? ' class="on" aria-current="page"' : '') +
+function catsListHtml(list, activeId, st) {
+  return '<ul class="bcats">' + list.map(c =>
+    '<li><a' + (c.id === activeId ? ' class="on" aria-current="page"' : '') +
       ' href="#/ads' + qs({ ...st, cat: c.slug }) + '">' + esc(c.name) + '</a>' +
-      (n ? '<span class="n">' + n.toLocaleString('ru-RU') + '</span>' : '') + '</li>';
-  }).join('') + '</ul>';
+      '<span class="n" data-cid="' + c.id + '" hidden></span></li>'
+  ).join('') + '</ul>';
+}
+
+// Числа у разделов подставляем, когда придут, — лента их не ждёт
+function applyCounts(root, cats, counts) {
+  root.querySelectorAll('[data-cid]').forEach(el => {
+    const c = cats.byId[+el.dataset.cid];
+    const n = c ? catTotal(c, counts) : 0;
+    el.textContent = n ? n.toLocaleString('ru-RU') : '';
+    el.hidden = !n;
+  });
 }
 
 function buildBoardQuery(st, ids, exclude, from, countOnly) {
@@ -2063,7 +2153,9 @@ function boardCard(a) {
   const photos = a.photos.slice(0, 8);
   const track = '<a class="bph-track" href="' + href + '" tabindex="-1" aria-hidden="true">' +
     (photos.length
-      ? photos.map((x, i) => '<img ' + (i ? 'data-src' : 'loading="lazy" src') + '="' + esc(photoUrl(x.path)) + '" alt="" decoding="async">').join('')
+      ? photos.map((x, i) => i
+          ? '<img data-src="' + esc(photoUrl(thumbPath(x.path))) + '" data-full="' + esc(photoUrl(x.path)) + '" onerror="thumbFail(this)" alt="" decoding="async">'
+          : '<img loading="lazy" ' + thumbAttrs(x.path) + ' alt="" decoding="async">').join('')
       : '<span class="bph-empty">' + ICON_PHOTO + '</span>') + '</a>';
   const nav = photos.length > 1
     ? '<button class="barr prev" type="button" tabindex="-1" aria-label="Предыдущее фото">‹</button>' +
@@ -2118,9 +2210,10 @@ async function renderBoard(query) {
   fillBoardHead(st);
   app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
 
-  let cats, counts;
+  const countsP = loadCounts().catch(e => { console.error(e); return null; });
+  let cats;
   try {
-    [cats, counts] = await Promise.all([loadCats(), loadCounts().catch(e => { console.error(e); return null; })]);
+    cats = await loadCats();
   } catch (e) {
     console.error(e);
     if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
@@ -2141,13 +2234,12 @@ async function renderBoard(query) {
   if (sel) {
     html += '<div class="crumbs"><a href="#/ads">Все объявления</a>' +
       (sel.parent_id ? ' → <a href="#/ads' + qs({ ...keep, cat: top.slug }) + '">' + esc(top.name) + '</a>' : '') + '</div>';
-    const n = counts ? catTotal(sel, counts) : 0;
-    html += '<div class="bhead"><h1>' + esc(sel.name) + (n ? '<span class="n">' + n.toLocaleString('ru-RU') + '</span>' : '') + '</h1>' +
+    html += '<div class="bhead"><h1>' + esc(sel.name) + '<span class="n" data-cid="' + sel.id + '" hidden></span></h1>' +
       '<a href="#/ads/new?cat=' + sel.slug + '">+ Добавить сюда</a></div>';
-    if (top.children.length) html += catsListHtml(top.children, counts, sel.id, keep);
+    if (top.children.length) html += catsListHtml(top.children, sel.id, keep);
   } else if (!searching) {
     const boardTop = cats.top.filter(c => !jobs.includes(c.id));
-    html += catsListHtml(boardTop, counts, null, keep);
+    html += catsListHtml(boardTop, null, keep);
     html += '<div class="bhead"><h2>Свежие объявления</h2>' + (session ? '<a href="#/ads/my">Мои объявления</a>' : '') + '</div>';
   } else {
     html += '<div class="crumbs"><a href="#/ads">Все объявления</a></div>' +
@@ -2156,6 +2248,8 @@ async function renderBoard(query) {
   if (searching) html += '<p class="bfound" id="bfound">Считаем…</p>';
   html += '<ul class="bfeed" id="list"></ul><div id="list-state"></div>';
   app.innerHTML = html;
+
+  countsP.then(counts => { if (counts && seq === routeSeq) applyCounts(app, cats, counts); });
 
   const ids = sel ? [sel.id, ...sel.children.map(c => c.id)] : null;
   if (searching) {
