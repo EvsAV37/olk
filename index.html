@@ -133,8 +133,59 @@
   }
   .bparams .bp-reset { grid-column: 1 / -1; }
   .bparams .bp-reset a { color: #fff; text-decoration: underline; font-size: 14px; }
+
+  /* ---------- Рубрики новостей и переключатель «Вакансии / Резюме» в шапке ---------- */
+  .hchips { display: flex; gap: 8px; overflow-x: auto; padding: 0 0 14px; margin-top: -4px; scrollbar-width: none; }
+  .hchips:empty { display: none; }
+  .hchips::-webkit-scrollbar { display: none; }
+  .hchips .chip { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+  .hchips .chip:hover { border-color: #fff; }
+  .hchips .chip.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .hseg { display: inline-flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 2px; }
+  .hseg label { position: relative; cursor: pointer; }
+  .hseg input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+  .hseg span { display: inline-block; padding: 4px 12px; border-radius: 999px; color: #fff; }
+  .hseg input:checked + span { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+  .hseg input:focus-visible + span { outline: 3px solid #fff; outline-offset: 1px; }
+  .bparams.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* ---------- Поле «Населённый пункт» с подсказками ---------- */
+  .pcombo { position: relative; }
+  .pcombo input { width: 100%; }
+  .pcombo input:has(+ .pclear:not([hidden])) { padding-right: 38px; }
+  .pclear {
+    position: absolute; right: 2px; top: 0; height: 100%; max-height: 46px; width: 36px; border: 0; background: none;
+    color: var(--mute); font: inherit; font-size: 24px; line-height: 1; cursor: pointer;
+  }
+  .pclear[hidden] { display: none; }
+  .plist {
+    position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 30; list-style: none; margin: 0; padding: 4px 0;
+    background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.2); max-height: 300px; overflow-y: auto; text-align: left;
+  }
+  .pcombo:has(.perr:not([hidden])) .plist { top: calc(100% - 18px); }
+  .plist[hidden] { display: none; }
+  .plist li { padding: 10px 14px; cursor: pointer; font-size: 16px; line-height: 1.3; }
+  .plist li.act { background: var(--thumb); }
+  @media (hover: hover) { .plist li[role=option]:hover { background: var(--thumb); } }
+  .plist li.all { color: var(--brand); font-weight: 600; border-bottom: 1px solid var(--line); }
+  .plist li.none { color: var(--mute); cursor: default; }
+  .plist mark { background: none; color: inherit; font-weight: 700; }
+  .perr { font-size: 13px; margin-top: 4px; color: var(--berry); }
+  .bparams .perr { color: #FFD9A0; }
+
+  /* ---------- Главные разделов новостей и работы ---------- */
+  .nfeed .lead-news { padding: 4px 0 18px; margin: 0; }
+  .nfeed li.lead { border-top: 0; }
+  .rgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 40px; }
+  .rgrid .ads { grid-template-columns: 1fr; }
+  .rgrid .section { margin-bottom: 20px; }
+  .rlist { max-width: 780px; }
+  .bcount { color: var(--mute); font-weight: 400; font-size: 15px; margin-left: 6px; }
+  .rlist .ads { grid-template-columns: 1fr; }
   @media (max-width: 700px) {
-    .bparams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bparams, .bparams.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .rgrid { grid-template-columns: 1fr; }
     .bparams .bp-wide { grid-column: 1 / -1; }
   }
 
@@ -583,45 +634,54 @@
     .lead-news h3 { font-size: 22px; }
   }
   /* В шапке у вошедшего только аватар (имя во всплывающей подсказке и в меню).
-     Шапка доски длиннее: логотип doska.olk.ru и пункт «Главная», поэтому кнопка короткая */
+     Шапка раздела (doska, news, rabota) длиннее: логотип вида doska.olk.ru и пункт «Главная»,
+     поэтому кнопка всегда короткая (полная у админа не помещается даже на 1280 px) */
   .top .user-chip { padding: 3px; }
   .top .user-chip span:last-child { display: none; }
-  .top.doska .logo b { font-size: 26px; }
-  .top.doska .nav { margin-left: 6px; }
-  .top.doska .nav a { padding: 8px 9px; }
-  .top.doska .top-row .btn-accent:not(.add-mobile) { display: none; }
-  .top.doska .top-row .add-mobile { display: inline-flex; }
+  .top.sec .logo b { font-size: 26px; }
+  .top.sec .nav { margin-left: 6px; }
+  .top.sec .nav a { padding: 8px 9px; }
+  .top.sec .top-row .btn-accent:not(.add-mobile) { display: none; }
+  .top.sec .top-row .add-mobile { display: inline-flex; }
   @media (min-width: 861px) and (max-width: 1180px) {
-    .top.doska .logo b { font-size: 21px; }
-    .top.doska .top-row { gap: 8px; }
-    .top.doska .nav { margin-left: 0; }
-    .top.doska .nav a { padding: 8px 5px; font-size: 14px; }
+    .top.sec .logo b { font-size: 21px; }
+    .top.sec .top-row { gap: 8px; }
+    .top.sec .nav { margin-left: 0; }
+    .top.sec .nav a { padding: 8px 5px; font-size: 14px; }
   }
   @media (min-width: 861px) and (max-width: 940px) {
-    .top.doska .logo b { font-size: 19px; }
-    .top.doska .logo small { font-size: 11px; }
-    .top.doska .nav a { padding: 8px 4px; font-size: 13.5px; }
-    .top.doska .add-mobile { padding: 8px 9px; }
+    .top.sec .logo b { font-size: 19px; }
+    .top.sec .logo small { font-size: 11px; }
+    .top.sec .nav a { padding: 8px 4px; font-size: 13.5px; }
+    .top.sec .add-mobile { padding: 8px 9px; }
   }
   @media (max-width: 860px) {
-    .top.doska .logo b { font-size: 24px; }
-    .top.doska .top-row { gap: 10px; }
-    .top.doska .top-row .btn-ghost, .top.doska .top-row .user-chip { display: none; }
+    .top.sec .logo b { font-size: 24px; }
+    .top.sec .top-row { gap: 10px; }
+    .top.sec .top-row .btn-ghost, .top.sec .top-row .user-chip { display: none; }
   }
   @media (max-width: 400px) {
     .top-row { gap: 10px; }
-    .top.doska .logo b { font-size: 20px; }
+    .top.sec .logo b { font-size: 20px; }
     .logo small { font-size: 11px; }
     .add-mobile { padding: 8px 10px; }
     .burger { width: 40px; margin-right: -4px; }
   }
   @media (max-width: 340px) {
     .logo b { font-size: 25px; }
-    .top.doska .logo b { font-size: 17px; }
+    .top.sec .logo b { font-size: 17px; }
+    .top.sec .top-row { gap: 8px; }
+    .top.sec .add-mobile { padding: 8px 8px; }
+    .bsearch-opts { gap: 14px; }
+    .hseg span { padding: 4px 10px; }
   }
   @media (min-width: 861px) and (max-width: 900px) {
-    .top:not(.doska) .nav a { padding: 8px 6px; }
+    .top:not(.sec) .nav a { padding: 8px 6px; }
   }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  /* Кнопка раздела только для персонала (news.olk.ru: «+ Новость») */
+  .top.noadd .top-row .btn-accent { display: none !important; }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
   }
@@ -1115,6 +1175,7 @@ function updateHeader() {
     $('#drawer-my').hidden = true;
     $('#nav-admin').hidden = $('#drawer-admin').hidden = true;
   }
+  syncAddBtn();
 }
 
 /* ----- Вход ----- */
@@ -1394,7 +1455,7 @@ const PAGES = {
   'new-password': renderNewPassword,
   profile: renderProfile,
   ads: (query, parts) => routeAds(query, parts),
-  rabota: query => renderAdsList(query, 'rabota'),
+  rabota: (query, parts) => routeRabota(query, parts),
   news: routeNews,
   admin: routeAdmin
 };
@@ -1438,7 +1499,155 @@ async function initAuth() {
 
 /* ---------------- Объявления ---------------- */
 const PAGE_SIZE = 20;
-const PLACES = ['Олёкминск', 'Олёкминский район'];
+/* ----- Населённые пункты района (53, без Затона ЛОРПа) ----- */
+// Первые — самые крупные: их показываем, пока человек ничего не ввёл
+const PLACES = [
+  'Олёкминск', 'Токко', 'Юнкюр', 'Олёкминский', 'Нерюктяйинск 1-й', 'Кыллах', 'Чапаево', 'Нерюктяйинск 2-й',
+  'Абага', 'Абага Центральная', 'Авиапорт', 'Алексеевка', 'Балаганнах', 'Бердинка', 'Бирюк', 'Бясь-Кюёль',
+  'Дабан', 'Даппарай', 'Дельгей', 'Дикимдя', 'Жархан', 'Заречный', 'Иннях', 'Килиер', 'Кочегарово',
+  'Куду-Бясь', 'Куду-Кюёль', 'Куранда', 'Кяччи', 'Малыкан', 'Марха', 'Мача', 'Мекимдя', 'Нефтебаза', 'Олом',
+  'Саныяхтах', 'Селиваново', 'Солянка', 'Тас-Анна', 'Тинная', 'Торго', 'Троицк', 'Тэгэн', 'Тюбя', 'Тяня',
+  'Улахан-Мунгку', 'Уолбут', 'Урицкое', 'Харыялах', 'Хатынг-Тумул', 'Холго', 'Хоринцы', 'Черендей'
+];
+const PLACE_TOP = 8;
+// Село Олёкминский легко спутать с городом Олёкминском — в подсказках подписываем
+const placeLabel = p => p === 'Олёкминский' ? 'Олёкминский (село)' : p;
+const placeNorm = t => String(t || '').toLowerCase().replace(/ё/g, 'е').replace(/\s*\(село\)\s*$/, '').replace(/[^a-zа-я0-9]+/g, ' ').trim();
+const PLACE_BY_NORM = new Map(PLACES.map(p => [placeNorm(p), p]));
+
+// Подходящие места: сначала те, что начинаются с введённого, потом совпадение с началом любого слова
+// «, населённый пункт: Солянка» для строки «Найдено N»
+const placeNote = p => p ? ', населённый пункт: ' + esc(placeLabel(p)) : '';
+
+function placeMatches(q) {
+  const n = placeNorm(q);
+  if (!n) return PLACES.slice(0, PLACE_TOP);
+  const starts = [], words = [];
+  for (const p of PLACES) {
+    const pn = placeNorm(p);
+    if (pn.startsWith(n)) starts.push(p);
+    else if (pn.split(' ').some(w => w.startsWith(n))) words.push(p);
+  }
+  const byName = (a, b) => a.localeCompare(b, 'ru');
+  return [...starts.sort(byName), ...words.sort(byName)];
+}
+
+// Поле «Населённый пункт» с подсказками по мере ввода.
+// all: true — в параметрах поиска (пусто = «Весь район», есть крестик); false — в форме (место обязательно).
+// Выбранное значение хранится в input.dataset.place: название из PLACES, '' (весь район) или старое значение объявления.
+function placeFieldHtml(id, all) {
+  return '<div class="pcombo">' +
+    '<input id="' + id + '" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="' + id + '-list"' +
+      ' autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="' + (all ? 'Весь район' : 'Начните вводить название') + '">' +
+    (all ? '<button type="button" class="pclear" id="' + id + '-x" aria-label="Весь район" hidden>×</button>' : '') +
+    '<ul class="plist" id="' + id + '-list" role="listbox" hidden></ul>' +
+    '<div class="perr" id="' + id + '-err" hidden>Выберите из списка</div>' +
+  '</div>';
+}
+
+function setPlace(id, value) {
+  const inp = $(id);
+  if (!inp) return;
+  inp.dataset.place = value || '';
+  inp.value = value ? placeLabel(value) : '';
+  const x = $(id + '-x');
+  if (x) x.hidden = !value;
+  $(id + '-err').hidden = true;
+}
+
+// Значение поля: название места, '' (не выбрано / весь район) или null — введено то, чего нет в списке
+function placeValue(id) {
+  const inp = $(id);
+  const t = inp.value.trim();
+  if (!t) return '';
+  if (inp.dataset.place && t === placeLabel(inp.dataset.place)) return inp.dataset.place;
+  return PLACE_BY_NORM.get(placeNorm(t)) || (inp.dataset.old && t === inp.dataset.old ? inp.dataset.old : null);
+}
+
+function bindPlace(id, all, onPick) {
+  const inp = $(id), list = $(id + '-list'), err = $(id + '-err'), x = $(id + '-x');
+  let items = [], act = -1;
+  const optId = i => id.slice(1) + '-o' + i;
+  function close() {
+    list.hidden = true; act = -1;
+    inp.setAttribute('aria-expanded', 'false'); inp.removeAttribute('aria-activedescendant');
+  }
+  function draw(q) {
+    const found = placeMatches(q);
+    items = (all && !placeNorm(q) ? [''] : []).concat(found.slice(0, 8));
+    act = placeNorm(q) && items.length ? 0 : -1;
+    const n = placeNorm(q);
+    const hl = p => {
+      const lab = esc(placeLabel(p));
+      if (!n) return lab;
+      // подсветить совпавшее начало (у названий нет ё/е-разночтений в начале, кроме «Олё…»)
+      const i = placeNorm(p).startsWith(n) ? 0 : placeNorm(p).split(' ').reduce((pos, w, k, arr) => pos >= 0 ? pos : (w.startsWith(n) ? arr.slice(0, k).join(' ').length + (k ? 1 : 0) : -1), -1);
+      return i < 0 ? lab : esc(placeLabel(p).slice(0, i)) + '<mark>' + esc(placeLabel(p).slice(i, i + n.length)) + '</mark>' + esc(placeLabel(p).slice(i + n.length));
+    };
+    list.innerHTML = items.length
+      ? items.map((p, i) => '<li role="option" id="' + optId(i) + '"' + (p === '' ? ' class="all"' : '') + (i === act ? ' aria-selected="true"' : '') + ' data-i="' + i + '">' +
+          (p === '' ? 'Весь район' : hl(p)) + '</li>').join('')
+      : '<li class="none">Такого нет в списке</li>';
+    list.hidden = false;
+    inp.setAttribute('aria-expanded', 'true');
+    mark();
+  }
+  function mark() {
+    list.querySelectorAll('[role=option]').forEach((li, i) => {
+      li.classList.toggle('act', i === act);
+      li.setAttribute('aria-selected', String(i === act));
+      if (i === act) li.scrollIntoView({ block: 'nearest' });
+    });
+    if (act >= 0) inp.setAttribute('aria-activedescendant', optId(act)); else inp.removeAttribute('aria-activedescendant');
+  }
+  function pick(p) {
+    setPlace(id, p);
+    close();
+    if (onPick) onPick(p);
+  }
+  // Ушли из поля: точное совпадение исправляем на правильное название.
+  // «Выберите из списка» показываем только при отправке: если показать сразу, всё сдвинется и нажатие на кнопку промахнётся
+  function commit() {
+    close();
+    const v = placeValue(id);
+    if (v === null) return;
+    if (v === '' && !all) { inp.dataset.place = ''; return; }
+    if (v !== inp.dataset.old) setPlace(id, v); else { inp.dataset.place = v; err.hidden = true; }
+  }
+  inp.addEventListener('focus', () => {
+    const v = placeValue(id);
+    draw(v ? '' : inp.value);
+    if (v) inp.select();
+  });
+  inp.addEventListener('input', () => {
+    err.hidden = true;
+    if (x) x.hidden = !inp.value;
+    draw(inp.value);
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (list.hidden) draw(inp.value);
+      if (!items.length) return;
+      e.preventDefault();
+      act = (act + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+      mark();
+    } else if (e.key === 'Enter' && !list.hidden && act >= 0) {
+      e.preventDefault();
+      pick(items[act]);
+    } else if (e.key === 'Escape' && !list.hidden) {
+      e.preventDefault();
+      close();
+    }
+  });
+  inp.addEventListener('blur', commit);
+  // pointerdown: выбрать до того, как поле потеряет фокус
+  list.addEventListener('pointerdown', e => {
+    const li = e.target.closest('[role=option]');
+    e.preventDefault();
+    if (li) pick(items[+li.dataset.i]);
+  });
+  if (x) x.addEventListener('click', () => { pick(''); inp.focus(); });
+}
 let CATS = null;
 
 function plural(n, one, few, many) {
@@ -1479,8 +1688,8 @@ function mapAd(a) {
   return { ...a, photos, photo: photos[0] ? photoUrl(photos[0].path) : null };
 }
 
-function adItem(a) {
-  return '<li><a class="ad" href="#/ads/' + a.id + '">' +
+function adItem(a, base = 'ads') {
+  return '<li><a class="ad" href="#/' + base + '/' + a.id + '">' +
     (a.photos && a.photos[0] ? '<img class="thumb" ' + thumbAttrs(a.photos[0].path) + ' alt="" loading="lazy">'
              : '<span class="thumb">' + ICON_PHOTO + '</span>') +
     '<span><span class="ad-title">' + esc(a.title) + '</span>' +
@@ -1503,107 +1712,18 @@ function catLabel(cats, id) {
   return parent ? parent.name + ' → ' + c.name : c.name;
 }
 
-/* ----- Лента ----- */
-function buildAdsQuery(st, sel, from) {
-  let q = sb.from('ads')
-    .select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
-    .eq('status', 'active')
-    .gt('expires_at', new Date().toISOString());
-  if (sel) q = q.in('category_id', [sel.id, ...sel.children.map(c => c.id)]);
-  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
-  if (st.min !== '' && !isNaN(+st.min)) q = q.gte('price', +st.min);
-  if (st.max !== '' && !isNaN(+st.max)) q = q.lte('price', +st.max);
-  if (st.place) q = q.ilike('settlement', '%' + st.place.replace(/[%_\\]/g, m => '\\' + m) + '%');
-  if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
-  if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
-  return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
-}
-
-async function renderAdsList(query, base) {
-  if (!sb) return renderNoDb('Объявления');
-  const app = $('#app');
-  app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
-  let cats;
-  try { cats = await loadCats(); }
-  catch (e) { console.error(e); app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
-
-  const p = new URLSearchParams(query);
-  const st = { cat: p.get('cat') || '', q: p.get('q') || '', min: p.get('min') || '', max: p.get('max') || '', place: p.get('place') || '', sort: p.get('sort') || 'new' };
-  const isJobs = base === 'rabota';
-  const jobs = cats.bySlug.rabota;
-  let sel = cats.bySlug[st.cat] || null;
-  if (isJobs && (!sel || (sel !== jobs && sel.parent_id !== jobs.id))) sel = jobs;
-  const top = sel ? (sel.parent_id ? cats.byId[sel.parent_id] : sel) : null;
-  const link = cat => '#/' + base + qs({ ...st, cat });
-
-  let chips = '';
-  if (!isJobs) {
-    chips += '<nav class="chips" aria-label="Разделы">' +
-      '<a class="chip' + (!top ? ' on' : '') + '" href="' + link('') + '">Все</a>' +
-      cats.top.map(c => '<a class="chip' + (top === c ? ' on' : '') + '" href="' + link(c.slug) + '">' + esc(c.name) + '</a>').join('') +
-      '</nav>';
-  }
-  if (top && top.children.length) {
-    chips += '<nav class="chips sub" aria-label="Подразделы">' +
-      '<a class="chip' + (sel === top ? ' on' : '') + '" href="' + link(isJobs ? '' : top.slug) + '">' + (isJobs ? 'Все' : 'Все в разделе') + '</a>' +
-      top.children.map(c => '<a class="chip' + (sel === c ? ' on' : '') + '" href="' + link(c.slug) + '">' + esc(c.name) + '</a>').join('') +
-      '</nav>';
-  }
-
-  const active = ['q', 'min', 'max', 'place'].filter(k => st[k]).length + (st.sort !== 'new' ? 1 : 0);
-  const title = isJobs ? 'Работа' : (sel ? sel.name : 'Объявления');
-  app.innerHTML =
-    '<div class="page-head"><h1>' + esc(title) + '</h1>' +
-      '<span>' + (session ? '<a href="#/ads/my">Мои объявления</a>' : '') + '</span></div>' +
-    chips +
-    '<details class="filters"' + (active ? ' open' : '') + '><summary>Фильтры' + (active ? ' (' + active + ')' : '') + '</summary>' +
-      '<form id="ff">' +
-        '<div class="field full"><label for="f-q">Что ищете</label><input id="f-q" type="search" value="' + esc(st.q) + '" placeholder="Например, лодка"></div>' +
-        '<div class="field"><label for="f-min">Цена от, ₽</label><input id="f-min" type="number" inputmode="numeric" min="0" value="' + esc(st.min) + '"></div>' +
-        '<div class="field"><label for="f-max">до, ₽</label><input id="f-max" type="number" inputmode="numeric" min="0" value="' + esc(st.max) + '"></div>' +
-        '<div class="field"><label for="f-place">Населённый пункт</label><input id="f-place" list="places" value="' + esc(st.place) + '"></div>' +
-        '<div class="field"><label for="f-sort">Сначала</label><select id="f-sort">' +
-          '<option value="new"' + (st.sort === 'new' ? ' selected' : '') + '>новые</option>' +
-          '<option value="cheap"' + (st.sort === 'cheap' ? ' selected' : '') + '>дешевле</option>' +
-          '<option value="dear"' + (st.sort === 'dear' ? ' selected' : '') + '>дороже</option>' +
-        '</select></div>' +
-        '<div class="row-btns full"><button class="btn btn-brand" type="submit">Показать</button>' +
-          (active ? '<a href="#/' + base + qs({ cat: st.cat }) + '">Сбросить</a>' : '') + '</div>' +
-      '</form></details>' +
-    '<datalist id="places">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>' +
-    '<ul class="ads" id="list"></ul><div id="list-state"></div>';
-
-  $('#ff').addEventListener('submit', e => {
-    e.preventDefault();
-    location.hash = '#/' + base + qs({
-      cat: st.cat, q: $('#f-q').value.trim(), min: $('#f-min').value.trim(),
-      max: $('#f-max').value.trim(), place: $('#f-place').value.trim(), sort: $('#f-sort').value
-    });
-  });
-
-  startFeed({
-    listEl: $('#list'), stateEl: $('#list-state'),
-    fetchPage: from => buildAdsQuery(st, sel, from),
-    renderItems: rows => rows.map(mapAd).map(adItem).join(''),
-    emptyHtml: active
-      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить фильтры.</p>'
-      : '<p class="empty">' + (isJobs ? 'Вакансий пока нет.' : 'Объявлений пока нет.') +
-        ' <a href="#/ads/new' + (sel ? '?cat=' + sel.slug : '') + '">' + (isJobs ? 'Разместите первую' : 'Подайте первое') + '</a>.</p>'
-  });
-}
-
 /* ----- Действия владельца ----- */
 function hoursUntilBump(ad) {
   const left = new Date(ad.bumped_at).getTime() + 24 * 3600e3 - Date.now();
   return left > 0 ? Math.ceil(left / 3600e3) : 0;
 }
 
-function ownerToolsHtml(ad) {
+function ownerToolsHtml(ad, base = 'ads') {
   const expired = new Date(ad.expires_at) < new Date();
   const wait = hoursUntilBump(ad);
   let html = '<div class="owner-tools">';
   if (ad.status !== 'blocked') {
-    html += '<a class="btn btn-line" href="#/ads/' + ad.id + '/edit">Изменить</a>';
+    html += '<a class="btn btn-line" href="#/' + base + '/' + ad.id + '/edit">Изменить</a>';
     if (ad.status === 'active') {
       html += wait
         ? '<button class="btn btn-line" disabled>Поднять через ' + wait + ' ч</button>'
@@ -1652,7 +1772,7 @@ function bindOwnerTools(root, ad, msgBox, onChange) {
 }
 
 /* ----- Карточка объявления ----- */
-async function renderAdView(id) {
+async function renderAdView(id, base = 'ads') {
   if (!sb) return renderNoDb('Объявление');
   const app = $('#app');
   app.innerHTML = '<p class="loading">Загружаем объявление…</p>';
@@ -1663,9 +1783,12 @@ async function renderAdView(id) {
   ]);
   if (res.error) { app.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
   if (!res.data) {
-    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/ads">Все объявления</a></div>';
+    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/' + base + '">' + (base === 'rabota' ? 'Вся работа' : 'Все объявления') + '</a></div>';
     return;
   }
+  // Вакансии и резюме живут в rabota.olk.ru, остальное — на доске
+  const want = adBase(cats, res.data.category_id);
+  if (cats && want !== base) { location.replace('#/' + want + '/' + id); return; }
   const ad = mapAd(res.data);
   const isOwner = session && session.user.id === ad.author_id;
   const isStaff = ['admin', 'moderator'].includes(profile?.role);
@@ -1685,10 +1808,11 @@ async function renderAdView(id) {
 
   const cat = cats?.byId[ad.category_id];
   const parent = cat?.parent_id ? cats.byId[cat.parent_id] : null;
-  document.title = ad.title + ' — ' + BOARD_TITLE;
-  const crumbs = '<div class="crumbs"><a href="#/ads">Все объявления</a>' +
-    (parent ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
-    (cat ? ' → <a href="#/ads?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+  const jobs = base === 'rabota';
+  document.title = ad.title + ' — ' + (jobs ? RABOTA_TITLE : BOARD_TITLE);
+  const crumbs = '<div class="crumbs"><a href="#/' + base + '">' + (jobs ? 'Работа' : 'Все объявления') + '</a>' +
+    (parent && !jobs ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
+    (cat && cat.slug !== 'rabota' ? ' → <a href="#/' + base + '?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
 
   const gallery = ad.photos.length
     ? '<div class="gallery-wrap"><div class="gallery" id="gal">' +
@@ -1715,7 +1839,7 @@ async function renderAdView(id) {
         (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
         '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
           '<div class="meta">на olk.ru</div></div></div>' +
-        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad) + '</div>' : '') +
+        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad, base) + '</div>' : '') +
       '</aside>' +
     '</div>';
 
@@ -1732,7 +1856,7 @@ async function renderAdView(id) {
   const tools = $('#tools');
   if (tools) bindOwnerTools(tools, ad, $('#msg'), act => {
     if (act === 'delete') location.hash = '#/ads/my';
-    else renderAdView(id).then(showFlash);
+    else renderAdView(id, base).then(showFlash);
   });
 }
 
@@ -1743,11 +1867,12 @@ async function renderMyAds() {
   const app = $('#app');
   app.innerHTML = '<p class="loading">Загружаем ваши объявления…</p>';
   const { data, error } = await sb.from('ads')
-    .select('id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
+    .select('id, category_id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
     .eq('author_id', session.user.id)
     .order('created_at', { ascending: false });
   if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
 
+  const cats = await loadCats().catch(() => null);
   const ads = data.map(mapAd);
   const statusOf = a => a.status === 'blocked' ? ['blocked', 'Заблокировано']
     : a.status === 'closed' ? ['', 'Снято']
@@ -1759,9 +1884,9 @@ async function renderMyAds() {
     (ads.length ? '<ul class="my-list">' + ads.map(a => {
       const [cls, label] = statusOf(a);
       return '<li data-id="' + a.id + '">' +
-        adItem(a).replace(/^<li>|<\/li>$/g, '') +
+        adItem(a, adBase(cats, a.category_id)).replace(/^<li>|<\/li>$/g, '') +
         '<div class="meta"><span class="status ' + cls + '">' + label + '</span>' + a.views + ' ' + plural(a.views, 'просмотр', 'просмотра', 'просмотров') + '</div>' +
-        ownerToolsHtml(a) + '</li>';
+        ownerToolsHtml(a, adBase(cats, a.category_id)) + '</li>';
     }).join('') + '</ul>'
     : '<p class="empty">У вас пока нет объявлений. <a href="#/ads/new">Подайте первое</a>.</p>');
 
@@ -1793,9 +1918,9 @@ async function compressPhoto(file, maxSide = 1600) {
   }
 }
 
-async function renderAdForm(query, editId) {
+async function renderAdForm(query, editId, base = 'ads') {
   if (!sb) return renderNoDb('Подать объявление');
-  if (!requireLogin(editId ? 'ads/' + editId + '/edit' : 'ads/new')) return;
+  if (!requireLogin(base + (editId ? '/' + editId + '/edit' : '/new' + (query ? '?' + query : '')))) return;
   const app = $('#app');
   app.innerHTML = '<p class="loading">Загружаем…</p>';
 
@@ -1816,7 +1941,15 @@ async function renderAdForm(query, editId) {
   }
 
   // Предвыбор раздела: из объявления или из ссылки (?cat=rabota)
-  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[new URLSearchParams(query).get('cat')];
+  const qcat = new URLSearchParams(query).get('cat');
+  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[qcat] || (base === 'rabota' ? cats.bySlug.vakansii || cats.bySlug.rabota : null);
+  // Вакансии и резюме подаются в rabota.olk.ru, остальное — на доске
+  const want = pre ? adBase(cats, pre.id) : base;
+  if (want !== base) {
+    location.replace('#/' + want + (ad ? '/' + ad.id + '/edit' : '/new' + (qcat ? '?cat=' + encodeURIComponent(qcat) : '')));
+    return;
+  }
+  const jobsForm = base === 'rabota';
   let preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
   let preSub = pre && pre.parent_id ? pre : null;
 
@@ -1829,7 +1962,7 @@ async function renderAdForm(query, editId) {
 
   app.innerHTML =
     '<form class="form wide" id="af" novalidate>' +
-      '<h1>' + (ad ? 'Изменить объявление' : 'Подать объявление') + '</h1>' +
+      '<h1>' + (ad ? 'Изменить объявление' : jobsForm ? 'Разместить вакансию или резюме' : 'Подать объявление') + '</h1>' +
       '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
       '<div id="msg"></div>' +
       '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
@@ -1847,15 +1980,23 @@ async function renderAdForm(query, editId) {
         priceTypes.map(([v, l]) => '<label><input type="radio" name="pt" value="' + v + '"' + (pt === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
       '</div></div>' +
       '<div class="field" id="price-wrap"><label for="a-price">Сумма, ₽</label><input id="a-price" type="number" inputmode="numeric" min="0" step="1" value="' + (ad?.price ?? '') + '"></div>' +
-      '<div class="field"><label for="a-place">Населённый пункт</label><input id="a-place" list="places" value="' + esc(ad?.settlement || 'Олёкминск') + '"><div class="hint">Город или наслег</div></div>' +
+      '<div class="field"><label for="a-place">Населённый пункт</label>' + placeFieldHtml('a-place', false) + '</div>' +
       '<div class="field"><label for="a-phone">Телефон для связи</label><input id="a-phone" type="tel" autocomplete="tel" inputmode="tel" value="' + esc(ad?.contact_phone || savedPhone) + '" placeholder="+7 914 000-00-00"></div>' +
       '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Фото <span class="meta">до 10 штук, первое будет главным</span></span>' +
         '<div class="photos" id="photos"></div><input type="file" id="a-files" accept="image/*" multiple hidden></div>' +
       '<div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input id="a-website" tabindex="-1" autocomplete="off"></label></div>' +
       '<button class="btn btn-accent" type="submit" id="a-submit">' + (ad ? 'Сохранить' : 'Опубликовать') + '</button>' +
-      (ad ? '<div class="form-links"><a href="#/ads/' + ad.id + '">Отменить</a></div>' : '') +
-    '</form>' +
-    '<datalist id="places">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>';
+      (ad ? '<div class="form-links"><a href="#/' + base + '/' + ad.id + '">Отменить</a></div>' : '') +
+    '</form>';
+
+  // Место: из списка; у старого объявления с ручным вводом старое значение принимается, пока его не поменяют
+  if (ad && ad.settlement && !PLACES.includes(ad.settlement)) {
+    $('#a-place').dataset.old = ad.settlement;
+    $('#a-place').dataset.place = ad.settlement;
+    $('#a-place').value = ad.settlement;
+    $('#a-place-err').hidden = true;
+  } else setPlace('#a-place', ad?.settlement || 'Олёкминск');
+  bindPlace('#a-place', false);
 
   const msg = $('#msg');
   const topSel = $('#a-top'), subSel = $('#a-sub'), subWrap = $('#sub-wrap');
@@ -1935,7 +2076,7 @@ async function renderAdForm(query, editId) {
     const description = desc.value.trim();
     const price_type = app.querySelector('input[name=pt]:checked').value;
     const priceRaw = $('#a-price').value.trim();
-    const settlement = $('#a-place').value.trim();
+    const settlement = placeValue('#a-place');
     const contact_phone = $('#a-phone').value.trim();
     const digits = contact_phone.replace(/\D/g, '');
 
@@ -1944,6 +2085,7 @@ async function renderAdForm(query, editId) {
     if (title.length < 3) return setMsg(msg, 'Напишите заголовок: хотя бы 3 символа.');
     if (price_type === 'fixed' && priceRaw === '') return setMsg(msg, 'Укажите цену или выберите «Договорная».');
     if (priceRaw !== '' && (isNaN(+priceRaw) || +priceRaw < 0)) return setMsg(msg, 'Цена должна быть числом.');
+    if (settlement === null) { $('#a-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
     if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
     if (digits.length < 10 || digits.length > 12) return setMsg(msg, 'Проверьте номер телефона: нужно 10–11 цифр.');
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
@@ -2002,7 +2144,7 @@ async function renderAdForm(query, editId) {
         ? { text: 'Объявление сохранено, но ' + failed + ' ' + plural(failed, 'фото', 'фото', 'фото') + ' не загрузилось. Добавьте его ещё раз через «Изменить».', ok: false }
         : { text: ad ? 'Изменения сохранены.' : 'Объявление опубликовано.', ok: true };
       items.forEach(it => it.kind === 'new' && URL.revokeObjectURL(it.url));
-      location.hash = '#/ads/' + adId;
+      location.hash = '#/' + adBase(cats, catId) + '/' + adId;
     } catch (err) {
       console.error(err);
       setMsg(msg, ruError(err));
@@ -2012,64 +2154,197 @@ async function renderAdForm(query, editId) {
 }
 
 /* ---------------- Шапки разделов ---------------- */
+// У каждого раздела своя шапка, как у ykt.ru: olk.ru, doska.olk.ru, news.olk.ru, rabota.olk.ru.
+// Новый раздел (афиша, справочник) — одна строка в HEADS плюс его поиск.
 let HEAD_KIND = null, BOARD_CAT = '';
 const DEALS = { sell: 'Продам', buy: 'Куплю', rent_out: 'Сдам', rent_in: 'Сниму', exchange: 'Обменяю' };
 const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминского района';
+const NEWS_TITLE = 'news.olk.ru — новости Олёкминского района';
+const RABOTA_TITLE = 'rabota.olk.ru — работа в Олёкминском районе';
 
-// kind: 'portal' — шапка olk.ru (главная и разделы, которые ещё не переделаны), 'doska' — шапка доски
+const HEADS = {
+  portal: { name: 'olk.ru', sub: 'Олёкминский район', href: '#/', label: 'olk.ru — на главную',
+    add: ['Подать объявление', '+ Подать', '#/ads/new'] },
+  doska: { pre: 'doska', sub: 'Доска объявлений', href: '#/ads', label: 'doska.olk.ru — главная доски',
+    add: ['Добавить объявление', '+ Добавить', '#/ads/new'], title: BOARD_TITLE, extra: doskaHeadHtml, bind: bindDoskaHead },
+  news: { pre: 'news', sub: 'Новости района', href: '#/news', label: 'news.olk.ru — главная новостей',
+    add: ['Написать новость', '+ Новость', '#/admin/news/new'], staffOnly: true, title: NEWS_TITLE, extra: newsHeadHtml, bind: bindNewsHead },
+  rabota: { pre: 'rabota', sub: 'Вакансии и резюме', href: '#/rabota', label: 'rabota.olk.ru — главная раздела «Работа»',
+    add: ['Разместить вакансию', '+ Добавить', '#/rabota/new'], title: RABOTA_TITLE, extra: rabotaHeadHtml, bind: bindRabotaHead }
+};
+
 function setHead(kind) {
   $('#portal-bar').hidden = kind !== 'portal';
   if (HEAD_KIND === kind) return;
   HEAD_KIND = kind;
-  const logo = $('#logo'), extra = $('#head-extra');
-  $('#top').classList.toggle('doska', kind === 'doska');
+  const h = HEADS[kind], logo = $('#logo');
+  $('#top').classList.toggle('sec', kind !== 'portal');
   $('#nav-home').hidden = kind === 'portal';
-  if (kind === 'doska') {
-    logo.href = '#/ads';
-    logo.setAttribute('aria-label', 'doska.olk.ru — главная доски');
-    logo.innerHTML = '<b><em>doska</em>.olk.ru</b><small>Доска объявлений</small>';
-    $('#add-btn').textContent = 'Добавить объявление';
-    $('#add-btn-m').textContent = '+ Добавить';
-    extra.innerHTML =
-      '<form class="bsearch" id="bs" role="search">' +
-        '<div class="bsearch-row"><input id="bs-q" type="search" placeholder="Поиск по объявлениям" aria-label="Поиск по объявлениям" enterkeyhint="search">' +
-          '<button class="btn btn-accent" type="submit">Найти</button></div>' +
-        '<div class="bsearch-opts"><label><input type="checkbox" id="bs-photo">с фото</label>' +
-          '<button class="ptoggle" type="button" id="bs-pt" aria-expanded="false" aria-controls="bs-params">Параметры</button></div>' +
-        '<div class="bparams" id="bs-params" hidden>' +
-          '<div><label for="bs-min">Цена от, ₽</label><input id="bs-min" type="number" inputmode="numeric" min="0"></div>' +
-          '<div><label for="bs-max">до, ₽</label><input id="bs-max" type="number" inputmode="numeric" min="0"></div>' +
-          '<div class="bp-wide"><label for="bs-place">Населённый пункт</label><input id="bs-place" list="places-h"></div>' +
-          '<div><label for="bs-deal">Тип</label><select id="bs-deal"><option value="">Все</option>' +
-            Object.entries(DEALS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
-          '<div><label for="bs-sort">Сначала</label><select id="bs-sort"><option value="new">новые</option><option value="cheap">дешевле</option><option value="dear">дороже</option></select></div>' +
-          '<div class="bp-reset" id="bs-reset" hidden><a href="#/ads">Сбросить поиск и параметры</a></div>' +
-        '</div>' +
-        '<datalist id="places-h">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>' +
-      '</form>';
-    $('#bs-pt').addEventListener('click', () => {
-      const pnl = $('#bs-params');
-      pnl.hidden = !pnl.hidden;
-      $('#bs-pt').setAttribute('aria-expanded', String(!pnl.hidden));
-    });
-    $('#bs').addEventListener('submit', e => {
-      e.preventDefault();
-      const next = '#/ads' + qs({
-        cat: BOARD_CAT, q: $('#bs-q').value.trim(), photo: $('#bs-photo').checked ? '1' : '',
-        min: $('#bs-min').value.trim(), max: $('#bs-max').value.trim(), place: $('#bs-place').value.trim(),
-        deal: $('#bs-deal').value, sort: $('#bs-sort').value
-      });
-      $('#bs-q').blur();
-      if (location.hash === next) route(); else location.hash = next;
-    });
-  } else {
-    logo.href = '#/';
-    logo.setAttribute('aria-label', 'olk.ru — на главную');
-    logo.innerHTML = '<b>olk.ru</b><small>Олёкминский район</small>';
-    $('#add-btn').textContent = 'Подать объявление';
-    $('#add-btn-m').textContent = '+ Подать';
-    extra.innerHTML = '';
-  }
+  logo.href = h.href;
+  logo.setAttribute('aria-label', h.label);
+  logo.innerHTML = '<b>' + (h.pre ? '<em>' + h.pre + '</em>.olk.ru' : h.name) + '</b><small>' + h.sub + '</small>';
+  const [full, short, href] = h.add;
+  $('#add-btn').textContent = full;
+  $('#add-btn-m').textContent = short;
+  $('#add-btn').href = $('#add-btn-m').href = href;
+  $('#head-extra').innerHTML = h.extra ? h.extra() : '';
+  if (h.bind) h.bind();
+  syncAddBtn();
+}
+
+// Кнопка «+ Новость» видна только персоналу
+function syncAddBtn() {
+  const h = HEADS[HEAD_KIND];
+  $('#top').classList.toggle('noadd', !!(h && h.staffOnly && !isStaff()));
+}
+
+function bindParamsToggle(btnId, panelId) {
+  $(btnId).addEventListener('click', () => {
+    const pnl = $(panelId);
+    pnl.hidden = !pnl.hidden;
+    $(btnId).setAttribute('aria-expanded', String(!pnl.hidden));
+  });
+}
+
+// Обновить подпись «Параметры (N)» и ссылку «Сбросить»
+function paramsState(pre, st, keys) {
+  const n = keys.filter(k => st[k]).length + (st.sort && st.sort !== 'new' ? 1 : 0);
+  $(pre + '-pt').textContent = 'Параметры' + (n ? ' (' + n + ')' : '');
+  $(pre + '-params').hidden = !n;
+  $(pre + '-pt').setAttribute('aria-expanded', String(!!n));
+  return n;
+}
+
+// Место в «Параметрах» введено не из списка: показать подсказку, поиск не запускать
+function placeOk(pre) {
+  if (placeValue(pre + '-place') !== null) return true;
+  $(pre + '-params').hidden = false;
+  $(pre + '-pt').setAttribute('aria-expanded', 'true');
+  $(pre + '-place-err').hidden = false;
+  $(pre + '-place').focus();
+  return false;
+}
+
+function goHash(next) {
+  if (location.hash === next) route(); else location.hash = next;
+}
+
+/* ----- doska.olk.ru ----- */
+function doskaHeadHtml() {
+  return '<form class="bsearch" id="bs" role="search">' +
+      '<div class="bsearch-row"><input id="bs-q" type="search" placeholder="Поиск по объявлениям" aria-label="Поиск по объявлениям" enterkeyhint="search">' +
+        '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+      '<div class="bsearch-opts"><label><input type="checkbox" id="bs-photo">с фото</label>' +
+        '<button class="ptoggle" type="button" id="bs-pt" aria-expanded="false" aria-controls="bs-params">Параметры</button></div>' +
+      '<div class="bparams" id="bs-params" hidden>' +
+        '<div><label for="bs-min">Цена от, ₽</label><input id="bs-min" type="number" inputmode="numeric" min="0"></div>' +
+        '<div><label for="bs-max">до, ₽</label><input id="bs-max" type="number" inputmode="numeric" min="0"></div>' +
+        '<div class="bp-wide"><label for="bs-place">Населённый пункт</label>' + placeFieldHtml('bs-place', true) + '</div>' +
+        '<div><label for="bs-deal">Тип</label><select id="bs-deal"><option value="">Все</option>' +
+          Object.entries(DEALS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
+        '<div><label for="bs-sort">Сначала</label><select id="bs-sort"><option value="new">новые</option><option value="cheap">дешевле</option><option value="dear">дороже</option></select></div>' +
+        '<div class="bp-reset" id="bs-reset" hidden><a href="#/ads">Сбросить поиск и параметры</a></div>' +
+      '</div>' +
+    '</form>';
+}
+
+function bindDoskaHead() {
+  bindParamsToggle('#bs-pt', '#bs-params');
+  bindPlace('#bs-place', true);
+  $('#bs').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!placeOk('#bs')) return;
+    $('#bs-q').blur();
+    goHash('#/ads' + qs({
+      cat: BOARD_CAT, q: $('#bs-q').value.trim(), photo: $('#bs-photo').checked ? '1' : '',
+      min: $('#bs-min').value.trim(), max: $('#bs-max').value.trim(), place: placeValue('#bs-place'),
+      deal: $('#bs-deal').value, sort: $('#bs-sort').value
+    }));
+  });
+}
+
+/* ----- news.olk.ru ----- */
+let NEWS_ST = { cat: '', q: '' };
+
+function newsHeadHtml() {
+  return '<form class="bsearch" id="ns" role="search">' +
+      '<div class="bsearch-row"><input id="ns-q" type="search" placeholder="Поиск по новостям" aria-label="Поиск по новостям" enterkeyhint="search">' +
+        '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+    '</form>' +
+    '<nav class="hchips" id="ns-cats" aria-label="Рубрики"></nav>';
+}
+
+function bindNewsHead() {
+  $('#ns').addEventListener('submit', e => {
+    e.preventDefault();
+    $('#ns-q').blur();
+    goHash('#/news' + qs({ cat: NEWS_ST.cat, q: $('#ns-q').value.trim() }));
+  });
+}
+
+// Поиск и рубрики в шапке новостей. st: { cat, q }
+function fillNewsHead(st) {
+  if (HEAD_KIND !== 'news') return;
+  NEWS_ST = { cat: st.cat || '', q: st.q || '' };
+  $('#ns-q').value = NEWS_ST.q;
+  const box = $('#ns-cats');
+  if (!sb) return;
+  const draw = cats => {
+    if (HEAD_KIND !== 'news') return;
+    box.innerHTML = '<a class="chip' + (!NEWS_ST.cat ? ' on' : '') + '" href="#/news' + qs({ q: NEWS_ST.q }) + '">Все</a>' +
+      cats.map(c => '<a class="chip' + (NEWS_ST.cat === c.slug ? ' on' : '') + '" href="#/news' + qs({ cat: c.slug, q: NEWS_ST.q }) + '">' + esc(c.name) + '</a>').join('');
+  };
+  loadNewsCats().then(draw, e => console.error(e));
+}
+
+/* ----- rabota.olk.ru ----- */
+const JOB_KINDS = { vakansii: 'Вакансии', rezyume: 'Резюме' };
+
+function rabotaHeadHtml() {
+  return '<form class="bsearch" id="rs" role="search">' +
+      '<div class="bsearch-row"><input id="rs-q" type="search" placeholder="Должность, профессия" aria-label="Поиск по вакансиям и резюме" enterkeyhint="search">' +
+        '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+      '<div class="bsearch-opts"><span class="hseg" role="radiogroup" aria-label="Что ищем">' +
+          Object.entries(JOB_KINDS).map(([v, l], i) => '<label><input type="radio" name="rs-kind" value="' + v + '"' + (i ? '' : ' checked') + '><span>' + l + '</span></label>').join('') +
+        '</span>' +
+        '<button class="ptoggle" type="button" id="rs-pt" aria-expanded="false" aria-controls="rs-params">Параметры</button></div>' +
+      '<div class="bparams four" id="rs-params" hidden>' +
+        '<div><label for="rs-min">Зарплата от, ₽</label><input id="rs-min" type="number" inputmode="numeric" min="0"></div>' +
+        '<div><label for="rs-max">до, ₽</label><input id="rs-max" type="number" inputmode="numeric" min="0"></div>' +
+        '<div class="bp-wide"><label for="rs-place">Населённый пункт</label>' + placeFieldHtml('rs-place', true) + '</div>' +
+        '<div><label for="rs-sort">Сначала</label><select id="rs-sort"><option value="new">новые</option><option value="dear">с большей зарплатой</option><option value="cheap">с меньшей зарплатой</option></select></div>' +
+        '<div class="bp-reset" id="rs-reset" hidden><a href="#/rabota">Сбросить поиск и параметры</a></div>' +
+      '</div>' +
+    '</form>';
+}
+
+function bindRabotaHead() {
+  bindParamsToggle('#rs-pt', '#rs-params');
+  bindPlace('#rs-place', true);
+  const go = () => {
+    if (!placeOk('#rs')) return;
+    $('#rs-q').blur();
+    goHash('#/rabota' + qs({
+      cat: $('#rs').querySelector('input[name=rs-kind]:checked').value, q: $('#rs-q').value.trim(),
+      min: $('#rs-min').value.trim(), max: $('#rs-max').value.trim(), place: placeValue('#rs-place'), sort: $('#rs-sort').value
+    }));
+  };
+  $('#rs').addEventListener('submit', e => { e.preventDefault(); go(); });
+  // «Вакансии / Резюме» переключают список сразу, как вкладки
+  $('#rs').querySelectorAll('input[name=rs-kind]').forEach(r => r.addEventListener('change', go));
+}
+
+function fillRabotaHead(st) {
+  if (HEAD_KIND !== 'rabota') return;
+  $('#rs-q').value = st.q || '';
+  const kind = JOB_KINDS[st.cat] ? st.cat : 'vakansii';
+  $('#rs').querySelector('input[name=rs-kind][value=' + kind + ']').checked = true;
+  $('#rs-min').value = st.min || '';
+  $('#rs-max').value = st.max || '';
+  setPlace('#rs-place', st.place);
+  $('#rs-sort').value = st.sort || 'new';
+  const n = paramsState('#rs', st, ['min', 'max', 'place']);
+  $('#rs-reset').hidden = !(n || st.q);
 }
 
 // Заполнить поиск доски текущими значениями
@@ -2079,13 +2354,10 @@ function fillBoardHead(st) {
   $('#bs-photo').checked = !!st.photo;
   $('#bs-min').value = st.min || '';
   $('#bs-max').value = st.max || '';
-  $('#bs-place').value = st.place || '';
+  setPlace('#bs-place', st.place);
   $('#bs-deal').value = st.deal || '';
   $('#bs-sort').value = st.sort || 'new';
-  const n = ['min', 'max', 'place', 'deal'].filter(k => st[k]).length + (st.sort && st.sort !== 'new' ? 1 : 0);
-  $('#bs-pt').textContent = 'Параметры' + (n ? ' (' + n + ')' : '');
-  $('#bs-params').hidden = !n;
-  $('#bs-pt').setAttribute('aria-expanded', String(!!n));
+  const n = paramsState('#bs', st, ['min', 'max', 'place', 'deal']);
   $('#bs-reset').hidden = !(n || st.q || st.photo);
 }
 
@@ -2100,6 +2372,11 @@ async function loadCounts() {
 
 function catTotal(c, counts) {
   return (counts[c.id] || 0) + c.children.reduce((sum, x) => sum + (counts[x.id] || 0), 0);
+}
+
+// Раздел объявления: 'rabota' для вакансий и резюме, иначе 'ads'
+function adBase(cats, catId) {
+  return cats && jobIds(cats).includes(catId) ? 'rabota' : 'ads';
 }
 
 function jobIds(cats) {
@@ -2139,7 +2416,7 @@ function buildBoardQuery(st, ids, exclude, from, countOnly) {
   if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
   if (st.min !== '' && !isNaN(+st.min)) q = q.gte('price', +st.min);
   if (st.max !== '' && !isNaN(+st.max)) q = q.lte('price', +st.max);
-  if (st.place) q = q.ilike('settlement', '%' + st.place.replace(/[%_\\]/g, m => '\\' + m) + '%');
+  if (st.place) q = q.eq('settlement', st.place);
   if (DEALS[st.deal]) q = q.eq('deal', st.deal);
   if (countOnly) return q;
   if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
@@ -2258,7 +2535,8 @@ async function renderBoard(query) {
       if (!box || seq !== routeSeq) return;
       if (error || count == null) { box.remove(); return; }
       box.innerHTML = 'Найдено ' + count.toLocaleString('ru-RU') + ' ' + plural(count, 'объявление', 'объявления', 'объявлений') +
-        (sel ? ' в разделе «' + esc(sel.name) + '». <a href="#/ads' + qs(keep) + '">Искать во всех разделах</a>' : '');
+        (sel ? ' в разделе «' + esc(sel.name) + '»' : '') + placeNote(st.place) +
+        (sel ? '. <a href="#/ads' + qs(keep) + '">Искать во всех разделах</a>' : '');
     }, () => { const box = $('#bfound'); if (box) box.remove(); });
   }
 
@@ -2273,6 +2551,105 @@ async function renderBoard(query) {
       : '<p class="empty">' + (sel ? 'В этом разделе пока нет объявлений.' : 'Объявлений пока нет.') +
         ' <a href="#/ads/new' + (sel ? '?cat=' + sel.slug : '') + '">Подайте первое</a>.</p>'
   });
+}
+
+/* ---------------- rabota.olk.ru: главная, списки, поиск ---------------- */
+const JOB_WORDS = { vakansii: ['вакансия', 'вакансии', 'вакансий'], rezyume: ['резюме', 'резюме', 'резюме'] };
+
+async function renderRabota(query) {
+  if (!sb) return renderNoDb('Работа');
+  const app = $('#app');
+  const seq = routeSeq;
+  const p = new URLSearchParams(query);
+  const st = {
+    cat: p.get('cat') || '', q: p.get('q') || '', min: p.get('min') || '', max: p.get('max') || '',
+    place: p.get('place') || '', sort: ['cheap', 'dear'].includes(p.get('sort')) ? p.get('sort') : 'new'
+  };
+  fillRabotaHead(st);
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+
+  const countsP = loadCounts().catch(e => { console.error(e); return null; });
+  let cats;
+  try { cats = await loadCats(); }
+  catch (e) { console.error(e); if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+  if (seq !== routeSeq) return;
+  const root = cats.bySlug.rabota;
+  if (!root) { app.innerHTML = '<p class="empty">Раздел «Работа» пока не настроен.</p>'; return; }
+
+  let sel = cats.bySlug[st.cat] || null;
+  if (sel && sel.parent_id !== root.id) sel = null;
+  const searching = !!(st.q || st.min || st.max || st.place || st.sort !== 'new');
+  const fillCounts = () => countsP.then(counts => { if (counts && seq === routeSeq) applyCounts(app, cats, counts); });
+
+  // Главная раздела: свежие вакансии и свежие резюме
+  if (!sel && !searching) {
+    app.innerHTML = '<h1 class="sr-only">Работа в Олёкминском районе</h1><div class="rgrid">' +
+      root.children.map(c =>
+        '<section class="section"><div class="section-head"><h2>' + esc(c.name) + '<span class="bcount" data-cid="' + c.id + '" hidden></span></h2>' +
+          '<a href="#/rabota?cat=' + c.slug + '">Все →</a></div>' +
+          '<ul class="ads" data-kind="' + c.id + '"><li class="loading">Загружаем…</li></ul>' +
+        '</section>').join('') +
+      '</div>';
+    fillCounts();
+    const nowIso = new Date().toISOString();
+    root.children.forEach(c => {
+      sb.from('ads').select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
+        .eq('status', 'active').gt('expires_at', nowIso).eq('category_id', c.id)
+        .order('bumped_at', { ascending: false }).limit(6)
+        .then(({ data, error }) => {
+          const ul = app.querySelector('[data-kind="' + c.id + '"]');
+          if (!ul || seq !== routeSeq) return;
+          if (error) { ul.outerHTML = '<p class="empty">' + esc(ruError(error)) + '</p>'; return; }
+          if (!data.length) {
+            ul.outerHTML = '<p class="empty">' + (c.slug === 'rezyume' ? 'Резюме пока нет. <a href="#/rabota/new?cat=rezyume">Разместите своё</a>.'
+              : 'Вакансий пока нет. <a href="#/rabota/new?cat=' + c.slug + '">Разместите первую</a>.') + '</p>';
+            return;
+          }
+          ul.innerHTML = data.map(mapAd).map(a => adItem(a, 'rabota')).join('');
+        });
+    });
+    return;
+  }
+
+  // Список вакансий или резюме, поиск
+  const words = JOB_WORDS[sel?.slug] || ['объявление', 'объявления', 'объявлений'];
+  const title = st.q ? 'Поиск «' + st.q + '»' : sel ? sel.name : 'Поиск';
+  document.title = title + ' — ' + RABOTA_TITLE;
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/rabota">Работа</a>' + (st.q && sel ? ' → <a href="#/rabota?cat=' + sel.slug + '">' + esc(sel.name) + '</a>' : '') + '</div>' +
+    '<div class="bhead"><h1>' + esc(title) + (st.q || !sel ? '' : '<span class="n" data-cid="' + sel.id + '" hidden></span>') + '</h1>' +
+      '<a href="#/rabota/new' + (sel ? '?cat=' + sel.slug : '') + '">+ Разместить</a></div>' +
+    (searching ? '<p class="bfound" id="bfound">Считаем…</p>' : '') +
+    '<div class="rlist"><ul class="ads" id="list"></ul><div id="list-state"></div></div>';
+  if (!searching) fillCounts();
+
+  const ids = sel ? [sel.id] : jobIds(cats);
+  const bst = { ...st, photo: '', deal: '' };
+  if (searching) {
+    buildBoardQuery(bst, ids, [], 0, true).then(({ count, error }) => {
+      const box = $('#bfound');
+      if (!box || seq !== routeSeq) return;
+      if (error || count == null) { box.remove(); return; }
+      box.textContent = 'Найдено ' + count.toLocaleString('ru-RU') + ' ' + plural(count, ...words) + placeNote(st.place);
+    }, () => { const box = $('#bfound'); if (box) box.remove(); });
+  }
+
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: from => buildBoardQuery(bst, ids, [], from, false),
+    renderItems: rows => rows.map(mapAd).map(a => adItem(a, 'rabota')).join(''),
+    emptyHtml: searching
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить запрос или параметры.</p>'
+      : '<p class="empty">' + (sel.slug === 'rezyume' ? 'Резюме пока нет. <a href="#/rabota/new?cat=rezyume">Разместите своё</a>.'
+        : 'Вакансий пока нет. <a href="#/rabota/new?cat=' + sel.slug + '">Разместите первую</a>.') + '</p>'
+  });
+}
+
+function routeRabota(query, parts) {
+  if (!parts.length) return renderRabota(query);
+  if (parts[0] === 'new') return renderAdForm(query, null, 'rabota');
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0], 'rabota') : renderAdView(+parts[0], 'rabota');
+  renderStub('404');
 }
 
 function routeAds(query, parts) {
@@ -2350,10 +2727,17 @@ function isStaff() {
   return !!profile && (profile.role === 'admin' || profile.role === 'moderator') && !profile.is_banned;
 }
 
+// Рубрики почти не меняются: держим в браузере 12 часов (при изменении рубрик менять ключ)
+const NCATS_KEY = 'olk_ncats_1';
 async function loadNewsCats() {
   if (NEWS_CATS) return NEWS_CATS;
-  const { data, error } = await sb.from('news_categories').select('id, slug, name, sort').order('sort');
-  if (error) throw error;
+  let data = cacheGet(NCATS_KEY, 12 * 3600e3);
+  if (!data) {
+    const res = await sb.from('news_categories').select('id, slug, name, sort').order('sort');
+    if (res.error) throw res.error;
+    data = res.data;
+    cacheSet(NCATS_KEY, data);
+  }
   NEWS_CATS = data;
   return data;
 }
@@ -2433,34 +2817,79 @@ async function shareLink(title, url, btn) {
 }
 
 /* ----- Лента новостей ----- */
+// Главная news.olk.ru: закреплённая (или свежая) новость крупно, ниже лента.
+// С рубрикой (?cat=) — лента рубрики, с поиском (?q=) — «Найдено N».
+function newsLeadItem(n) {
+  return '<li class="lead"><a class="lead-news" href="#/news/' + esc(n.slug) + '">' +
+    (n.cover_url ? '<img class="cover" src="' + esc(n.cover_url) + '" alt="">' : '') +
+    '<div class="meta">' + (n.is_pinned ? '<span class="pin">' + ICON_PIN + 'Закреплено</span>, ' : '') + catSpan(n) + fmtWhen(n.published_at) + '</div>' +
+    '<h3>' + esc(n.title) + '</h3>' +
+    (n.lead ? '<p>' + esc(n.lead) + '</p>' : '') + '</a></li>';
+}
+
+function newsQuery(sel, cat, q) {
+  let r = sb.from('news').select(sel.fields, sel.opts).eq('status', 'published');
+  if (cat) r = r.eq('category_id', cat.id);
+  if (q) r = r.textSearch('search', q, { type: 'websearch', config: 'russian' });
+  return r;
+}
+
 async function renderNewsList(query) {
   if (!sb) return renderNoDb('Новости');
   const app = $('#app');
+  const seq = routeSeq;
+  const p = new URLSearchParams(query);
+  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim() };
+  fillNewsHead(st);
   app.innerHTML = '<p class="loading">Загружаем новости…</p>';
   let cats;
   try { cats = await loadNewsCats(); }
-  catch (e) { console.error(e); app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+  catch (e) { console.error(e); if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+  if (seq !== routeSeq) return;
 
-  const slug = new URLSearchParams(query).get('cat') || '';
-  const cat = cats.find(c => c.slug === slug) || null;
-  app.innerHTML =
-    '<div class="page-head"><h1>' + esc(cat ? cat.name : 'Новости') + '</h1>' +
-      (isStaff() ? '<a href="#/admin/news/new">Написать новость</a>' : '') + '</div>' +
-    '<nav class="chips" aria-label="Рубрики">' +
-      '<a class="chip' + (!cat ? ' on' : '') + '" href="#/news">Все</a>' +
-      cats.map(c => '<a class="chip' + (cat === c ? ' on' : '') + '" href="#/news?cat=' + esc(c.slug) + '">' + esc(c.name) + '</a>').join('') +
-    '</nav>' +
-    '<ul class="nfeed" id="list"></ul><div id="list-state"></div>';
+  const cat = cats.find(c => c.slug === st.cat) || null;
+  const isHome = !cat && !st.q;
+  if (cat) document.title = cat.name + ' — ' + NEWS_TITLE;
+  if (st.q) document.title = 'Поиск «' + st.q + '» — ' + NEWS_TITLE;
 
+  let html = '';
+  if (!isHome) {
+    html += '<div class="crumbs"><a href="#/news">Все новости</a></div>' +
+      '<div class="bhead"><h1>' + (st.q ? 'Поиск «' + esc(st.q) + '»' : esc(cat.name)) + '</h1></div>';
+    if (st.q) html += '<p class="bfound" id="bfound">Считаем…</p>';
+  } else {
+    html += '<h1 class="sr-only">Новости Олёкминского района</h1>';
+  }
+  app.innerHTML = html + '<ul class="nfeed" id="list"></ul><div id="list-state"></div>';
+
+  if (st.q) {
+    newsQuery({ fields: 'id', opts: { count: 'exact', head: true } }, cat, st.q).then(({ count, error }) => {
+      const box = $('#bfound');
+      if (!box || seq !== routeSeq) return;
+      if (error || count == null) { box.remove(); return; }
+      box.innerHTML = 'Найдено ' + count.toLocaleString('ru-RU') + ' ' + plural(count, 'новость', 'новости', 'новостей') +
+        (cat ? ' в рубрике «' + esc(cat.name) + '». <a href="#/news' + qs({ q: st.q }) + '">Искать во всех рубриках</a>' : '');
+    }, () => { const box = $('#bfound'); if (box) box.remove(); });
+  }
+
+  let first = true;
   startFeed({
     listEl: $('#list'), stateEl: $('#list-state'),
     fetchPage: (from, size) => {
-      let q = sb.from('news').select(NEWS_LIST_FIELDS).eq('status', 'published');
-      q = cat ? q.eq('category_id', cat.id) : q.order('is_pinned', { ascending: false });
+      let q = newsQuery({ fields: NEWS_LIST_FIELDS }, cat, st.q);
+      if (isHome) q = q.order('is_pinned', { ascending: false });
       return q.order('published_at', { ascending: false }).order('id', { ascending: false }).range(from, from + size - 1);
     },
-    renderItems: rows => rows.map(mapNews).map(n => newsRow(n, !cat)).join(''),
-    emptyHtml: '<p class="empty">' + (cat ? 'В этой рубрике пока нет новостей.' : 'Новостей пока нет.') + '</p>'
+    renderItems: rows => {
+      const list = rows.map(mapNews);
+      let html = '';
+      if (first && isHome && list.length) html = newsLeadItem(list.shift());
+      first = false;
+      return html + list.map(n => newsRow(n, isHome)).join('');
+    },
+    emptyHtml: st.q
+      ? '<p class="empty">Ничего не нашлось. Попробуйте другие слова.</p>'
+      : '<p class="empty">' + (cat ? 'В этой рубрике пока нет новостей.' : 'Новостей пока нет.') + '</p>'
   });
 }
 
@@ -2484,9 +2913,10 @@ async function renderNewsView(slug) {
     try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
     if (!seen) { n.views++; sb.rpc('increment_news_views', { p_id: n.id }).then(() => {}, () => {}); }
   }
-  document.title = n.title + ' — olk.ru';
+  document.title = n.title + ' — news.olk.ru';
 
   const cat = n.news_categories;
+  fillNewsHead({ cat: cat?.slug || '' });
   const notice = n.status === 'draft' ? '<div class="msg err">Черновик: читатели его не видят.</div>'
     : n.status === 'hidden' ? '<div class="msg err">Новость скрыта: читатели её не видят.</div>' : '';
   app.innerHTML =
@@ -2974,13 +3404,12 @@ function route() {
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
-  const kind = section === 'ads' ? 'doska' : 'portal';
+  const kind = { ads: 'doska', news: 'news', rabota: 'rabota' }[section] || 'portal';
   setHead(kind);
-  if (kind === 'doska') {
-    BOARD_CAT = '';
-    fillBoardHead({});
-    document.title = BOARD_TITLE;
-  }
+  if (kind === 'doska') { BOARD_CAT = ''; fillBoardHead({}); }
+  if (kind === 'news') fillNewsHead({});
+  if (kind === 'rabota') fillRabotaHead({});
+  if (HEADS[kind].title) document.title = HEADS[kind].title;
   if (PAGES[section]) { showFlash(); return PAGES[section](query, path.split('/').slice(1)); }
   showFlash();
   if (!path) return renderHome();
