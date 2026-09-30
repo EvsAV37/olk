@@ -1,0 +1,2585 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>olk.ru — всё об Олёкминском районе</title>
+<meta name="description" content="Новости, события, объявления и вакансии Олёкминска и наслегов района в одном месте.">
+<meta name="theme-color" content="#1F5E52">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+  /* Палитра «Тайга». Светлая тема по умолчанию, тёмная — по настройке телефона */
+  :root {
+    --bg: #EEF3F2;
+    --card: #FFFFFF;
+    --ink: #16302B;
+    --mute: #5B706B;
+    --line: #D5E0DD;
+    --brand: #1F5E52;
+    --head: #1F5E52;
+    --head-deep: #174A40;
+    --accent: #E39A2D;
+    --accent-hover: #D08A20;
+    --on-accent: #2A1A00;
+    --berry: #A33B3B;
+    --ok: #2E7D4F;
+    --thumb: #DCE6E3;
+    --thumb-ink: #8FA5A0;
+    --notice-bg: #FFF6E6; --notice-line: #F0D9AE; --notice-ink: #6B4A12;
+    --err-bg: #FBEDED; --err-line: #EBC5C5; --err-ink: #7A2828;
+    --ok-bg: #EAF5EE; --ok-line: #BFE0CB; --ok-ink: #1F5E3A;
+    --foot-bg: #16302B; --foot-ink: #B7C8C3; --foot-link: #E0EAE7;
+    --radius: 10px;
+    --font: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1B19; --card: #172724; --ink: #E6F0ED; --mute: #93A9A3; --line: #264039;
+      --brand: #5BB8A3; --head: #14302A; --head-deep: #10261F;
+      --accent: #F0B04A; --accent-hover: #F5C06A; --on-accent: #2A1A00;
+      --berry: #E58A8A; --ok: #6CC495; --thumb: #1F3531; --thumb-ink: #5E7A73;
+      --notice-bg: #2A2413; --notice-line: #4A3E1E; --notice-ink: #E8D3A6;
+      --err-bg: #2E1A1A; --err-line: #5A2E2E; --err-ink: #F0B8B8;
+      --ok-bg: #15291F; --ok-line: #2A4A36; --ok-ink: #B5E3C6;
+      --foot-bg: #0A1311; --foot-ink: #8FA59F; --foot-link: #D5E3DF;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1B19; --card: #172724; --ink: #E6F0ED; --mute: #93A9A3; --line: #264039;
+    --brand: #5BB8A3; --head: #14302A; --head-deep: #10261F;
+    --accent: #F0B04A; --accent-hover: #F5C06A; --on-accent: #2A1A00;
+    --berry: #E58A8A; --ok: #6CC495; --thumb: #1F3531; --thumb-ink: #5E7A73;
+    --notice-bg: #2A2413; --notice-line: #4A3E1E; --notice-ink: #E8D3A6;
+    --err-bg: #2E1A1A; --err-line: #5A2E2E; --err-ink: #F0B8B8;
+    --ok-bg: #15291F; --ok-line: #2A4A36; --ok-ink: #B5E3C6;
+    --foot-bg: #0A1311; --foot-ink: #8FA59F; --foot-link: #D5E3DF;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--bg);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body > * { width: 100%; }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Шапка ---------- */
+  .top { background: var(--head); color: #fff; padding-top: env(safe-area-inset-top, 0px); margin-bottom: 16px; }
+  .top-row { display: flex; align-items: center; gap: 16px; min-height: 64px; }
+  .logo { color: #fff; display: flex; flex-direction: column; line-height: 1; flex: none; }
+  .nav a { white-space: nowrap; }
+  .logo:hover { text-decoration: none; }
+  .logo b { font-weight: 700; font-size: 30px; letter-spacing: -0.04em; }
+  .logo small { font-size: 12px; opacity: .75; margin-top: 3px; }
+  .nav { display: flex; gap: 2px; margin-left: 12px; }
+  .nav a { color: #fff; padding: 8px 11px; border-radius: 8px; font-weight: 500; }
+  .nav a:hover { background: rgba(255,255,255,.1); text-decoration: none; }
+  .nav a.active { background: rgba(255,255,255,.16); }
+  .spacer { flex: 1; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font: inherit; font-weight: 600; font-size: 15px;
+    padding: 10px 16px; border-radius: 8px; border: 0; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { text-decoration: none; }
+  .btn-accent { background: var(--accent); color: var(--on-accent); }
+  .btn-accent:hover { background: var(--accent-hover); }
+  .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.35); }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); }
+  .btn-brand { background: var(--head); color: #fff; }
+  .btn-brand:hover { background: var(--head-deep); }
+  .add-mobile { display: none; padding: 8px 12px; font-size: 14px; }
+  .burger { display: none; background: none; border: 0; color: #fff; width: 44px; height: 44px; cursor: pointer; border-radius: 8px; }
+  .burger svg { width: 24px; height: 24px; }
+
+  /* ---------- Боковое меню ---------- */
+  .backdrop {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(8, 20, 17, .5);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  .backdrop.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 50;
+    width: min(84vw, 320px);
+    background: var(--head); color: #fff;
+    padding: calc(env(safe-area-inset-top, 0px) + 10px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+    overflow-y: auto; overscroll-behavior: contain;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, .25);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform .32s cubic-bezier(.22, .8, .24, 1), visibility 0s linear .32s;
+  }
+  .drawer.open {
+    transform: none;
+    visibility: visible;
+    transition: transform .32s cubic-bezier(.22, .8, .24, 1), visibility 0s;
+  }
+  .drawer-head { display: flex; align-items: center; justify-content: flex-end; min-height: 54px; margin-bottom: 8px; }
+  .drawer-close { background: none; border: 0; color: #fff; width: 44px; height: 44px; margin-right: -10px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .drawer-close svg { width: 24px; height: 24px; }
+  .drawer a { display: block; color: #fff; padding: 13px 4px; font-size: 18px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .drawer a:hover { text-decoration: none; background: rgba(255,255,255,.06); }
+  .drawer a.active { color: var(--accent); }
+  .drawer a[hidden] { display: none; }
+  .drawer .drawer-login { border-bottom: 0; margin-top: 16px; text-align: center; border: 1px solid rgba(255,255,255,.35); border-radius: 8px; padding: 11px; font-size: 16px; }
+  body.menu-open { overflow: hidden; }
+
+  /* ---------- Вступление на главной ---------- */
+  .intro { padding: 8px 0 6px; }
+  .intro[hidden] { display: none; }
+  .intro h1 { font-size: 34px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .intro p { margin: 0; color: var(--mute); font-size: 16px; max-width: 56ch; }
+  @media (max-width: 600px) {
+    .intro h1 { font-size: 26px; }
+    .intro p { font-size: 15px; }
+  }
+
+  /* ---------- Поиск и полоса погоды ---------- */
+  .search { display: flex; gap: 8px; margin: 6px 0 10px; max-width: 640px; }
+  .search input {
+    flex: 1; min-width: 0; font: inherit; font-size: 16px;
+    padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink);
+  }
+  .search input::placeholder { color: var(--mute); }
+  .info {
+    display: flex; gap: 20px; align-items: center; font-size: 14px; color: var(--mute);
+    overflow-x: auto; white-space: nowrap; padding: 2px 0 14px; scrollbar-width: none;
+  }
+  .info::-webkit-scrollbar { display: none; }
+  .info b { color: var(--ink); font-weight: 600; }
+  .info .temp { font-size: 17px; }
+  .up { color: var(--ok); }
+  .down { color: var(--berry); }
+  .info .sep { width: 1px; height: 16px; background: var(--line); flex: none; }
+
+  .notice { background: var(--notice-bg); border: 1px solid var(--notice-line); color: var(--notice-ink); padding: 10px 14px; border-radius: var(--radius); font-size: 14px; margin-bottom: 20px; }
+  .notice.err { background: var(--err-bg); border-color: var(--err-line); color: var(--err-ink); }
+
+  /* ---------- Главная ---------- */
+  main { padding: 4px 16px 40px; flex: 1; }
+  .grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 32px; }
+  .section { margin-bottom: 36px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .section-head h2 { font-size: 20px; font-weight: 600; margin: 0; }
+  .section-head a { font-size: 15px; font-weight: 500; white-space: nowrap; }
+
+  .lead-news { display: block; color: inherit; margin-bottom: 20px; }
+  .lead-news:hover { text-decoration: none; }
+  .lead-news:hover h3 { color: var(--brand); }
+  .lead-news .cover { aspect-ratio: 16 / 9; border-radius: var(--radius); background: var(--thumb); object-fit: cover; width: 100%; margin-bottom: 12px; }
+  .lead-news h3 { font-size: 26px; line-height: 1.2; font-weight: 600; margin: 6px 0 8px; letter-spacing: -0.01em; }
+  .lead-news p { margin: 0; color: var(--mute); max-width: 65ch; }
+  .meta { font-size: 13px; color: var(--mute); }
+  .meta .cat { color: var(--brand); font-weight: 500; }
+  .meta .cat.incident { color: var(--berry); }
+
+  .news-list { list-style: none; margin: 0; padding: 0; }
+  .news-list li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .news-list a { color: var(--ink); font-weight: 500; font-size: 17px; line-height: 1.35; display: block; }
+  .news-list a:hover { color: var(--brand); text-decoration: none; }
+  .news-list .meta { margin-top: 4px; }
+
+  .ads { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .ads li { border-top: 1px solid var(--line); }
+  .ad { display: flex; gap: 12px; padding: 12px 0; color: inherit; }
+  .ad:hover { text-decoration: none; }
+  .ad:hover .ad-title { color: var(--brand); }
+  .ad .thumb { width: 76px; height: 76px; flex: none; border-radius: 8px; background: var(--thumb); object-fit: cover; display: flex; align-items: center; justify-content: center; color: var(--thumb-ink); }
+  .ad .thumb svg { width: 28px; height: 28px; }
+  .ad-title { font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .price { font-weight: 600; font-size: 17px; }
+  .price.free { color: var(--ok); }
+
+  .aside-block { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; }
+  .aside-block h2 { font-size: 18px; margin: 0 0 8px; font-weight: 600; }
+  .soon { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .soon h2 { margin: 0; }
+  .soon p { margin: 2px 0 0; font-size: 14px; color: var(--mute); }
+  .soon span { font-size: 13px; color: var(--mute); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+
+  .events { list-style: none; margin: 0; padding: 0; }
+  .events li { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .events li:first-child { border-top: 0; }
+  .day { width: 48px; flex: none; text-align: center; line-height: 1.1; border-right: 2px solid var(--accent); padding-right: 10px; }
+  .day b { display: block; font-size: 22px; font-weight: 600; }
+  .day span { font-size: 12px; color: var(--mute); }
+  .events a { color: var(--ink); font-weight: 500; }
+
+  .phones { list-style: none; margin: 0; padding: 0; }
+  .phones li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+  .phones li:first-child { border-top: 0; }
+  .phones a { font-weight: 600; font-size: 18px; color: var(--berry); }
+
+  .empty { color: var(--mute); padding: 16px 0; }
+  .empty a { font-weight: 500; }
+  .loading { color: var(--mute); padding: 12px 0; }
+
+  /* ---------- Заглушки и поиск ---------- */
+  .stub { max-width: 560px; padding: 32px 0; }
+  .stub h1, .page-title { font-size: 28px; margin: 0 0 8px; font-weight: 600; }
+  .stub p { color: var(--mute); margin: 0 0 20px; }
+  .page-title { margin: 12px 0 20px; }
+
+  /* ---------- Формы входа и профиль ---------- */
+  .form { max-width: 420px; padding: 12px 0 8px; }
+  .form h1 { font-size: 28px; margin: 0 0 6px; font-weight: 600; }
+  .form h2 { font-size: 20px; margin: 0 0 12px; font-weight: 600; }
+  .form .sub { color: var(--mute); margin: 0 0 20px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-weight: 500; font-size: 15px; margin-bottom: 6px; }
+  .field input {
+    width: 100%; font: inherit; font-size: 16px; padding: 11px 14px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  .field .hint { font-size: 13px; color: var(--mute); margin-top: 4px; }
+  .pw { position: relative; }
+  .pw input { padding-right: 96px; }
+  .pw button {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    background: none; border: 0; color: var(--brand); font: inherit; font-size: 14px; font-weight: 500;
+    padding: 6px 8px; cursor: pointer; border-radius: 6px;
+  }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--mute); margin: 4px 0 18px; cursor: pointer; }
+  .check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--head); flex: none; }
+  .form .btn { width: 100%; }
+  .form-links { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 16px; font-size: 15px; }
+  .msg { padding: 10px 14px; border-radius: var(--radius); font-size: 14px; margin-bottom: 14px; border: 1px solid; }
+  .msg.err { background: var(--err-bg); border-color: var(--err-line); color: var(--err-ink); }
+  .msg.ok { background: var(--ok-bg); border-color: var(--ok-line); color: var(--ok-ink); }
+  .divider { border: 0; border-top: 1px solid var(--line); margin: 28px 0 22px; }
+  .btn-line { background: transparent; color: var(--brand); border: 1px solid var(--line); }
+  .btn-line:hover { background: var(--card); }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 8px; }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.2); color: #fff; font-weight: 600; font-size: 14px;
+  }
+  .avatar.lg { width: 88px; height: 88px; font-size: 34px; background: var(--thumb); color: var(--mute); }
+  .user-chip {
+    display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 500;
+    padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); max-width: 220px;
+  }
+  .user-chip:hover { text-decoration: none; background: rgba(255,255,255,.1); }
+  .user-chip span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .avatar-row { display: flex; gap: 16px; align-items: center; margin-bottom: 22px; }
+  .avatar-row .actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .avatar-row .btn { width: auto; padding: 8px 14px; font-size: 14px; }
+  .facts { font-size: 14px; color: var(--mute); margin: -6px 0 20px; }
+
+  /* ---------- Объявления ---------- */
+  .page-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 8px 0 14px; }
+  .page-head h1 { font-size: 28px; font-weight: 600; margin: 0; }
+  .page-head a { font-weight: 500; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 6px; margin-bottom: 8px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    padding: 7px 14px; border-radius: 999px; white-space: nowrap; font-size: 15px;
+  }
+  .chip:hover { text-decoration: none; border-color: var(--brand); }
+  .chip.on { background: var(--head); color: #fff; border-color: var(--head); }
+  .chips.sub .chip { font-size: 14px; padding: 5px 12px; }
+  .filters { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin: 4px 0 18px; }
+  .filters summary { padding: 11px 14px; cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; }
+  .filters summary::-webkit-details-marker { display: none; }
+  .filters summary::after { content: '▾'; color: var(--mute); }
+  .filters[open] summary::after { content: '▴'; }
+  .filters form { padding: 0 14px 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+  .filters .full { grid-column: 1 / -1; }
+  .filters .row-btns { display: flex; gap: 10px; align-items: center; }
+  .filters .row-btns .btn { flex: 1; }
+  .more { display: block; margin: 16px auto 0; }
+
+  .field select, .field textarea {
+    width: 100%; font: inherit; font-size: 16px; padding: 11px 14px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  .field textarea { min-height: 140px; resize: vertical; line-height: 1.45; }
+  .form.wide { max-width: 640px; }
+  .seg { display: flex; flex-wrap: wrap; gap: 8px; }
+  .seg label { cursor: pointer; position: relative; }
+  .seg input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+  .seg span { display: inline-block; border: 1px solid var(--line); background: var(--card); padding: 8px 14px; border-radius: 999px; font-size: 15px; }
+  .seg input:checked + span { background: var(--head); color: #fff; border-color: var(--head); }
+  .seg input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .ph { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--thumb); }
+  .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .ph .x {
+    position: absolute; top: 4px; right: 4px; width: 30px; height: 30px; border-radius: 50%;
+    border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 18px; line-height: 1; cursor: pointer;
+  }
+  .ph .tag { position: absolute; left: 4px; bottom: 4px; font-size: 11px; background: rgba(0,0,0,.6); color: #fff; padding: 1px 6px; border-radius: 4px; }
+  .ph-add {
+    aspect-ratio: 1; border-radius: 8px; border: 2px dashed var(--line); color: var(--mute);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    font-size: 13px; text-align: center; cursor: pointer; padding: 6px;
+  }
+  .ph-add b { font-size: 26px; font-weight: 400; line-height: 1; }
+
+  .ad-view { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .crumbs { font-size: 14px; color: var(--mute); margin: 6px 0 10px; }
+  .ad-view h1 { font-size: 26px; line-height: 1.2; font-weight: 600; margin: 0 0 14px; letter-spacing: -0.01em; }
+  .gallery-wrap { position: relative; margin-bottom: 18px; }
+  .gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: var(--radius); background: var(--thumb); scrollbar-width: none; }
+  .gallery::-webkit-scrollbar { display: none; }
+  .gallery img { flex: 0 0 100%; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; scroll-snap-align: start; }
+  .gallery-count { position: absolute; right: 10px; bottom: 10px; background: rgba(0,0,0,.6); color: #fff; font-size: 13px; padding: 2px 8px; border-radius: 999px; }
+  .ad-desc { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 16px; }
+  .ad-side { position: sticky; top: 16px; }
+  .ad-side .price { font-size: 26px; display: block; margin-bottom: 4px; }
+  .ad-side .btn { width: 100%; margin-top: 10px; }
+  .seller { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .seller .avatar { width: 40px; height: 40px; background: var(--thumb); color: var(--mute); }
+  .owner-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .owner-tools .btn { width: auto; flex: 1 1 auto; padding: 8px 12px; font-size: 14px; margin-top: 0; }
+  .btn-danger { background: transparent; color: var(--berry); border: 1px solid var(--line); }
+
+  .my-list { list-style: none; margin: 0; padding: 0; }
+  .my-list > li { border-top: 1px solid var(--line); padding: 14px 0; }
+  .my-list .ad { padding: 0 0 10px; }
+  .status { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; margin-right: 6px; border: 1px solid var(--line); color: var(--mute); }
+  .status.active { color: var(--ok); border-color: currentColor; }
+  .status.blocked { color: var(--berry); border-color: currentColor; }
+
+  @media (max-width: 860px) {
+    .ad-view { grid-template-columns: 1fr; gap: 0; }
+    .ad-side { position: static; }
+    .ad-view h1 { font-size: 22px; }
+  }
+
+  /* ---------- Лента: состояние ---------- */
+  .feed-err { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; color: var(--mute); padding: 14px 0; }
+  .sentinel { height: 1px; }
+  .linkbtn { background: none; border: 0; padding: 4px 0; font: inherit; font-size: 14px; font-weight: 500; color: var(--brand); cursor: pointer; }
+  .linkbtn:hover { text-decoration: underline; }
+  .linkbtn.danger { color: var(--berry); }
+  .linkbtn:disabled { opacity: .6; cursor: default; }
+  .flabel { display: block; font-weight: 500; font-size: 15px; margin-bottom: 6px; }
+
+  /* ---------- Новости: лента ---------- */
+  .nfeed { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .nfeed li { border-top: 1px solid var(--line); }
+  .nrow { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; color: inherit; }
+  .nrow:hover { text-decoration: none; }
+  .nrow:hover .nrow-title { color: var(--brand); }
+  .nrow-text { flex: 1; min-width: 0; }
+  .nrow-title { display: block; color: var(--ink); font-weight: 600; font-size: 19px; line-height: 1.3; margin: 3px 0 4px; overflow-wrap: anywhere; }
+  .nrow-lead { color: var(--mute); font-size: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .nrow-img { width: 148px; aspect-ratio: 4 / 3; flex: none; object-fit: cover; border-radius: 8px; background: var(--thumb); }
+  .meta .pin { color: var(--ink); font-weight: 600; white-space: nowrap; }
+  .meta .pin svg { width: 13px; height: 13px; vertical-align: -1px; margin-right: 3px; }
+  @media (max-width: 600px) {
+    .nrow { gap: 12px; }
+    .nrow-title { font-size: 17px; }
+    .nrow-lead { font-size: 14px; }
+    .nrow-img { width: 92px; }
+  }
+
+  /* ---------- Новости: страница ---------- */
+  .article { max-width: 720px; }
+  .article h1 { font-size: 34px; line-height: 1.16; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 10px; overflow-wrap: anywhere; }
+  .art-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); background: var(--thumb); margin: 16px 0 18px; }
+  .art-lead { font-size: 19px; line-height: 1.5; font-weight: 500; margin: 14px 0 18px; overflow-wrap: anywhere; }
+  .art-body { font-size: 17px; line-height: 1.65; overflow-wrap: anywhere; }
+  .art-body p { margin: 0 0 1em; }
+  .art-body h2 { font-size: 22px; line-height: 1.3; font-weight: 600; margin: 1.5em 0 .5em; }
+  .art-body ul { margin: 0 0 1em; padding-left: 1.3em; }
+  .art-body li { margin-bottom: .35em; }
+  .art-body a { text-decoration: underline; text-underline-offset: 2px; }
+  .art-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+  @media (max-width: 600px) {
+    .article h1 { font-size: 26px; }
+    .art-lead { font-size: 17px; }
+    .art-body { font-size: 16.5px; }
+  }
+
+  /* ---------- Комментарии ---------- */
+  .comments { max-width: 720px; margin-top: 32px; }
+  .comments h2 { font-size: 21px; font-weight: 600; margin: 0 0 10px; }
+  .comments h2 .count { color: var(--mute); font-weight: 500; margin-left: 4px; }
+  .c-list { list-style: none; margin: 0 0 20px; padding: 0; }
+  .c-list li { display: flex; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .c-list .avatar { width: 36px; height: 36px; background: var(--thumb); color: var(--mute); }
+  .c-main { flex: 1; min-width: 0; }
+  .c-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+  .c-text { margin: 3px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .c-list li.is-hidden .c-text { color: var(--mute); }
+  .c-flag { font-size: 13px; font-weight: 600; color: var(--berry); margin-top: 2px; }
+  .c-tools { display: flex; gap: 18px; margin-top: 4px; }
+  .c-form { border-top: 1px solid var(--line); padding-top: 16px; }
+  .c-form .field textarea { min-height: 96px; }
+  .c-login { border-top: 1px solid var(--line); padding-top: 16px; margin: 0; }
+
+  /* ---------- Админка ---------- */
+  .adm-list { list-style: none; margin: 0; padding: 0; max-width: 820px; }
+  .adm-list li { border-top: 1px solid var(--line); }
+  .adm-row { display: block; padding: 12px 0; color: inherit; }
+  .adm-row:hover { text-decoration: none; }
+  .adm-row:hover .adm-title { color: var(--brand); }
+  .adm-title { display: block; font-weight: 600; font-size: 17px; line-height: 1.3; margin-bottom: 4px; overflow-wrap: anywhere; }
+  .status.published { color: var(--ok); border-color: currentColor; }
+  .status.hidden { color: var(--berry); border-color: currentColor; }
+  .form.editor { max-width: 720px; }
+  .field textarea.short { min-height: 84px; }
+  #n-body { min-height: 340px; }
+  .md-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .md-bar button {
+    font: inherit; font-size: 14px; padding: 7px 10px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  .md-bar button:hover { border-color: var(--brand); }
+  .cover-prev { width: 100%; max-width: 480px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); background: var(--thumb); }
+  .cover-empty {
+    width: 100%; max-width: 480px; aspect-ratio: 16 / 9; border-radius: var(--radius);
+    border: 2px dashed var(--line); background: transparent; color: var(--mute); font: inherit; font-size: 15px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer;
+  }
+  .cover-empty b { font-size: 30px; font-weight: 400; line-height: 1; }
+  .form .cover-tools, .form .ed-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .form .cover-tools { margin-top: 8px; }
+  .form .cover-tools .btn { width: auto; }
+  .form .ed-actions .btn, .pv-actions .btn { width: auto; flex: 1 1 auto; }
+  .pv-actions { max-width: 720px; margin-top: 24px; }
+  .ed-extra { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; font-size: 15px; }
+  #pv .article { border-top: 1px solid var(--line); padding-top: 8px; }
+
+  /* ---------- Подвал бокового меню ---------- */
+  .drawer { display: flex; flex-direction: column; }
+  .drawer-foot { margin-top: auto; padding-top: 28px; font-size: 13px; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 4px; }
+  .drawer .drawer-foot a { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.85); border: 0; padding: 2px 0; text-decoration: underline; text-underline-offset: 2px; }
+  .drawer .drawer-foot a:hover { background: none; }
+
+  /* ---------- Подвал ---------- */
+  footer { background: var(--foot-bg); color: var(--foot-ink); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; padding-top: 24px; padding-bottom: 24px; }
+  footer a { color: var(--foot-link); }
+  footer .copy { color: #fff; font-weight: 500; }
+
+  /* ---------- Адаптив ---------- */
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: 1fr; gap: 8px; }
+    .ads { grid-template-columns: 1fr; }
+  }
+  /* Планшет боком и небольшие ноутбуки: полное меню, но шапка ужата */
+  @media (min-width: 861px) and (max-width: 1180px) {
+    .top-row { gap: 10px; }
+    .nav { margin-left: 4px; gap: 0; }
+    .nav a { padding: 8px 7px; font-size: 15px; }
+    .top-row .btn-accent:not(.add-mobile) { display: none; }
+    .top-row .add-mobile { display: inline-flex; }
+    .user-chip { padding: 3px; }
+    .user-chip span:last-child { display: none; }
+  }
+  @media (max-width: 860px) {
+    .nav, .top-row .btn { display: none; }
+    .top-row .add-mobile { display: inline-flex; }
+    .top-row .user-chip { display: none; }
+    .burger { display: inline-flex; align-items: center; justify-content: center; }
+    .lead-news h3 { font-size: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="logo" href="#/" aria-label="olk.ru — на главную">
+        <b>olk.ru</b>
+        <small>Олёкминский район</small>
+      </a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#/news" data-route="news">Новости</a>
+        <a href="#/ads" data-route="ads">Объявления</a>
+        <a href="#/rabota" data-route="rabota">Работа</a>
+        <a href="#/events" data-route="events">Афиша</a>
+        <a href="#/catalog" data-route="catalog">Справочник</a>
+        <a href="#/admin" data-route="admin" id="nav-admin" hidden>Админка</a>
+      </nav>
+      <span class="spacer"></span>
+      <a class="btn btn-ghost" id="auth-link" href="#/login">Войти</a>
+      <a class="btn btn-accent" href="#/ads/new">Подать объявление</a>
+      <a class="btn btn-accent add-mobile" href="#/ads/new">+ Подать</a>
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="backdrop" id="backdrop"></div>
+<nav class="drawer" id="drawer" aria-label="Меню" inert>
+  <div class="drawer-head">
+    <button class="drawer-close" id="drawer-close" aria-label="Закрыть меню">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <a href="#/news" data-route="news">Новости</a>
+  <a href="#/ads" data-route="ads">Объявления</a>
+  <a href="#/rabota" data-route="rabota">Работа</a>
+  <a href="#/events" data-route="events">Афиша</a>
+  <a href="#/catalog" data-route="catalog">Справочник</a>
+  <a href="#/ads/my" id="drawer-my" hidden>Мои объявления</a>
+  <a href="#/admin" data-route="admin" id="drawer-admin" hidden>Админка</a>
+  <a class="drawer-login" id="drawer-auth" href="#/login">Войти</a>
+  <div class="drawer-foot"><span>© 2026 Евсеев А.В.</span><a href="#/privacy">Политика конфиденциальности</a></div>
+</nav>
+
+<div class="wrap">
+  <div class="intro" id="intro" hidden>
+    <h1>Всё об Олёкминском районе</h1>
+    <p>Новости, события, объявления и вакансии Олёкминска и наслегов района в одном месте.</p>
+  </div>
+  <form class="search" id="search" role="search">
+    <input id="q" type="search" name="q" placeholder="Что ищете?" aria-label="Поиск по сайту" enterkeyhint="search">
+    <button class="btn btn-brand" type="submit">Найти</button>
+  </form>
+  <div class="info" id="info" aria-live="polite"></div>
+</div>
+
+<div class="wrap" id="flash"></div>
+<main class="wrap" id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <span class="copy">© 2026 Евсеев А.В.</span>
+    <a href="#/privacy">Политика конфиденциальности</a>
+    <span>Олёкминский район, Республика Саха (Якутия)</span>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   НАСТРОЙКИ. Вставьте данные из Supabase → Project Settings → API.
+   Публичный (anon) ключ безопасно держать в странице — права
+   защищены RLS в базе. Секретный service_role сюда НИКОГДА не вставлять.
+   Пока поля пустые, сайт работает в демо-режиме с примерами.
+   ===================================================================== */
+const CONFIG = {
+  SUPABASE_URL: 'https://mubuaaonckgcnuqjotth.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11YnVhYW9uY2tnY251cWpvdHRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MzQzOTcsImV4cCI6MjEwNjMxMDM5N30.5owQipS97k2kBuZWD_J7dydO22FMhr8owcNJH0BBKqQ'
+};
+
+const OLK = { lat: 60.3744, lon: 120.4264, tz: 'Asia/Yakutsk' };
+
+let sb = null;
+if (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY && window.supabase) {
+  sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY, {
+    // PKCE: ссылки из писем возвращают ?code=..., а не #токены — не мешает маршрутам на #/
+    auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true }
+  });
+}
+
+/* ---------------- Помощники ---------------- */
+const $ = (sel, root = document) => root.querySelector(sel);
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+const dayKeyFmt = new Intl.DateTimeFormat('en-CA', { timeZone: OLK.tz, year: 'numeric', month: '2-digit', day: '2-digit' });
+const timeFmt   = new Intl.DateTimeFormat('ru-RU', { timeZone: OLK.tz, hour: '2-digit', minute: '2-digit' });
+const dayMonFmt = new Intl.DateTimeFormat('ru-RU', { timeZone: OLK.tz, day: 'numeric', month: 'long' });
+const dayNumFmt = new Intl.DateTimeFormat('ru-RU', { timeZone: OLK.tz, day: 'numeric' });
+const monShort  = new Intl.DateTimeFormat('ru-RU', { timeZone: OLK.tz, month: 'short' });
+
+// «сегодня, 14:30» / «вчера, 09:10» / «12 сентября»
+function fmtWhen(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const key = dayKeyFmt.format(d);
+  const today = dayKeyFmt.format(new Date());
+  const yesterday = dayKeyFmt.format(new Date(Date.now() - 864e5));
+  if (key === today) return 'сегодня, ' + timeFmt.format(d);
+  if (key === yesterday) return 'вчера, ' + timeFmt.format(d);
+  return dayMonFmt.format(d);
+}
+
+function fmtPrice(price, type) {
+  if (type === 'free') return '<span class="price free">Даром</span>';
+  if (type === 'exchange') return '<span class="price">Обмен</span>';
+  if (type === 'negotiable' && price == null) return '<span class="price">Договорная</span>';
+  if (price == null) return '<span class="price">Цена не указана</span>';
+  const s = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(price) + ' ₽';
+  return '<span class="price">' + s + '</span>' + (type === 'negotiable' ? ' <span class="meta">торг</span>' : '');
+}
+
+// Кэш в браузере (если хранилище недоступно — просто работаем без кэша)
+function cacheGet(key, maxAgeMs) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const { t, v } = JSON.parse(raw);
+    return Date.now() - t < maxAgeMs ? v : null;
+  } catch { return null; }
+}
+function cacheSet(key, v) {
+  try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
+}
+
+function photoUrl(path) {
+  return CONFIG.SUPABASE_URL + '/storage/v1/object/public/ads/' + path;
+}
+
+const ICON_PHOTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg>';
+
+/* ---------------- Погода и курс ---------------- */
+const WMO = {
+  0: 'ясно', 1: 'почти ясно', 2: 'переменная облачность', 3: 'пасмурно',
+  45: 'туман', 48: 'изморозь', 51: 'морось', 53: 'морось', 55: 'сильная морось',
+  56: 'ледяная морось', 57: 'ледяная морось', 61: 'небольшой дождь', 63: 'дождь',
+  65: 'сильный дождь', 66: 'ледяной дождь', 67: 'ледяной дождь', 71: 'небольшой снег',
+  73: 'снег', 75: 'сильный снег', 77: 'снежная крупа', 80: 'ливень', 81: 'ливень',
+  82: 'сильный ливень', 85: 'снегопад', 86: 'сильный снегопад', 95: 'гроза',
+  96: 'гроза с градом', 99: 'гроза с градом'
+};
+
+async function loadWeather() {
+  let w = cacheGet('olk_weather', 30 * 60e3);
+  if (!w) {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + OLK.lat + '&longitude=' + OLK.lon +
+      '&current=temperature_2m,weather_code,wind_speed_10m&wind_speed_unit=ms&timezone=' + encodeURIComponent(OLK.tz);
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('weather');
+    const j = await r.json();
+    w = { t: j.current.temperature_2m, code: j.current.weather_code, wind: j.current.wind_speed_10m };
+    cacheSet('olk_weather', w);
+  }
+  return w;
+}
+
+async function loadRates() {
+  let rates = cacheGet('olk_rates', 60 * 60e3);
+  if (!rates) {
+    const r = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
+    if (!r.ok) throw new Error('rates');
+    const j = await r.json();
+    rates = ['USD', 'EUR', 'CNY'].map(code => {
+      const v = j.Valute[code];
+      return { code, value: v.Value / v.Nominal, prev: v.Previous / v.Nominal };
+    });
+    cacheSet('olk_rates', rates);
+  }
+  return rates;
+}
+
+async function renderInfo() {
+  const box = $('#info');
+  const [w, rates] = await Promise.allSettled([loadWeather(), loadRates()]);
+  const parts = [];
+  if (w.status === 'fulfilled') {
+    const t = Math.round(w.value.t);
+    const sign = t > 0 ? '+' : (t < 0 ? '−' : '');
+    parts.push('<span>Олёкминск <b class="temp">' + sign + Math.abs(t) + '°</b> ' +
+      esc(WMO[w.value.code] || '') + ', ветер ' + Math.round(w.value.wind) + ' м/с</span>');
+  }
+  if (rates.status === 'fulfilled') {
+    const symbols = { USD: '$', EUR: '€', CNY: '¥' };
+    const nf = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const cur = rates.value.map(r => {
+      const diff = r.value - r.prev;
+      const arrow = diff > 0.005 ? '<span class="up" aria-label="вырос">▲</span>'
+                  : diff < -0.005 ? '<span class="down" aria-label="упал">▼</span>' : '';
+      return '<span>' + symbols[r.code] + ' <b>' + nf.format(r.value) + '</b> ' + arrow + '</span>';
+    }).join('');
+    if (parts.length) parts.push('<span class="sep"></span>');
+    parts.push(cur);
+  }
+  box.innerHTML = parts.join('');
+  box.hidden = parts.length === 0;
+}
+
+/* ---------------- Демо-данные (пока Supabase не подключён) ---------------- */
+const now = Date.now(), H = 3600e3, D = 24 * H;
+const DEMO = {
+  news: [
+    { slug: 'demo-1', title: 'Городской каток начнут заливать в ноябре', lead: 'Работы стартуют, как только установятся устойчивые морозы. Открытие планируют к середине месяца.', category: 'Город', published_at: new Date(now - 2 * H).toISOString() },
+    { slug: 'demo-2', title: 'Утверждено расписание автобусов на зимний период', category: 'Район', published_at: new Date(now - 5 * H).toISOString() },
+    { slug: 'demo-3', title: 'В наслеги района начали завозить уголь на зиму', category: 'Район', published_at: new Date(now - 1 * D).toISOString() },
+    { slug: 'demo-6', title: 'В районной библиотеке открылась выставка местных мастеров', category: 'Культура', published_at: new Date(now - 1 * D - 3 * H).toISOString() },
+    { slug: 'demo-4', title: 'Школьники района стали призёрами республиканской олимпиады', category: 'Общество', published_at: new Date(now - 2 * D).toISOString() },
+    { slug: 'demo-5', title: 'Турнир по мини-футболу собрал восемь команд', category: 'Спорт', published_at: new Date(now - 3 * D).toISOString() }
+  ],
+  ads: [
+    { id: 1, title: 'Лодка «Казанка-5М» с мотором', price: 180000, price_type: 'negotiable', settlement: 'Олёкминск', bumped_at: new Date(now - 1 * H).toISOString() },
+    { id: 2, title: 'Зимние шины R15, комплект', price: 12000, price_type: 'fixed', settlement: 'Олёкминск', bumped_at: new Date(now - 3 * H).toISOString() },
+    { id: 3, title: 'Сдам 1-комнатную квартиру в центре', price: 15000, price_type: 'fixed', settlement: 'Олёкминск', bumped_at: new Date(now - 6 * H).toISOString() },
+    { id: 4, title: 'Отдам котят в добрые руки', price: null, price_type: 'free', settlement: 'Олёкминск', bumped_at: new Date(now - 1 * D).toISOString() },
+    { id: 5, title: 'Дрова колотые, берёза, с доставкой', price: 4500, price_type: 'fixed', settlement: 'Олёкминский район', bumped_at: new Date(now - 1 * D - 4 * H).toISOString() },
+    { id: 6, title: 'Куплю снегоход в рабочем состоянии', price: null, price_type: 'negotiable', settlement: 'Олёкминский район', bumped_at: new Date(now - 2 * D).toISOString() }
+  ],
+  events: [
+    { id: 1, title: 'Осенняя ярмарка', place: 'Центральная площадь', starts_at: new Date(now + 2 * D).toISOString() },
+    { id: 2, title: 'Концерт народного ансамбля', place: 'Дом культуры', starts_at: new Date(now + 4 * D).toISOString() },
+    { id: 3, title: 'Турнир по мас-рестлингу', place: 'Спорткомплекс', starts_at: new Date(now + 5 * D).toISOString() }
+  ]
+};
+
+/* ---------------- Загрузка данных для главной ---------------- */
+async function fetchHome() {
+  if (!sb) return { demo: true, ...DEMO };
+
+  const nowIso = new Date().toISOString();
+  const [news, ads, events] = await Promise.all([
+    sb.from('news')
+      .select('slug, title, lead, cover_url, published_at, news_categories(name, slug)')
+      .eq('status', 'published')
+      .order('is_pinned', { ascending: false })
+      .order('published_at', { ascending: false })
+      .limit(6),
+    sb.from('ads')
+      .select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
+      .eq('status', 'active')
+      .gt('expires_at', nowIso)
+      .order('bumped_at', { ascending: false })
+      .limit(8),
+    sb.from('events')
+      .select('id, title, place, starts_at')
+      .eq('status', 'published')
+      .gte('starts_at', nowIso)
+      .order('starts_at')
+      .limit(4)
+  ]);
+
+  const err = news.error || ads.error || events.error;
+  if (err) throw err;
+
+  return {
+    demo: false,
+    news: news.data.map(n => ({ ...n, category: n.news_categories?.name, catSlug: n.news_categories?.slug })),
+    ads: ads.data.map(a => {
+      const photos = (a.ad_photos || []).sort((x, y) => x.sort - y.sort);
+      return { ...a, photo: photos[0] ? photoUrl(photos[0].path) : null };
+    }),
+    events: events.data
+  };
+}
+
+/* ---------------- Отрисовка главной ---------------- */
+const EMERGENCY = [
+  ['112', 'Единая служба спасения'],
+  ['101', 'Пожарная охрана'],
+  ['102', 'Полиция'],
+  ['103', 'Скорая помощь'],
+  ['104', 'Аварийная газовая служба']
+];
+
+function newsBlock(list) {
+  if (!list.length) {
+    return '<p class="empty">Новостей пока нет. Первая появится, когда редакция её опубликует.</p>';
+  }
+  const [lead, ...rest] = list;
+  const catClass = n => 'cat' + (n.catSlug === 'proisshestviya' ? ' incident' : '');
+  let html = '<a class="lead-news" href="#/news/' + esc(lead.slug) + '">' +
+    (lead.cover_url ? '<img class="cover" src="' + esc(lead.cover_url) + '" alt="" loading="lazy">' : '') +
+    '<div class="meta">' + (lead.category ? '<span class="' + catClass(lead) + '">' + esc(lead.category) + '</span>, ' : '') +
+    fmtWhen(lead.published_at) + '</div>' +
+    '<h3>' + esc(lead.title) + '</h3>' +
+    (lead.lead ? '<p>' + esc(lead.lead) + '</p>' : '') + '</a>';
+  if (rest.length) {
+    html += '<ul class="news-list">' + rest.map(n =>
+      '<li><a href="#/news/' + esc(n.slug) + '">' + esc(n.title) + '</a>' +
+      '<div class="meta">' + (n.category ? '<span class="' + catClass(n) + '">' + esc(n.category) + '</span>, ' : '') +
+      fmtWhen(n.published_at) + '</div></li>'
+    ).join('') + '</ul>';
+  }
+  return html;
+}
+
+function adsBlock(list) {
+  if (!list.length) {
+    return '<p class="empty">Объявлений пока нет. <a href="#/ads/new">Подайте первое</a>.</p>';
+  }
+  return '<ul class="ads">' + list.map(adItem).join('') + '</ul>';
+}
+
+function eventsBlock(list) {
+  if (!list.length) {
+    return '<p class="empty">Ближайших событий нет. <a href="#/events">Предложите своё</a>.</p>';
+  }
+  return '<ul class="events">' + list.map(e => {
+    const d = new Date(e.starts_at);
+    return '<li><div class="day"><b>' + dayNumFmt.format(d) + '</b><span>' + monShort.format(d).replace('.', '') + '</span></div>' +
+      '<div><a href="#/events/' + e.id + '">' + esc(e.title) + '</a>' +
+      '<div class="meta">' + timeFmt.format(d) + (e.place ? ', ' + esc(e.place) : '') + '</div></div></li>';
+  }).join('') + '</ul>';
+}
+
+function phonesBlock() {
+  return '<ul class="phones">' + EMERGENCY.map(([num, name]) =>
+    '<li><span>' + name + '</span><a href="tel:' + num + '">' + num + '</a></li>'
+  ).join('') + '</ul>';
+}
+
+async function renderHome() {
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+  let data, error = null;
+  try {
+    data = await fetchHome();
+  } catch (e) {
+    console.error(e);
+    error = e;
+    data = { news: [], ads: [], events: [] };
+  }
+
+  app.innerHTML =
+    (data.demo ? '<div class="notice">Демо-режим: база не подключена, показаны примеры. Чтобы подключить, впишите адрес и ключ Supabase в CONFIG в начале скрипта.</div>' : '') +
+    (error ? '<div class="notice err">Не удалось загрузить данные с сервера. Проверьте интернет; из России Supabase сейчас открывается только через VPN.</div>' : '') +
+    '<div class="grid">' +
+      '<div>' +
+        '<section class="section"><div class="section-head"><h2>Новости</h2><a href="#/news">Все новости</a></div>' +
+          newsBlock(data.news) + '</section>' +
+      '</div>' +
+      '<aside>' +
+        '<section class="aside-block"><div class="section-head"><h2>Афиша</h2><a href="#/events">Все</a></div>' +
+          eventsBlock(data.events) + '</section>' +
+        '<section class="aside-block"><h2>Экстренные службы</h2>' + phonesBlock() + '</section>' +
+        '<section class="aside-block soon"><div><h2>Такси и доставка</h2><p>Заказ машины по Олёкминску</p></div><span>Скоро</span></section>' +
+      '</aside>' +
+    '</div>' +
+    '<section class="section"><div class="section-head"><h2>Свежие объявления</h2><a href="#/ads">Все</a></div>' +
+      adsBlock(data.ads) + '</section>';
+}
+
+/* ---------------- Заглушки разделов ---------------- */
+const STUBS = {
+  events:   ['Афиша', 'Календарь событий появится на шаге 5.'],
+  catalog:  ['Справочник', 'Организации Олёкминска с адресами и телефонами появятся на шаге 5.'],
+  privacy:  ['Политика конфиденциальности', 'Текст политики обработки персональных данных будет подготовлен перед запуском.'],
+  forbidden: ['Нет доступа', 'Этот раздел только для редакции сайта.']
+};
+
+function renderStub(key) {
+  const [title, text] = STUBS[key] || ['Страница не найдена', 'Такой страницы нет. Вернитесь на главную.'];
+  $('#app').innerHTML = '<div class="stub"><h1>' + esc(title) + '</h1><p>' + esc(text) + '</p>' +
+    '<a class="btn btn-brand" href="#/">На главную</a></div>';
+}
+
+/* ---------------- Вход, регистрация, профиль ---------------- */
+let session = null, profile = null, flashMsg = null;
+const BASE_URL = location.origin + location.pathname;
+const ROLE_NAMES = { admin: 'Администратор', moderator: 'Модератор' };
+
+function ruError(e) {
+  const m = String(e?.message || e || '');
+  if (e?.status === 429 || /rate limit|too many/i.test(m)) return 'Слишком много попыток. Подождите немного и попробуйте снова.';
+  if (/Invalid login credentials/i.test(m)) return 'Неверная почта или пароль.';
+  if (/Email not confirmed/i.test(m)) return 'Почта ещё не подтверждена. Откройте письмо со ссылкой, которое мы отправили при регистрации.';
+  if (/already registered|already been registered/i.test(m)) return 'Эта почта уже зарегистрирована. Войдите или восстановите пароль.';
+  if (/Password should be at least/i.test(m)) return 'Пароль слишком короткий.';
+  if (/should be different from the old/i.test(m)) return 'Новый пароль должен отличаться от старого.';
+  if (/Unable to validate email|invalid format|invalid email/i.test(m)) return 'Проверьте адрес почты.';
+  if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Нет связи с сервером. Проверьте интернет; из России Supabase сейчас открывается только через VPN.';
+  if (/duplicate key/i.test(m)) return 'Такая запись уже есть. Попробуйте ещё раз.';
+  if (/check constraint/i.test(m)) return 'Проверьте введённые данные.';
+  if (/row-level security|permission denied/i.test(m)) return 'Нет прав на это действие. Возможно, вы вышли из аккаунта или аккаунт заблокирован.';
+  if (/[А-Яа-яЁё]/.test(m)) return m; // сообщения из базы уже на русском
+  return 'Что-то пошло не так: ' + m;
+}
+
+const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+function setMsg(box, text, ok) {
+  box.innerHTML = text ? '<div class="msg ' + (ok ? 'ok' : 'err') + '" role="' + (ok ? 'status' : 'alert') + '">' + esc(text) + '</div>' : '';
+}
+
+function pwField(id, label, autocomplete, hint) {
+  return '<div class="field"><label for="' + id + '">' + label + '</label>' +
+    '<div class="pw"><input id="' + id + '" type="password" autocomplete="' + autocomplete + '">' +
+    '<button type="button" data-toggle="' + id + '">Показать</button></div>' +
+    (hint ? '<div class="hint">' + hint + '</div>' : '') + '</div>';
+}
+
+function bindPwToggles(root) {
+  root.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => {
+    const input = $('#' + b.dataset.toggle);
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    b.textContent = show ? 'Скрыть' : 'Показать';
+  }));
+}
+
+function avatarHtml(p, cls) {
+  if (p?.avatar_url) return '<img class="avatar ' + cls + '" src="' + esc(p.avatar_url) + '" alt="">';
+  const letter = (p?.display_name || '?').trim().charAt(0).toUpperCase();
+  return '<span class="avatar ' + cls + '" aria-hidden="true">' + esc(letter) + '</span>';
+}
+
+function renderNoDb(title) {
+  $('#app').innerHTML = '<div class="stub"><h1>' + esc(title) + '</h1><p>База пока не подключена, поэтому вход недоступен.</p></div>';
+}
+
+async function fetchProfile() {
+  if (!session) return null;
+  const { data, error } = await sb.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
+  if (error) { console.error(error); return null; }
+  return data;
+}
+
+function updateHeader() {
+  const link = $('#auth-link'), dlink = $('#drawer-auth');
+  if (session) {
+    const name = profile?.display_name || 'Профиль';
+    link.className = 'user-chip';
+    link.href = '#/profile';
+    link.innerHTML = avatarHtml(profile, '') + '<span>' + esc(name) + '</span>';
+    dlink.href = '#/profile';
+    dlink.textContent = name;
+    dlink.dataset.route = 'profile';
+    $('#drawer-my').hidden = false;
+    $('#nav-admin').hidden = $('#drawer-admin').hidden = !isStaff();
+  } else {
+    link.className = 'btn btn-ghost';
+    link.href = '#/login';
+    link.textContent = 'Войти';
+    dlink.href = '#/login';
+    dlink.textContent = 'Войти';
+    delete dlink.dataset.route;
+    $('#drawer-my').hidden = true;
+    $('#nav-admin').hidden = $('#drawer-admin').hidden = true;
+  }
+}
+
+/* ----- Вход ----- */
+function renderLogin(query) {
+  if (!sb) return renderNoDb('Вход');
+  const next = new URLSearchParams(query).get('next') || '';
+  if (session) { location.hash = '#/' + next; return; }
+  $('#app').innerHTML =
+    '<form class="form" id="f" novalidate>' +
+      '<h1>Вход</h1><p class="sub">Чтобы подавать объявления, комментировать и предлагать события.</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="email">Почта</label><input id="email" type="email" autocomplete="email" inputmode="email"></div>' +
+      pwField('password', 'Пароль', 'current-password') +
+      '<button class="btn btn-accent" type="submit">Войти</button>' +
+      '<div class="form-links"><a href="#/reset">Забыли пароль?</a><a href="#/register' + (next ? '?next=' + encodeURIComponent(next) : '') + '">Регистрация</a></div>' +
+    '</form>';
+  const f = $('#f'), msg = $('#msg'), btn = f.querySelector('button[type=submit]');
+  bindPwToggles(f);
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = $('#email').value.trim(), password = $('#password').value;
+    if (!isEmail(email)) return setMsg(msg, 'Проверьте адрес почты.');
+    if (!password) return setMsg(msg, 'Введите пароль.');
+    btn.disabled = true; btn.textContent = 'Входим…'; setMsg(msg, '');
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) { setMsg(msg, ruError(error)); btn.disabled = false; btn.textContent = 'Войти'; return; }
+    location.hash = '#/' + next;
+  });
+}
+
+/* ----- Регистрация ----- */
+function renderRegister(query) {
+  if (!sb) return renderNoDb('Регистрация');
+  if (session) { location.hash = '#/profile'; return; }
+  $('#app').innerHTML =
+    '<form class="form" id="f" novalidate>' +
+      '<h1>Регистрация</h1><p class="sub">Займёт минуту. Потом подтвердите почту по ссылке из письма.</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="name">Имя</label><input id="name" type="text" autocomplete="name" maxlength="40"><div class="hint">Так вас будут видеть другие. Например, «Айаал» или «Мария П.»</div></div>' +
+      '<div class="field"><label for="email">Почта</label><input id="email" type="email" autocomplete="email" inputmode="email"></div>' +
+      pwField('password', 'Пароль', 'new-password', 'Не меньше 8 символов') +
+      '<label class="check"><input type="checkbox" id="consent"><span>Согласен на обработку персональных данных по <a href="#/privacy">политике конфиденциальности</a></span></label>' +
+      '<button class="btn btn-accent" type="submit">Зарегистрироваться</button>' +
+      '<div class="form-links"><span>Уже есть аккаунт?</span><a href="#/login">Войти</a></div>' +
+    '</form>';
+  const f = $('#f'), msg = $('#msg'), btn = f.querySelector('button[type=submit]');
+  bindPwToggles(f);
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = $('#name').value.trim(), email = $('#email').value.trim(), password = $('#password').value;
+    if (name.length < 2) return setMsg(msg, 'Укажите имя: хотя бы 2 буквы.');
+    if (!isEmail(email)) return setMsg(msg, 'Проверьте адрес почты.');
+    if (password.length < 8) return setMsg(msg, 'Пароль должен быть не короче 8 символов.');
+    if (!$('#consent').checked) return setMsg(msg, 'Нужно согласие на обработку персональных данных.');
+    btn.disabled = true; btn.textContent = 'Регистрируем…'; setMsg(msg, '');
+    const { data, error } = await sb.auth.signUp({
+      email, password,
+      options: { data: { display_name: name }, emailRedirectTo: BASE_URL + '?confirmed=1' }
+    });
+    btn.disabled = false; btn.textContent = 'Зарегистрироваться';
+    if (error) return setMsg(msg, ruError(error));
+    // Supabase не выдаёт ошибку для уже занятой почты — признак: пустой список identities
+    if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+      return setMsg(msg, 'Эта почта уже зарегистрирована. Войдите или восстановите пароль.');
+    }
+    if (data.session) { location.hash = '#/profile'; return; }
+    $('#app').innerHTML =
+      '<div class="form"><h1>Проверьте почту</h1>' +
+      '<p class="sub">Мы отправили письмо на <b>' + esc(email) + '</b>. Откройте ссылку в письме, чтобы подтвердить почту, и затем войдите.</p>' +
+      '<p class="sub">Письма нет несколько минут? Загляните в папку «Спам».</p>' +
+      '<a class="btn btn-brand" href="#/login">Ко входу</a></div>';
+  });
+}
+
+/* ----- Забыли пароль ----- */
+function renderReset() {
+  if (!sb) return renderNoDb('Восстановление пароля');
+  $('#app').innerHTML =
+    '<form class="form" id="f" novalidate>' +
+      '<h1>Восстановление пароля</h1><p class="sub">Пришлём ссылку, по которой можно задать новый пароль. Откройте её на этом же устройстве и в этом же браузере.</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="email">Почта</label><input id="email" type="email" autocomplete="email" inputmode="email"></div>' +
+      '<button class="btn btn-accent" type="submit">Отправить ссылку</button>' +
+      '<div class="form-links"><a href="#/login">Вспомнили пароль? Войти</a></div>' +
+    '</form>';
+  const f = $('#f'), msg = $('#msg'), btn = f.querySelector('button[type=submit]');
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = $('#email').value.trim();
+    if (!isEmail(email)) return setMsg(msg, 'Проверьте адрес почты.');
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: BASE_URL + '?reset=1' });
+    btn.disabled = false; btn.textContent = 'Отправить ссылку';
+    if (error) return setMsg(msg, ruError(error));
+    setMsg(msg, 'Если эта почта зарегистрирована, письмо со ссылкой уже в пути. Проверьте и папку «Спам».', true);
+  });
+}
+
+/* ----- Новый пароль (после ссылки из письма) ----- */
+function renderNewPassword() {
+  if (!sb) return renderNoDb('Новый пароль');
+  if (!session) { location.hash = '#/reset'; return; }
+  $('#app').innerHTML =
+    '<form class="form" id="f" novalidate>' +
+      '<h1>Новый пароль</h1><p class="sub">Придумайте новый пароль для входа.</p>' +
+      '<div id="msg"></div>' +
+      pwField('password', 'Новый пароль', 'new-password', 'Не меньше 8 символов') +
+      '<button class="btn btn-accent" type="submit">Сохранить пароль</button>' +
+    '</form>';
+  const f = $('#f'), msg = $('#msg'), btn = f.querySelector('button[type=submit]');
+  bindPwToggles(f);
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const password = $('#password').value;
+    if (password.length < 8) return setMsg(msg, 'Пароль должен быть не короче 8 символов.');
+    btn.disabled = true; btn.textContent = 'Сохраняем…';
+    const { error } = await sb.auth.updateUser({ password });
+    btn.disabled = false; btn.textContent = 'Сохранить пароль';
+    if (error) return setMsg(msg, ruError(error));
+    flashMsg = { text: 'Пароль изменён.', ok: true };
+    location.hash = '#/profile';
+  });
+}
+
+/* ----- Профиль ----- */
+async function makeAvatar(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => {
+      const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url;
+    });
+    const size = 256, c = document.createElement('canvas');
+    c.width = c.height = size;
+    const side = Math.min(img.naturalWidth, img.naturalHeight);
+    c.getContext('2d').drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, size, size);
+    return await new Promise(res => c.toBlob(res, 'image/webp', 0.85));
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+async function renderProfile() {
+  if (!sb) return renderNoDb('Профиль');
+  if (!session) { location.hash = '#/login?next=profile'; return; }
+  $('#app').innerHTML = '<p class="loading">Загружаем профиль…</p>';
+  profile = await fetchProfile();
+  updateHeader();
+  if (!profile) {
+    $('#app').innerHTML = '<div class="notice err">Не удалось загрузить профиль. Обновите страницу.</div>';
+    return;
+  }
+  const created = new Date(profile.created_at);
+  $('#app').innerHTML =
+    '<div class="form">' +
+      '<h1>Профиль' + (ROLE_NAMES[profile.role] ? '<span class="badge">' + ROLE_NAMES[profile.role] + '</span>' : '') + '</h1>' +
+      '<p class="facts">' + esc(session.user.email) + ', на сайте с ' + dayMonFmt.format(created) + ' ' + created.getFullYear() + '</p>' +
+      '<p><a href="#/ads/my">Мои объявления →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
+      (profile.is_banned ? '<div class="msg err">Ваш аккаунт заблокирован модератором. Публиковать объявления и комментарии нельзя.</div>' : '') +
+      '<div id="msg"></div>' +
+      '<div class="avatar-row"><span id="ava">' + avatarHtml(profile, 'lg') + '</span>' +
+        '<div class="actions">' +
+          '<button class="btn btn-line" type="button" id="ava-pick">' + (profile.avatar_url ? 'Сменить фото' : 'Загрузить фото') + '</button>' +
+          (profile.avatar_url ? '<button class="btn btn-line" type="button" id="ava-del">Удалить фото</button>' : '') +
+          '<input type="file" id="ava-file" accept="image/*" hidden>' +
+        '</div></div>' +
+      '<form id="f-name" novalidate>' +
+        '<div class="field"><label for="name">Имя</label><input id="name" type="text" maxlength="40" value="' + esc(profile.display_name) + '"></div>' +
+        '<button class="btn btn-brand" type="submit">Сохранить имя</button>' +
+      '</form>' +
+      '<hr class="divider">' +
+      '<form id="f-pw" novalidate><h2>Сменить пароль</h2>' +
+        pwField('password', 'Новый пароль', 'new-password', 'Не меньше 8 символов') +
+        '<button class="btn btn-brand" type="submit">Сменить пароль</button>' +
+      '</form>' +
+      '<hr class="divider">' +
+      '<button class="btn btn-line" type="button" id="logout">Выйти</button>' +
+    '</div>';
+
+  const msg = $('#msg');
+  const uid = session.user.id;
+  bindPwToggles($('#app'));
+
+  // Имя
+  $('#f-name').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const name = $('#name').value.trim();
+    if (name.length < 2) return setMsg(msg, 'Имя должно быть хотя бы из 2 букв.');
+    btn.disabled = true;
+    const { error } = await sb.from('profiles').update({ display_name: name }).eq('id', uid);
+    btn.disabled = false;
+    if (error) return setMsg(msg, ruError(error));
+    profile.display_name = name;
+    updateHeader();
+    setMsg(msg, 'Имя сохранено.', true);
+  });
+
+  // Пароль
+  $('#f-pw').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    const password = $('#password').value;
+    if (password.length < 8) return setMsg(msg, 'Пароль должен быть не короче 8 символов.');
+    btn.disabled = true;
+    const { error } = await sb.auth.updateUser({ password });
+    btn.disabled = false;
+    if (error) return setMsg(msg, ruError(error));
+    $('#password').value = '';
+    setMsg(msg, 'Пароль изменён.', true);
+  });
+
+  // Фото
+  $('#ava-pick').addEventListener('click', () => $('#ava-file').click());
+  $('#ava-file').addEventListener('change', async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return setMsg(msg, 'Выберите картинку.');
+    const btn = $('#ava-pick');
+    btn.disabled = true; btn.textContent = 'Загружаем…';
+    try {
+      const blob = await makeAvatar(file);
+      const ext = blob.type === 'image/webp' ? 'webp' : 'png';
+      const path = uid + '/avatar.' + ext;
+      const up = await sb.storage.from('avatars').upload(path, blob, { upsert: true, contentType: blob.type, cacheControl: '3600' });
+      if (up.error) throw up.error;
+      const url = sb.storage.from('avatars').getPublicUrl(path).data.publicUrl + '?v=' + Date.now();
+      const { error } = await sb.from('profiles').update({ avatar_url: url }).eq('id', uid);
+      if (error) throw error;
+      flashMsg = { text: 'Фото обновлено.', ok: true };
+      renderProfile();
+    } catch (err) {
+      console.error(err);
+      setMsg(msg, err instanceof Event ? 'Не получилось открыть картинку. Попробуйте другое фото.' : ruError(err));
+      btn.disabled = false; btn.textContent = profile.avatar_url ? 'Сменить фото' : 'Загрузить фото';
+    }
+  });
+
+  const del = $('#ava-del');
+  if (del) del.addEventListener('click', async () => {
+    del.disabled = true;
+    await sb.storage.from('avatars').remove([uid + '/avatar.webp', uid + '/avatar.png']);
+    const { error } = await sb.from('profiles').update({ avatar_url: null }).eq('id', uid);
+    if (error) { del.disabled = false; return setMsg(msg, ruError(error)); }
+    flashMsg = { text: 'Фото удалено.', ok: true };
+    renderProfile();
+  });
+
+  // Выход
+  $('#logout').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    session = null; profile = null;
+    updateHeader();
+    location.hash = '#/';
+  });
+
+  if (flashMsg) showFlash();
+}
+
+let flashShownFor = null;
+function showFlash() {
+  const box = $('#flash');
+  if (flashMsg) {
+    setMsg(box, flashMsg.text, flashMsg.ok);
+    flashMsg = null;
+    flashShownFor = location.hash;
+  } else if (location.hash !== flashShownFor) {
+    box.innerHTML = '';
+    flashShownFor = null;
+  }
+}
+
+const PAGES = {
+  login: renderLogin,
+  register: renderRegister,
+  reset: renderReset,
+  'new-password': renderNewPassword,
+  profile: renderProfile,
+  ads: (query, parts) => routeAds(query, parts),
+  rabota: query => renderAdsList(query, 'rabota'),
+  news: routeNews,
+  admin: routeAdmin
+};
+
+/* ----- Ссылки из писем: ?confirmed=1, ?reset=1, ?error=... ----- */
+async function initAuth() {
+  if (!sb) return;
+  const params = new URLSearchParams(location.search);
+  const { data } = await sb.auth.getSession(); // здесь же обменивается ?code= из письма
+  session = data.session;
+  if (session) profile = await fetchProfile();
+
+  if (params.has('error') || params.has('error_description')) {
+    flashMsg = { text: 'Ссылка из письма не сработала: она устарела или уже использована. Запросите новую.', ok: false };
+  } else if (params.has('reset')) {
+    if (session) location.hash = '#/new-password';
+    else flashMsg = { text: 'Ссылку для сброса пароля нужно открыть на том же устройстве и в том же браузере, где вы её запрашивали.', ok: false };
+  } else if (params.has('confirmed')) {
+    flashMsg = session
+      ? { text: 'Почта подтверждена. Добро пожаловать!', ok: true }
+      : { text: 'Почта подтверждена. Теперь войдите с паролем.', ok: true };
+    if (!session) location.hash = '#/login';
+  }
+  if (params.toString()) history.replaceState(null, '', location.pathname + location.hash);
+
+  sb.auth.onAuthStateChange((event, s) => {
+    if (event === 'INITIAL_SESSION') return;
+    session = s;
+    // Запросы к базе — вне обработчика, так рекомендует Supabase
+    setTimeout(async () => {
+      profile = session ? await fetchProfile() : null;
+      updateHeader();
+    }, 0);
+  });
+}
+
+/* ---------------- Объявления ---------------- */
+const PAGE_SIZE = 20;
+const PLACES = ['Олёкминск', 'Олёкминский район'];
+let CATS = null;
+
+function plural(n, one, few, many) {
+  const a = Math.abs(n) % 100, b = a % 10;
+  if (a > 10 && a < 20) return many;
+  if (b > 1 && b < 5) return few;
+  if (b === 1) return one;
+  return many;
+}
+
+function requireLogin(next) {
+  if (session) return true;
+  location.hash = '#/login?next=' + encodeURIComponent(next);
+  return false;
+}
+
+async function loadCats() {
+  if (CATS) return CATS;
+  const { data, error } = await sb.from('ad_categories').select('id, parent_id, slug, name, sort').order('sort');
+  if (error) throw error;
+  const bySlug = {}, byId = {}, top = [];
+  data.forEach(c => { c.children = []; bySlug[c.slug] = c; byId[c.id] = c; });
+  data.forEach(c => { if (c.parent_id) byId[c.parent_id]?.children.push(c); else top.push(c); });
+  CATS = { top, bySlug, byId };
+  return CATS;
+}
+
+function mapAd(a) {
+  const photos = (a.ad_photos || []).slice().sort((x, y) => x.sort - y.sort);
+  return { ...a, photos, photo: photos[0] ? photoUrl(photos[0].path) : null };
+}
+
+function adItem(a) {
+  return '<li><a class="ad" href="#/ads/' + a.id + '">' +
+    (a.photo ? '<img class="thumb" src="' + esc(a.photo) + '" alt="" loading="lazy">'
+             : '<span class="thumb">' + ICON_PHOTO + '</span>') +
+    '<span><span class="ad-title">' + esc(a.title) + '</span>' +
+    fmtPrice(a.price, a.price_type) +
+    '<span class="meta" style="display:block">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span></span>' +
+  '</a></li>';
+}
+
+function qs(obj) {
+  const p = new URLSearchParams();
+  Object.entries(obj).forEach(([k, v]) => { if (v && !(k === 'sort' && v === 'new')) p.set(k, v); });
+  const s = p.toString();
+  return s ? '?' + s : '';
+}
+
+function catLabel(cats, id) {
+  const c = cats.byId[id];
+  if (!c) return '';
+  const parent = c.parent_id ? cats.byId[c.parent_id] : null;
+  return parent ? parent.name + ' → ' + c.name : c.name;
+}
+
+/* ----- Лента ----- */
+function buildAdsQuery(st, sel, from) {
+  let q = sb.from('ads')
+    .select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
+    .eq('status', 'active')
+    .gt('expires_at', new Date().toISOString());
+  if (sel) q = q.in('category_id', [sel.id, ...sel.children.map(c => c.id)]);
+  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
+  if (st.min !== '' && !isNaN(+st.min)) q = q.gte('price', +st.min);
+  if (st.max !== '' && !isNaN(+st.max)) q = q.lte('price', +st.max);
+  if (st.place) q = q.ilike('settlement', '%' + st.place.replace(/[%_\\]/g, m => '\\' + m) + '%');
+  if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
+  if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
+  return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
+}
+
+async function renderAdsList(query, base) {
+  if (!sb) return renderNoDb('Объявления');
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
+  let cats;
+  try { cats = await loadCats(); }
+  catch (e) { console.error(e); app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+
+  const p = new URLSearchParams(query);
+  const st = { cat: p.get('cat') || '', q: p.get('q') || '', min: p.get('min') || '', max: p.get('max') || '', place: p.get('place') || '', sort: p.get('sort') || 'new' };
+  const isJobs = base === 'rabota';
+  const jobs = cats.bySlug.rabota;
+  let sel = cats.bySlug[st.cat] || null;
+  if (isJobs && (!sel || (sel !== jobs && sel.parent_id !== jobs.id))) sel = jobs;
+  const top = sel ? (sel.parent_id ? cats.byId[sel.parent_id] : sel) : null;
+  const link = cat => '#/' + base + qs({ ...st, cat });
+
+  let chips = '';
+  if (!isJobs) {
+    chips += '<nav class="chips" aria-label="Разделы">' +
+      '<a class="chip' + (!top ? ' on' : '') + '" href="' + link('') + '">Все</a>' +
+      cats.top.map(c => '<a class="chip' + (top === c ? ' on' : '') + '" href="' + link(c.slug) + '">' + esc(c.name) + '</a>').join('') +
+      '</nav>';
+  }
+  if (top && top.children.length) {
+    chips += '<nav class="chips sub" aria-label="Подразделы">' +
+      '<a class="chip' + (sel === top ? ' on' : '') + '" href="' + link(isJobs ? '' : top.slug) + '">' + (isJobs ? 'Все' : 'Все в разделе') + '</a>' +
+      top.children.map(c => '<a class="chip' + (sel === c ? ' on' : '') + '" href="' + link(c.slug) + '">' + esc(c.name) + '</a>').join('') +
+      '</nav>';
+  }
+
+  const active = ['q', 'min', 'max', 'place'].filter(k => st[k]).length + (st.sort !== 'new' ? 1 : 0);
+  const title = isJobs ? 'Работа' : (sel ? sel.name : 'Объявления');
+  app.innerHTML =
+    '<div class="page-head"><h1>' + esc(title) + '</h1>' +
+      '<span>' + (session ? '<a href="#/ads/my">Мои объявления</a>' : '') + '</span></div>' +
+    chips +
+    '<details class="filters"' + (active ? ' open' : '') + '><summary>Фильтры' + (active ? ' (' + active + ')' : '') + '</summary>' +
+      '<form id="ff">' +
+        '<div class="field full"><label for="f-q">Что ищете</label><input id="f-q" type="search" value="' + esc(st.q) + '" placeholder="Например, лодка"></div>' +
+        '<div class="field"><label for="f-min">Цена от, ₽</label><input id="f-min" type="number" inputmode="numeric" min="0" value="' + esc(st.min) + '"></div>' +
+        '<div class="field"><label for="f-max">до, ₽</label><input id="f-max" type="number" inputmode="numeric" min="0" value="' + esc(st.max) + '"></div>' +
+        '<div class="field"><label for="f-place">Населённый пункт</label><input id="f-place" list="places" value="' + esc(st.place) + '"></div>' +
+        '<div class="field"><label for="f-sort">Сначала</label><select id="f-sort">' +
+          '<option value="new"' + (st.sort === 'new' ? ' selected' : '') + '>новые</option>' +
+          '<option value="cheap"' + (st.sort === 'cheap' ? ' selected' : '') + '>дешевле</option>' +
+          '<option value="dear"' + (st.sort === 'dear' ? ' selected' : '') + '>дороже</option>' +
+        '</select></div>' +
+        '<div class="row-btns full"><button class="btn btn-brand" type="submit">Показать</button>' +
+          (active ? '<a href="#/' + base + qs({ cat: st.cat }) + '">Сбросить</a>' : '') + '</div>' +
+      '</form></details>' +
+    '<datalist id="places">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>' +
+    '<ul class="ads" id="list"></ul><div id="list-state"></div>';
+
+  $('#ff').addEventListener('submit', e => {
+    e.preventDefault();
+    location.hash = '#/' + base + qs({
+      cat: st.cat, q: $('#f-q').value.trim(), min: $('#f-min').value.trim(),
+      max: $('#f-max').value.trim(), place: $('#f-place').value.trim(), sort: $('#f-sort').value
+    });
+  });
+
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: from => buildAdsQuery(st, sel, from),
+    renderItems: rows => rows.map(mapAd).map(adItem).join(''),
+    emptyHtml: active
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить фильтры.</p>'
+      : '<p class="empty">' + (isJobs ? 'Вакансий пока нет.' : 'Объявлений пока нет.') +
+        ' <a href="#/ads/new' + (sel ? '?cat=' + sel.slug : '') + '">' + (isJobs ? 'Разместите первую' : 'Подайте первое') + '</a>.</p>'
+  });
+}
+
+/* ----- Действия владельца ----- */
+function hoursUntilBump(ad) {
+  const left = new Date(ad.bumped_at).getTime() + 24 * 3600e3 - Date.now();
+  return left > 0 ? Math.ceil(left / 3600e3) : 0;
+}
+
+function ownerToolsHtml(ad) {
+  const expired = new Date(ad.expires_at) < new Date();
+  const wait = hoursUntilBump(ad);
+  let html = '<div class="owner-tools">';
+  if (ad.status !== 'blocked') {
+    html += '<a class="btn btn-line" href="#/ads/' + ad.id + '/edit">Изменить</a>';
+    if (ad.status === 'active') {
+      html += wait
+        ? '<button class="btn btn-line" disabled>Поднять через ' + wait + ' ч</button>'
+        : '<button class="btn btn-accent" data-act="bump">' + (expired ? 'Продлить' : 'Поднять') + '</button>';
+      html += '<button class="btn btn-line" data-act="close">Снять с публикации</button>';
+    } else {
+      html += '<button class="btn btn-accent" data-act="open">Вернуть в публикацию</button>';
+    }
+  }
+  html += '<button class="btn btn-danger" data-act="delete">Удалить</button></div>';
+  return html;
+}
+
+async function deleteAd(ad) {
+  const paths = (ad.ad_photos || ad.photos || []).map(p => p.path);
+  if (paths.length) await sb.storage.from('ads').remove(paths);
+  const { error } = await sb.from('ads').delete().eq('id', ad.id);
+  if (error) throw error;
+}
+
+function bindOwnerTools(root, ad, msgBox, onChange) {
+  root.querySelectorAll('[data-act]').forEach(btn => btn.addEventListener('click', async () => {
+    const act = btn.dataset.act;
+    if (act === 'delete' && !confirm('Удалить объявление «' + ad.title + '»? Вернуть его будет нельзя.')) return;
+    btn.disabled = true;
+    try {
+      if (act === 'bump') {
+        const { error } = await sb.rpc('bump_ad', { p_ad_id: ad.id });
+        if (error) throw error;
+        flashMsg = { text: 'Объявление поднято наверх и продлено на 30 дней.', ok: true };
+      } else if (act === 'close' || act === 'open') {
+        const { error } = await sb.from('ads').update({ status: act === 'close' ? 'closed' : 'active' }).eq('id', ad.id);
+        if (error) throw error;
+        flashMsg = { text: act === 'close' ? 'Объявление снято с публикации.' : 'Объявление снова опубликовано.', ok: true };
+      } else if (act === 'delete') {
+        await deleteAd(ad);
+        flashMsg = { text: 'Объявление удалено.', ok: true };
+      }
+      onChange(act);
+    } catch (e) {
+      console.error(e);
+      btn.disabled = false;
+      setMsg(msgBox, ruError(e));
+    }
+  }));
+}
+
+/* ----- Карточка объявления ----- */
+async function renderAdView(id) {
+  if (!sb) return renderNoDb('Объявление');
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем объявление…</p>';
+  const [cats, res] = await Promise.all([
+    loadCats().catch(() => null),
+    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)')
+      .eq('id', id).maybeSingle()
+  ]);
+  if (res.error) { app.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
+  if (!res.data) {
+    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/ads">Все объявления</a></div>';
+    return;
+  }
+  const ad = mapAd(res.data);
+  const isOwner = session && session.user.id === ad.author_id;
+  const isStaff = ['admin', 'moderator'].includes(profile?.role);
+  const expired = new Date(ad.expires_at) < new Date();
+
+  if (!isOwner) {
+    const key = 'olk_seen_' + ad.id;
+    let seen = false;
+    try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
+    if (!seen) sb.rpc('increment_ad_views', { p_id: ad.id }).then(() => {}, () => {});
+  }
+
+  let notice = '';
+  if (ad.status === 'blocked') notice = '<div class="msg err">Объявление заблокировано модератором и не видно другим.</div>';
+  else if (ad.status === 'closed') notice = '<div class="msg err">Объявление снято с публикации и не видно другим.</div>';
+  else if (expired) notice = '<div class="msg err">Срок публикации истёк, объявление не видно другим. Продлите его, чтобы вернуть в ленту.</div>';
+
+  const cat = cats?.byId[ad.category_id];
+  const parent = cat?.parent_id ? cats.byId[cat.parent_id] : null;
+  const crumbs = '<div class="crumbs"><a href="#/ads">Объявления</a>' +
+    (parent ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
+    (cat ? ' → <a href="#/ads?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+
+  const gallery = ad.photos.length
+    ? '<div class="gallery-wrap"><div class="gallery" id="gal">' +
+        ad.photos.map((ph, i) => '<img src="' + esc(photoUrl(ph.path)) + '" alt="Фото ' + (i + 1) + '"' + (i ? ' loading="lazy"' : '') + '>').join('') +
+      '</div>' + (ad.photos.length > 1 ? '<span class="gallery-count" id="gal-n">1 / ' + ad.photos.length + '</span>' : '') + '</div>'
+    : '';
+
+  const seller = ad.profiles || {};
+  const phoneDigits = (ad.contact_phone || '').replace(/[^\d+]/g, '');
+
+  app.innerHTML =
+    crumbs + notice + '<div id="msg"></div>' +
+    '<div class="ad-view">' +
+      '<div>' +
+        '<h1>' + esc(ad.title) + '</h1>' +
+        gallery +
+        (ad.description ? '<p class="ad-desc">' + esc(ad.description) + '</p>' : '') +
+        '<p class="meta">' + esc(ad.settlement) + ', поднято ' + fmtWhen(ad.bumped_at) + ', ' +
+          ad.views + ' ' + plural(ad.views, 'просмотр', 'просмотра', 'просмотров') + '</p>' +
+      '</div>' +
+      '<aside class="ad-side aside-block">' +
+        fmtPrice(ad.price, ad.price_type) +
+        (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
+        '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
+          '<div class="meta">на olk.ru</div></div></div>' +
+        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad) + '</div>' : '') +
+      '</aside>' +
+    '</div>';
+
+  const gal = $('#gal'), galN = $('#gal-n');
+  if (gal && galN) gal.addEventListener('scroll', () => {
+    galN.textContent = (Math.round(gal.scrollLeft / gal.clientWidth) + 1) + ' / ' + ad.photos.length;
+  }, { passive: true });
+
+  const sp = $('#show-phone');
+  if (sp) sp.addEventListener('click', () => {
+    $('#phone').innerHTML = '<a class="btn btn-accent" href="tel:' + esc(phoneDigits) + '">' + esc(ad.contact_phone) + '</a>';
+  });
+
+  const tools = $('#tools');
+  if (tools) bindOwnerTools(tools, ad, $('#msg'), act => {
+    if (act === 'delete') location.hash = '#/ads/my';
+    else renderAdView(id).then(showFlash);
+  });
+}
+
+/* ----- Мои объявления ----- */
+async function renderMyAds() {
+  if (!sb) return renderNoDb('Мои объявления');
+  if (!requireLogin('ads/my')) return;
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем ваши объявления…</p>';
+  const { data, error } = await sb.from('ads')
+    .select('id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
+    .eq('author_id', session.user.id)
+    .order('created_at', { ascending: false });
+  if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
+
+  const ads = data.map(mapAd);
+  const statusOf = a => a.status === 'blocked' ? ['blocked', 'Заблокировано']
+    : a.status === 'closed' ? ['', 'Снято']
+    : new Date(a.expires_at) < new Date() ? ['', 'Срок истёк'] : ['active', 'Активно'];
+
+  app.innerHTML =
+    '<div class="page-head"><h1>Мои объявления</h1><a href="#/ads/new">Подать новое</a></div>' +
+    '<div id="msg"></div>' +
+    (ads.length ? '<ul class="my-list">' + ads.map(a => {
+      const [cls, label] = statusOf(a);
+      return '<li data-id="' + a.id + '">' +
+        adItem(a).replace(/^<li>|<\/li>$/g, '') +
+        '<div class="meta"><span class="status ' + cls + '">' + label + '</span>' + a.views + ' ' + plural(a.views, 'просмотр', 'просмотра', 'просмотров') + '</div>' +
+        ownerToolsHtml(a) + '</li>';
+    }).join('') + '</ul>'
+    : '<p class="empty">У вас пока нет объявлений. <a href="#/ads/new">Подайте первое</a>.</p>');
+
+  app.querySelectorAll('.my-list > li').forEach(li => {
+    const ad = ads.find(a => a.id === +li.dataset.id);
+    bindOwnerTools(li, ad, $('#msg'), () => renderMyAds().then(showFlash));
+  });
+}
+
+/* ----- Форма подачи и редактирования ----- */
+async function loadImg(url) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+}
+
+async function compressPhoto(file, maxSide = 1600) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await loadImg(url);
+    const k = Math.min(1, maxSide / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * k);
+    c.height = Math.round(img.naturalHeight * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    let blob = await new Promise(r => c.toBlob(r, 'image/webp', 0.82));
+    if (!blob || blob.type !== 'image/webp') blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+    return blob;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+async function renderAdForm(query, editId) {
+  if (!sb) return renderNoDb('Подать объявление');
+  if (!requireLogin(editId ? 'ads/' + editId + '/edit' : 'ads/new')) return;
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+
+  let cats, ad = null;
+  try {
+    cats = await loadCats();
+    if (editId) {
+      const { data, error } = await sb.from('ads')
+        .select('id, author_id, category_id, title, description, price, price_type, settlement, contact_phone, status, ad_photos(id, path, sort)')
+        .eq('id', editId).maybeSingle();
+      if (error) throw error;
+      ad = data ? mapAd(data) : null;
+      if (!ad) { app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, оно удалено.</p></div>'; return; }
+    }
+  } catch (e) {
+    app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+
+  // Предвыбор раздела: из объявления или из ссылки (?cat=rabota)
+  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[new URLSearchParams(query).get('cat')];
+  let preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
+  let preSub = pre && pre.parent_id ? pre : null;
+
+  let savedPhone = '';
+  try { savedPhone = localStorage.getItem('olk_phone') || ''; } catch {}
+
+  const pt = ad ? ad.price_type : 'fixed';
+  const priceTypes = [['fixed', 'Цена'], ['negotiable', 'Договорная'], ['free', 'Даром'], ['exchange', 'Обмен']];
+
+  app.innerHTML =
+    '<form class="form wide" id="af" novalidate>' +
+      '<h1>' + (ad ? 'Изменить объявление' : 'Подать объявление') + '</h1>' +
+      '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
+        cats.top.map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
+      '</select></div>' +
+      '<div class="field" id="sub-wrap" hidden><label for="a-sub">Подраздел</label><select id="a-sub"></select></div>' +
+      '<div class="field"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="Например, лодка «Казанка-5М» с мотором"></div>' +
+      '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="Состояние, размеры, что входит в комплект">' + esc(ad?.description || '') + '</textarea>' +
+        '<div class="hint"><span id="a-count">0</span> из 5000</div></div>' +
+      '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Цена</span><div class="seg" role="radiogroup">' +
+        priceTypes.map(([v, l]) => '<label><input type="radio" name="pt" value="' + v + '"' + (pt === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+      '</div></div>' +
+      '<div class="field" id="price-wrap"><label for="a-price">Сумма, ₽</label><input id="a-price" type="number" inputmode="numeric" min="0" step="1" value="' + (ad?.price ?? '') + '"></div>' +
+      '<div class="field"><label for="a-place">Населённый пункт</label><input id="a-place" list="places" value="' + esc(ad?.settlement || 'Олёкминск') + '"><div class="hint">Город или наслег</div></div>' +
+      '<div class="field"><label for="a-phone">Телефон для связи</label><input id="a-phone" type="tel" autocomplete="tel" inputmode="tel" value="' + esc(ad?.contact_phone || savedPhone) + '" placeholder="+7 914 000-00-00"></div>' +
+      '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Фото <span class="meta">до 10 штук, первое будет главным</span></span>' +
+        '<div class="photos" id="photos"></div><input type="file" id="a-files" accept="image/*" multiple hidden></div>' +
+      '<div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input id="a-website" tabindex="-1" autocomplete="off"></label></div>' +
+      '<button class="btn btn-accent" type="submit" id="a-submit">' + (ad ? 'Сохранить' : 'Опубликовать') + '</button>' +
+      (ad ? '<div class="form-links"><a href="#/ads/' + ad.id + '">Отменить</a></div>' : '') +
+    '</form>' +
+    '<datalist id="places">' + PLACES.map(x => '<option value="' + x + '">').join('') + '</datalist>';
+
+  const msg = $('#msg');
+  const topSel = $('#a-top'), subSel = $('#a-sub'), subWrap = $('#sub-wrap');
+  function fillSub() {
+    const t = cats.byId[+topSel.value];
+    if (t && t.children.length) {
+      subSel.innerHTML = '<option value="">Выберите подраздел</option>' +
+        t.children.map(c => '<option value="' + c.id + '"' + (preSub === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('');
+      subWrap.hidden = false;
+    } else {
+      subSel.innerHTML = '';
+      subWrap.hidden = true;
+    }
+  }
+  topSel.addEventListener('change', () => { preSub = null; fillSub(); });
+  fillSub();
+
+  const desc = $('#a-desc'), count = $('#a-count');
+  const updCount = () => { count.textContent = desc.value.length; };
+  desc.addEventListener('input', updCount); updCount();
+
+  const priceWrap = $('#price-wrap');
+  const updPrice = () => {
+    const v = app.querySelector('input[name=pt]:checked').value;
+    priceWrap.hidden = v === 'free' || v === 'exchange';
+    $('#a-price').previousElementSibling.textContent = v === 'negotiable' ? 'Сумма, ₽ (необязательно)' : 'Сумма, ₽';
+  };
+  app.querySelectorAll('input[name=pt]').forEach(r => r.addEventListener('change', updPrice));
+  updPrice();
+
+  // Фото: старые (из базы) и новые (сжатые в браузере)
+  const items = (ad?.photos || []).map(p => ({ kind: 'old', id: p.id, path: p.path, sort: p.sort, url: photoUrl(p.path) }));
+  const removed = [];
+  const photosBox = $('#photos'), filesInput = $('#a-files');
+  let processing = 0;
+
+  function drawPhotos() {
+    photosBox.innerHTML = items.map((it, i) =>
+      '<div class="ph"><img src="' + esc(it.url) + '" alt="">' +
+      '<button type="button" class="x" data-i="' + i + '" aria-label="Убрать фото">×</button>' +
+      (i === 0 ? '<span class="tag">Главное</span>' : '') + '</div>'
+    ).join('') +
+    (processing ? '<div class="ph-add">Обрабатываем ' + processing + '…</div>' : '') +
+    (items.length + processing < 10 ? '<label class="ph-add" for="a-files"><b>+</b>Добавить фото</label>' : '');
+    photosBox.querySelectorAll('.x').forEach(b => b.addEventListener('click', () => {
+      const [it] = items.splice(+b.dataset.i, 1);
+      if (it.kind === 'old') removed.push(it); else URL.revokeObjectURL(it.url);
+      drawPhotos();
+    }));
+  }
+  drawPhotos();
+
+  filesInput.addEventListener('change', async () => {
+    const files = [...filesInput.files].filter(f => f.type.startsWith('image/')).slice(0, 10 - items.length);
+    filesInput.value = '';
+    processing += files.length; drawPhotos();
+    for (const f of files) {
+      try {
+        const blob = await compressPhoto(f);
+        items.push({ kind: 'new', blob, url: URL.createObjectURL(blob) });
+      } catch (e) {
+        console.error(e);
+        setMsg(msg, 'Одно из фото не получилось открыть. Попробуйте другое.');
+      }
+      processing--; drawPhotos();
+    }
+  });
+
+  $('#af').addEventListener('submit', async e => {
+    e.preventDefault();
+    if ($('#a-website').value) return; // бот заполнил скрытое поле
+    const top = cats.byId[+topSel.value];
+    const catId = top && top.children.length ? +subSel.value : top?.id;
+    const title = $('#a-title').value.trim();
+    const description = desc.value.trim();
+    const price_type = app.querySelector('input[name=pt]:checked').value;
+    const priceRaw = $('#a-price').value.trim();
+    const settlement = $('#a-place').value.trim();
+    const contact_phone = $('#a-phone').value.trim();
+    const digits = contact_phone.replace(/\D/g, '');
+
+    if (!top) return setMsg(msg, 'Выберите раздел.');
+    if (!catId) return setMsg(msg, 'Выберите подраздел.');
+    if (title.length < 3) return setMsg(msg, 'Напишите заголовок: хотя бы 3 символа.');
+    if (price_type === 'fixed' && priceRaw === '') return setMsg(msg, 'Укажите цену или выберите «Договорная».');
+    if (priceRaw !== '' && (isNaN(+priceRaw) || +priceRaw < 0)) return setMsg(msg, 'Цена должна быть числом.');
+    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
+    if (digits.length < 10 || digits.length > 12) return setMsg(msg, 'Проверьте номер телефона: нужно 10–11 цифр.');
+    if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
+
+    const price = (price_type === 'free' || price_type === 'exchange' || priceRaw === '') ? null : Math.round(+priceRaw);
+    const fields = { category_id: catId, title, description, price, price_type, settlement, contact_phone };
+    const btn = $('#a-submit');
+    btn.disabled = true; btn.textContent = ad ? 'Сохраняем…' : 'Публикуем…';
+    setMsg(msg, '');
+    try { localStorage.setItem('olk_phone', contact_phone); } catch {}
+
+    try {
+      let adId;
+      if (ad) {
+        const { error } = await sb.from('ads').update(fields).eq('id', ad.id);
+        if (error) throw error;
+        adId = ad.id;
+        if (removed.length) {
+          await sb.storage.from('ads').remove(removed.map(r => r.path));
+          const { error: e2 } = await sb.from('ad_photos').delete().in('id', removed.map(r => r.id));
+          if (e2) throw e2;
+        }
+      } else {
+        const { data, error } = await sb.from('ads').insert({ ...fields, author_id: session.user.id }).select('id').single();
+        if (error) throw error;
+        adId = data.id;
+      }
+
+      // Порядок фото: как на экране. Старые — обновляем позицию, новые — загружаем.
+      let failed = 0;
+      const rows = [];
+      for (let i = 0; i < items.length; i++) {
+        const it = items[i];
+        if (it.kind === 'old') {
+          if (it.sort !== i) await sb.from('ad_photos').update({ sort: i }).eq('id', it.id);
+          continue;
+        }
+        const ext = it.blob.type === 'image/webp' ? 'webp' : 'jpg';
+        const path = session.user.id + '/' + adId + '/' + Date.now() + '-' + i + '.' + ext;
+        btn.textContent = 'Загружаем фото ' + (i + 1) + ' из ' + items.length + '…';
+        const up = await sb.storage.from('ads').upload(path, it.blob, { contentType: it.blob.type, cacheControl: '31536000' });
+        if (up.error) { console.error(up.error); failed++; continue; }
+        rows.push({ ad_id: adId, path, sort: i });
+      }
+      if (rows.length) {
+        const { error } = await sb.from('ad_photos').insert(rows);
+        if (error) { console.error(error); failed += rows.length; }
+      }
+
+      flashMsg = failed
+        ? { text: 'Объявление сохранено, но ' + failed + ' ' + plural(failed, 'фото', 'фото', 'фото') + ' не загрузилось. Добавьте его ещё раз через «Изменить».', ok: false }
+        : { text: ad ? 'Изменения сохранены.' : 'Объявление опубликовано.', ok: true };
+      items.forEach(it => it.kind === 'new' && URL.revokeObjectURL(it.url));
+      location.hash = '#/ads/' + adId;
+    } catch (err) {
+      console.error(err);
+      setMsg(msg, ruError(err));
+      btn.disabled = false; btn.textContent = ad ? 'Сохранить' : 'Опубликовать';
+    }
+  });
+}
+
+function routeAds(query, parts) {
+  if (!parts.length) return renderAdsList(query, 'ads');
+  if (parts[0] === 'new') return renderAdForm(query, null);
+  if (parts[0] === 'my') return renderMyAds();
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0]) : renderAdView(+parts[0]);
+  renderStub('404');
+}
+
+/* ---------------- Лента с автоподгрузкой ---------------- */
+let routeSeq = 0, stopFeed = () => {};
+
+// Подгружает следующую страницу, когда низ ленты подходит к экрану.
+// fetchPage(from, size) → { data, error }; renderItems(rows) → HTML элементов списка.
+function startFeed({ listEl, stateEl, fetchPage, renderItems, emptyHtml, size = PAGE_SIZE }) {
+  stopFeed();
+  const seq = routeSeq;
+  let from = 0, busy = false, done = false, io = null;
+  const sentinel = document.createElement('div');
+  sentinel.className = 'sentinel';
+  stateEl.after(sentinel);
+  const alive = () => seq === routeSeq && listEl.isConnected;
+  const stop = () => { if (io) io.disconnect(); io = null; sentinel.remove(); };
+  stopFeed = stop;
+
+  async function next() {
+    if (busy || done || !alive()) return;
+    busy = true;
+    stateEl.innerHTML = '<p class="loading">Загружаем…</p>';
+    let res;
+    try { res = await fetchPage(from, size); } catch (e) { res = { error: e }; }
+    busy = false;
+    if (!alive()) return;
+    if (res.error) {
+      console.error(res.error);
+      stateEl.innerHTML = '<div class="feed-err"><span>Не загрузилось.</span><button class="btn btn-line" type="button">Повторить</button></div>';
+      stateEl.querySelector('button').addEventListener('click', next);
+      return;
+    }
+    const rows = res.data || [];
+    if (rows.length) listEl.insertAdjacentHTML('beforeend', renderItems(rows));
+    from += rows.length;
+    if (rows.length < size) {
+      done = true;
+      stop();
+      stateEl.innerHTML = from ? '' : emptyHtml;
+      return;
+    }
+    if (io) {
+      stateEl.innerHTML = '';
+      io.unobserve(sentinel);
+      io.observe(sentinel); // проверить снова: вдруг низ ленты всё ещё на экране
+    } else {
+      stateEl.innerHTML = '<button class="btn btn-line more" type="button">Показать ещё</button>';
+      stateEl.querySelector('button').addEventListener('click', next);
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) next();
+    }, { rootMargin: '0px 0px 800px 0px' });
+  }
+  next();
+}
+
+/* ---------------- Новости ---------------- */
+let NEWS_CATS = null;
+const NEWS_LIST_FIELDS = 'id, slug, title, lead, cover_url, published_at, is_pinned, views, news_categories(name, slug), comments(count)';
+const NEWS_STATUS = { draft: 'Черновик', published: 'Опубликовано', hidden: 'Скрыто' };
+const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M8 3h8l-1 7 3 3v2H6v-2l3-3z"/></svg>';
+
+function isStaff() {
+  return !!profile && (profile.role === 'admin' || profile.role === 'moderator') && !profile.is_banned;
+}
+
+async function loadNewsCats() {
+  if (NEWS_CATS) return NEWS_CATS;
+  const { data, error } = await sb.from('news_categories').select('id, slug, name, sort').order('sort');
+  if (error) throw error;
+  NEWS_CATS = data;
+  return data;
+}
+
+function mapNews(n) {
+  return { ...n, category: n.news_categories?.name, catSlug: n.news_categories?.slug, ncomm: n.comments?.[0]?.count || 0 };
+}
+
+// «30 сентября 2026, 14:30» по времени Олёкминска
+function fullDate(iso) {
+  const d = new Date(iso);
+  return dayMonFmt.format(d) + ' ' + dayKeyFmt.format(d).slice(0, 4) + ', ' + timeFmt.format(d);
+}
+
+function catSpan(n) {
+  return n.category ? '<span class="cat' + (n.catSlug === 'proisshestviya' ? ' incident' : '') + '">' + esc(n.category) + '</span>, ' : '';
+}
+
+function newsRow(n, showPin) {
+  return '<li><a class="nrow" href="#/news/' + esc(n.slug) + '"><span class="nrow-text">' +
+    '<span class="meta">' + (showPin && n.is_pinned ? '<span class="pin">' + ICON_PIN + 'Закреплено</span>, ' : '') +
+      catSpan(n) + fmtWhen(n.published_at) +
+      (n.ncomm ? ', ' + n.ncomm + ' ' + plural(n.ncomm, 'комментарий', 'комментария', 'комментариев') : '') + '</span>' +
+    '<span class="nrow-title">' + esc(n.title) + '</span>' +
+    (n.lead ? '<span class="nrow-lead">' + esc(n.lead) + '</span>' : '') +
+    '</span>' +
+    (n.cover_url ? '<img class="nrow-img" src="' + esc(n.cover_url) + '" alt="" loading="lazy">' : '') +
+  '</a></li>';
+}
+
+/* ----- Оформление текста без сырого HTML ----- */
+// ## подзаголовок, **жирный**, «- » пункт списка, [текст](https://адрес)
+function inlineMd(s) { // s уже экранирована
+  return s
+    .replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener nofollow ugc">$1</a>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+function renderBody(src) {
+  const lines = esc(src).replace(/\r/g, '').split('\n');
+  let html = '', para = [], list = [];
+  const flushP = () => { if (para.length) { html += '<p>' + para.map(inlineMd).join('<br>') + '</p>'; para = []; } };
+  const flushL = () => { if (list.length) { html += '<ul>' + list.map(x => '<li>' + inlineMd(x) + '</li>').join('') + '</ul>'; list = []; } };
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    let m;
+    if (!line.trim()) { flushP(); flushL(); }
+    else if ((m = line.match(/^##\s+(.+)/))) { flushP(); flushL(); html += '<h2>' + inlineMd(m[1]) + '</h2>'; }
+    else if ((m = line.match(/^\s*[-•]\s+(.+)/))) { flushP(); list.push(m[1]); }
+    else { flushL(); para.push(line); }
+  }
+  flushP(); flushL();
+  return html;
+}
+
+function articleHtml(n) {
+  return '<h1>' + esc(n.title || 'Без заголовка') + '</h1>' +
+    '<div class="meta art-meta">' + (n.published_at ? fullDate(n.published_at) : 'Не опубликовано') +
+      (n.views != null ? ', ' + n.views + ' ' + plural(n.views, 'просмотр', 'просмотра', 'просмотров') : '') + '</div>' +
+    (n.cover_url ? '<img class="art-cover" src="' + esc(n.cover_url) + '" alt="">' : '') +
+    (n.lead ? '<p class="art-lead">' + esc(n.lead) + '</p>' : '') +
+    '<div class="art-body">' + renderBody(n.body || '') + '</div>';
+}
+
+async function shareLink(title, url, btn) {
+  if (navigator.share) {
+    try { await navigator.share({ title, url }); } catch (e) { /* отменили — ничего не делаем */ }
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    btn.textContent = 'Ссылка скопирована';
+    setTimeout(() => { btn.textContent = 'Поделиться'; }, 2500);
+  } catch {
+    prompt('Скопируйте ссылку:', url);
+  }
+}
+
+/* ----- Лента новостей ----- */
+async function renderNewsList(query) {
+  if (!sb) return renderNoDb('Новости');
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем новости…</p>';
+  let cats;
+  try { cats = await loadNewsCats(); }
+  catch (e) { console.error(e); app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+
+  const slug = new URLSearchParams(query).get('cat') || '';
+  const cat = cats.find(c => c.slug === slug) || null;
+  app.innerHTML =
+    '<div class="page-head"><h1>' + esc(cat ? cat.name : 'Новости') + '</h1>' +
+      (isStaff() ? '<a href="#/admin/news/new">Написать новость</a>' : '') + '</div>' +
+    '<nav class="chips" aria-label="Рубрики">' +
+      '<a class="chip' + (!cat ? ' on' : '') + '" href="#/news">Все</a>' +
+      cats.map(c => '<a class="chip' + (cat === c ? ' on' : '') + '" href="#/news?cat=' + esc(c.slug) + '">' + esc(c.name) + '</a>').join('') +
+    '</nav>' +
+    '<ul class="nfeed" id="list"></ul><div id="list-state"></div>';
+
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => {
+      let q = sb.from('news').select(NEWS_LIST_FIELDS).eq('status', 'published');
+      q = cat ? q.eq('category_id', cat.id) : q.order('is_pinned', { ascending: false });
+      return q.order('published_at', { ascending: false }).order('id', { ascending: false }).range(from, from + size - 1);
+    },
+    renderItems: rows => rows.map(mapNews).map(n => newsRow(n, !cat)).join(''),
+    emptyHtml: '<p class="empty">' + (cat ? 'В этой рубрике пока нет новостей.' : 'Новостей пока нет.') + '</p>'
+  });
+}
+
+/* ----- Страница новости ----- */
+async function renderNewsView(slug) {
+  if (!sb) return renderNoDb('Новость');
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем новость…</p>';
+  const { data: n, error } = await sb.from('news')
+    .select('id, slug, title, lead, body, cover_url, status, published_at, views, news_categories(name, slug)')
+    .eq('slug', slug).maybeSingle();
+  if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
+  if (!n) {
+    app.innerHTML = '<div class="stub"><h1>Новость не найдена</h1><p>Возможно, её сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/news">Все новости</a></div>';
+    return;
+  }
+  const staff = isStaff();
+  if (n.status === 'published' && !staff) {
+    const key = 'olk_seen_n' + n.id;
+    let seen = false;
+    try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
+    if (!seen) { n.views++; sb.rpc('increment_news_views', { p_id: n.id }).then(() => {}, () => {}); }
+  }
+  document.title = n.title + ' — olk.ru';
+
+  const cat = n.news_categories;
+  const notice = n.status === 'draft' ? '<div class="msg err">Черновик: читатели его не видят.</div>'
+    : n.status === 'hidden' ? '<div class="msg err">Новость скрыта: читатели её не видят.</div>' : '';
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/news">Новости</a>' +
+      (cat ? ' → <a href="#/news?cat=' + esc(cat.slug) + '">' + esc(cat.name) + '</a>' : '') + '</div>' +
+    notice +
+    '<article class="article">' + articleHtml(n) +
+      '<div class="art-actions"><button class="btn btn-line" type="button" id="share">Поделиться</button>' +
+        (staff ? '<a class="btn btn-line" href="#/admin/news/' + n.id + '">Изменить</a>' : '') + '</div>' +
+    '</article>' +
+    (n.status === 'published' ? '<section class="comments" id="comments"></section>' : '');
+
+  $('#share').addEventListener('click', e => shareLink(n.title, BASE_URL + '#/news/' + n.slug, e.currentTarget));
+  if (n.status === 'published') loadComments($('#comments'), n);
+}
+
+/* ----- Комментарии ----- */
+async function loadComments(box, n) {
+  const seq = routeSeq;
+  if (!box.innerHTML) box.innerHTML = '<h2>Комментарии</h2><p class="loading">Загружаем…</p>';
+  const { data, error } = await sb.from('comments')
+    .select('id, author_id, body, is_hidden, created_at, profiles(display_name, avatar_url)')
+    .eq('news_id', n.id).order('created_at').order('id').limit(500);
+  if (seq !== routeSeq || !box.isConnected) return;
+  if (error) {
+    console.error(error);
+    box.innerHTML = '<h2>Комментарии</h2><div class="feed-err"><span>Не загрузилось.</span><button class="btn btn-line" type="button">Повторить</button></div>';
+    box.querySelector('button').addEventListener('click', () => loadComments(box, n));
+    return;
+  }
+
+  const me = session?.user.id, staff = isStaff();
+  const shown = data.filter(c => !c.is_hidden).length;
+  const items = data.map(c => {
+    const p = c.profiles || {};
+    const tools = (c.author_id === me ? '<button class="linkbtn danger" type="button" data-del="' + c.id + '">Удалить</button>' : '') +
+      (staff ? '<button class="linkbtn" type="button" data-hide="' + c.id + '" data-v="' + (c.is_hidden ? '' : '1') + '">' + (c.is_hidden ? 'Вернуть' : 'Скрыть') + '</button>' : '');
+    return '<li' + (c.is_hidden ? ' class="is-hidden"' : '') + '>' + avatarHtml(p, '') +
+      '<div class="c-main"><div class="c-head"><b>' + esc(p.display_name || 'Пользователь') + '</b><span class="meta">' + fmtWhen(c.created_at) + '</span></div>' +
+      (c.is_hidden ? '<div class="c-flag">' + (staff ? 'Скрыт: читатели его не видят' : 'Скрыт модератором: другие его не видят') + '</div>' : '') +
+      '<p class="c-text">' + esc(c.body) + '</p>' +
+      (tools ? '<div class="c-tools">' + tools + '</div>' : '') + '</div></li>';
+  }).join('');
+
+  let form;
+  if (!session) form = '<p class="c-login"><a href="#/login?next=' + encodeURIComponent('news/' + n.slug) + '">Войдите</a>, чтобы написать комментарий.</p>';
+  else if (profile?.is_banned) form = '<p class="c-login">Ваш аккаунт заблокирован модератором, комментировать нельзя.</p>';
+  else form = '<form class="c-form" id="c-form" novalidate><div class="field"><label for="c-body">Ваш комментарий</label>' +
+    '<textarea id="c-body" maxlength="2000" rows="3"></textarea></div>' +
+    '<button class="btn btn-accent" type="submit">Отправить</button></form>';
+
+  box.innerHTML = '<h2>Комментарии' + (shown ? ' <span class="count">' + shown + '</span>' : '') + '</h2><div id="c-msg"></div>' +
+    (data.length ? '<ul class="c-list">' + items + '</ul>' : '<p class="empty">Пока никто не написал. Начните обсуждение.</p>') + form;
+
+  const msg = $('#c-msg');
+  const cf = $('#c-form');
+  if (cf) cf.addEventListener('submit', async e => {
+    e.preventDefault();
+    const body = $('#c-body').value.trim();
+    if (!body) return setMsg(msg, 'Напишите текст комментария.');
+    const btn = cf.querySelector('button');
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    const { error } = await sb.from('comments').insert({ news_id: n.id, author_id: me, body });
+    if (error) { btn.disabled = false; btn.textContent = 'Отправить'; return setMsg(msg, ruError(error)); }
+    loadComments(box, n);
+  });
+  box.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    if (!confirm('Удалить ваш комментарий?')) return;
+    b.disabled = true;
+    const { error } = await sb.from('comments').delete().eq('id', +b.dataset.del);
+    if (error) { b.disabled = false; return setMsg(msg, ruError(error)); }
+    loadComments(box, n);
+  }));
+  box.querySelectorAll('[data-hide]').forEach(b => b.addEventListener('click', async () => {
+    b.disabled = true;
+    const { error } = await sb.from('comments').update({ is_hidden: !!b.dataset.v }).eq('id', +b.dataset.hide);
+    if (error) { b.disabled = false; return setMsg(msg, ruError(error)); }
+    loadComments(box, n);
+  }));
+}
+
+function routeNews(query, parts) {
+  if (!parts.length) return renderNewsList(query);
+  let slug = parts[0];
+  try { slug = decodeURIComponent(slug); } catch {}
+  renderNewsView(slug);
+}
+
+/* ---------------- Админка ---------------- */
+async function requireStaff(next) {
+  if (!requireLogin(next)) return false;
+  if (!profile) { profile = await fetchProfile(); updateHeader(); } // сразу после входа профиль ещё грузится
+  if (!isStaff()) { renderStub('forbidden'); return false; }
+  return true;
+}
+
+function adminRow(n) {
+  return '<li><a class="adm-row" href="#/admin/news/' + n.id + '">' +
+    '<span class="adm-title">' + esc(n.title) + '</span>' +
+    '<span class="meta"><span class="status ' + n.status + '">' + NEWS_STATUS[n.status] + '</span>' +
+      (n.is_pinned ? 'закреплено, ' : '') +
+      (n.news_categories ? esc(n.news_categories.name) + ', ' : '') +
+      'изменено ' + fmtWhen(n.updated_at) +
+      (n.status === 'published' ? ', ' + n.views + ' ' + plural(n.views, 'просмотр', 'просмотра', 'просмотров') : '') +
+    '</span></a></li>';
+}
+
+function renderAdminList(query) {
+  const app = $('#app');
+  const status = new URLSearchParams(query).get('status') || '';
+  const tabs = [['', 'Все'], ['draft', 'Черновики'], ['published', 'Опубликованные'], ['hidden', 'Скрытые']];
+  app.innerHTML =
+    '<div class="page-head"><h1>Админка</h1><a class="btn btn-accent" href="#/admin/news/new">Написать новость</a></div>' +
+    '<div class="section-head"><h2>Новости</h2></div>' +
+    '<nav class="chips" aria-label="Статус">' +
+      tabs.map(([v, l]) => '<a class="chip' + (status === v ? ' on' : '') + '" href="#/admin' + (v ? '?status=' + v : '') + '">' + l + '</a>').join('') +
+    '</nav>' +
+    '<ul class="adm-list" id="list"></ul><div id="list-state"></div>';
+
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => {
+      let q = sb.from('news').select('id, slug, title, status, is_pinned, published_at, updated_at, views, news_categories(name)');
+      if (status) q = q.eq('status', status);
+      return q.order('updated_at', { ascending: false }).order('id', { ascending: false }).range(from, from + size - 1);
+    },
+    renderItems: rows => rows.map(adminRow).join(''),
+    emptyHtml: '<p class="empty">' + (status ? 'Здесь пока пусто.' : 'Новостей ещё нет. <a href="#/admin/news/new">Напишите первую</a>.') + '</p>'
+  });
+}
+
+// Адрес страницы из заголовка: «Каток зальют в ноябре» → kotok-zalyut-v-noyabre
+const TRANSLIT = {
+  а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm',
+  н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'shch',
+  ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya', ҕ: 'g', ҥ: 'n', ө: 'o', һ: 'h', ү: 'u'
+};
+function slugify(s) {
+  let out = String(s).toLowerCase().split('').map(ch => TRANSLIT[ch] ?? ch).join('')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  if (out.length > 80) {
+    const cut = out.slice(0, 81), i = cut.lastIndexOf('-');
+    out = (i > 20 ? cut.slice(0, i) : out.slice(0, 80)).replace(/-+$/, '');
+  }
+  return out || 'novost';
+}
+
+async function uniqueSlug(base, selfId) {
+  const { data, error } = await sb.from('news').select('id, slug').like('slug', base + '%');
+  if (error) throw error;
+  const taken = new Set(data.filter(r => r.id !== selfId).map(r => r.slug));
+  if (!taken.has(base)) return base;
+  for (let i = 2; ; i++) if (!taken.has(base + '-' + i)) return base + '-' + i;
+}
+
+function newsFilePath(url) {
+  const tail = String(url || '').split('/storage/v1/object/public/news/')[1];
+  return tail ? decodeURIComponent(tail.split('?')[0]) : null;
+}
+
+// Кнопки оформления: вставляют разметку в поле текста
+function mdAction(ta, kind, msg) {
+  const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value, sel = v.slice(s, e);
+  if (kind === 'b' || kind === 'link') {
+    let ins, cs, ce;
+    if (kind === 'b') {
+      const t = sel || 'жирный текст';
+      ins = '**' + t + '**'; cs = s + 2; ce = cs + t.length;
+    } else {
+      const url = (prompt('Адрес ссылки', 'https://') || '').trim();
+      if (!url || url === 'https://') return;
+      if (!/^https?:\/\/\S+\.\S+$/.test(url)) { setMsg(msg, 'Ссылка должна начинаться с https:// и не содержать пробелов.'); return; }
+      const t = sel || 'текст ссылки';
+      ins = '[' + t + '](' + url + ')'; cs = s + 1; ce = cs + t.length;
+    }
+    ta.setRangeText(ins, s, e, 'end');
+    ta.focus();
+    ta.setSelectionRange(cs, ce);
+  } else {
+    // Подзаголовок и список работают со строками целиком: повторное нажатие убирает оформление
+    const prefix = kind === 'h' ? '## ' : '- ';
+    const ls = v.lastIndexOf('\n', s - 1) + 1;
+    let le = v.indexOf('\n', Math.max(e - (e > s && v[e - 1] === '\n' ? 1 : 0), s));
+    if (le < 0) le = v.length;
+    const lines = v.slice(ls, le).split('\n');
+    const all = lines.every(l => l.startsWith(prefix) || !l.trim());
+    const out = lines.map(l => !l.trim() ? l : all ? l.slice(prefix.length) : prefix + l.replace(/^(## |- )/, '')).join('\n');
+    ta.setRangeText(out, ls, le, 'end');
+    ta.focus();
+    ta.setSelectionRange(ls + out.length, ls + out.length);
+  }
+  ta.dispatchEvent(new Event('input'));
+}
+
+async function renderNewsEditor(id) {
+  const app = $('#app');
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+  let cats, n = null;
+  try {
+    cats = await loadNewsCats();
+    if (id) {
+      const { data, error } = await sb.from('news')
+        .select('id, slug, title, lead, body, cover_url, category_id, status, is_pinned, published_at, views')
+        .eq('id', id).maybeSingle();
+      if (error) throw error;
+      if (!data) { app.innerHTML = '<div class="stub"><h1>Новость не найдена</h1><p>Возможно, её уже удалили.</p><a class="btn btn-brand" href="#/admin">В админку</a></div>'; return; }
+      n = data;
+    }
+  } catch (e) {
+    app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+
+  const locked = !!n?.published_at; // после первой публикации адрес не меняем, чтобы не сломать ссылки
+  const cur = n?.status || 'draft';
+  const cover = { url: n?.cover_url || null, blob: null, preview: null };
+  let processing = false;
+
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/admin">Админка</a> → ' + (n ? 'Правка новости' : 'Новая новость') + '</div>' +
+    '<div id="ed"><form class="form wide editor" id="nf" novalidate>' +
+      '<h1>' + (n ? 'Правка новости' : 'Новая новость') + '</h1>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="n-title">Заголовок</label><input id="n-title" maxlength="200" value="' + esc(n?.title || '') + '">' +
+        '<div class="hint" id="n-slug"></div></div>' +
+      '<div class="field"><label for="n-cat">Рубрика</label><select id="n-cat"><option value="">Выберите рубрику</option>' +
+        cats.map(c => '<option value="' + c.id + '"' + (n?.category_id === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
+      '</select></div>' +
+      '<div class="field"><label for="n-lead">Вступление</label><textarea id="n-lead" class="short" maxlength="500">' + esc(n?.lead || '') + '</textarea>' +
+        '<div class="hint">Одно-два предложения о главном. Видно в ленте. <span id="n-lead-c">0</span> из 500</div></div>' +
+      '<div class="field"><span class="flabel">Обложка</span><div id="n-cover"></div><input type="file" id="n-file" accept="image/*" hidden></div>' +
+      '<div class="field"><label for="n-body">Текст</label>' +
+        '<div class="md-bar" role="toolbar" aria-label="Оформление текста">' +
+          '<button type="button" data-md="h">Подзаголовок</button>' +
+          '<button type="button" data-md="b"><b>Жирный</b></button>' +
+          '<button type="button" data-md="ul">Список</button>' +
+          '<button type="button" data-md="link">Ссылка</button>' +
+        '</div>' +
+        '<textarea id="n-body">' + esc(n?.body || '') + '</textarea>' +
+        '<div class="hint">Абзацы разделяйте пустой строкой. Выделите слова и нажмите кнопку, чтобы оформить их.</div></div>' +
+      '<div class="field"><span class="flabel">Статус</span><div class="seg" role="radiogroup" aria-label="Статус">' +
+        Object.entries(NEWS_STATUS).map(([v, l]) => '<label><input type="radio" name="ns" value="' + v + '"' + (cur === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+      '</div></div>' +
+      '<label class="check"><input type="checkbox" id="n-pin"' + (n?.is_pinned ? ' checked' : '') + '><span>Закрепить сверху ленты. Прежняя закреплённая новость открепится.</span></label>' +
+      '<div class="ed-actions"><button class="btn btn-accent" type="submit" id="n-save">Сохранить</button>' +
+        '<button class="btn btn-line" type="button" id="n-prev">Предпросмотр</button></div>' +
+      (n ? '<div class="ed-extra">' + (n.status === 'published' ? '<a href="#/news/' + esc(n.slug) + '">Открыть на сайте</a>' : '<span></span>') +
+        '<button class="linkbtn danger" type="button" id="n-del">Удалить новость</button></div>' : '') +
+    '</form></div>' +
+    '<div id="pv" hidden><div class="notice">Так новость увидят читатели. Изменения ещё не сохранены.</div>' +
+      '<article class="article" id="pv-art"></article>' +
+      '<div class="ed-actions pv-actions"><button class="btn btn-brand" type="button" id="pv-back">Вернуться к правке</button></div></div>';
+
+  const msg = $('#msg');
+  const titleEl = $('#n-title'), leadEl = $('#n-lead'), bodyEl = $('#n-body');
+
+  const slugBox = $('#n-slug');
+  const updSlug = () => {
+    const t = titleEl.value.trim();
+    const s = locked ? n.slug : (t ? slugify(t) : '…');
+    slugBox.innerHTML = 'Адрес страницы: /news/<b>' + esc(s) + '</b>' + (locked ? '. После публикации адрес не меняется.' : '');
+  };
+  titleEl.addEventListener('input', updSlug); updSlug();
+
+  const leadC = $('#n-lead-c');
+  const updLead = () => { leadC.textContent = leadEl.value.length; };
+  leadEl.addEventListener('input', updLead); updLead();
+
+  // Обложка
+  const coverBox = $('#n-cover'), fileEl = $('#n-file');
+  function drawCover() {
+    const src = cover.preview || cover.url;
+    coverBox.innerHTML = processing ? '<div class="cover-empty">Обрабатываем фото…</div>'
+      : src ? '<img class="cover-prev" src="' + esc(src) + '" alt="Обложка">' +
+          '<div class="cover-tools"><button class="btn btn-line" type="button" data-cv="pick">Заменить</button>' +
+          '<button class="btn btn-danger" type="button" data-cv="del">Убрать</button></div>'
+      : '<button class="cover-empty" type="button" data-cv="pick"><b>+</b>Добавить обложку</button>' +
+        '<div class="hint">Лучше горизонтальное фото.</div>';
+    coverBox.querySelectorAll('[data-cv]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.cv === 'pick') return fileEl.click();
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+      cover.blob = null; cover.preview = null; cover.url = null;
+      drawCover();
+    }));
+  }
+  drawCover();
+  fileEl.addEventListener('change', async () => {
+    const file = fileEl.files[0];
+    fileEl.value = '';
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return setMsg(msg, 'Выберите картинку.');
+    processing = true; drawCover();
+    try {
+      const blob = await compressPhoto(file);
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+      cover.blob = blob; cover.preview = URL.createObjectURL(blob);
+    } catch (e) {
+      console.error(e);
+      setMsg(msg, 'Не получилось открыть фото. Попробуйте другое.');
+    }
+    processing = false; drawCover();
+  });
+
+  // Кнопки оформления
+  app.querySelectorAll('[data-md]').forEach(b => {
+    b.addEventListener('mousedown', e => e.preventDefault()); // не терять выделение в тексте
+    b.addEventListener('click', () => mdAction(bodyEl, b.dataset.md, msg));
+  });
+
+  // Предпросмотр
+  const ed = $('#ed'), pv = $('#pv');
+  $('#n-prev').addEventListener('click', () => {
+    $('#pv-art').innerHTML = articleHtml({
+      title: titleEl.value.trim(), lead: leadEl.value.trim(), body: bodyEl.value,
+      cover_url: cover.preview || cover.url, published_at: n?.published_at || new Date().toISOString(), views: null
+    });
+    ed.hidden = true; pv.hidden = false;
+    window.scrollTo(0, 0);
+  });
+  $('#pv-back').addEventListener('click', () => {
+    pv.hidden = true; ed.hidden = false;
+    $('#n-prev').focus();
+  });
+
+  // Удаление
+  const del = $('#n-del');
+  if (del) del.addEventListener('click', async () => {
+    if (!confirm('Удалить новость «' + n.title + '» вместе с комментариями? Вернуть её будет нельзя.')) return;
+    del.disabled = true;
+    const { error } = await sb.from('news').delete().eq('id', n.id);
+    if (error) { del.disabled = false; return setMsg(msg, ruError(error)); }
+    const p = newsFilePath(n.cover_url);
+    if (p) sb.storage.from('news').remove([p]).then(() => {}, () => {});
+    flashMsg = { text: 'Новость удалена.', ok: true };
+    location.hash = '#/admin';
+  });
+
+  // Сохранение
+  $('#nf').addEventListener('submit', async e => {
+    e.preventDefault();
+    const title = titleEl.value.trim();
+    const lead = leadEl.value.trim();
+    const body = bodyEl.value.replace(/\s+$/, '');
+    const category_id = +$('#n-cat').value || null;
+    const status = app.querySelector('input[name=ns]:checked').value;
+    const is_pinned = $('#n-pin').checked;
+
+    if (title.length < 5) return setMsg(msg, 'Заголовок: хотя бы 5 символов.');
+    if (!category_id) return setMsg(msg, 'Выберите рубрику.');
+    if (status === 'published' && !body.trim()) return setMsg(msg, 'Чтобы опубликовать, напишите текст новости.');
+    if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатывается.');
+
+    const btn = $('#n-save');
+    btn.disabled = true; btn.textContent = 'Сохраняем…';
+    setMsg(msg, '');
+    let uploaded = null;
+    try {
+      const slug = locked ? n.slug : await uniqueSlug(slugify(title), n?.id);
+      let cover_url = cover.url;
+      if (cover.blob) {
+        const ext = cover.blob.type === 'image/webp' ? 'webp' : 'jpg';
+        const path = 'covers/' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+        const up = await sb.storage.from('news').upload(path, cover.blob, { contentType: cover.blob.type, cacheControl: '31536000' });
+        if (up.error) throw up.error;
+        uploaded = path;
+        cover_url = sb.storage.from('news').getPublicUrl(path).data.publicUrl;
+      }
+      const fields = { title, lead: lead || null, body, category_id, status, is_pinned, slug, cover_url };
+      const res = n
+        ? await sb.from('news').update(fields).eq('id', n.id)
+        : await sb.from('news').insert({ ...fields, author_id: session.user.id });
+      if (res.error) throw res.error;
+
+      const old = newsFilePath(n?.cover_url);
+      if (old && n.cover_url !== cover_url) sb.storage.from('news').remove([old]).then(() => {}, () => {});
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+
+      flashMsg = {
+        text: status === 'published' && n?.status !== 'published' ? 'Новость опубликована.'
+          : n ? 'Изменения сохранены.' : 'Новость сохранена.',
+        ok: true
+      };
+      location.hash = '#/admin';
+    } catch (err) {
+      console.error(err);
+      if (uploaded) sb.storage.from('news').remove([uploaded]).then(() => {}, () => {});
+      setMsg(msg, ruError(err));
+      btn.disabled = false; btn.textContent = 'Сохранить';
+    }
+  });
+}
+
+async function routeAdmin(query, parts) {
+  if (!sb) return renderNoDb('Админка');
+  const seq = routeSeq;
+  if (!(await requireStaff(['admin', ...parts].join('/'))) || seq !== routeSeq) return;
+  if (!parts.length) return renderAdminList(query);
+  if (parts[0] === 'news' && parts[1] === 'new') return renderNewsEditor(null);
+  if (parts[0] === 'news' && /^\d+$/.test(parts[1] || '')) return renderNewsEditor(+parts[1]);
+  renderStub('404');
+}
+
+/* ---------------- Поиск ---------------- */
+async function searchAll(q) {
+  if (!sb) {
+    const t = q.toLowerCase();
+    return {
+      demo: true,
+      news: DEMO.news.filter(n => (n.title + ' ' + (n.lead || '')).toLowerCase().includes(t)),
+      ads: DEMO.ads.filter(a => a.title.toLowerCase().includes(t)),
+      events: DEMO.events.filter(e => (e.title + ' ' + (e.place || '')).toLowerCase().includes(t))
+    };
+  }
+  const opts = { type: 'websearch', config: 'russian' };
+  const [news, ads] = await Promise.all([
+    sb.from('news').select('slug, title, lead, published_at, news_categories(name, slug)')
+      .eq('status', 'published').textSearch('search', q, opts).limit(10),
+    sb.from('ads').select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
+      .eq('status', 'active').gt('expires_at', new Date().toISOString())
+      .textSearch('search', q, opts).limit(20)
+  ]);
+  if (news.error || ads.error) throw (news.error || ads.error);
+  return {
+    demo: false,
+    news: news.data.map(n => ({ ...n, category: n.news_categories?.name, catSlug: n.news_categories?.slug })),
+    ads: ads.data.map(a => {
+      const photos = (a.ad_photos || []).sort((x, y) => x.sort - y.sort);
+      return { ...a, photo: photos[0] ? photoUrl(photos[0].path) : null };
+    }),
+    events: []
+  };
+}
+
+async function renderSearch(q) {
+  const app = $('#app');
+  $('#q').value = q;
+  if (!q) {
+    app.innerHTML = '<div class="stub"><h1>Поиск</h1><p>Введите слово в строку поиска: например, «лодка» или «квартира».</p></div>';
+    return;
+  }
+  app.innerHTML = '<p class="loading">Ищем…</p>';
+  let r;
+  try { r = await searchAll(q); }
+  catch (e) {
+    console.error(e);
+    app.innerHTML = '<div class="notice err">Поиск не удался. Проверьте интернет; из России Supabase сейчас открывается только через VPN.</div>';
+    return;
+  }
+  const total = r.news.length + r.ads.length + r.events.length;
+  let html = '<h1 class="page-title">Поиск: «' + esc(q) + '»</h1>';
+  if (r.demo) html += '<div class="notice">Демо-режим: поиск идёт по примерам на странице.</div>';
+  if (!total) {
+    html += '<p class="empty">Ничего не нашлось. Попробуйте другое слово или посмотрите <a href="#/ads">все объявления</a>.</p>';
+  }
+  if (r.ads.length) html += '<section class="section"><div class="section-head"><h2>Объявления</h2></div>' + adsBlock(r.ads) + '</section>';
+  if (r.news.length) {
+    html += '<section class="section"><div class="section-head"><h2>Новости</h2></div><ul class="news-list">' +
+      r.news.map(n => '<li><a href="#/news/' + esc(n.slug) + '">' + esc(n.title) + '</a><div class="meta">' +
+        (n.category ? '<span class="cat">' + esc(n.category) + '</span>, ' : '') + fmtWhen(n.published_at) + '</div></li>').join('') +
+      '</ul></section>';
+  }
+  if (r.events.length) html += '<section class="section"><div class="section-head"><h2>Афиша</h2></div>' + eventsBlock(r.events) + '</section>';
+  app.innerHTML = html;
+}
+
+$('#search').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = $('#q').value.trim();
+  location.hash = '#/search?q=' + encodeURIComponent(q);
+  $('#q').blur();
+});
+
+/* ---------------- Маршрутизация ---------------- */
+const DEFAULT_TITLE = document.title;
+function route() {
+  const [rawPath, query = ''] = location.hash.replace(/^#\/?/, '').split('?');
+  const path = rawPath.replace(/\/$/, '');
+  const section = path.split('/')[0];
+
+  routeSeq++;
+  stopFeed();
+  document.title = DEFAULT_TITLE;
+  document.querySelectorAll('.nav a, .drawer a[data-route]').forEach(a => a.classList.toggle('active', a.dataset.route === section));
+  closeDrawer();
+  window.scrollTo(0, 0);
+
+  $('#intro').hidden = !!path;
+  if (PAGES[section]) { showFlash(); return PAGES[section](query, path.split('/').slice(1)); }
+  showFlash();
+  if (!path) return renderHome();
+  if (path === 'search') return renderSearch(new URLSearchParams(query).get('q') || '');
+  if (STUBS[path]) return renderStub(path);
+  if (STUBS[section]) return renderStub(section);
+  renderStub('404');
+}
+
+/* ---------------- Боковое меню ---------------- */
+const burger = $('#burger'), drawer = $('#drawer'), backdrop = $('#backdrop');
+
+function openDrawer() {
+  drawer.inert = false;
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  document.body.classList.add('menu-open');
+  burger.setAttribute('aria-expanded', 'true');
+  setTimeout(() => $('#drawer-close').focus(), 50);
+}
+
+function closeDrawer(returnFocus) {
+  if (!drawer.classList.contains('open')) return;
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  document.body.classList.remove('menu-open');
+  burger.setAttribute('aria-expanded', 'false');
+  drawer.inert = true;
+  if (returnFocus) burger.focus();
+}
+
+burger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer(true) : openDrawer());
+$('#drawer-close').addEventListener('click', () => closeDrawer(true));
+backdrop.addEventListener('click', () => closeDrawer(true));
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeDrawer(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(true); });
+// Если экран стал широким (поворот планшета) — меню больше не нужно
+matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches) closeDrawer(false); });
+
+window.addEventListener('hashchange', route);
+renderInfo();
+initAuth().catch(e => console.error(e)).finally(() => { updateHeader(); route(); });
+</script>
+</body>
+</html>
