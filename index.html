@@ -599,6 +599,78 @@
   .ed-extra { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; font-size: 15px; }
   #pv .article { border-top: 1px solid var(--line); padding-top: 8px; }
 
+  /* ---------- Афиша ---------- */
+  .efeed { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .efeed > li { border-top: 1px solid var(--line); }
+  .efeed > li.eday { border-top: 0; padding: 22px 0 2px; }
+  .efeed > li.eday:first-child { padding-top: 2px; }
+  .efeed > li.eday + li { border-top: 0; }
+  .eday h2 { font-size: 20px; font-weight: 600; margin: 0; line-height: 1.3; }
+  .erow { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; color: inherit; }
+  .erow:hover { text-decoration: none; }
+  .erow:hover .erow-title { color: var(--brand); }
+  .etime { flex: none; width: 62px; padding: 1px 10px 1px 0; border-right: 2px solid var(--accent); font-weight: 600; font-size: 17px; line-height: 1.25; color: var(--ink); }
+  .etime small { display: block; font-size: 12px; font-weight: 400; color: var(--mute); }
+  .etime.edate { text-align: center; }
+  .etime.edate b { display: block; font-size: 22px; font-weight: 600; }
+  .erow-text { flex: 1; min-width: 0; }
+  .erow-title { display: block; font-weight: 600; font-size: 18px; line-height: 1.3; margin: 1px 0 3px; color: var(--ink); overflow-wrap: anywhere; }
+  .erow-info { display: block; font-size: 15px; color: var(--mute); overflow-wrap: anywhere; }
+  .erow-img { width: 90px; aspect-ratio: 3 / 4; flex: none; object-fit: cover; border-radius: 8px; background: var(--thumb); }
+  .ehome { align-items: center; margin: 2px 0 6px; max-width: 780px; }
+  .ehome p { margin: 0; color: var(--mute); font-size: 15px; }
+  .eadd { max-width: 780px; margin: 22px 0 6px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--mute); font-size: 15px; }
+  .eadd a { font-weight: 500; }
+  .event { max-width: 720px; }
+  .event h1 { font-size: 32px; line-height: 1.16; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 12px; overflow-wrap: anywhere; }
+  .efacts { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 6px; }
+  .efacts li { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 12px; font-size: 17px; }
+  .efacts b { font-weight: 500; color: var(--mute); font-size: 15px; padding-top: 2px; }
+  .efacts span { overflow-wrap: anywhere; }
+  .e-poster { display: block; max-width: 100%; max-height: 72vh; width: auto; height: auto; border-radius: var(--radius); background: var(--thumb); margin: 0 0 18px; }
+  .msg.notice-msg { background: var(--notice-bg); border-color: var(--notice-line); color: var(--notice-ink); }
+  .mod-box { max-width: 720px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin: 0 0 18px; }
+  .mod-box h2 { font-size: 16px; font-weight: 600; margin: 0 0 10px; }
+  .mod-box h2 .status { margin: 0 0 0 6px; vertical-align: 1px; }
+  .mod-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .mod-actions .btn { flex: 1 1 auto; }
+  .mod-reject { margin-top: 14px; }
+  .mod-reject textarea { min-height: 84px; }
+  .status.pending { color: var(--notice-ink); border-color: currentColor; }
+  .status.rejected { color: var(--berry); border-color: currentColor; }
+  .my-events > li { padding-bottom: 14px; }
+  .my-events .erow { padding-bottom: 6px; }
+  .my-ev-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding-left: 76px; }
+  .my-ev-meta .status { margin: 0; }
+  .e-reason { flex-basis: 100%; font-size: 14px; color: var(--err-ink); }
+  .my-events .owner-tools { padding-left: 76px; }
+  .admtabs { display: flex; gap: 22px; border-bottom: 1px solid var(--line); margin: 0 0 14px; }
+  .admtabs a { padding: 8px 0 10px; color: var(--mute); font-weight: 600; font-size: 17px; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+  .admtabs a:hover { text-decoration: none; color: var(--ink); }
+  .admtabs a.on { color: var(--ink); border-bottom-color: var(--accent); }
+  .badge-n { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 6px; border-radius: 999px; background: var(--berry); color: #fff; font-size: 12px; line-height: 20px; text-align: center; vertical-align: 2px; }
+  .badge-n[hidden] { display: none; }
+  .frow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 12px; }
+  .frow input { min-width: 0; }
+  .field input[type="date"], .field input[type="time"] { -webkit-appearance: none; appearance: none; min-height: 48px; text-align: left; }
+  .field input::-webkit-date-and-time-value { text-align: left; }
+  .end-hint { font-size: 13px; color: var(--mute); margin: -6px 0 14px; }
+  .end-toggle { margin: -6px 0 12px; }
+  .cover-empty.poster { max-width: 260px; aspect-ratio: 4 / 3; }
+  .cover-prev.poster { max-width: 260px; aspect-ratio: 3 / 4; }
+  .cover-prev.poster { object-fit: contain; }
+  @media (max-width: 600px) {
+    .event h1 { font-size: 25px; }
+    .efacts li { grid-template-columns: 1fr; gap: 0; font-size: 16px; }
+    .erow { gap: 12px; }
+    .etime { width: 54px; font-size: 16px; }
+    .erow-title { font-size: 17px; }
+    .erow-info { font-size: 14px; }
+    .erow-img { width: 66px; }
+    .my-ev-meta, .my-events .owner-tools { padding-left: 0; }
+    .eday h2 { font-size: 18px; }
+  }
+
   /* ---------- Подвал бокового меню ---------- */
   .drawer { display: flex; flex-direction: column; }
   .drawer-foot { margin-top: auto; padding-top: 28px; font-size: 13px; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 4px; }
@@ -731,6 +803,7 @@
   <a href="#/events" data-route="events">Афиша</a>
   <a href="#/catalog" data-route="catalog">Справочник</a>
   <a href="#/ads/my" id="drawer-my" hidden>Мои объявления</a>
+  <a href="#/events/my" id="drawer-my-ev" hidden>Мои события</a>
   <a href="#/admin" data-route="admin" id="drawer-admin" hidden>Админка</a>
   <a class="drawer-login" id="drawer-auth" href="#/login">Войти</a>
   <div class="drawer-foot"><span>© 2026 Евсеев А.В.</span><a href="#/privacy">Политика конфиденциальности</a></div>
@@ -961,12 +1034,11 @@ async function fetchHome() {
       .gt('expires_at', nowIso)
       .order('bumped_at', { ascending: false })
       .limit(8),
-    sb.from('events')
-      .select('id, title, place, starts_at')
-      .eq('status', 'published')
-      .gte('starts_at', nowIso)
+    upcoming(sb.from('events')
+      .select('id, title, place, settlement, starts_at, ends_at')
+      .eq('status', 'published'))
       .order('starts_at')
-      .limit(4)
+      .limit(5)
   ]);
 
   const err = news.error || ads.error || events.error;
@@ -1023,13 +1095,16 @@ function adsBlock(list) {
 
 function eventsBlock(list) {
   if (!list.length) {
-    return '<p class="empty">Ближайших событий нет. <a href="#/events">Предложите своё</a>.</p>';
+    return '<p class="empty">Ближайших событий нет. <a href="#/events/new">Добавьте своё</a>.</p>';
   }
   return '<ul class="events">' + list.map(e => {
-    const d = new Date(e.starts_at);
+    // Идущее несколько дней (выставка) показываем сегодняшним днём
+    const s = new Date(e.starts_at), going = ykDay(s) < ykDay(new Date());
+    const d = going ? new Date() : s, t = going ? '' : evTime(e.starts_at);
+    const info = [going && e.ends_at ? 'идёт до ' + dayLabel(ykDay(new Date(e.ends_at))) : t, e.place, e.settlement && e.settlement !== 'Олёкминск' ? placeLabel(e.settlement) : ''].filter(Boolean);
     return '<li><div class="day"><b>' + dayNumFmt.format(d) + '</b><span>' + monShort.format(d).replace('.', '') + '</span></div>' +
       '<div><a href="#/events/' + e.id + '">' + esc(e.title) + '</a>' +
-      '<div class="meta">' + timeFmt.format(d) + (e.place ? ', ' + esc(e.place) : '') + '</div></div></li>';
+      (info.length ? '<div class="meta">' + esc(info.join(', ')) + '</div>' : '') + '</div></li>';
   }).join('') + '</ul>';
 }
 
@@ -1072,7 +1147,6 @@ async function renderHome() {
 
 /* ---------------- Заглушки разделов ---------------- */
 const STUBS = {
-  events:   ['Афиша', 'Календарь событий появится на шаге 5.'],
   catalog:  ['Справочник', 'Организации Олёкминска с адресами и телефонами появятся на шаге 5.'],
   privacy:  ['Политика конфиденциальности', 'Текст политики обработки персональных данных будет подготовлен перед запуском.'],
   forbidden: ['Нет доступа', 'Этот раздел только для редакции сайта.']
@@ -1100,7 +1174,8 @@ function ruError(e) {
   if (/Unable to validate email|invalid format|invalid email/i.test(m)) return 'Проверьте адрес почты.';
   if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Нет связи с сервером. Проверьте интернет; из России Supabase сейчас открывается только через VPN.';
   if (/duplicate key/i.test(m)) return 'Такая запись уже есть. Попробуйте ещё раз.';
-  if (/check constraint/i.test(m)) return 'Проверьте введённые данные.';
+  if (/foreign key.*settlement/i.test(m)) return 'Выберите населённый пункт из списка.';
+  if (/check constraint|foreign key/i.test(m)) return 'Проверьте введённые данные.';
   if (/row-level security|permission denied/i.test(m)) return 'Нет прав на это действие. Возможно, вы вышли из аккаунта или аккаунт заблокирован.';
   if (/[А-Яа-яЁё]/.test(m)) return m; // сообщения из базы уже на русском
   return 'Что-то пошло не так: ' + m;
@@ -1162,7 +1237,7 @@ function updateHeader() {
     dlink.href = '#/profile';
     dlink.textContent = name;
     dlink.dataset.route = 'profile';
-    $('#drawer-my').hidden = false;
+    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = false;
     $('#nav-admin').hidden = $('#drawer-admin').hidden = !isStaff();
   } else {
     link.className = 'btn btn-ghost';
@@ -1172,7 +1247,7 @@ function updateHeader() {
     dlink.href = '#/login';
     dlink.textContent = 'Войти';
     delete dlink.dataset.route;
-    $('#drawer-my').hidden = true;
+    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = true;
     $('#nav-admin').hidden = $('#drawer-admin').hidden = true;
   }
   syncAddBtn();
@@ -1332,7 +1407,7 @@ async function renderProfile() {
     '<div class="form">' +
       '<h1>Профиль' + (ROLE_NAMES[profile.role] ? '<span class="badge">' + ROLE_NAMES[profile.role] + '</span>' : '') + '</h1>' +
       '<p class="facts">' + esc(session.user.email) + ', на сайте с ' + dayMonFmt.format(created) + ' ' + created.getFullYear() + '</p>' +
-      '<p><a href="#/ads/my">Мои объявления →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
+      '<p><a href="#/ads/my">Мои объявления →</a><br><a href="#/events/my">Мои события →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
       (profile.is_banned ? '<div class="msg err">Ваш аккаунт заблокирован модератором. Публиковать объявления и комментарии нельзя.</div>' : '') +
       '<div id="msg"></div>' +
       '<div class="avatar-row"><span id="ava">' + avatarHtml(profile, 'lg') + '</span>' +
@@ -1457,6 +1532,7 @@ const PAGES = {
   ads: (query, parts) => routeAds(query, parts),
   rabota: (query, parts) => routeRabota(query, parts),
   news: routeNews,
+  events: routeEvents,
   admin: routeAdmin
 };
 
@@ -1501,7 +1577,7 @@ async function initAuth() {
 const PAGE_SIZE = 20;
 /* ----- Населённые пункты района (53, без Затона ЛОРПа) ----- */
 // Первые — самые крупные: их показываем, пока человек ничего не ввёл
-const PLACES = [
+let PLACES = [
   'Олёкминск', 'Токко', 'Юнкюр', 'Олёкминский', 'Нерюктяйинск 1-й', 'Кыллах', 'Чапаево', 'Нерюктяйинск 2-й',
   'Абага', 'Абага Центральная', 'Авиапорт', 'Алексеевка', 'Балаганнах', 'Бердинка', 'Бирюк', 'Бясь-Кюёль',
   'Дабан', 'Даппарай', 'Дельгей', 'Дикимдя', 'Жархан', 'Заречный', 'Иннях', 'Килиер', 'Кочегарово',
@@ -1509,11 +1585,32 @@ const PLACES = [
   'Саныяхтах', 'Селиваново', 'Солянка', 'Тас-Анна', 'Тинная', 'Торго', 'Троицк', 'Тэгэн', 'Тюбя', 'Тяня',
   'Улахан-Мунгку', 'Уолбут', 'Урицкое', 'Харыялах', 'Хатынг-Тумул', 'Холго', 'Хоринцы', 'Черендей'
 ];
-const PLACE_TOP = 8;
+let PLACE_TOP = 8;
 // Село Олёкминский легко спутать с городом Олёкминском — в подсказках подписываем
 const placeLabel = p => p === 'Олёкминский' ? 'Олёкминский (село)' : p;
 const placeNorm = t => String(t || '').toLowerCase().replace(/ё/g, 'е').replace(/\s*\(село\)\s*$/, '').replace(/[^a-zа-я0-9]+/g, ' ').trim();
-const PLACE_BY_NORM = new Map(PLACES.map(p => [placeNorm(p), p]));
+let PLACE_BY_NORM = new Map(PLACES.map(p => [placeNorm(p), p]));
+
+// Список берём из базы (таблица places) и держим в браузере 12 часов.
+// Встроенный выше — запасной: подсказки работают сразу, даже пока база не ответила.
+// Новое село добавляется одной строкой в places, менять сайт не нужно.
+const PLACES_KEY = 'olk_places_1';
+function applyPlaces(rows) {
+  if (!Array.isArray(rows) || !rows.length) return;
+  rows = rows.slice().sort((a, b) => a.sort - b.sort || a.name.localeCompare(b.name, 'ru'));
+  PLACES = rows.map(r => r.name);
+  PLACE_TOP = rows.filter(r => r.sort < 100).length || 8;
+  PLACE_BY_NORM = new Map(PLACES.map(p => [placeNorm(p), p]));
+}
+async function loadPlaces() {
+  if (!sb) return;
+  const cached = cacheGet(PLACES_KEY, 12 * 3600e3);
+  if (cached) return applyPlaces(cached);
+  const { data, error } = await sb.from('places').select('name, sort');
+  if (error) throw error;
+  cacheSet(PLACES_KEY, data);
+  applyPlaces(data);
+}
 
 // Подходящие места: сначала те, что начинаются с введённого, потом совпадение с началом любого слова
 // «, населённый пункт: Солянка» для строки «Найдено N»
@@ -2161,6 +2258,7 @@ const DEALS = { sell: 'Продам', buy: 'Куплю', rent_out: 'Сдам', r
 const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминского района';
 const NEWS_TITLE = 'news.olk.ru — новости Олёкминского района';
 const RABOTA_TITLE = 'rabota.olk.ru — работа в Олёкминском районе';
+const AFISHA_TITLE = 'afisha.olk.ru — афиша Олёкминского района';
 
 const HEADS = {
   portal: { name: 'olk.ru', sub: 'Олёкминский район', href: '#/', label: 'olk.ru — на главную',
@@ -2170,7 +2268,9 @@ const HEADS = {
   news: { pre: 'news', sub: 'Новости района', href: '#/news', label: 'news.olk.ru — главная новостей',
     add: ['Написать новость', '+ Новость', '#/admin/news/new'], staffOnly: true, title: NEWS_TITLE, extra: newsHeadHtml, bind: bindNewsHead },
   rabota: { pre: 'rabota', sub: 'Вакансии и резюме', href: '#/rabota', label: 'rabota.olk.ru — главная раздела «Работа»',
-    add: ['Разместить вакансию', '+ Добавить', '#/rabota/new'], title: RABOTA_TITLE, extra: rabotaHeadHtml, bind: bindRabotaHead }
+    add: ['Разместить вакансию', '+ Добавить', '#/rabota/new'], title: RABOTA_TITLE, extra: rabotaHeadHtml, bind: bindRabotaHead },
+  afisha: { pre: 'afisha', sub: 'Афиша района', href: '#/events', label: 'afisha.olk.ru — главная афиши',
+    add: ['Добавить событие', '+ Добавить', '#/events/new'], title: AFISHA_TITLE, extra: afishaHeadHtml, bind: bindAfishaHead }
 };
 
 function setHead(kind) {
@@ -2930,21 +3030,22 @@ async function renderNewsView(slug) {
     (n.status === 'published' ? '<section class="comments" id="comments"></section>' : '');
 
   $('#share').addEventListener('click', e => shareLink(n.title, BASE_URL + '#/news/' + n.slug, e.currentTarget));
-  if (n.status === 'published') loadComments($('#comments'), n);
+  if (n.status === 'published') loadComments($('#comments'), { col: 'news_id', id: n.id, next: 'news/' + n.slug });
 }
 
 /* ----- Комментарии ----- */
-async function loadComments(box, n) {
+// t: { col: 'news_id' | 'event_id', id, next } — к чему комментарии и куда вернуть после входа
+async function loadComments(box, t) {
   const seq = routeSeq;
   if (!box.innerHTML) box.innerHTML = '<h2>Комментарии</h2><p class="loading">Загружаем…</p>';
   const { data, error } = await sb.from('comments')
     .select('id, author_id, body, is_hidden, created_at, profiles(display_name, avatar_url)')
-    .eq('news_id', n.id).order('created_at').order('id').limit(500);
+    .eq(t.col, t.id).order('created_at').order('id').limit(500);
   if (seq !== routeSeq || !box.isConnected) return;
   if (error) {
     console.error(error);
     box.innerHTML = '<h2>Комментарии</h2><div class="feed-err"><span>Не загрузилось.</span><button class="btn btn-line" type="button">Повторить</button></div>';
-    box.querySelector('button').addEventListener('click', () => loadComments(box, n));
+    box.querySelector('button').addEventListener('click', () => loadComments(box, t));
     return;
   }
 
@@ -2962,7 +3063,7 @@ async function loadComments(box, n) {
   }).join('');
 
   let form;
-  if (!session) form = '<p class="c-login"><a href="#/login?next=' + encodeURIComponent('news/' + n.slug) + '">Войдите</a>, чтобы написать комментарий.</p>';
+  if (!session) form = '<p class="c-login"><a href="#/login?next=' + encodeURIComponent(t.next) + '">Войдите</a>, чтобы написать комментарий.</p>';
   else if (profile?.is_banned) form = '<p class="c-login">Ваш аккаунт заблокирован модератором, комментировать нельзя.</p>';
   else form = '<form class="c-form" id="c-form" novalidate><div class="field"><label for="c-body">Ваш комментарий</label>' +
     '<textarea id="c-body" maxlength="2000" rows="3"></textarea></div>' +
@@ -2979,22 +3080,22 @@ async function loadComments(box, n) {
     if (!body) return setMsg(msg, 'Напишите текст комментария.');
     const btn = cf.querySelector('button');
     btn.disabled = true; btn.textContent = 'Отправляем…';
-    const { error } = await sb.from('comments').insert({ news_id: n.id, author_id: me, body });
+    const { error } = await sb.from('comments').insert({ [t.col]: t.id, author_id: me, body });
     if (error) { btn.disabled = false; btn.textContent = 'Отправить'; return setMsg(msg, ruError(error)); }
-    loadComments(box, n);
+    loadComments(box, t);
   });
   box.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
     if (!confirm('Удалить ваш комментарий?')) return;
     b.disabled = true;
     const { error } = await sb.from('comments').delete().eq('id', +b.dataset.del);
     if (error) { b.disabled = false; return setMsg(msg, ruError(error)); }
-    loadComments(box, n);
+    loadComments(box, t);
   }));
   box.querySelectorAll('[data-hide]').forEach(b => b.addEventListener('click', async () => {
     b.disabled = true;
     const { error } = await sb.from('comments').update({ is_hidden: !!b.dataset.v }).eq('id', +b.dataset.hide);
     if (error) { b.disabled = false; return setMsg(msg, ruError(error)); }
-    loadComments(box, n);
+    loadComments(box, t);
   }));
 }
 
@@ -3030,11 +3131,12 @@ function renderAdminList(query) {
   const tabs = [['', 'Все'], ['draft', 'Черновики'], ['published', 'Опубликованные'], ['hidden', 'Скрытые']];
   app.innerHTML =
     '<div class="page-head"><h1>Админка</h1><a class="btn btn-accent" href="#/admin/news/new">Написать новость</a></div>' +
-    '<div class="section-head"><h2>Новости</h2></div>' +
+    adminTabs('news') +
     '<nav class="chips" aria-label="Статус">' +
       tabs.map(([v, l]) => '<a class="chip' + (status === v ? ' on' : '') + '" href="#/admin' + (v ? '?status=' + v : '') + '">' + l + '</a>').join('') +
     '</nav>' +
     '<ul class="adm-list" id="list"></ul><div id="list-state"></div>';
+  loadPendingCount();
 
   startFeed({
     listEl: $('#list'), stateEl: $('#list-state'),
@@ -3316,7 +3418,675 @@ async function routeAdmin(query, parts) {
   if (!parts.length) return renderAdminList(query);
   if (parts[0] === 'news' && parts[1] === 'new') return renderNewsEditor(null);
   if (parts[0] === 'news' && /^\d+$/.test(parts[1] || '')) return renderNewsEditor(+parts[1]);
+  if (parts[0] === 'events' && !parts[1]) return renderAdminEvents(query);
   renderStub('404');
+}
+
+/* ---------------- Афиша: afisha.olk.ru ---------------- */
+const EVENT_STATUS = { pending: 'На проверке', published: 'Опубликовано', rejected: 'Отклонено', hidden: 'Скрыто' };
+const WHENS = { today: 'Сегодня', tomorrow: 'Завтра', weekend: 'В выходные', week: 'На неделе', month: 'В этом месяце' };
+const EVENT_LIST_FIELDS = 'id, title, starts_at, ends_at, place, settlement, price_text, cover_url, category_id, event_categories(name, slug)';
+let EVENT_CATS = null, AFISHA_ST = { cat: '', q: '', when: '', place: '' };
+
+// Рубрики афиши почти не меняются: держим в браузере 12 часов (при изменении рубрик менять ключ)
+const ECATS_KEY = 'olk_ecats_1';
+async function loadEventCats() {
+  if (EVENT_CATS) return EVENT_CATS;
+  let data = cacheGet(ECATS_KEY, 12 * 3600e3);
+  if (!data) {
+    const res = await sb.from('event_categories').select('id, slug, name, sort').order('sort');
+    if (res.error) throw res.error;
+    data = res.data;
+    cacheSet(ECATS_KEY, data);
+  }
+  EVENT_CATS = data;
+  return data;
+}
+
+/* ----- Дни по времени Олёкминска (UTC+9, без перехода на летнее время) ----- */
+const ykDay = d => dayKeyFmt.format(d);                          // '2026-10-03'
+const ykStart = key => new Date(key + 'T00:00:00+09:00');        // полночь этого дня
+const ykAddDays = (key, n) => ykDay(new Date(ykStart(key).getTime() + n * 864e5 + 12 * 3600e3));
+const ykWeekday = key => new Date(key + 'T12:00:00+09:00').getUTCDay(); // 0 — воскресенье
+const wdFmt = new Intl.DateTimeFormat('ru-RU', { timeZone: OLK.tz, weekday: 'long' });
+const capFirst = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+// «3 октября» (+ год, если не текущий)
+function dayLabel(key) {
+  const d = new Date(key + 'T12:00:00+09:00');
+  const y = key.slice(0, 4);
+  return dayMonFmt.format(d) + (y !== ykDay(new Date()).slice(0, 4) ? ' ' + y : '');
+}
+// Заголовок дня в ленте: «Сегодня, 1 октября», «Завтра, 2 октября», «Суббота, 3 октября»
+function dayHead(key) {
+  const today = ykDay(new Date());
+  if (key === today) return 'Сегодня, ' + dayLabel(key);
+  if (key === ykAddDays(today, 1)) return 'Завтра, ' + dayLabel(key);
+  return capFirst(wdFmt.format(new Date(key + 'T12:00:00+09:00'))) + ', ' + dayLabel(key);
+}
+// Время «18:00»; полночь значит «время не указано»
+function evTime(iso) {
+  const t = timeFmt.format(new Date(iso));
+  return t === '00:00' ? '' : t;
+}
+// «Суббота, 3 октября, 18:00 – 21:00» или «3 октября, 10:00 — 30 октября»
+function evWhenText(e) {
+  const s = new Date(e.starts_at), sk = ykDay(s), st = evTime(e.starts_at);
+  let txt = capFirst(wdFmt.format(s)) + ', ' + dayLabel(sk) + (st ? ', ' + st : '');
+  if (e.ends_at) {
+    const ek = ykDay(new Date(e.ends_at)), et = evTime(e.ends_at);
+    if (ek === sk) { if (et) txt += ' – ' + et; }
+    else txt += ' — ' + dayLabel(ek) + (et ? ', ' + et : '');
+  }
+  return txt;
+}
+
+// Период для «Когда»: { from, to } в ISO или null — все дни
+function whenRange(when) {
+  const today = ykDay(new Date());
+  let a = today, b;
+  if (when === 'today') b = ykAddDays(today, 1);
+  else if (when === 'tomorrow') { a = ykAddDays(today, 1); b = ykAddDays(today, 2); }
+  else if (when === 'weekend') {
+    const wd = ykWeekday(today);
+    if (wd === 0) b = ykAddDays(today, 1);
+    else if (wd === 6) b = ykAddDays(today, 2);
+    else { a = ykAddDays(today, 6 - wd); b = ykAddDays(a, 2); }
+  }
+  else if (when === 'week') b = ykAddDays(today, 7);
+  else if (when === 'month') b = ykAddDays(today, 31);
+  else return null;
+  return { from: ykStart(a).toISOString(), to: ykStart(b).toISOString() };
+}
+
+// Ещё не прошедшие: не закончились, а без времени окончания — начинаются сегодня или позже
+function upcoming(q) {
+  const todayIso = ykStart(ykDay(new Date())).toISOString();
+  return q.or('ends_at.gte."' + new Date().toISOString() + '",and(ends_at.is.null,starts_at.gte."' + todayIso + '")');
+}
+
+function eventsQuery(st, cat, countOnly) {
+  let q = countOnly
+    ? sb.from('events').select('id', { count: 'exact', head: true })
+    : sb.from('events').select(EVENT_LIST_FIELDS);
+  q = upcoming(q.eq('status', 'published'));
+  if (cat) q = q.eq('category_id', cat.id);
+  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
+  if (st.place) q = q.eq('settlement', st.place);
+  const r = whenRange(st.when);
+  if (r) q = q.lt('starts_at', r.to).or('starts_at.gte."' + r.from + '",ends_at.gte."' + r.from + '"');
+  return q;
+}
+
+// День, под которым событие стоит в ленте: идущее уже несколько дней — под сегодняшним
+function evDayKey(e) {
+  const k = ykDay(new Date(e.starts_at)), today = ykDay(new Date());
+  return k < today ? today : k;
+}
+
+function evThumb(url) {
+  return 'src="' + esc(thumbPath(url)) + '" data-full="' + esc(url) + '" onerror="thumbFail(this)"';
+}
+
+function eventRow(e, opts = {}) {
+  const today = ykDay(new Date());
+  const sk = ykDay(new Date(e.starts_at));
+  const ek = e.ends_at ? ykDay(new Date(e.ends_at)) : sk;
+  const going = sk < today; // началось раньше и ещё идёт
+  const t = evTime(e.starts_at);
+  const time = opts.date
+    ? '<b>' + dayNumFmt.format(new Date(e.starts_at)) + '</b><small>' + monShort.format(new Date(e.starts_at)).replace('.', '') + '</small>'
+    : going ? '<small>идёт до</small>' + esc(dayNumFmt.format(new Date(e.ends_at)) + ' ' + monShort.format(new Date(e.ends_at)).replace('.', ''))
+    : t ? esc(t) : '<small>весь день</small>';
+  const info = [
+    e.place ? esc(e.place) : '',
+    e.settlement && e.settlement !== 'Олёкминск' ? esc(placeLabel(e.settlement)) : (!e.place ? 'Олёкминск' : ''),
+    !going && ek !== sk ? 'по ' + esc(dayLabel(ek)) : '',
+    e.price_text ? esc(e.price_text) : ''
+  ].filter(Boolean).join(' · ');
+  const cat = e.event_categories?.name;
+  return '<li><a class="erow" href="#/events/' + e.id + '">' +
+    '<span class="etime' + (opts.date ? ' edate' : '') + '">' + time + '</span>' +
+    '<span class="erow-text">' + (cat ? '<span class="meta">' + esc(cat) + '</span>' : '') +
+      '<span class="erow-title">' + esc(e.title) + '</span>' +
+      (info ? '<span class="erow-info">' + info + '</span>' : '') + '</span>' +
+    (e.cover_url ? '<img class="erow-img" ' + evThumb(e.cover_url) + ' alt="" loading="lazy">' : '') +
+  '</a></li>';
+}
+
+/* ----- Шапка afisha.olk.ru ----- */
+function afishaHeadHtml() {
+  return '<form class="bsearch" id="es" role="search">' +
+      '<div class="bsearch-row"><input id="es-q" type="search" placeholder="Поиск по афише" aria-label="Поиск по афише" enterkeyhint="search">' +
+        '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+      '<div class="bsearch-opts"><button class="ptoggle" type="button" id="es-pt" aria-expanded="false" aria-controls="es-params">Параметры</button></div>' +
+      '<div class="bparams" id="es-params" hidden>' +
+        '<div><label for="es-when">Когда</label><select id="es-when"><option value="">Все дни</option>' +
+          Object.entries(WHENS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
+        '<div class="bp-wide"><label for="es-place">Населённый пункт</label>' + placeFieldHtml('es-place', true) + '</div>' +
+        '<div class="bp-reset" id="es-reset" hidden><a href="#/events">Сбросить поиск и параметры</a></div>' +
+      '</div>' +
+    '</form>' +
+    '<nav class="hchips" id="es-cats" aria-label="Рубрики"></nav>';
+}
+
+function bindAfishaHead() {
+  bindParamsToggle('#es-pt', '#es-params');
+  bindPlace('#es-place', true);
+  const go = () => {
+    if (!placeOk('#es')) return;
+    $('#es-q').blur();
+    goHash('#/events' + qs({ cat: AFISHA_ST.cat, q: $('#es-q').value.trim(), when: $('#es-when').value, place: placeValue('#es-place') }));
+  };
+  $('#es').addEventListener('submit', e => { e.preventDefault(); go(); });
+  $('#es-when').addEventListener('change', go); // «Когда» применяется сразу
+}
+
+// Поиск, параметры и рубрики в шапке афиши. st: { cat, q, when, place }
+function fillAfishaHead(st) {
+  if (HEAD_KIND !== 'afisha') return;
+  AFISHA_ST = { cat: st.cat || '', q: st.q || '', when: WHENS[st.when] ? st.when : '', place: st.place || '' };
+  $('#es-q').value = AFISHA_ST.q;
+  $('#es-when').value = AFISHA_ST.when;
+  setPlace('#es-place', AFISHA_ST.place);
+  const n = paramsState('#es', AFISHA_ST, ['when', 'place']);
+  $('#es-reset').hidden = !(n || AFISHA_ST.q);
+  if (!sb) return;
+  const keep = { q: AFISHA_ST.q, when: AFISHA_ST.when, place: AFISHA_ST.place };
+  loadEventCats().then(cats => {
+    if (HEAD_KIND !== 'afisha') return;
+    $('#es-cats').innerHTML = '<a class="chip' + (!AFISHA_ST.cat ? ' on' : '') + '" href="#/events' + qs(keep) + '">Все</a>' +
+      cats.map(c => '<a class="chip' + (AFISHA_ST.cat === c.slug ? ' on' : '') + '" href="#/events' + qs({ cat: c.slug, ...keep }) + '">' + esc(c.name) + '</a>').join('');
+  }, e => console.error(e));
+}
+
+/* ----- Главная афиши, рубрика, поиск ----- */
+async function renderAfisha(query) {
+  if (!sb) return renderNoDb('Афиша');
+  const app = $('#app');
+  const seq = routeSeq;
+  const p = new URLSearchParams(query);
+  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), when: WHENS[p.get('when')] ? p.get('when') : '', place: p.get('place') || '' };
+  fillAfishaHead(st);
+  app.innerHTML = '<p class="loading">Загружаем афишу…</p>';
+  let cats;
+  try { cats = await loadEventCats(); }
+  catch (e) { console.error(e); if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+  if (seq !== routeSeq) return;
+
+  const cat = cats.find(c => c.slug === st.cat) || null;
+  const filtered = !!(cat || st.q || st.when || st.place);
+  const title = st.q ? 'Поиск «' + st.q + '»' : cat ? cat.name : st.when ? WHENS[st.when] : 'Афиша';
+  if (filtered) document.title = title + ' — ' + AFISHA_TITLE;
+  const addHref = '#/events/new';
+
+  app.innerHTML = (filtered
+      ? '<div class="crumbs"><a href="#/events">Вся афиша</a></div>' +
+        '<div class="bhead"><h1>' + esc(title) + '</h1><a href="' + addHref + '">+ Добавить событие</a></div>' +
+        '<p class="bfound" id="bfound">Считаем…</p>'
+      : '<h1 class="sr-only">Афиша Олёкминского района</h1>' +
+        '<div class="bhead ehome"><p>Концерты, спектакли, праздники и встречи в Олёкминске и наслегах.</p>' +
+          (session ? '<a href="#/events/my">Мои события</a>' : '') + '</div>') +
+    '<ul class="efeed" id="list"></ul><div id="list-state"></div>' +
+    '<p class="eadd">Знаете о событии, которого нет в афише? <a href="' + addHref + '">Добавьте его</a> — после проверки оно появится здесь.</p>';
+
+  if (filtered) {
+    eventsQuery(st, cat, true).then(({ count, error }) => {
+      const box = $('#bfound');
+      if (!box || seq !== routeSeq) return;
+      if (error || count == null) { box.remove(); return; }
+      box.innerHTML = 'Найдено ' + count.toLocaleString('ru-RU') + ' ' + plural(count, 'событие', 'события', 'событий') +
+        (st.when && (st.q || cat) ? ', ' + esc(WHENS[st.when].toLowerCase()) : '') + placeNote(st.place) +
+        (cat && st.q ? '. <a href="#/events' + qs({ ...st, cat: '' }) + '">Искать во всех рубриках</a>' : '');
+    }, () => { const box = $('#bfound'); if (box) box.remove(); });
+  }
+
+  let lastDay = null;
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => eventsQuery(st, cat, false)
+      .order('starts_at').order('id').range(from, from + size - 1),
+    renderItems: rows => rows.map(e => {
+      const k = evDayKey(e);
+      const head = k !== lastDay ? '<li class="eday"><h2>' + esc(dayHead(k)) + '</h2></li>' : '';
+      lastDay = k;
+      return head + eventRow(e);
+    }).join(''),
+    emptyHtml: filtered
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить запрос, рубрику или даты.</p>'
+      : '<p class="empty">Ближайших событий пока нет. <a href="' + addHref + '">Добавьте первое</a>.</p>'
+  });
+}
+
+/* ----- Страница события ----- */
+function storagePath(bucket, url) {
+  const tail = String(url || '').split('/storage/v1/object/public/' + bucket + '/')[1];
+  return tail ? decodeURIComponent(tail.split('?')[0]) : null;
+}
+
+async function deleteEvent(e) {
+  const { error } = await sb.from('events').delete().eq('id', e.id);
+  if (error) throw error;
+  const p = storagePath('events', e.cover_url);
+  if (p) sb.storage.from('events').remove([p, thumbPath(p)]).then(() => {}, () => {});
+}
+
+function evNotice(e, own, staff) {
+  if (e.status === 'pending') return '<div class="msg notice-msg">' + (own && !staff
+    ? 'Событие на проверке у модератора. В афише оно появится после одобрения.'
+    : 'Событие ждёт проверки: в афише его пока не видно.') + '</div>';
+  if (e.status === 'rejected') return '<div class="msg err">Событие отклонено модератором' +
+    (e.reject_reason ? '. Причина: ' + esc(e.reject_reason) : '') + '.' +
+    (own ? ' Исправьте его через «Изменить» и отправьте снова.' : '') + '</div>';
+  if (e.status === 'hidden') return '<div class="msg err">Событие скрыто модератором и не видно в афише.</div>';
+  const end = e.ends_at ? new Date(e.ends_at) : ykStart(ykAddDays(ykDay(new Date(e.starts_at)), 1));
+  if (end < new Date()) return '<div class="msg notice-msg">Событие уже прошло.</div>';
+  return '';
+}
+
+async function renderEventView(id) {
+  if (!sb) return renderNoDb('Событие');
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем событие…</p>';
+  const { data: e, error } = await sb.from('events')
+    .select('id, author_id, title, description, starts_at, ends_at, place, settlement, price_text, cover_url, status, reject_reason, views, created_at, event_categories(name, slug), profiles(display_name)')
+    .eq('id', id).maybeSingle();
+  if (seq !== routeSeq) return;
+  if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
+  if (!e) {
+    app.innerHTML = '<div class="stub"><h1>Событие не найдено</h1><p>Возможно, его удалили или оно ещё не прошло проверку.</p><a class="btn btn-brand" href="#/events">Вся афиша</a></div>';
+    return;
+  }
+  const staff = isStaff();
+  const own = !!session && session.user.id === e.author_id;
+  if (e.status === 'published' && !staff && !own) {
+    const key = 'olk_seen_e' + e.id;
+    let seen = false;
+    try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
+    if (!seen) { e.views++; sb.rpc('increment_event_views', { p_id: e.id }).then(() => {}, () => {}); }
+  }
+  const cat = e.event_categories;
+  fillAfishaHead({ cat: cat?.slug || '' });
+  document.title = e.title + ' — afisha.olk.ru';
+
+  const where = [e.place, e.settlement ? placeLabel(e.settlement) : ''].filter(Boolean).map(esc).join(', ');
+  const mod = staff ? '<section class="mod-box" id="mod"><h2>Модерация <span class="status ' + e.status + '">' + EVENT_STATUS[e.status] + '</span></h2>' +
+    '<div class="mod-actions">' +
+      (e.status !== 'published' ? '<button class="btn btn-accent" type="button" data-mod="published">' + (e.status === 'hidden' ? 'Вернуть в афишу' : 'Опубликовать') + '</button>' : '') +
+      (e.status === 'pending' ? '<button class="btn btn-line" type="button" data-mod="reject">Отклонить</button>' : '') +
+      (e.status === 'published' ? '<button class="btn btn-line" type="button" data-mod="hidden">Скрыть из афиши</button>' : '') +
+    '</div>' +
+    '<form class="mod-reject" id="mod-reject" hidden novalidate><div class="field"><label for="mod-reason">Причина отказа (её увидит автор)</label>' +
+      '<textarea id="mod-reason" class="short" maxlength="500" placeholder="Например: нет даты или места, это реклама, событие уже прошло"></textarea></div>' +
+      '<div class="mod-actions"><button class="btn btn-danger" type="submit">Отклонить</button><button class="btn btn-line" type="button" id="mod-cancel">Отмена</button></div></form>' +
+    '</section>' : '';
+
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/events">Афиша</a>' +
+      (cat ? ' → <a href="#/events?cat=' + esc(cat.slug) + '">' + esc(cat.name) + '</a>' : '') + '</div>' +
+    evNotice(e, own, staff) + '<div id="msg"></div>' + mod +
+    '<article class="event">' +
+      '<h1>' + esc(e.title) + '</h1>' +
+      '<ul class="efacts">' +
+        '<li><b>Когда</b><span>' + esc(evWhenText(e)) + '</span></li>' +
+        (where ? '<li><b>Где</b><span>' + where + '</span></li>' : '') +
+        (e.price_text ? '<li><b>Стоимость</b><span>' + esc(e.price_text) + '</span></li>' : '') +
+      '</ul>' +
+      (e.cover_url ? '<img class="e-poster" src="' + esc(e.cover_url) + '" alt="Афиша события">' : '') +
+      (e.description ? '<div class="art-body">' + renderBody(e.description) + '</div>' : '') +
+      '<p class="meta">' + [e.profiles?.display_name ? 'Автор: ' + esc(e.profiles.display_name) : '',
+        e.status === 'published' ? e.views + ' ' + plural(e.views, 'просмотр', 'просмотра', 'просмотров') : ''].filter(Boolean).join(', ') + '</p>' +
+      '<div class="art-actions">' +
+        (e.status === 'published' ? '<button class="btn btn-line" type="button" id="share">Поделиться</button>' : '') +
+        ((own && e.status !== 'hidden') || staff ? '<a class="btn btn-line" href="#/events/' + e.id + '/edit">Изменить</a>' : '') +
+        ((own && e.status !== 'hidden') || staff ? '<button class="btn btn-danger" type="button" id="ev-del">Удалить</button>' : '') +
+      '</div>' +
+    '</article>' +
+    (e.status === 'published' ? '<section class="comments" id="comments"></section>' : '');
+
+  const msg = $('#msg');
+  const share = $('#share');
+  if (share) share.addEventListener('click', ev => shareLink(e.title, BASE_URL + '#/events/' + e.id, ev.currentTarget));
+
+  const del = $('#ev-del');
+  if (del) del.addEventListener('click', async () => {
+    if (!confirm('Удалить событие «' + e.title + '»' + (e.status === 'published' ? ' вместе с комментариями' : '') + '? Вернуть его будет нельзя.')) return;
+    del.disabled = true;
+    try {
+      await deleteEvent(e);
+      flashMsg = { text: 'Событие удалено.', ok: true };
+      location.hash = own ? '#/events/my' : '#/admin/events';
+    } catch (err) { console.error(err); del.disabled = false; setMsg(msg, ruError(err)); }
+  });
+
+  // Модерация: опубликовать, скрыть, отклонить с причиной
+  const setStatus = async (status, reason, btn) => {
+    if (btn) btn.disabled = true;
+    const { error: err } = await sb.from('events').update({ status, reject_reason: status === 'rejected' ? (reason || null) : null }).eq('id', e.id);
+    if (err) { if (btn) btn.disabled = false; return setMsg(msg, ruError(err)); }
+    flashMsg = { text: status === 'published' ? 'Событие опубликовано в афише.' : status === 'hidden' ? 'Событие скрыто из афиши.' : 'Событие отклонено. Автор увидит причину.', ok: true };
+    if (seq === routeSeq) renderEventView(e.id).then(showFlash);
+  };
+  app.querySelectorAll('[data-mod]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.mod === 'reject') { $('#mod-reject').hidden = false; $('#mod-reason').focus(); return; }
+    setStatus(b.dataset.mod, null, b);
+  }));
+  const rf = $('#mod-reject');
+  if (rf) {
+    $('#mod-cancel').addEventListener('click', () => { rf.hidden = true; });
+    rf.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const reason = $('#mod-reason').value.trim();
+      if (reason.length < 3) return setMsg(msg, 'Напишите причину: автор поймёт, что исправить.');
+      setStatus('rejected', reason, rf.querySelector('button[type=submit]'));
+    });
+  }
+
+  if (e.status === 'published') loadComments($('#comments'), { col: 'event_id', id: e.id, next: 'events/' + e.id });
+}
+
+/* ----- Добавить и изменить событие ----- */
+function ykInputs(iso) {
+  if (!iso) return { date: '', time: '' };
+  const d = new Date(iso);
+  return { date: ykDay(d), time: evTime(iso) };
+}
+function ykIso(date, time) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  const t = /^\d{2}:\d{2}$/.test(time) ? time : '00:00';
+  const d = new Date(date + 'T' + t + ':00+09:00');
+  return isNaN(d) ? null : d.toISOString();
+}
+
+async function renderEventForm(editId) {
+  if (!sb) return renderNoDb('Добавить событие');
+  if (!requireLogin(editId ? 'events/' + editId + '/edit' : 'events/new')) return;
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+  if (!profile) profile = await fetchProfile();
+  let cats, ev = null;
+  try {
+    cats = await loadEventCats();
+    if (editId) {
+      const { data, error } = await sb.from('events')
+        .select('id, author_id, title, description, starts_at, ends_at, place, settlement, price_text, cover_url, category_id, status')
+        .eq('id', editId).maybeSingle();
+      if (error) throw error;
+      ev = data;
+    }
+  } catch (e) {
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+  const staff = isStaff();
+  const stub = (h, t) => { app.innerHTML = '<div class="stub"><h1>' + h + '</h1><p>' + t + '</p><a class="btn btn-brand" href="#/events">Вся афиша</a></div>'; };
+  if (editId && !ev) return stub('Событие не найдено', 'Возможно, его уже удалили.');
+  if (ev && !staff && ev.author_id !== session.user.id) return stub('Нет доступа', 'Изменить событие может только тот, кто его добавил.');
+  if (ev && !staff && ev.status === 'hidden') return stub('Событие скрыто', 'Модератор скрыл это событие, изменить его нельзя.');
+  if (profile?.is_banned) return stub('Аккаунт заблокирован', 'Модератор заблокировал ваш аккаунт, добавлять события нельзя.');
+
+  const s = ykInputs(ev?.starts_at), en = ykInputs(ev?.ends_at);
+  const cover = { url: ev?.cover_url || null, blob: null, thumb: null, preview: null };
+  let processing = false;
+  const today = ykDay(new Date());
+  const sub = staff ? (ev ? 'Вы модератор: изменения появятся сразу.' : 'Вы модератор: событие можно опубликовать сразу.')
+    : ev?.status === 'published' ? 'После сохранения событие снова уйдёт на проверку и до одобрения не будет видно в афише.'
+    : 'Событие появится в афише после проверки модератором.';
+
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/events">Афиша</a>' + (ev ? ' → <a href="#/events/' + ev.id + '">' + esc(ev.title) + '</a>' : '') + '</div>' +
+    '<form class="form wide" id="ef" novalidate>' +
+      '<h1>' + (ev ? 'Изменить событие' : 'Добавить событие') + '</h1>' +
+      '<p class="sub">' + sub + '</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="e-title">Название</label><input id="e-title" maxlength="200" value="' + esc(ev?.title || '') + '" placeholder="Например, концерт ансамбля «Олёкма»"></div>' +
+      '<div class="field"><label for="e-cat">Рубрика</label><select id="e-cat"><option value="">Выберите рубрику</option>' +
+        cats.map(c => '<option value="' + c.id + '"' + (ev?.category_id === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '</select></div>' +
+      '<div class="frow"><div class="field"><label for="e-date">Дата</label><input id="e-date" type="date" value="' + s.date + '"' + (staff ? '' : ' min="' + ykAddDays(today, -1) + '"') + '></div>' +
+        '<div class="field"><label for="e-time">Начало</label><input id="e-time" type="time" value="' + s.time + '"></div></div>' +
+      '<div id="end-box"' + (ev?.ends_at ? '' : ' hidden') + '><div class="frow">' +
+        '<div class="field"><label for="e-edate">Дата окончания</label><input id="e-edate" type="date" value="' + en.date + '"></div>' +
+        '<div class="field"><label for="e-etime">Окончание</label><input id="e-etime" type="time" value="' + en.time + '"></div></div>' +
+        '<div class="hint end-hint">Если событие идёт несколько дней (выставка, ярмарка), укажите последний день.</div></div>' +
+      '<p class="end-toggle"><button class="linkbtn" type="button" id="end-tg">' + (ev?.ends_at ? 'Убрать окончание' : '+ Указать окончание') + '</button></p>' +
+      '<div class="field"><label for="e-place">Населённый пункт</label>' + placeFieldHtml('e-place', false) + '</div>' +
+      '<div class="field"><label for="e-where">Место проведения</label><input id="e-where" maxlength="200" value="' + esc(ev?.place || '') + '" placeholder="Например, Дом культуры, ул. Молодёжная, 7"></div>' +
+      '<div class="field"><label for="e-price">Стоимость</label><input id="e-price" maxlength="100" value="' + esc(ev?.price_text || '') + '" placeholder="Например, 500 ₽, детям 300 ₽">' +
+        '<div class="hint"><button class="linkbtn" type="button" id="e-free">Вход свободный</button></div></div>' +
+      '<div class="field"><span class="flabel">Афиша или фото</span><div id="e-cover"></div><input type="file" id="e-file" accept="image/*" hidden></div>' +
+      '<div class="field"><label for="e-desc">Описание</label><textarea id="e-desc" maxlength="5000" placeholder="Что будет, для кого, как попасть, телефон для справок">' + esc(ev?.description || '') + '</textarea>' +
+        '<div class="hint"><span id="e-count">0</span> из 5000. Абзацы разделяйте пустой строкой.</div></div>' +
+      (staff && !ev ? '<label class="check"><input type="checkbox" id="e-pub" checked><span>Опубликовать сразу, без проверки</span></label>' : '') +
+      '<div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input id="e-website" tabindex="-1" autocomplete="off"></label></div>' +
+      '<button class="btn btn-accent" type="submit" id="e-submit">' + (ev ? 'Сохранить' : staff ? 'Добавить' : 'Отправить на проверку') + '</button>' +
+      '<div class="form-links"><a href="' + (ev ? '#/events/' + ev.id : '#/events') + '">Отменить</a>' + (!staff ? '<a href="#/events/my">Мои события</a>' : '') + '</div>' +
+    '</form>';
+
+  setPlace('#e-place', ev?.settlement || 'Олёкминск');
+  bindPlace('#e-place', false);
+  const msg = $('#msg');
+
+  const endBox = $('#end-box'), endTg = $('#end-tg');
+  endTg.addEventListener('click', () => {
+    endBox.hidden = !endBox.hidden;
+    endTg.textContent = endBox.hidden ? '+ Указать окончание' : 'Убрать окончание';
+    if (!endBox.hidden && !$('#e-edate').value) $('#e-edate').value = $('#e-date').value;
+  });
+  $('#e-free').addEventListener('click', () => { $('#e-price').value = 'Вход свободный'; });
+
+  const desc = $('#e-desc'), count = $('#e-count');
+  const updCount = () => { count.textContent = desc.value.length; };
+  desc.addEventListener('input', updCount); updCount();
+
+  // Афиша: большое фото и маленькая копия для ленты
+  const coverBox = $('#e-cover'), fileEl = $('#e-file');
+  function drawCover() {
+    const src = cover.preview || cover.url;
+    coverBox.innerHTML = processing ? '<div class="cover-empty poster">Обрабатываем фото…</div>'
+      : src ? '<img class="cover-prev poster" src="' + esc(src) + '" alt="Афиша">' +
+          '<div class="cover-tools"><button class="btn btn-line" type="button" data-cv="pick">Заменить</button>' +
+          '<button class="btn btn-danger" type="button" data-cv="del">Убрать</button></div>'
+      : '<button class="cover-empty poster" type="button" data-cv="pick"><b>+</b>Добавить афишу</button>' +
+        '<div class="hint">Подойдёт фото афиши или картинка к событию.</div>';
+    coverBox.querySelectorAll('[data-cv]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.cv === 'pick') return fileEl.click();
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+      cover.blob = cover.thumb = cover.preview = cover.url = null;
+      drawCover();
+    }));
+  }
+  drawCover();
+  fileEl.addEventListener('change', async () => {
+    const file = fileEl.files[0];
+    fileEl.value = '';
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return setMsg(msg, 'Выберите картинку.');
+    processing = true; drawCover();
+    try {
+      const blob = await compressPhoto(file);
+      const thumb = await compressPhoto(file, 480).catch(() => null);
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+      Object.assign(cover, { blob, thumb, preview: URL.createObjectURL(blob) });
+    } catch (e) {
+      console.error(e);
+      setMsg(msg, 'Не получилось открыть фото. Попробуйте другое.');
+    }
+    processing = false; drawCover();
+  });
+
+  $('#ef').addEventListener('submit', async e => {
+    e.preventDefault();
+    if ($('#e-website').value) return; // бот заполнил скрытое поле
+    const title = $('#e-title').value.trim();
+    const category_id = +$('#e-cat').value || null;
+    const starts_at = ykIso($('#e-date').value, $('#e-time').value);
+    let ends_at = null;
+    if (!endBox.hidden && ($('#e-edate').value || $('#e-etime').value)) {
+      ends_at = ykIso($('#e-edate').value || $('#e-date').value, $('#e-etime').value || '23:59');
+    }
+    const settlement = placeValue('#e-place');
+    const place = $('#e-where').value.trim();
+    const price_text = $('#e-price').value.trim();
+    const description = desc.value.trim();
+
+    if (title.length < 3) return setMsg(msg, 'Напишите название: хотя бы 3 символа.');
+    if (!category_id) return setMsg(msg, 'Выберите рубрику.');
+    if (!starts_at) return setMsg(msg, 'Укажите дату события.');
+    if (!staff && new Date(starts_at) < new Date(ykStart(today).getTime() - 864e5)) return setMsg(msg, 'Эта дата уже прошла. Проверьте дату.');
+    if (ends_at && new Date(ends_at) < new Date(starts_at)) return setMsg(msg, 'Окончание не может быть раньше начала.');
+    if (settlement === null) { $('#e-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
+    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
+    if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатывается.');
+
+    const btn = $('#e-submit'), label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Сохраняем…';
+    setMsg(msg, '');
+    let uploaded = null;
+    try {
+      let cover_url = cover.url;
+      if (cover.blob) {
+        const ext = cover.blob.type === 'image/webp' ? 'webp' : 'jpg';
+        const path = session.user.id + '/' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+        btn.textContent = 'Загружаем афишу…';
+        const up = await sb.storage.from('events').upload(path, cover.blob, { contentType: cover.blob.type, cacheControl: '31536000' });
+        if (up.error) throw up.error;
+        uploaded = path;
+        if (cover.thumb) {
+          const t = await sb.storage.from('events').upload(thumbPath(path), cover.thumb, { contentType: cover.thumb.type, cacheControl: '31536000' });
+          if (t.error) console.error(t.error); // не страшно: лента покажет большое фото
+        }
+        cover_url = sb.storage.from('events').getPublicUrl(path).data.publicUrl;
+      }
+      const fields = { title, category_id, starts_at, ends_at, settlement, place: place || null, price_text: price_text || null, description, cover_url };
+      let id = ev?.id;
+      if (ev) {
+        const { error } = await sb.from('events').update(fields).eq('id', ev.id);
+        if (error) throw error;
+      } else {
+        const publish = staff && $('#e-pub')?.checked;
+        const { data, error } = await sb.from('events')
+          .insert({ ...fields, author_id: session.user.id, status: publish ? 'published' : 'pending' }).select('id').single();
+        if (error) throw error;
+        id = data.id;
+      }
+      const old = storagePath('events', ev?.cover_url);
+      if (old && ev.cover_url !== cover_url) sb.storage.from('events').remove([old, thumbPath(old)]).then(() => {}, () => {});
+      if (cover.preview) URL.revokeObjectURL(cover.preview);
+
+      if (staff) {
+        flashMsg = { text: ev ? 'Изменения сохранены.' : $('#e-pub')?.checked ? 'Событие опубликовано в афише.' : 'Событие сохранено и ждёт проверки.', ok: true };
+        location.hash = '#/events/' + id;
+      } else {
+        flashMsg = { text: 'Событие отправлено на проверку. В афише оно появится после одобрения модератором.', ok: true };
+        location.hash = '#/events/my';
+      }
+    } catch (err) {
+      console.error(err);
+      if (uploaded) sb.storage.from('events').remove([uploaded, thumbPath(uploaded)]).then(() => {}, () => {});
+      setMsg(msg, ruError(err));
+      btn.disabled = false; btn.textContent = label;
+    }
+  });
+}
+
+/* ----- Мои события ----- */
+async function renderMyEvents() {
+  if (!sb) return renderNoDb('Мои события');
+  if (!requireLogin('events/my')) return;
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем ваши события…</p>';
+  const { data, error } = await sb.from('events')
+    .select(EVENT_LIST_FIELDS + ', status, reject_reason, views')
+    .eq('author_id', session.user.id).order('created_at', { ascending: false }).limit(200);
+  if (seq !== routeSeq) return;
+  if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
+  document.title = 'Мои события — ' + AFISHA_TITLE;
+  app.innerHTML =
+    '<div class="page-head"><h1>Мои события</h1><a href="#/events/new">+ Добавить событие</a></div>' +
+    '<div id="msg"></div>' +
+    (data.length ? '<ul class="efeed my-events">' + data.map(e =>
+      eventRow(e, { date: true }).replace(/<\/li>$/, '') +
+        '<div class="my-ev-meta"><span class="status ' + e.status + '">' + EVENT_STATUS[e.status] + '</span>' +
+          (e.status === 'published' ? '<span class="meta">' + e.views + ' ' + plural(e.views, 'просмотр', 'просмотра', 'просмотров') + '</span>' : '') +
+          (e.status === 'rejected' && e.reject_reason ? '<div class="e-reason">Причина: ' + esc(e.reject_reason) + '</div>' : '') +
+        '</div>' +
+        (e.status !== 'hidden' ? '<div class="owner-tools"><a class="btn btn-line" href="#/events/' + e.id + '/edit">' + (e.status === 'rejected' ? 'Исправить' : 'Изменить') + '</a>' +
+          '<button class="btn btn-danger" type="button" data-del="' + e.id + '">Удалить</button></div>' : '') +
+      '</li>').join('') + '</ul>'
+    : '<p class="empty">Вы ещё не добавляли событий. <a href="#/events/new">Добавьте первое</a>: концерт, ярмарку, соревнования.</p>');
+
+  app.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    const e = data.find(x => x.id === +b.dataset.del);
+    if (!confirm('Удалить событие «' + e.title + '»? Вернуть его будет нельзя.')) return;
+    b.disabled = true;
+    try {
+      await deleteEvent(e);
+      flashMsg = { text: 'Событие удалено.', ok: true };
+      renderMyEvents().then(showFlash);
+    } catch (err) { console.error(err); b.disabled = false; setMsg($('#msg'), ruError(err)); }
+  }));
+}
+
+function routeEvents(query, parts) {
+  if (!parts.length) return renderAfisha(query);
+  if (parts[0] === 'new') return renderEventForm(null);
+  if (parts[0] === 'my') return renderMyEvents();
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderEventForm(+parts[0]) : renderEventView(+parts[0]);
+  renderStub('404');
+}
+
+/* ----- Админка: заявки в афишу ----- */
+function adminTabs(on, pending) {
+  return '<nav class="admtabs" aria-label="Что модерировать">' +
+    '<a href="#/admin"' + (on === 'news' ? ' class="on" aria-current="page"' : '') + '>Новости</a>' +
+    '<a href="#/admin/events"' + (on === 'events' ? ' class="on" aria-current="page"' : '') + '>Афиша<span class="badge-n" id="adm-pending"' + (pending ? '' : ' hidden') + '>' + (pending || '') + '</span></a>' +
+  '</nav>';
+}
+
+// Число заявок на проверке — на вкладке «Афиша»
+function loadPendingCount() {
+  sb.from('events').select('id', { count: 'exact', head: true }).eq('status', 'pending').then(({ count }) => {
+    const el = $('#adm-pending');
+    if (!el) return;
+    el.textContent = count || '';
+    el.hidden = !count;
+  }, () => {});
+}
+
+function renderAdminEvents(query) {
+  const app = $('#app');
+  const status = new URLSearchParams(query).get('status') || 'pending';
+  const tabs = [['pending', 'На проверке'], ['published', 'Опубликованные'], ['rejected', 'Отклонённые'], ['hidden', 'Скрытые'], ['all', 'Все']];
+  document.title = 'Афиша — админка';
+  app.innerHTML =
+    '<div class="page-head"><h1>Админка</h1><a class="btn btn-accent" href="#/events/new">Добавить событие</a></div>' +
+    adminTabs('events') +
+    '<nav class="chips" aria-label="Статус">' +
+      tabs.map(([v, l]) => '<a class="chip' + (status === v ? ' on' : '') + '" href="#/admin/events' + (v === 'pending' ? '' : '?status=' + v) + '">' + l + '</a>').join('') +
+    '</nav>' +
+    '<ul class="adm-list" id="list"></ul><div id="list-state"></div>';
+  loadPendingCount();
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => {
+      let q = sb.from('events').select('id, title, status, starts_at, settlement, created_at, views, event_categories(name), profiles(display_name)');
+      if (status !== 'all') q = q.eq('status', status);
+      return (status === 'pending' ? q.order('created_at') : q.order('created_at', { ascending: false }))
+        .order('id').range(from, from + size - 1);
+    },
+    renderItems: rows => rows.map(e => '<li><a class="adm-row" href="#/events/' + e.id + '">' +
+      '<span class="adm-title">' + esc(e.title) + '</span>' +
+      '<span class="meta"><span class="status ' + e.status + '">' + EVENT_STATUS[e.status] + '</span>' +
+        esc(dayLabel(ykDay(new Date(e.starts_at)))) + ', ' + esc(placeLabel(e.settlement)) +
+        (e.event_categories ? ', ' + esc(e.event_categories.name) : '') +
+        '. Подано ' + fmtWhen(e.created_at) + (e.profiles?.display_name ? ', автор: ' + esc(e.profiles.display_name) : '') +
+      '</span></a></li>').join(''),
+    emptyHtml: '<p class="empty">' + (status === 'pending' ? 'Новых заявок нет.' : 'Здесь пока пусто.') + '</p>'
+  });
 }
 
 /* ---------------- Поиск ---------------- */
@@ -3331,14 +4101,16 @@ async function searchAll(q) {
     };
   }
   const opts = { type: 'websearch', config: 'russian' };
-  const [news, ads] = await Promise.all([
+  const [news, ads, events] = await Promise.all([
     sb.from('news').select('slug, title, lead, published_at, news_categories(name, slug)')
       .eq('status', 'published').textSearch('search', q, opts).limit(10),
     sb.from('ads').select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
       .eq('status', 'active').gt('expires_at', new Date().toISOString())
-      .textSearch('search', q, opts).limit(20)
+      .textSearch('search', q, opts).limit(20),
+    upcoming(sb.from('events').select('id, title, place, settlement, starts_at, ends_at')
+      .eq('status', 'published')).textSearch('search', q, opts).order('starts_at').limit(10)
   ]);
-  if (news.error || ads.error) throw (news.error || ads.error);
+  if (news.error || ads.error || events.error) throw (news.error || ads.error || events.error);
   return {
     demo: false,
     news: news.data.map(n => ({ ...n, category: n.news_categories?.name, catSlug: n.news_categories?.slug })),
@@ -3346,7 +4118,7 @@ async function searchAll(q) {
       const photos = (a.ad_photos || []).sort((x, y) => x.sort - y.sort);
       return { ...a, photo: photos[0] ? photoUrl(photos[0].path) : null };
     }),
-    events: []
+    events: events.data
   };
 }
 
@@ -3404,11 +4176,12 @@ function route() {
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
-  const kind = { ads: 'doska', news: 'news', rabota: 'rabota' }[section] || 'portal';
+  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha' }[section] || 'portal';
   setHead(kind);
   if (kind === 'doska') { BOARD_CAT = ''; fillBoardHead({}); }
   if (kind === 'news') fillNewsHead({});
   if (kind === 'rabota') fillRabotaHead({});
+  if (kind === 'afisha') fillAfishaHead({});
   if (HEADS[kind].title) document.title = HEADS[kind].title;
   if (PAGES[section]) { showFlash(); return PAGES[section](query, path.split('/').slice(1)); }
   showFlash();
@@ -3451,6 +4224,7 @@ matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches
 
 window.addEventListener('hashchange', route);
 renderInfo();
+loadPlaces().catch(e => console.error(e));
 initAuth().catch(e => console.error(e)).finally(() => { updateHeader(); route(); });
 </script>
 </body>
