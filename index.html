@@ -671,6 +671,105 @@
     .eday h2 { font-size: 18px; }
   }
 
+  /* ---------- Справочник ---------- */
+  .ephones { background: var(--err-bg); border: 1px solid var(--err-line); border-radius: var(--radius); padding: 10px 14px; margin: 0 0 16px; max-width: 980px; }
+  .ephones > b { display: block; font-size: 14px; font-weight: 600; color: var(--err-ink); margin-bottom: 4px; }
+  .ephones div { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .ephones a { color: var(--err-ink); font-size: 15px; white-space: nowrap; padding: 4px 0; }
+  .ephones a b { color: var(--berry); font-size: 18px; font-weight: 600; margin-right: 2px; }
+  .otiles { list-style: none; margin: 0 0 6px; padding: 0; max-width: 980px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .otiles a { display: flex; align-items: center; gap: 12px; min-height: 64px; height: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); font-weight: 500; font-size: 16px; line-height: 1.25; }
+  .otiles a:hover { text-decoration: none; border-color: var(--brand); }
+  .otiles a:hover .otile-name { color: var(--brand); }
+  .oico { width: 26px; height: 26px; flex: none; color: var(--brand); }
+  .otile-name { flex: 1; min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
+  .otiles .n, .osubs .n { color: var(--mute); font-size: 14px; font-weight: 400; white-space: nowrap; }
+  .oico-h { width: 26px; height: 26px; color: var(--brand); vertical-align: -3px; margin-right: 8px; }
+  .osubs { list-style: none; margin: 0 0 22px; padding: 0; max-width: 780px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .osubs li + li { border-top: 1px solid var(--line); }
+  .osubs a { display: flex; align-items: center; gap: 10px; padding: 12px 14px; color: var(--ink); font-weight: 500; }
+  .osubs a::after { content: '›'; color: var(--mute); font-size: 20px; line-height: 1; }
+  .osubs a:hover { text-decoration: none; color: var(--brand); }
+  .osub-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .osec { font-size: 19px; font-weight: 600; margin: 0 0 2px; }
+  .olist { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .olist > li { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; border-top: 1px solid var(--line); }
+  .orow { flex: 1; min-width: 0; display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; color: inherit; }
+  .orow:hover { text-decoration: none; }
+  .orow:hover .orow-title { color: var(--brand); }
+  .orow-text { flex: 1; min-width: 0; }
+  .orow-title { display: block; font-weight: 600; font-size: 17px; line-height: 1.3; margin: 1px 0 2px; color: var(--ink); overflow-wrap: anywhere; }
+  .orow-info { display: block; font-size: 15px; color: var(--mute); overflow-wrap: anywhere; }
+  .ostate { display: block; font-size: 14px; font-weight: 500; margin-top: 2px; }
+  .ostate.on { color: var(--ok); }
+  .ostate.off { color: var(--berry); }
+  .ologo { flex: none; width: 52px; height: 52px; border-radius: 10px; object-fit: cover; background: var(--thumb); }
+  .ologo.ph { display: flex; align-items: center; justify-content: center; }
+  .ologo.ph .oico { color: var(--thumb-ink); }
+  .ologo.lg { width: 76px; height: 76px; border-radius: 12px; }
+  .ologo.lg .oico { width: 36px; height: 36px; }
+  .ocall { flex: none; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--brand); }
+  .ocall:hover { border-color: var(--brand); }
+  .oico-s { width: 20px; height: 20px; flex: none; }
+  .org { max-width: 720px; }
+  .org-head { display: flex; gap: 14px; align-items: center; margin: 4px 0 14px; }
+  .org-head > div { min-width: 0; }
+  .org-head h1 { font-size: 30px; line-height: 1.16; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2px; overflow-wrap: anywhere; }
+  .org-head .meta { font-size: 15px; }
+  .org-call { gap: 8px; margin: 0 0 16px; padding: 12px 22px; font-size: 16px; }
+  .ofacts .ostate { margin: 0 0 2px; }
+  .ohours { display: grid; gap: 1px; }
+  .ohours i { font-style: normal; color: var(--mute); display: inline-block; min-width: 92px; margin-right: 8px; }
+  .ofacts small { display: block; color: var(--mute); font-size: 14px; margin-top: 4px; }
+  .ophones { display: flex; flex-direction: column; gap: 2px; }
+  .ophones a { font-weight: 600; }
+  .okeys { color: var(--mute); font-size: 15px; overflow-wrap: anywhere; }
+  .okeys b { font-weight: 500; color: var(--ink); }
+  .oreport { margin: 10px 0 0; }
+  #rep { padding-top: 4px; }
+  .my-orgs > li { padding-bottom: 14px; }
+  .my-orgs .orow { padding-bottom: 6px; }
+  .my-org-meta { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding-left: 64px; }
+  .my-org-meta .status { margin: 0; }
+  .my-orgs .owner-tools { flex-basis: 100%; padding-left: 64px; }
+  .adm-hint { margin: -4px 0 10px; font-size: 14px; }
+  .hcheck { color: var(--ink); font-size: 15px; font-weight: 500; margin: 2px 0 12px; }
+  .hpresets { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; margin: 0 0 10px; font-size: 14px; color: var(--mute); }
+  .hdays { display: grid; gap: 8px; margin: 0 0 14px; }
+  .hday { display: grid; grid-template-columns: 30px minmax(0, 170px) minmax(0, 1fr); gap: 8px; align-items: center; }
+  .hday-n { font-weight: 600; }
+  .hd-times { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; align-items: center; color: var(--mute); }
+  .field .hday select, .field .hd-times input { padding: 9px 10px; min-height: 44px; }
+  .hday.off .hd-times, .hday.h24 .hd-times { visibility: hidden; }
+  .ophone-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .ophone-row input { flex: 1; min-width: 0; }
+  .cover-empty.ologo-f, .cover-prev.ologo-f { max-width: 140px; aspect-ratio: 1; }
+  .admtabs { overflow-x: auto; scrollbar-width: none; }
+  .admtabs a { white-space: nowrap; }
+  @media (max-width: 600px) {
+    .otiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .otiles a { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 8px; min-height: 104px; padding: 12px; font-size: 15px; }
+    .otiles .n { margin-top: auto; }
+    .org-head h1 { font-size: 24px; }
+    .ologo.lg { width: 60px; height: 60px; }
+    .ologo { width: 46px; height: 46px; }
+    .orow { gap: 10px; }
+    .orow-title { font-size: 16.5px; }
+    .orow-info { font-size: 14px; }
+    .my-org-meta, .my-orgs .owner-tools { padding-left: 0; }
+    .hday { grid-template-columns: 30px minmax(0, 1fr); }
+    .hd-times { grid-column: 2; }
+    .hday.off .hd-times, .hday.h24 .hd-times { display: none; }
+    .ohours i { min-width: 84px; }
+  }
+  /* Логотип catalog.olk.ru на букву длиннее остальных разделов */
+  @media (max-width: 400px) { .top.sec[data-kind="catalog"] .logo b { font-size: 18px; letter-spacing: -0.01em; } }
+  @media (max-width: 340px) { .top.sec[data-kind="catalog"] .logo b { font-size: 15px; } }
+  @media (max-width: 420px) {
+    .admtabs { gap: 16px; }
+    .admtabs a { font-size: 15px; }
+  }
+
   /* ---------- Подвал бокового меню ---------- */
   .drawer { display: flex; flex-direction: column; }
   .drawer-foot { margin-top: auto; padding-top: 28px; font-size: 13px; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 4px; }
@@ -804,6 +903,7 @@
   <a href="#/catalog" data-route="catalog">Справочник</a>
   <a href="#/ads/my" id="drawer-my" hidden>Мои объявления</a>
   <a href="#/events/my" id="drawer-my-ev" hidden>Мои события</a>
+  <a href="#/catalog/my" id="drawer-my-org" hidden>Мои организации</a>
   <a href="#/admin" data-route="admin" id="drawer-admin" hidden>Админка</a>
   <a class="drawer-login" id="drawer-auth" href="#/login">Войти</a>
   <div class="drawer-foot"><span>© 2026 Евсеев А.В.</span><a href="#/privacy">Политика конфиденциальности</a></div>
@@ -1147,7 +1247,6 @@ async function renderHome() {
 
 /* ---------------- Заглушки разделов ---------------- */
 const STUBS = {
-  catalog:  ['Справочник', 'Организации Олёкминска с адресами и телефонами появятся на шаге 5.'],
   privacy:  ['Политика конфиденциальности', 'Текст политики обработки персональных данных будет подготовлен перед запуском.'],
   forbidden: ['Нет доступа', 'Этот раздел только для редакции сайта.']
 };
@@ -1237,7 +1336,7 @@ function updateHeader() {
     dlink.href = '#/profile';
     dlink.textContent = name;
     dlink.dataset.route = 'profile';
-    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = false;
+    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = $('#drawer-my-org').hidden = false;
     $('#nav-admin').hidden = $('#drawer-admin').hidden = !isStaff();
   } else {
     link.className = 'btn btn-ghost';
@@ -1247,7 +1346,7 @@ function updateHeader() {
     dlink.href = '#/login';
     dlink.textContent = 'Войти';
     delete dlink.dataset.route;
-    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = true;
+    $('#drawer-my').hidden = $('#drawer-my-ev').hidden = $('#drawer-my-org').hidden = true;
     $('#nav-admin').hidden = $('#drawer-admin').hidden = true;
   }
   syncAddBtn();
@@ -1407,7 +1506,7 @@ async function renderProfile() {
     '<div class="form">' +
       '<h1>Профиль' + (ROLE_NAMES[profile.role] ? '<span class="badge">' + ROLE_NAMES[profile.role] + '</span>' : '') + '</h1>' +
       '<p class="facts">' + esc(session.user.email) + ', на сайте с ' + dayMonFmt.format(created) + ' ' + created.getFullYear() + '</p>' +
-      '<p><a href="#/ads/my">Мои объявления →</a><br><a href="#/events/my">Мои события →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
+      '<p><a href="#/ads/my">Мои объявления →</a><br><a href="#/events/my">Мои события →</a><br><a href="#/catalog/my">Мои организации →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
       (profile.is_banned ? '<div class="msg err">Ваш аккаунт заблокирован модератором. Публиковать объявления и комментарии нельзя.</div>' : '') +
       '<div id="msg"></div>' +
       '<div class="avatar-row"><span id="ava">' + avatarHtml(profile, 'lg') + '</span>' +
@@ -1533,6 +1632,7 @@ const PAGES = {
   rabota: (query, parts) => routeRabota(query, parts),
   news: routeNews,
   events: routeEvents,
+  catalog: (query, parts) => routeCatalog(query, parts),
   admin: routeAdmin
 };
 
@@ -2270,7 +2370,9 @@ const HEADS = {
   rabota: { pre: 'rabota', sub: 'Вакансии и резюме', href: '#/rabota', label: 'rabota.olk.ru — главная раздела «Работа»',
     add: ['Разместить вакансию', '+ Добавить', '#/rabota/new'], title: RABOTA_TITLE, extra: rabotaHeadHtml, bind: bindRabotaHead },
   afisha: { pre: 'afisha', sub: 'Афиша района', href: '#/events', label: 'afisha.olk.ru — главная афиши',
-    add: ['Добавить событие', '+ Добавить', '#/events/new'], title: AFISHA_TITLE, extra: afishaHeadHtml, bind: bindAfishaHead }
+    add: ['Добавить событие', '+ Добавить', '#/events/new'], title: AFISHA_TITLE, extra: afishaHeadHtml, bind: bindAfishaHead },
+  catalog: { pre: 'catalog', sub: 'Справочник района', href: '#/catalog', label: 'catalog.olk.ru — главная справочника',
+    add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминского района', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() }
 };
 
 function setHead(kind) {
@@ -2279,6 +2381,7 @@ function setHead(kind) {
   HEAD_KIND = kind;
   const h = HEADS[kind], logo = $('#logo');
   $('#top').classList.toggle('sec', kind !== 'portal');
+  $('#top').dataset.kind = kind;
   $('#nav-home').hidden = kind === 'portal';
   logo.href = h.href;
   logo.setAttribute('aria-label', h.label);
@@ -3419,6 +3522,7 @@ async function routeAdmin(query, parts) {
   if (parts[0] === 'news' && parts[1] === 'new') return renderNewsEditor(null);
   if (parts[0] === 'news' && /^\d+$/.test(parts[1] || '')) return renderNewsEditor(+parts[1]);
   if (parts[0] === 'events' && !parts[1]) return renderAdminEvents(query);
+  if (parts[0] === 'catalog' && !parts[1]) return renderAdminOrgs(query);
   renderStub('404');
 }
 
@@ -4040,21 +4144,27 @@ function routeEvents(query, parts) {
 }
 
 /* ----- Админка: заявки в афишу ----- */
-function adminTabs(on, pending) {
+function adminTabs(on) {
+  const tab = (key, href, label, badge) => '<a href="' + href + '"' + (on === key ? ' class="on" aria-current="page"' : '') + '>' + label +
+    (badge ? '<span class="badge-n" id="' + badge + '" hidden></span>' : '') + '</a>';
   return '<nav class="admtabs" aria-label="Что модерировать">' +
-    '<a href="#/admin"' + (on === 'news' ? ' class="on" aria-current="page"' : '') + '>Новости</a>' +
-    '<a href="#/admin/events"' + (on === 'events' ? ' class="on" aria-current="page"' : '') + '>Афиша<span class="badge-n" id="adm-pending"' + (pending ? '' : ' hidden') + '>' + (pending || '') + '</span></a>' +
+    tab('news', '#/admin', 'Новости') + tab('events', '#/admin/events', 'Афиша', 'adm-pending') +
+    tab('catalog', '#/admin/catalog', 'Справочник', 'adm-pending-org') +
   '</nav>';
 }
 
-// Число заявок на проверке — на вкладке «Афиша»
+// Числа на вкладках: заявки в афишу; заявки и изменённые карточки справочника
 function loadPendingCount() {
-  sb.from('events').select('id', { count: 'exact', head: true }).eq('status', 'pending').then(({ count }) => {
-    const el = $('#adm-pending');
+  const put = (id, count) => {
+    const el = $('#' + id);
     if (!el) return;
     el.textContent = count || '';
     el.hidden = !count;
-  }, () => {});
+  };
+  sb.from('events').select('id', { count: 'exact', head: true }).eq('status', 'pending')
+    .then(({ count }) => put('adm-pending', count), () => {});
+  sb.from('organizations').select('id', { count: 'exact', head: true }).or('status.eq.pending,and(status.eq.published,needs_review.is.true)')
+    .then(({ count }) => put('adm-pending-org', count), () => {});
 }
 
 function renderAdminEvents(query) {
@@ -4089,6 +4199,893 @@ function renderAdminEvents(query) {
   });
 }
 
+/* ---------------- Справочник: catalog.olk.ru ---------------- */
+// Иконки разделов — Tabler Icons (MIT), контуры 24×24
+const ORG_ICONS = {
+  vlast: 'M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8 M13 7l0 .01 M17 7l0 .01 M17 11l0 .01 M17 15l0 .01',
+  medicina: 'M8 8v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2 M4 10a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -8 M10 14h4 M12 12v4',
+  obrazovanie: 'M22 9l-10 -4l-10 4l10 4l10 -4v6 M6 10.6v5.4a6 3 0 0 0 12 0v-5.4',
+  magaziny: 'M4 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M15 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M17 17h-11v-14h-2 M6 5l14 1l-1 7h-13',
+  eda: 'M19 3v12h-5c-.023 -3.681 .184 -7.406 5 -12m0 12v6h-1v-3m-10 -14v17m-3 -17v3a3 3 0 1 0 6 0v-3',
+  krasota: 'M3 7a3 3 0 1 0 6 0a3 3 0 1 0 -6 0 M3 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0 M8.6 8.6l10.4 10.4 M8.6 15.4l10.4 -10.4',
+  avto: 'M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5',
+  transport: 'M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5',
+  svyaz: 'M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10 M3 7l9 6l9 -6',
+  finansy: 'M3 21l18 0 M3 10l18 0 M5 6l7 -3l7 3 M4 10l0 11 M20 10l0 11 M8 14l0 3 M12 14l0 3 M16 14l0 3',
+  zhkh: 'M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11',
+  stroitelstvo: 'M11.414 10l-7.383 7.418a2.091 2.091 0 0 0 0 2.967a2.11 2.11 0 0 0 2.976 0l7.407 -7.385 M18.121 15.293l2.586 -2.586a1 1 0 0 0 0 -1.414l-7.586 -7.586a1 1 0 0 0 -1.414 0l-2.586 2.586a1 1 0 0 0 0 1.414l7.586 7.586a1 1 0 0 0 1.414 0',
+  uslugi: 'M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5',
+  dosug: 'M13.192 9h6.616a2 2 0 0 1 1.992 2.183l-.567 6.182a4 4 0 0 1 -3.983 3.635h-1.5a4 4 0 0 1 -3.983 -3.635l-.567 -6.182a2 2 0 0 1 1.992 -2.183 M15 13h.01 M18 13h.01 M15 16.5c1 .667 2 .667 3 0 M8.632 15.982a4.037 4.037 0 0 1 -.382 .018h-1.5a4 4 0 0 1 -3.983 -3.635l-.567 -6.182a2 2 0 0 1 1.992 -2.183h6.616a2 2 0 0 1 2 2 M6 8h.01 M9 8h.01 M6 12c.764 -.51 1.528 -.63 2.291 -.36',
+  turizm: 'M5 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M22 17v-3h-20 M2 8v9 M12 14h10v-2a3 3 0 0 0 -3 -3h-7v5',
+  obshchestvo: 'M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0 M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2 M16 3.13a4 4 0 0 1 0 7.75 M21 21v-2a4 4 0 0 0 -3 -3.85',
+  '_phone': 'M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2',
+  '_pin': 'M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0 M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0',
+  '_clock': 'M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0 M12 7v5l3 3',
+  '_web': 'M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0 M3.6 9h16.8 M3.6 15h16.8 M11.5 3a17 17 0 0 0 0 18 M12.5 3a17 17 0 0 1 0 18',
+  '_vk': 'M14 19h-4a8 8 0 0 1 -8 -8v-5h4v5a4 4 0 0 0 4 4v-9h4v4.5l.03 0a4.531 4.531 0 0 0 3.97 -4.496h4l-.342 1.711a6.858 6.858 0 0 1 -3.658 4.789a5.34 5.34 0 0 1 3.566 4.111l.434 2.389h-4a4.531 4.531 0 0 0 -3.97 -4.496v4.5l-.03 -.008',
+  '_mail': 'M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0 M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28',
+  '_org': 'M3 21l18 0 M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4 M5 21l0 -10.15 M19 21l0 -10.15 M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4'
+};
+const CATALOG_TITLE = 'catalog.olk.ru — справочник Олёкминского района';
+const ORG_STATUS = { pending: 'На проверке', published: 'Опубликовано', rejected: 'Отклонено', hidden: 'Скрыто' };
+const ORG_LIST_FIELDS = 'id, name, address, settlement, phones, hours, category_id, logo_url';
+const ORG_FIELDS = 'id, submitted_by, category_id, name, description, address, settlement, phones, website, vk, email, keywords, hours, hours_note, logo_url, lat, lng, status, reject_reason, views, needs_review, created_at, updated_at';
+const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];            // ключи часов работы: 1–7
+const DAYS_ON = ['в понедельник', 'во вторник', 'в среду', 'в четверг', 'в пятницу', 'в субботу', 'в воскресенье'];
+const EMERG_SHORT = { '112': 'Спасение', '101': 'Пожарные', '102': 'Полиция', '103': 'Скорая', '104': 'Газ' };
+let ORG_CATS = null, CATALOG_ST = { cat: '', q: '', open: '', place: '' };
+
+function orgIcon(key, cls) {
+  return '<svg class="' + (cls || 'oico') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
+    (ORG_ICONS[key] || ORG_ICONS._org) + '"/></svg>';
+}
+
+// Рубрики: 16 разделов и подрубрики. Держим в браузере 12 часов (при изменении рубрик менять ключ)
+const OCATS_KEY = 'olk_ocats_1';
+async function loadOrgCats() {
+  if (ORG_CATS) return ORG_CATS;
+  let data = cacheGet(OCATS_KEY, 12 * 3600e3);
+  if (!data) {
+    const res = await sb.from('org_categories').select('id, parent_id, slug, name, sort').order('sort');
+    if (res.error) throw res.error;
+    data = res.data;
+    cacheSet(OCATS_KEY, data);
+  }
+  const byId = {}, bySlug = {};
+  data.forEach(c => { byId[c.id] = { ...c, kids: [] }; });
+  Object.values(byId).forEach(c => {
+    bySlug[c.slug] = c;
+    if (c.parent_id && byId[c.parent_id]) byId[c.parent_id].kids.push(c);
+  });
+  const top = Object.values(byId).filter(c => !c.parent_id).sort((a, b) => a.sort - b.sort);
+  top.forEach(c => c.kids.sort((a, b) => a.sort - b.sort));
+  ORG_CATS = { top, byId, bySlug };
+  return ORG_CATS;
+}
+// Раздел, к которому относится рубрика
+function orgTop(cats, id) {
+  const c = cats.byId[id];
+  return c && c.parent_id ? cats.byId[c.parent_id] : c || null;
+}
+
+function loadOrgCounts() {
+  return sb.rpc('org_category_counts').then(({ data, error }) => {
+    if (error) throw error;
+    const m = {};
+    (data || []).forEach(r => { m[r.category_id] = Number(r.n) || 0; });
+    return m;
+  });
+}
+const orgCatTotal = (c, m) => (m[c.id] || 0) + c.kids.reduce((s, k) => s + (m[k.id] || 0), 0);
+function applyOrgCounts(root, cats, m) {
+  root.querySelectorAll('[data-ocid]').forEach(el => {
+    const c = cats.byId[+el.dataset.ocid];
+    const n = c ? orgCatTotal(c, m) : 0;
+    el.textContent = n ? n.toLocaleString('ru-RU') : '';
+    el.hidden = !n;
+  });
+}
+
+/* ----- Часы работы: { "1": ["09:00-13:00", "14:00-18:00"], …, "7": [] }, 1 — понедельник ----- */
+const toMin = t => +t.slice(0, 2) * 60 + +t.slice(3, 5);
+const nextDay = d => d === 7 ? 1 : d + 1;
+const prevDay = d => d === 1 ? 7 : d - 1;
+function dayIvs(hours, d) {
+  const v = hours && Array.isArray(hours[String(d)]) ? hours[String(d)] : [];
+  return v.map(s => { const [a, b] = String(s).split('-'); return { s: toMin(a), e: toMin(b), a, b }; })
+    .sort((x, y) => x.s - y.s);
+}
+const hasHours = h => !!h && [1, 2, 3, 4, 5, 6, 7].some(d => dayIvs(h, d).length);
+const is24 = v => v.length === 1 && v[0].s === 0 && v[0].e === 1440;
+// День недели (1–7) и минуты по времени Олёкминска
+function ykNowDM() {
+  const now = new Date(), wd = ykWeekday(ykDay(now));
+  return { d: wd === 0 ? 7 : wd, m: toMin(timeFmt.format(now)) };
+}
+
+// Открыто ли сейчас: { open, text } или null, если часы не указаны (так же считает база: open_now)
+function orgOpenState(hours) {
+  if (!hasHours(hours)) return null;
+  if ([1, 2, 3, 4, 5, 6, 7].every(d => is24(dayIvs(hours, d)))) return { open: true, text: 'Круглосуточно' };
+  const { d, m } = ykNowDM();
+  for (const v of dayIvs(hours, d)) {
+    if (v.e > v.s ? m >= v.s && m < v.e : m >= v.s) return { open: true, text: 'Открыто до ' + v.b };
+  }
+  for (const v of dayIvs(hours, prevDay(d))) {
+    if (v.e <= v.s && m < v.e) return { open: true, text: 'Открыто до ' + v.b };
+  }
+  const later = dayIvs(hours, d).find(v => v.s > m);
+  if (later) return { open: false, text: 'Закрыто, откроется в ' + later.a };
+  for (let i = 1, k = nextDay(d); i <= 7; i++, k = nextDay(k)) {
+    const first = dayIvs(hours, k)[0];
+    if (first) return { open: false, text: 'Закрыто, откроется ' + (i === 1 ? 'завтра' : DAYS_ON[k - 1]) + ' в ' + first.a };
+  }
+  return { open: false, text: 'Закрыто' };
+}
+
+function dayText(hours, d) {
+  const v = dayIvs(hours, d);
+  if (!v.length) return 'выходной';
+  if (is24(v)) return 'круглосуточно';
+  return v.map(x => x.a + '–' + x.b).join(', ');
+}
+// [['Пн–Пт', '09:00–18:00'], ['Сб, Вс', 'выходной']]
+function hoursLines(hours) {
+  const out = [];
+  for (let i = 1; i <= 7;) {
+    const t = dayText(hours, i);
+    let j = i;
+    while (j < 7 && dayText(hours, j + 1) === t) j++;
+    out.push([i === 1 && j === 7 ? 'Ежедневно' : i === j ? DAYS[i - 1] : j === i + 1 ? DAYS[i - 1] + ', ' + DAYS[j - 1] : DAYS[i - 1] + '–' + DAYS[j - 1], t]);
+    i = j + 1;
+  }
+  return out;
+}
+
+/* ----- Телефоны, ссылки, карта ----- */
+const telHref = p => 'tel:' + String(p).trim().replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
+const phoneDigits = p => String(p).replace(/\D/g, '');
+const linkText = u => String(u).replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '');
+function mapHref(o) {
+  if (o.lat != null && o.lng != null) return 'https://yandex.ru/maps/?pt=' + o.lng + ',' + o.lat + '&z=17&l=map';
+  return 'https://yandex.ru/maps/?text=' + encodeURIComponent('Якутия, Олёкминский район, ' + [o.settlement, o.address].filter(Boolean).join(', '));
+}
+function orgLogo(o, cats, size) {
+  if (o.logo_url) return '<img class="ologo ' + size + '" src="' + esc(o.logo_url) + '" alt="" loading="lazy">';
+  const t = orgTop(cats, o.category_id);
+  return '<span class="ologo ' + size + ' ph">' + orgIcon(t?.slug) + '</span>';
+}
+
+function orgRow(o, cats) {
+  const st = orgOpenState(o.hours);
+  const c = cats.byId[o.category_id];
+  const where = [o.address, o.settlement && o.settlement !== 'Олёкминск' ? placeLabel(o.settlement) : (!o.address ? 'Олёкминск' : '')]
+    .filter(Boolean).map(esc).join(', ');
+  const ph = (o.phones || [])[0];
+  return '<li><a class="orow" href="#/catalog/' + o.id + '">' + orgLogo(o, cats, 'sm') +
+      '<span class="orow-text">' + (c ? '<span class="meta">' + esc(c.name) + '</span>' : '') +
+        '<span class="orow-title">' + esc(o.name) + '</span>' +
+        (where ? '<span class="orow-info">' + where + '</span>' : '') +
+        (st ? '<span class="ostate ' + (st.open ? 'on' : 'off') + '">' + esc(st.text) + '</span>' : '') +
+      '</span></a>' +
+    (ph ? '<a class="ocall" href="' + esc(telHref(ph)) + '" aria-label="Позвонить: ' + esc(ph) + '">' + orgIcon('_phone', 'oico-s') + '</a>' : '') +
+  '</li>';
+}
+
+// Поиск: по номеру телефона (если введены цифры) или по названию, ключевым словам, описанию
+function orgTextFilter(q, text) {
+  let digits = phoneDigits(text);
+  if (digits.length >= 4 && /^[\d\s()+\-.]+$/.test(text)) {
+    if (digits.length === 11 && /^[78]/.test(digits)) digits = digits.slice(1);
+    return q.ilike('phone_digits', '%' + digits + '%');
+  }
+  const safe = text.replace(/[,()*:"\\%]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!safe) return q;
+  return q.or('search.wfts(russian)."' + safe + '",name.ilike."*' + safe + '*",keywords.ilike."*' + safe + '*"');
+}
+
+function orgsQuery(st, ids, countOnly) {
+  let q = countOnly
+    ? sb.from('organizations').select('id', { count: 'exact', head: true })
+    : sb.from('organizations').select(ORG_LIST_FIELDS);
+  q = q.eq('status', 'published');
+  if (ids) q = q.in('category_id', ids);
+  if (st.place) q = q.eq('settlement', st.place);
+  if (st.open) q = q.is('open_now', true);
+  if (st.q) q = orgTextFilter(q, st.q);
+  return q;
+}
+
+/* ----- Шапка catalog.olk.ru ----- */
+function catalogHeadHtml() {
+  return '<form class="bsearch" id="cs" role="search">' +
+      '<div class="bsearch-row"><input id="cs-q" type="search" placeholder="Название, услуга, телефон" aria-label="Поиск по справочнику" enterkeyhint="search">' +
+        '<button class="btn btn-accent" type="submit">Найти</button></div>' +
+      '<div class="bsearch-opts"><label><input type="checkbox" id="cs-open">Открыто сейчас</label>' +
+        '<button class="ptoggle" type="button" id="cs-pt" aria-expanded="false" aria-controls="cs-params">Параметры</button></div>' +
+      '<div class="bparams" id="cs-params" hidden>' +
+        '<div class="bp-wide"><label for="cs-place">Населённый пункт</label>' + placeFieldHtml('cs-place', true) + '</div>' +
+        '<div class="bp-reset" id="cs-reset" hidden><a href="#/catalog">Сбросить поиск и параметры</a></div>' +
+      '</div>' +
+    '</form>';
+}
+
+function bindCatalogHead() {
+  bindParamsToggle('#cs-pt', '#cs-params');
+  bindPlace('#cs-place', true);
+  const go = () => {
+    if (!placeOk('#cs')) return;
+    $('#cs-q').blur();
+    goHash('#/catalog' + qs({ cat: CATALOG_ST.cat, q: $('#cs-q').value.trim(), open: $('#cs-open').checked ? '1' : '', place: placeValue('#cs-place') }));
+  };
+  $('#cs').addEventListener('submit', e => { e.preventDefault(); go(); });
+  $('#cs-open').addEventListener('change', go); // «Открыто сейчас» применяется сразу
+}
+
+// st: { cat, q, open, place }
+function fillCatalogHead(st) {
+  if (HEAD_KIND !== 'catalog') return;
+  CATALOG_ST = { cat: st.cat || '', q: st.q || '', open: st.open ? '1' : '', place: st.place || '' };
+  $('#cs-q').value = CATALOG_ST.q;
+  $('#cs-open').checked = !!CATALOG_ST.open;
+  setPlace('#cs-place', CATALOG_ST.place);
+  const n = paramsState('#cs', CATALOG_ST, ['place']);
+  $('#cs-reset').hidden = !(n || CATALOG_ST.q || CATALOG_ST.open);
+}
+
+/* ----- Главная справочника, раздел, рубрика, поиск ----- */
+const orgInvite = () => '<p class="eadd">Вашей организации нет в справочнике? <a href="#/catalog/new">Добавьте её бесплатно</a> — после проверки она появится здесь.</p>';
+
+async function renderCatalog(query) {
+  if (!sb) return renderNoDb('Справочник');
+  const app = $('#app');
+  const seq = routeSeq;
+  const p = new URLSearchParams(query);
+  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), open: p.get('open') === '1' ? '1' : '', place: p.get('place') || '' };
+  fillCatalogHead(st);
+  app.innerHTML = '<p class="loading">Загружаем справочник…</p>';
+  let cats;
+  try { cats = await loadOrgCats(); }
+  catch (e) { console.error(e); if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>'; return; }
+  if (seq !== routeSeq) return;
+  const counts = loadOrgCounts();
+  counts.catch(e => console.error(e));
+  const cat = cats.bySlug[st.cat] || null;
+
+  if (!(cat || st.q || st.open || st.place)) {
+    app.innerHTML =
+      '<h1 class="sr-only">Справочник организаций Олёкминского района</h1>' +
+      '<div class="bhead ehome"><p>Адреса, телефоны и часы работы организаций Олёкминска и района.</p>' +
+        (session ? '<a href="#/catalog/my">Мои организации</a>' : '') + '</div>' +
+      '<div class="ephones"><b>Экстренные службы</b><div>' +
+        EMERGENCY.map(([n, name]) => '<a href="tel:' + n + '" aria-label="' + esc(name) + ': ' + n + '"><b>' + n + '</b> ' + esc(EMERG_SHORT[n] || name) + '</a>').join('') +
+      '</div></div>' +
+      '<ul class="otiles">' + cats.top.map(c =>
+        '<li><a href="#/catalog?cat=' + esc(c.slug) + '">' + orgIcon(c.slug) +
+          '<span class="otile-name">' + esc(c.name) + '</span><span class="n" data-ocid="' + c.id + '" hidden></span></a></li>').join('') +
+      '</ul>' + orgInvite();
+    counts.then(m => { if (seq === routeSeq) applyOrgCounts(app, cats, m); }, () => {});
+    return;
+  }
+
+  const parent = cat && cat.parent_id ? cats.byId[cat.parent_id] : null;
+  const ids = cat ? [cat.id, ...cat.kids.map(k => k.id)] : null;
+  const title = st.q ? 'Поиск «' + st.q + '»' : cat ? cat.name : st.open ? 'Открыто сейчас' : 'Все организации';
+  document.title = title + ' — ' + CATALOG_TITLE;
+  const showKids = !!(cat && cat.kids.length && !st.q);
+  const addHref = '#/catalog/new' + (cat ? '?cat=' + encodeURIComponent(cat.slug) : '');
+  const keep = { open: st.open, place: st.place };
+
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/catalog">Справочник</a>' +
+      (parent ? ' → <a href="#/catalog' + qs({ cat: parent.slug, ...keep }) + '">' + esc(parent.name) + '</a>' : '') + '</div>' +
+    '<div class="bhead"><h1>' + (cat && !st.q ? orgIcon((parent || cat).slug, 'oico-h') : '') + esc(title) + '</h1>' +
+      '<a href="' + addHref + '">+ Добавить организацию</a></div>' +
+    (showKids ? '<ul class="osubs">' + cat.kids.map(k =>
+        '<li><a href="#/catalog' + qs({ cat: k.slug, ...keep }) + '"><span class="osub-name">' + esc(k.name) + '</span>' +
+          '<span class="n" data-ocid="' + k.id + '" hidden></span></a></li>').join('') + '</ul>' +
+      '<h2 class="osec">Все организации раздела</h2>' : '') +
+    '<p class="bfound" id="bfound">Считаем…</p>' +
+    '<ul class="olist" id="list"></ul><div id="list-state"></div>' + orgInvite();
+
+  if (showKids) counts.then(m => { if (seq === routeSeq) applyOrgCounts(app, cats, m); }, () => {});
+
+  orgsQuery(st, ids, true).then(({ count, error }) => {
+    const box = $('#bfound');
+    if (!box || seq !== routeSeq) return;
+    if (error || count == null) { box.remove(); return; }
+    const n = count.toLocaleString('ru-RU') + ' ' + plural(count, 'организация', 'организации', 'организаций');
+    box.innerHTML = (st.q || st.open || st.place ? 'Найдено ' + n : n) +
+      (st.open ? ', открыто сейчас' : '') + placeNote(st.place) +
+      (cat && st.q ? '. <a href="#/catalog' + qs({ ...st, cat: '' }) + '">Искать во всём справочнике</a>' : '');
+  }, () => { const box = $('#bfound'); if (box) box.remove(); });
+
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => orgsQuery(st, ids, false).order('name').order('id').range(from, from + size - 1),
+    renderItems: rows => rows.map(o => orgRow(o, cats)).join(''),
+    emptyHtml: st.q || st.open || st.place
+      ? '<p class="empty">Ничего не нашлось. Попробуйте другое слово, номер или уберите «Открыто сейчас».</p>'
+      : '<p class="empty">Здесь пока нет организаций. <a href="' + addHref + '">Добавьте первую</a> — это бесплатно.</p>'
+  });
+}
+
+/* ----- Карточка организации ----- */
+async function deleteOrg(o) {
+  const { error } = await sb.from('organizations').delete().eq('id', o.id);
+  if (error) throw error;
+  const p = storagePath('orgs', o.logo_url);
+  if (p) sb.storage.from('orgs').remove([p]).then(() => {}, () => {});
+}
+
+function orgNotice(o, own, staff) {
+  if (o.status === 'pending') return '<div class="msg notice-msg">' + (own && !staff
+    ? 'Организация на проверке у модератора. В справочнике она появится после одобрения.'
+    : 'Организация ждёт проверки: в справочнике её пока не видно.') + '</div>';
+  if (o.status === 'rejected') return '<div class="msg err">Модератор отклонил карточку' +
+    (o.reject_reason ? '. Причина: ' + esc(o.reject_reason) : '') + '.' +
+    (own ? ' Исправьте её через «Изменить» и отправьте снова.' : '') + '</div>';
+  if (o.status === 'hidden') return '<div class="msg err">Организация скрыта модератором и не видна в справочнике.</div>';
+  if (staff && o.needs_review) return '<div class="msg notice-msg">Владелец изменил карточку после проверки (' + esc(fmtWhen(o.updated_at)) + '). Изменения уже видны всем — посмотрите, всё ли в порядке.</div>';
+  return '';
+}
+
+async function renderOrgView(id) {
+  if (!sb) return renderNoDb('Организация');
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+  let o, cats;
+  try {
+    const [res, c] = await Promise.all([
+      sb.from('organizations').select(ORG_FIELDS + ', profiles(display_name)').eq('id', id).maybeSingle(),
+      loadOrgCats()
+    ]);
+    if (res.error) throw res.error;
+    o = res.data; cats = c;
+  } catch (e) {
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+  if (!o) {
+    app.innerHTML = '<div class="stub"><h1>Организация не найдена</h1><p>Возможно, её удалили или она ещё не прошла проверку.</p><a class="btn btn-brand" href="#/catalog">Весь справочник</a></div>';
+    return;
+  }
+  const staff = isStaff();
+  const own = !!session && session.user.id === o.submitted_by;
+  if (o.status === 'published' && !staff && !own) {
+    const key = 'olk_seen_o' + o.id;
+    let seen = false;
+    try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
+    if (!seen) { o.views++; sb.rpc('increment_org_views', { p_id: o.id }).then(() => {}, () => {}); }
+  }
+  const c = cats.byId[o.category_id], top = orgTop(cats, o.category_id);
+  fillCatalogHead({ cat: c?.slug || '' });
+  document.title = o.name + ' — catalog.olk.ru';
+
+  const stt = orgOpenState(o.hours);
+  const phones = (o.phones || []).filter(Boolean);
+  const addr = [placeLabel(o.settlement || 'Олёкминск'), o.address].filter(Boolean).join(', ');
+  const facts = [
+    hasHours(o.hours) || o.hours_note ? '<li><b>Часы работы</b><span>' +
+      (stt ? '<span class="ostate ' + (stt.open ? 'on' : 'off') + '">' + esc(stt.text) + '</span>' : '') +
+      (hasHours(o.hours) && stt?.text !== 'Круглосуточно' ? '<span class="ohours">' + hoursLines(o.hours).map(([d, t]) => '<span><i>' + esc(d) + '</i>' + esc(t) + '</span>').join('') + '</span>' : '') +
+      (o.hours_note ? '<small>' + esc(o.hours_note) + '</small>' : '') + '</span></li>' : '',
+    '<li><b>Адрес</b><span>' + esc(addr) + '<br><a href="' + esc(mapHref(o)) + '" target="_blank" rel="noopener">Открыть на карте</a></span></li>',
+    phones.length ? '<li><b>' + (phones.length > 1 ? 'Телефоны' : 'Телефон') + '</b><span class="ophones">' +
+      phones.map(p => '<a href="' + esc(telHref(p)) + '">' + esc(p) + '</a>').join('') + '</span></li>' : '',
+    o.website ? '<li><b>Сайт</b><span><a href="' + esc(o.website) + '" target="_blank" rel="noopener nofollow">' + esc(linkText(o.website)) + '</a></span></li>' : '',
+    o.vk ? '<li><b>ВКонтакте</b><span><a href="' + esc(o.vk) + '" target="_blank" rel="noopener nofollow">' + esc(linkText(o.vk)) + '</a></span></li>' : '',
+    o.email ? '<li><b>Почта</b><span><a href="mailto:' + esc(o.email) + '">' + esc(o.email) + '</a></span></li>' : ''
+  ].join('');
+
+  const mod = staff ? '<section class="mod-box" id="mod"><h2>Модерация <span class="status ' + o.status + '">' + ORG_STATUS[o.status] + '</span></h2>' +
+    '<div class="mod-actions">' +
+      (o.status !== 'published' ? '<button class="btn btn-accent" type="button" data-mod="published">' + (o.status === 'hidden' ? 'Вернуть в справочник' : 'Опубликовать') + '</button>' : '') +
+      (o.status === 'published' && o.needs_review ? '<button class="btn btn-accent" type="button" data-mod="reviewed">Проверено</button>' : '') +
+      (o.status === 'pending' ? '<button class="btn btn-line" type="button" data-mod="reject">Отклонить</button>' : '') +
+      (o.status === 'published' ? '<button class="btn btn-line" type="button" data-mod="hidden">Скрыть из справочника</button>' : '') +
+    '</div>' +
+    '<form class="mod-reject" id="mod-reject" hidden novalidate><div class="field"><label for="mod-reason">Причина отказа (её увидит автор)</label>' +
+      '<textarea id="mod-reason" class="short" maxlength="500" placeholder="Например: нет телефона и адреса, не та рубрика, такая организация уже есть"></textarea></div>' +
+      '<div class="mod-actions"><button class="btn btn-danger" type="submit">Отклонить</button><button class="btn btn-line" type="button" id="mod-cancel">Отмена</button></div></form>' +
+    (o.profiles?.display_name ? '<p class="meta">Добавил: ' + esc(o.profiles.display_name) + ', ' + esc(fmtWhen(o.created_at)) + '</p>' : '') +
+    '</section>' : '';
+
+  const canEdit = (own && o.status !== 'hidden') || staff;
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/catalog">Справочник</a>' +
+      (top ? ' → <a href="#/catalog?cat=' + esc(top.slug) + '">' + esc(top.name) + '</a>' : '') +
+      (c && c !== top ? ' → <a href="#/catalog?cat=' + esc(c.slug) + '">' + esc(c.name) + '</a>' : '') + '</div>' +
+    orgNotice(o, own, staff) + '<div id="msg"></div>' + mod +
+    '<article class="org">' +
+      '<div class="org-head">' + orgLogo(o, cats, 'lg') + '<div><h1>' + esc(o.name) + '</h1>' +
+        (c ? '<div class="meta">' + esc(c.name) + '</div>' : '') + '</div></div>' +
+      (phones.length ? '<a class="btn btn-accent org-call" href="' + esc(telHref(phones[0])) + '">' + orgIcon('_phone', 'oico-s') + 'Позвонить</a>' : '') +
+      '<ul class="efacts ofacts">' + facts + '</ul>' +
+      (o.description ? '<div class="art-body">' + renderBody(o.description) + '</div>' : '') +
+      (o.keywords ? '<p class="okeys"><b>Услуги и товары:</b> ' + esc(o.keywords) + '</p>' : '') +
+      '<p class="meta">' + [o.status === 'published' ? o.views + ' ' + plural(o.views, 'просмотр', 'просмотра', 'просмотров') : '',
+        'обновлено ' + esc(fmtWhen(o.updated_at))].filter(Boolean).join(', ') + '</p>' +
+      '<div class="art-actions">' +
+        (o.status === 'published' ? '<button class="btn btn-line" type="button" id="share">Поделиться</button>' : '') +
+        (canEdit ? '<a class="btn btn-line" href="#/catalog/' + o.id + '/edit">Изменить</a><button class="btn btn-danger" type="button" id="org-del">Удалить</button>' : '') +
+      '</div>' +
+      (o.status === 'published' && !own ? '<p class="oreport"><button class="linkbtn" type="button" id="rep-tg">Сообщить о неточности</button></p>' +
+        '<form class="form wide" id="rep" hidden novalidate><div class="field"><label for="rep-text">Что не так?</label>' +
+          '<textarea id="rep-text" class="short" maxlength="500" placeholder="Например: сменился телефон, организация переехала или закрылась"></textarea></div>' +
+          '<div id="rep-msg"></div><div class="mod-actions"><button class="btn btn-brand" type="submit">Отправить</button><button class="btn btn-line" type="button" id="rep-cancel">Отмена</button></div></form>' : '') +
+    '</article>';
+
+  const msg = $('#msg');
+  const share = $('#share');
+  if (share) share.addEventListener('click', ev => shareLink(o.name, BASE_URL + '#/catalog/' + o.id, ev.currentTarget));
+
+  const del = $('#org-del');
+  if (del) del.addEventListener('click', async () => {
+    if (!confirm('Удалить организацию «' + o.name + '» из справочника? Вернуть её будет нельзя.')) return;
+    del.disabled = true;
+    try {
+      await deleteOrg(o);
+      flashMsg = { text: 'Организация удалена.', ok: true };
+      location.hash = own ? '#/catalog/my' : '#/admin/catalog';
+    } catch (err) { console.error(err); del.disabled = false; setMsg(msg, ruError(err)); }
+  });
+
+  // Модерация
+  const setMod = async (fields, text, btn) => {
+    if (btn) btn.disabled = true;
+    const { error: err } = await sb.from('organizations').update(fields).eq('id', o.id);
+    if (err) { if (btn) btn.disabled = false; return setMsg(msg, ruError(err)); }
+    flashMsg = { text, ok: true };
+    if (seq === routeSeq) renderOrgView(o.id).then(showFlash);
+  };
+  app.querySelectorAll('[data-mod]').forEach(b => b.addEventListener('click', () => {
+    const m = b.dataset.mod;
+    if (m === 'reject') { $('#mod-reject').hidden = false; $('#mod-reason').focus(); return; }
+    if (m === 'reviewed') return setMod({ needs_review: false }, 'Отмечено как проверенное.', b);
+    if (m === 'hidden') return setMod({ status: 'hidden' }, 'Организация скрыта из справочника.', b);
+    setMod({ status: 'published', reject_reason: null, needs_review: false }, 'Организация опубликована в справочнике.', b);
+  }));
+  const rf = $('#mod-reject');
+  if (rf) {
+    $('#mod-cancel').addEventListener('click', () => { rf.hidden = true; });
+    rf.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const reason = $('#mod-reason').value.trim();
+      if (reason.length < 3) return setMsg(msg, 'Напишите причину: автор поймёт, что исправить.');
+      setMod({ status: 'rejected', reject_reason: reason }, 'Карточка отклонена. Автор увидит причину.', rf.querySelector('button[type=submit]'));
+    });
+  }
+
+  // Сообщить о неточности (попадает модераторам)
+  const repTg = $('#rep-tg'), rep = $('#rep');
+  if (repTg) {
+    repTg.addEventListener('click', () => {
+      if (!session) { requireLogin('catalog/' + o.id); return; }
+      rep.hidden = false; repTg.hidden = true; $('#rep-text').focus();
+    });
+    $('#rep-cancel').addEventListener('click', () => { rep.hidden = true; repTg.hidden = false; });
+    rep.addEventListener('submit', async ev => {
+      ev.preventDefault();
+      const reason = $('#rep-text').value.trim();
+      if (reason.length < 3) return setMsg($('#rep-msg'), 'Напишите, что не так: хотя бы пару слов.');
+      const b = rep.querySelector('button[type=submit]');
+      b.disabled = true;
+      const { error: err } = await sb.from('reports').insert({ entity: 'organization', entity_id: o.id, reporter_id: session.user.id, reason });
+      b.disabled = false;
+      if (err && !/duplicate key/i.test(err.message || '')) return setMsg($('#rep-msg'), ruError(err));
+      rep.hidden = true;
+      setMsg(msg, err ? 'Вы уже сообщали об этой организации. Модератор проверит.' : 'Спасибо! Модератор проверит и исправит карточку.', true);
+    });
+  }
+}
+
+/* ----- Добавить и изменить организацию ----- */
+function hoursFormHtml() {
+  return '<div class="hdays" id="o-days">' + DAYS.map((d, i) =>
+    '<div class="hday" data-k="' + (i + 1) + '"><span class="hday-n">' + d + '</span>' +
+      '<select class="hd-mode" aria-label="' + d + '"><option value="work">Работает</option><option value="off">Выходной</option><option value="24">Круглосуточно</option></select>' +
+      '<span class="hd-times"><input type="time" class="hd-from" aria-label="' + d + ', с"><span>–</span><input type="time" class="hd-to" aria-label="' + d + ', до"></span>' +
+    '</div>').join('') + '</div>';
+}
+
+async function renderOrgForm(editId, query) {
+  if (!sb) return renderNoDb('Добавить организацию');
+  if (!requireLogin(editId ? 'catalog/' + editId + '/edit' : 'catalog/new' + (query ? '?' + query : ''))) return;
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем…</p>';
+  if (!profile) profile = await fetchProfile();
+  let cats, org = null;
+  try {
+    cats = await loadOrgCats();
+    if (editId) {
+      const { data, error } = await sb.from('organizations').select(ORG_FIELDS).eq('id', editId).maybeSingle();
+      if (error) throw error;
+      org = data;
+    }
+  } catch (e) {
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+  const staff = isStaff();
+  const stub = (h, t) => { app.innerHTML = '<div class="stub"><h1>' + h + '</h1><p>' + t + '</p><a class="btn btn-brand" href="#/catalog">Весь справочник</a></div>'; };
+  if (editId && !org) return stub('Организация не найдена', 'Возможно, её уже удалили.');
+  if (org && !staff && org.submitted_by !== session.user.id) return stub('Нет доступа', 'Изменить карточку может только тот, кто её добавил.');
+  if (org && !staff && org.status === 'hidden') return stub('Организация скрыта', 'Модератор скрыл эту организацию, изменить её нельзя.');
+  if (profile?.is_banned) return stub('Аккаунт заблокирован', 'Модератор заблокировал ваш аккаунт, добавлять организации нельзя.');
+
+  // Раздел и рубрика: из карточки или из адреса (?cat=…)
+  const pre = org ? cats.byId[org.category_id] : cats.bySlug[new URLSearchParams(query).get('cat') || ''];
+  const preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
+  const preLeaf = pre && pre.parent_id ? pre : null;
+  const logo = { url: org?.logo_url || null, blob: null, preview: null };
+  let processing = false;
+  const sub = staff ? (org ? 'Вы модератор: изменения появятся сразу.' : 'Вы модератор: организацию можно опубликовать сразу.')
+    : org?.status === 'published' ? 'Изменения появятся в справочнике сразу после сохранения.'
+    : 'Организация появится в справочнике после проверки модератором. После публикации вы сможете менять карточку сами.';
+
+  app.innerHTML =
+    '<div class="crumbs"><a href="#/catalog">Справочник</a>' + (org ? ' → <a href="#/catalog/' + org.id + '">' + esc(org.name) + '</a>' : '') + '</div>' +
+    '<form class="form wide" id="of" novalidate>' +
+      '<h1>' + (org ? 'Изменить организацию' : 'Добавить организацию') + '</h1>' +
+      '<p class="sub">' + sub + '</p>' +
+      '<div id="msg"></div>' +
+      '<div class="field"><label for="o-name">Название</label><input id="o-name" maxlength="200" value="' + esc(org?.name || '') + '" placeholder="Например, аптека «Здоровье»"></div>' +
+      '<div class="field"><label for="o-sec">Раздел</label><select id="o-sec"><option value="">Выберите раздел</option>' +
+        cats.top.map(c => '<option value="' + c.id + '"' + (preTop?.id === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '</select></div>' +
+      '<div class="field"><label for="o-cat">Рубрика</label><select id="o-cat"></select></div>' +
+      '<div class="field"><label for="o-place">Населённый пункт</label>' + placeFieldHtml('o-place', false) + '</div>' +
+      '<div class="field"><label for="o-addr">Адрес</label><input id="o-addr" maxlength="200" value="' + esc(org?.address || '') + '" placeholder="Например, ул. Ленина, 12, 2 этаж"></div>' +
+      '<div class="field"><span class="flabel">Телефоны</span><div id="o-phones"></div>' +
+        '<button class="linkbtn" type="button" id="o-ph-add">+ Ещё телефон</button>' +
+        '<div class="hint">Первый номер будет на кнопке «Позвонить».</div></div>' +
+      '<label class="check hcheck"><input type="checkbox" id="o-hon"' + (hasHours(org?.hours) ? ' checked' : '') + '><span>Указать часы работы</span></label>' +
+      '<div class="field" id="o-hours"' + (hasHours(org?.hours) ? '' : ' hidden') + '>' +
+        '<div class="hpresets"><span>Быстро:</span><button class="linkbtn" type="button" data-hp="wd">Пн–Пт 9–18</button>' +
+          '<button class="linkbtn" type="button" data-hp="all">Ежедневно 9–21</button><button class="linkbtn" type="button" data-hp="24">Круглосуточно</button>' +
+          '<button class="linkbtn" type="button" data-hp="copy">Как в Пн на все будни</button></div>' +
+        hoursFormHtml() +
+        '<div class="frow"><div class="field"><label for="o-bfrom">Перерыв с</label><input id="o-bfrom" type="time"></div>' +
+          '<div class="field"><label for="o-bto">до</label><input id="o-bto" type="time"></div></div>' +
+        '<div class="hint end-hint">Перерыв (обед) — во все рабочие дни, можно не указывать. Работаете ночью — так и укажите, например с 20:00 до 02:00.</div>' +
+      '</div>' +
+      '<div class="field"><label for="o-hnote">Примечание к часам работы</label><input id="o-hnote" maxlength="200" value="' + esc(org?.hours_note || '') + '" placeholder="Например: санитарный день — последняя пятница месяца"></div>' +
+      '<div class="field"><label for="o-keys">Ключевые слова</label><input id="o-keys" maxlength="300" value="' + esc(org?.keywords || '') + '" placeholder="Например: шиномонтаж, балансировка, хранение шин">' +
+        '<div class="hint">Что вы продаёте или делаете. По этим словам организацию найдут в поиске.</div></div>' +
+      '<div class="field"><label for="o-desc">Описание</label><textarea id="o-desc" maxlength="3000" placeholder="Чем занимаетесь, как вас найти, что важно знать посетителям">' + esc(org?.description || '') + '</textarea>' +
+        '<div class="hint"><span id="o-count">0</span> из 3000. Абзацы разделяйте пустой строкой.</div></div>' +
+      '<div class="field"><label for="o-site">Сайт</label><input id="o-site" type="url" inputmode="url" maxlength="300" value="' + esc(org?.website || '') + '" placeholder="https://…"></div>' +
+      '<div class="field"><label for="o-vk">Группа ВКонтакте</label><input id="o-vk" inputmode="url" maxlength="300" value="' + esc(org?.vk || '') + '" placeholder="vk.com/…"></div>' +
+      '<div class="field"><label for="o-email">Почта</label><input id="o-email" type="email" inputmode="email" maxlength="120" value="' + esc(org?.email || '') + '" placeholder="name@example.ru"></div>' +
+      '<div class="field"><span class="flabel">Логотип или фото</span><div id="o-logo"></div><input type="file" id="o-file" accept="image/*" hidden></div>' +
+      (staff && !org ? '<label class="check"><input type="checkbox" id="o-pub" checked><span>Опубликовать сразу, без проверки</span></label>' : '') +
+      '<div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input id="o-website2" tabindex="-1" autocomplete="off"></label></div>' +
+      '<button class="btn btn-accent" type="submit" id="o-submit">' + (org ? 'Сохранить' : staff ? 'Добавить' : 'Отправить на проверку') + '</button>' +
+      '<div class="form-links"><a href="' + (org ? '#/catalog/' + org.id : '#/catalog') + '">Отменить</a>' + (!staff ? '<a href="#/catalog/my">Мои организации</a>' : '') + '</div>' +
+    '</form>';
+
+  const msg = $('#msg');
+  setPlace('#o-place', org?.settlement || 'Олёкминск');
+  bindPlace('#o-place', false);
+
+  // Рубрики выбранного раздела
+  const sec = $('#o-sec'), catSel = $('#o-cat');
+  const fillCats = keep => {
+    const t = cats.byId[+sec.value];
+    catSel.innerHTML = '<option value="">' + (t ? 'Выберите рубрику' : 'Сначала выберите раздел') + '</option>' +
+      (t ? t.kids.map(k => '<option value="' + k.id + '"' + (keep === k.id ? ' selected' : '') + '>' + esc(k.name) + '</option>').join('') : '');
+    catSel.disabled = !t;
+  };
+  fillCats(preLeaf?.id);
+  sec.addEventListener('change', () => fillCats(null));
+
+  // Телефоны: до 5 полей
+  const phBox = $('#o-phones'), phAdd = $('#o-ph-add');
+  const drawPhoneAdd = () => { phAdd.hidden = phBox.children.length >= 5; };
+  const addPhone = (v, focus) => {
+    const row = document.createElement('div');
+    row.className = 'ophone-row';
+    row.innerHTML = '<input type="tel" inputmode="tel" class="o-phone" maxlength="30" aria-label="Телефон" placeholder="+7 914 000-00-00" value="' + esc(v || '') + '">' +
+      '<button class="linkbtn danger" type="button" aria-label="Убрать номер">Убрать</button>';
+    row.querySelector('button').addEventListener('click', () => {
+      if (phBox.children.length > 1) row.remove(); else row.querySelector('input').value = '';
+      drawPhoneAdd();
+    });
+    phBox.append(row);
+    drawPhoneAdd();
+    if (focus) row.querySelector('input').focus();
+  };
+  const phones0 = (org?.phones || []).filter(Boolean);
+  (phones0.length ? phones0 : ['']).forEach(p => addPhone(p));
+  phAdd.addEventListener('click', () => addPhone('', true));
+
+  // Часы работы
+  const hon = $('#o-hon'), hBox = $('#o-hours');
+  const dayRow = k => $('.hday[data-k="' + k + '"]', hBox);
+  const setDay = (k, mode, from, to) => {
+    const r = dayRow(k);
+    r.querySelector('.hd-mode').value = mode;
+    if (from !== undefined) { r.querySelector('.hd-from').value = from; r.querySelector('.hd-to').value = to; }
+    r.className = 'hday' + (mode === 'off' ? ' off' : mode === '24' ? ' h24' : '');
+  };
+  const preset = kind => {
+    for (let k = 1; k <= 7; k++) {
+      if (kind === 'wd') setDay(k, k <= 5 ? 'work' : 'off', '09:00', '18:00');
+      if (kind === 'all') setDay(k, 'work', '09:00', '21:00');
+      if (kind === '24') setDay(k, '24', '', '');
+    }
+    if (kind === '24') $('#o-bfrom').value = $('#o-bto').value = '';
+  };
+  hBox.querySelectorAll('.hd-mode').forEach(s => s.addEventListener('change', () => {
+    const k = +s.closest('.hday').dataset.k;
+    const r = dayRow(k);
+    if (s.value === 'work' && !r.querySelector('.hd-from').value) { r.querySelector('.hd-from').value = '09:00'; r.querySelector('.hd-to').value = '18:00'; }
+    setDay(k, s.value);
+  }));
+  hBox.querySelectorAll('[data-hp]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.hp !== 'copy') return preset(b.dataset.hp);
+    const r = dayRow(1);
+    for (let k = 2; k <= 5; k++) setDay(k, r.querySelector('.hd-mode').value, r.querySelector('.hd-from').value, r.querySelector('.hd-to').value);
+  }));
+  if (hasHours(org?.hours)) {
+    let brk = null;
+    for (let k = 1; k <= 7; k++) {
+      const v = dayIvs(org.hours, k);
+      if (!v.length) setDay(k, 'off', '', '');
+      else if (is24(v)) setDay(k, '24', '', '');
+      else {
+        setDay(k, 'work', v[0].a, v[v.length - 1].b);
+        if (v.length > 1 && !brk) brk = [v[0].b, v[1].a];
+      }
+    }
+    if (brk) { $('#o-bfrom').value = brk[0]; $('#o-bto').value = brk[1]; }
+  } else preset('wd');
+  hon.addEventListener('change', () => { hBox.hidden = !hon.checked; });
+
+  // Собрать часы: { hours } или { err }
+  const collectHours = () => {
+    if (!hon.checked) return { hours: null };
+    const bf = $('#o-bfrom').value, bt = $('#o-bto').value;
+    if (!!bf !== !!bt) return { err: 'Укажите перерыв полностью: с какого и до какого времени. Или очистите оба поля.' };
+    if (bf && bt <= bf) return { err: 'Конец перерыва должен быть позже начала.' };
+    const h = {};
+    for (let k = 1; k <= 7; k++) {
+      const r = dayRow(k), mode = r.querySelector('.hd-mode').value;
+      if (mode === 'off') continue;
+      if (mode === '24') { h[k] = ['00:00-24:00']; continue; }
+      const from = r.querySelector('.hd-from').value, to = r.querySelector('.hd-to').value;
+      if (!from || !to) return { err: 'Укажите часы работы ' + DAYS_ON[k - 1] + ': с какого и до какого времени.' };
+      if (from === to) return { err: 'Проверьте часы ' + DAYS_ON[k - 1] + ': начало и конец совпадают. Если работаете круглые сутки, выберите «Круглосуточно».' };
+      h[k] = bf && to > from && bf > from && bt < to ? [from + '-' + bf, bt + '-' + to] : [from + '-' + to];
+    }
+    if (!Object.keys(h).length) return { err: 'Все дни отмечены выходными. Уберите галочку «Указать часы работы», если часы не нужны.' };
+    return { hours: h };
+  };
+
+  const desc = $('#o-desc'), count = $('#o-count');
+  const updCount = () => { count.textContent = desc.value.length; };
+  desc.addEventListener('input', updCount); updCount();
+
+  // Логотип: квадратное превью, 512 px
+  const logoBox = $('#o-logo'), fileEl = $('#o-file');
+  function drawLogo() {
+    const src = logo.preview || logo.url;
+    logoBox.innerHTML = processing ? '<div class="cover-empty ologo-f">Обрабатываем…</div>'
+      : src ? '<img class="cover-prev ologo-f" src="' + esc(src) + '" alt="Логотип">' +
+          '<div class="cover-tools"><button class="btn btn-line" type="button" data-lg="pick">Заменить</button>' +
+          '<button class="btn btn-danger" type="button" data-lg="del">Убрать</button></div>'
+      : '<button class="cover-empty ologo-f" type="button" data-lg="pick"><b>+</b>Добавить</button>' +
+        '<div class="hint">Логотип, вывеска или фото входа — так вас легче узнать.</div>';
+    logoBox.querySelectorAll('[data-lg]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.lg === 'pick') return fileEl.click();
+      if (logo.preview) URL.revokeObjectURL(logo.preview);
+      logo.blob = logo.preview = logo.url = null;
+      drawLogo();
+    }));
+  }
+  drawLogo();
+  fileEl.addEventListener('change', async () => {
+    const file = fileEl.files[0];
+    fileEl.value = '';
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return setMsg(msg, 'Выберите картинку.');
+    processing = true; drawLogo();
+    try {
+      const blob = await compressPhoto(file, 512);
+      if (logo.preview) URL.revokeObjectURL(logo.preview);
+      Object.assign(logo, { blob, preview: URL.createObjectURL(blob) });
+    } catch (e) {
+      console.error(e);
+      setMsg(msg, 'Не получилось открыть фото. Попробуйте другое.');
+    }
+    processing = false; drawLogo();
+  });
+
+  $('#of').addEventListener('submit', async e => {
+    e.preventDefault();
+    if ($('#o-website2').value) return; // бот заполнил скрытое поле
+    const name = $('#o-name').value.trim();
+    const category_id = +catSel.value || null;
+    const settlement = placeValue('#o-place');
+    const address = $('#o-addr').value.trim();
+    const phones = [...phBox.querySelectorAll('.o-phone')].map(i => i.value.trim()).filter(Boolean);
+    const hours_note = $('#o-hnote').value.trim();
+    const keywords = $('#o-keys').value.trim();
+    const description = desc.value.trim();
+    let website = $('#o-site').value.trim(), vk = $('#o-vk').value.trim();
+    const email = $('#o-email').value.trim();
+    if (website && !/^https?:\/\//i.test(website)) website = 'https://' + website;
+    if (vk) {
+      vk = vk.replace(/^@/, '');
+      if (!/^https?:\/\//i.test(vk)) vk = 'https://' + (/^(m\.)?vk\.(com|ru)\//i.test(vk) ? vk : 'vk.com/' + vk);
+    }
+
+    if (name.length < 2) return setMsg(msg, 'Напишите название организации.');
+    if (!+sec.value) return setMsg(msg, 'Выберите раздел.');
+    if (!category_id) return setMsg(msg, 'Выберите рубрику.');
+    if (settlement === null) { $('#o-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
+    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
+    if (!phones.length && !address) return setMsg(msg, 'Укажите хотя бы телефон или адрес, чтобы вас могли найти.');
+    const badPhone = phones.find(p => phoneDigits(p).length < 5);
+    if (badPhone) return setMsg(msg, 'Проверьте номер «' + badPhone + '»: в нём слишком мало цифр.');
+    const hr = collectHours();
+    if (hr.err) return setMsg(msg, hr.err);
+    if (website && !/^https?:\/\/[^\s/.]+\.[^\s]+$/i.test(website)) return setMsg(msg, 'Проверьте адрес сайта.');
+    if (vk && !/^https:\/\/(m\.)?vk\.(com|ru)\/[^\s]+$/i.test(vk)) return setMsg(msg, 'Проверьте ссылку на группу ВКонтакте: например, vk.com/olekminsk.');
+    if (email && !isEmail(email)) return setMsg(msg, 'Проверьте адрес почты.');
+    if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатывается.');
+
+    const btn = $('#o-submit'), label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Сохраняем…';
+    setMsg(msg, '');
+    let uploaded = null;
+    try {
+      let logo_url = logo.url;
+      if (logo.blob) {
+        const ext = logo.blob.type === 'image/webp' ? 'webp' : 'jpg';
+        const path = session.user.id + '/' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+        btn.textContent = 'Загружаем фото…';
+        const up = await sb.storage.from('orgs').upload(path, logo.blob, { contentType: logo.blob.type, cacheControl: '31536000' });
+        if (up.error) throw up.error;
+        uploaded = path;
+        logo_url = sb.storage.from('orgs').getPublicUrl(path).data.publicUrl;
+      }
+      const fields = {
+        name, category_id, settlement, address: address || null, phones, hours: hr.hours, hours_note: hours_note || null,
+        keywords: keywords || null, description: description || null, website: website || null, vk: vk || null, email: email || null, logo_url
+      };
+      let id = org?.id;
+      if (org) {
+        const { error } = await sb.from('organizations').update(fields).eq('id', org.id);
+        if (error) throw error;
+      } else {
+        const publish = staff && $('#o-pub')?.checked;
+        const { data, error } = await sb.from('organizations')
+          .insert({ ...fields, submitted_by: session.user.id, status: publish ? 'published' : 'pending' }).select('id').single();
+        if (error) throw error;
+        id = data.id;
+      }
+      const old = storagePath('orgs', org?.logo_url);
+      if (old && org.logo_url !== logo_url) sb.storage.from('orgs').remove([old]).then(() => {}, () => {});
+      if (logo.preview) URL.revokeObjectURL(logo.preview);
+
+      if (staff) {
+        flashMsg = { text: org ? 'Изменения сохранены.' : $('#o-pub')?.checked ? 'Организация опубликована в справочнике.' : 'Организация сохранена и ждёт проверки.', ok: true };
+        location.hash = '#/catalog/' + id;
+      } else if (org?.status === 'published') {
+        flashMsg = { text: 'Изменения сохранены и уже видны в справочнике.', ok: true };
+        location.hash = '#/catalog/' + id;
+      } else {
+        flashMsg = { text: 'Организация отправлена на проверку. В справочнике она появится после одобрения модератором.', ok: true };
+        location.hash = '#/catalog/my';
+      }
+    } catch (err) {
+      console.error(err);
+      if (uploaded) sb.storage.from('orgs').remove([uploaded]).then(() => {}, () => {});
+      setMsg(msg, ruError(err));
+      btn.disabled = false; btn.textContent = label;
+    }
+  });
+}
+
+/* ----- Мои организации ----- */
+async function renderMyOrgs() {
+  if (!sb) return renderNoDb('Мои организации');
+  if (!requireLogin('catalog/my')) return;
+  const app = $('#app');
+  const seq = routeSeq;
+  app.innerHTML = '<p class="loading">Загружаем ваши организации…</p>';
+  let data, cats;
+  try {
+    const [res, c] = await Promise.all([
+      sb.from('organizations').select(ORG_LIST_FIELDS + ', status, reject_reason, views')
+        .eq('submitted_by', session.user.id).order('created_at', { ascending: false }).limit(100),
+      loadOrgCats()
+    ]);
+    if (res.error) throw res.error;
+    data = res.data; cats = c;
+  } catch (e) {
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+  document.title = 'Мои организации — ' + CATALOG_TITLE;
+  app.innerHTML =
+    '<div class="page-head"><h1>Мои организации</h1><a href="#/catalog/new">+ Добавить организацию</a></div>' +
+    '<div id="msg"></div>' +
+    (data.length ? '<ul class="olist my-orgs">' + data.map(o =>
+      orgRow(o, cats).replace(/<\/li>$/, '') +
+        '<div class="my-org-meta"><span class="status ' + o.status + '">' + ORG_STATUS[o.status] + '</span>' +
+          (o.status === 'published' ? '<span class="meta">' + o.views + ' ' + plural(o.views, 'просмотр', 'просмотра', 'просмотров') + '</span>' : '') +
+          (o.status === 'rejected' && o.reject_reason ? '<div class="e-reason">Причина: ' + esc(o.reject_reason) + '</div>' : '') +
+        '</div>' +
+        (o.status !== 'hidden' ? '<div class="owner-tools"><a class="btn btn-line" href="#/catalog/' + o.id + '/edit">' + (o.status === 'rejected' ? 'Исправить' : 'Изменить') + '</a>' +
+          '<button class="btn btn-danger" type="button" data-del="' + o.id + '">Удалить</button></div>' : '') +
+      '</li>').join('') + '</ul>'
+    : '<p class="empty">Вы ещё не добавляли организаций. <a href="#/catalog/new">Добавьте свою</a>: магазин, мастерскую, кафе или учреждение.</p>');
+
+  app.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    const o = data.find(x => x.id === +b.dataset.del);
+    if (!confirm('Удалить организацию «' + o.name + '» из справочника? Вернуть её будет нельзя.')) return;
+    b.disabled = true;
+    try {
+      await deleteOrg(o);
+      flashMsg = { text: 'Организация удалена.', ok: true };
+      renderMyOrgs().then(showFlash);
+    } catch (err) { console.error(err); b.disabled = false; setMsg($('#msg'), ruError(err)); }
+  }));
+}
+
+function routeCatalog(query, parts) {
+  if (!parts.length) return renderCatalog(query);
+  if (parts[0] === 'new') return renderOrgForm(null, query);
+  if (parts[0] === 'my') return renderMyOrgs();
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderOrgForm(+parts[0]) : renderOrgView(+parts[0]);
+  renderStub('404');
+}
+
+/* ----- Админка: справочник ----- */
+function renderAdminOrgs(query) {
+  const app = $('#app');
+  const status = new URLSearchParams(query).get('status') || 'pending';
+  const tabs = [['pending', 'На проверке'], ['changed', 'Изменённые'], ['published', 'Опубликованные'], ['rejected', 'Отклонённые'], ['hidden', 'Скрытые'], ['all', 'Все']];
+  document.title = 'Справочник — админка';
+  app.innerHTML =
+    '<div class="page-head"><h1>Админка</h1><a class="btn btn-accent" href="#/catalog/new">Добавить организацию</a></div>' +
+    adminTabs('catalog') +
+    '<nav class="chips" aria-label="Статус">' +
+      tabs.map(([v, l]) => '<a class="chip' + (status === v ? ' on' : '') + '" href="#/admin/catalog' + (v === 'pending' ? '' : '?status=' + v) + '">' + l + '</a>').join('') +
+    '</nav>' +
+    (status === 'changed' ? '<p class="meta adm-hint">Опубликованные карточки, которые владелец изменил после проверки. Изменения уже видны всем.</p>' : '') +
+    '<ul class="adm-list" id="list"></ul><div id="list-state"></div>';
+  loadPendingCount();
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => {
+      let q = sb.from('organizations').select('id, name, status, settlement, address, created_at, updated_at, needs_review, org_categories(name), profiles(display_name)');
+      if (status === 'changed') q = q.eq('status', 'published').eq('needs_review', true);
+      else if (status !== 'all') q = q.eq('status', status);
+      const by = status === 'changed' ? 'updated_at' : 'created_at';
+      return (status === 'pending' || status === 'changed' ? q.order(by) : q.order(by, { ascending: false }))
+        .order('id').range(from, from + size - 1);
+    },
+    renderItems: rows => rows.map(o => '<li><a class="adm-row" href="#/catalog/' + o.id + '">' +
+      '<span class="adm-title">' + esc(o.name) + '</span>' +
+      '<span class="meta"><span class="status ' + o.status + '">' + ORG_STATUS[o.status] + '</span>' +
+        (o.needs_review && o.status === 'published' ? '<span class="status pending">Изменена</span>' : '') +
+        esc([placeLabel(o.settlement), o.address].filter(Boolean).join(', ')) +
+        (o.org_categories ? ', ' + esc(o.org_categories.name) : '') +
+        (status === 'changed' ? '. Изменена ' + fmtWhen(o.updated_at) : '. Подана ' + fmtWhen(o.created_at)) +
+        (o.profiles?.display_name ? ', автор: ' + esc(o.profiles.display_name) : '') +
+      '</span></a></li>').join(''),
+    emptyHtml: '<p class="empty">' + (status === 'pending' ? 'Новых заявок нет.' : status === 'changed' ? 'Непросмотренных изменений нет.' : 'Здесь пока пусто.') + '</p>'
+  });
+}
+
 /* ---------------- Поиск ---------------- */
 async function searchAll(q) {
   if (!sb) {
@@ -4097,20 +5094,24 @@ async function searchAll(q) {
       demo: true,
       news: DEMO.news.filter(n => (n.title + ' ' + (n.lead || '')).toLowerCase().includes(t)),
       ads: DEMO.ads.filter(a => a.title.toLowerCase().includes(t)),
-      events: DEMO.events.filter(e => (e.title + ' ' + (e.place || '')).toLowerCase().includes(t))
+      events: DEMO.events.filter(e => (e.title + ' ' + (e.place || '')).toLowerCase().includes(t)),
+      orgs: [], cats: null
     };
   }
   const opts = { type: 'websearch', config: 'russian' };
-  const [news, ads, events] = await Promise.all([
+  const [news, ads, events, orgs, cats] = await Promise.all([
     sb.from('news').select('slug, title, lead, published_at, news_categories(name, slug)')
       .eq('status', 'published').textSearch('search', q, opts).limit(10),
     sb.from('ads').select('id, title, price, price_type, settlement, bumped_at, ad_photos(path, sort)')
       .eq('status', 'active').gt('expires_at', new Date().toISOString())
       .textSearch('search', q, opts).limit(20),
     upcoming(sb.from('events').select('id, title, place, settlement, starts_at, ends_at')
-      .eq('status', 'published')).textSearch('search', q, opts).order('starts_at').limit(10)
+      .eq('status', 'published')).textSearch('search', q, opts).order('starts_at').limit(10),
+    orgTextFilter(sb.from('organizations').select(ORG_LIST_FIELDS).eq('status', 'published'), q).order('name').limit(10),
+    loadOrgCats().catch(() => null)
   ]);
   if (news.error || ads.error || events.error) throw (news.error || ads.error || events.error);
+  if (orgs.error) console.error(orgs.error); // справочник не должен ломать общий поиск
   return {
     demo: false,
     news: news.data.map(n => ({ ...n, category: n.news_categories?.name, catSlug: n.news_categories?.slug })),
@@ -4118,7 +5119,8 @@ async function searchAll(q) {
       const photos = (a.ad_photos || []).sort((x, y) => x.sort - y.sort);
       return { ...a, photo: photos[0] ? photoUrl(photos[0].path) : null };
     }),
-    events: events.data
+    events: events.data,
+    orgs: cats && !orgs.error ? orgs.data : [], cats
   };
 }
 
@@ -4137,7 +5139,7 @@ async function renderSearch(q) {
     app.innerHTML = '<div class="notice err">Поиск не удался. Проверьте интернет; из России Supabase сейчас открывается только через VPN.</div>';
     return;
   }
-  const total = r.news.length + r.ads.length + r.events.length;
+  const total = r.news.length + r.ads.length + r.events.length + r.orgs.length;
   let html = '<h1 class="page-title">Поиск: «' + esc(q) + '»</h1>';
   if (r.demo) html += '<div class="notice">Демо-режим: поиск идёт по примерам на странице.</div>';
   if (!total) {
@@ -4151,6 +5153,8 @@ async function renderSearch(q) {
       '</ul></section>';
   }
   if (r.events.length) html += '<section class="section"><div class="section-head"><h2>Афиша</h2></div>' + eventsBlock(r.events) + '</section>';
+  if (r.orgs.length) html += '<section class="section"><div class="section-head"><h2>Справочник</h2><a href="#/catalog?q=' + encodeURIComponent(q) + '">Все →</a></div>' +
+    '<ul class="olist">' + r.orgs.map(o => orgRow(o, r.cats)).join('') + '</ul></section>';
   app.innerHTML = html;
 }
 
@@ -4176,12 +5180,13 @@ function route() {
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
-  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha' }[section] || 'portal';
+  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha', catalog: 'catalog' }[section] || 'portal';
   setHead(kind);
   if (kind === 'doska') { BOARD_CAT = ''; fillBoardHead({}); }
   if (kind === 'news') fillNewsHead({});
   if (kind === 'rabota') fillRabotaHead({});
   if (kind === 'afisha') fillAfishaHead({});
+  if (kind === 'catalog') fillCatalogHead({});
   if (HEADS[kind].title) document.title = HEADS[kind].title;
   if (PAGES[section]) { showFlash(); return PAGES[section](query, path.split('/').slice(1)); }
   showFlash();
