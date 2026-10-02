@@ -760,6 +760,162 @@
     .admtabs a { font-size: 15px; }
   }
 
+
+  /* ---------- auto.olk.ru: вкладки, блок подбора, экраны выбора ---------- */
+  .top.au-compact #head-extra { display: none; }
+  .au-head { padding-bottom: 14px; }
+  /* Вкладки на всю ширину с равными промежутками; подписи не обрезаются, на узком экране мельче (13 → 10,5 px) */
+  .au-tabs { display: flex; margin: 0 -16px 12px; padding: 0 4px; border-bottom: 1px solid rgba(255,255,255,.16); }
+  .au-tabs a {
+    flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 2px 8px;
+    color: rgba(255,255,255,.8); font-size: clamp(10.5px, 3.3vw, 13px); font-weight: 500; line-height: 1.15; letter-spacing: -0.015em;
+    white-space: nowrap; text-align: center; border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .au-tabs a:hover { text-decoration: none; color: #fff; }
+  .au-tabs a.on { color: #fff; border-bottom-color: var(--accent); }
+  .au-tabs svg { width: 28px; height: 28px; flex: none; }
+  .au-tabs a.on svg { color: var(--accent); }
+  .au-box { background: var(--card); color: var(--ink); border-radius: 12px; overflow: hidden; max-width: 760px; }
+  .au-row { display: flex; align-items: center; min-height: 52px; }
+  .au-row + .au-row, .au-cells + .au-row { border-top: 1px solid var(--line); }
+  .au-main {
+    flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; align-self: stretch; padding: 8px 14px;
+    background: none; border: 0; font: inherit; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer;
+  }
+  .au-lab { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+  .au-lab.au-ph { color: var(--mute); font-weight: 400; }
+  .au-arr { color: var(--mute); font-size: 24px; line-height: 1; }
+  .au-ico { width: 20px; height: 20px; flex: none; color: var(--mute); }
+  .au-x { flex: none; width: 44px; align-self: stretch; border: 0; background: none; color: var(--mute); font: inherit; font-size: 24px; line-height: 1; cursor: pointer; }
+  .au-q { padding: 0 6px 0 14px; gap: 10px; }
+  .au-q input { flex: 1; min-width: 0; font: inherit; font-size: 16px; border: 0; background: none; color: var(--ink); padding: 14px 0; }
+  .au-q input::placeholder { color: var(--mute); }
+  .au-q input:focus { outline: none; }
+  .au-q:focus-within { box-shadow: inset 0 0 0 2px var(--accent); }
+  .au-cells { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; border-top: 1px solid var(--line); }
+  .au-cells.two { grid-template-columns: minmax(0, 1fr) auto; }
+  .au-cell {
+    display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 56px; padding: 6px 12px;
+    border: 0; background: none; font: inherit; color: var(--ink); text-align: left; cursor: pointer;
+  }
+  .au-cell + .au-cell { border-left: 1px solid var(--line); }
+  .au-cell small { font-size: 13px; color: var(--mute); line-height: 1.2; }
+  .au-cell span { font-size: 15px; font-weight: 500; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .au-cell span.au-ph { color: var(--mute); font-weight: 400; }
+  .au-pcell { flex-direction: row; align-items: center; gap: 8px; }
+  .au-pcell .au-ico { color: var(--brand); }
+  .au-badge { display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 700; text-align: center; line-height: 20px; }
+  .au-show { display: flex; width: calc(100% - 20px); margin: 4px 10px 10px; padding: 13px 14px; font-size: 16px; }
+  .au-chips { margin: 12px 0 0; padding-bottom: 0; }
+  .au-chips .chip { font: inherit; font-size: 15px; cursor: pointer; }
+  .au-res { align-items: center; }
+  .au-sort { font: inherit; font-size: 15px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); max-width: 100%; }
+  .au-t { font-weight: 600; margin: 0 0 2px; }
+  .au-spec { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.35; color: var(--mute); margin: 2px 0 3px; }
+  @media (max-width: 400px) {
+    .au-cell { padding: 6px 10px; }
+    .au-cell span { font-size: 14.5px; }
+  }
+  @media (max-width: 360px) {
+    .au-cell { padding: 6px 8px; }
+    .au-cell span { font-size: 14px; }
+    .au-pcell { gap: 6px; }
+    .au-pcell .au-ico { width: 18px; height: 18px; }
+  }
+
+  /* Экраны «Параметры», «Марки», «Населённый пункт»: на телефоне — весь экран, на компьютере — окно */
+  body.au-lock { overflow: hidden; }
+  .au-layer { position: fixed; inset: 0; z-index: 60; }
+  .au-layer.sheet, .au-layer.scr { background: rgba(8, 20, 17, .5); }
+  .au-scr {
+    position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--card); color: var(--ink);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .au-scr-head { display: grid; grid-template-columns: minmax(48px, 1fr) auto minmax(48px, 1fr); align-items: center; min-height: 54px; padding: 0 4px; border-bottom: 1px solid var(--line); flex: none; }
+  .au-scr-head b { font-size: 17px; font-weight: 600; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .au-close { width: 44px; height: 44px; border: 0; background: none; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .au-close svg { width: 24px; height: 24px; }
+  .au-reset { justify-self: end; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 500; color: var(--brand); padding: 10px 10px; cursor: pointer; }
+  .au-scr-mid { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .au-scr-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; position: relative; }
+  .au-scr-foot { flex: none; display: flex; align-items: center; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); background: var(--card); }
+  .au-scr-foot .btn { flex: 1; padding: 13px 14px; font-size: 16px; }
+  .au-picked { font-size: 14px; color: var(--mute); line-height: 1.25; flex: 0 1 auto; min-width: 0; }
+  .au-picked:empty { display: none; }
+  .au-search { flex: none; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .au-search input { width: 100%; font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  .au-lwrap { flex: 1; min-height: 0; display: flex; position: relative; }
+  .au-sec { font-size: 13px; font-weight: 600; color: var(--mute); text-transform: uppercase; letter-spacing: .03em; padding: 14px 16px 6px; background: var(--bg); }
+  .au-opt {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 10px 16px;
+    border: 0; border-bottom: 1px solid var(--line); background: none; font: inherit; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer;
+  }
+  .au-opt > span:not(.au-check):not(.au-n) { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .au-opt small { display: block; color: var(--mute); font-size: 13px; }
+  .au-opt > .au-arr { flex: none; }
+  .au-opt.all { color: var(--brand); font-weight: 600; }
+  @media (hover: hover) { .au-opt:hover { background: var(--bg); } }
+  .au-n { color: var(--mute); font-size: 14px; flex: none; }
+  .au-tick { width: 20px; height: 20px; flex: none; color: var(--brand); visibility: hidden; }
+  .au-opt.on .au-tick { visibility: visible; }
+  .au-check { width: 22px; height: 22px; flex: none; border-radius: 6px; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; color: transparent; }
+  .au-check svg { width: 16px; height: 16px; }
+  .au-opt.on .au-check { background: var(--head); border-color: var(--head); color: #fff; }
+  .au-lwrap.rail .au-opt { padding-right: 34px; }
+  .au-rail {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 28px; display: flex; flex-direction: column; justify-content: center;
+    padding: 6px 0; touch-action: none; user-select: none; -webkit-user-select: none; z-index: 2;
+  }
+  .au-rail span { flex: 1 1 0; min-height: 0; max-height: 20px; display: flex; align-items: center; justify-content: center; font-size: clamp(8px, 1.55vh, 12px); font-weight: 600; color: var(--brand); cursor: pointer; }
+  .au-empty { padding: 20px 16px; color: var(--mute); }
+  .au-pf { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .au-pl { display: block; font-size: 14px; color: var(--mute); margin-bottom: 6px; }
+  .au-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .au-pf input:not([type=checkbox]), .au-pf select {
+    width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  .au-pf .au-opt { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .au-pf .perr { color: var(--berry); }
+  .au-sw { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 16px; cursor: pointer; }
+  .au-sw input { appearance: none; -webkit-appearance: none; width: 48px; height: 28px; border-radius: 999px; background: var(--line); position: relative; flex: none; margin: 0; cursor: pointer; transition: background .2s; }
+  .au-sw input::after { content: ''; position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
+  .au-sw input:checked { background: var(--head); }
+  .au-sw input:checked::after { transform: translateX(20px); }
+  /* Выбор значения выезжает снизу */
+  .au-sheet {
+    position: absolute; left: 0; right: 0; bottom: 0; max-height: 82vh; display: flex; flex-direction: column;
+    background: var(--card); color: var(--ink); border-radius: 14px 14px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -8px 28px rgba(0,0,0,.25);
+  }
+  .au-sheet-head { display: grid; grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr); align-items: center; min-height: 52px; border-bottom: 1px solid var(--line); flex: none; }
+  .au-sheet-head b { font-size: 16px; font-weight: 600; text-align: center; }
+  .au-sheet-head button { border: 0; background: none; font: inherit; font-size: 16px; color: var(--brand); padding: 12px 16px; cursor: pointer; }
+  .au-sheet-head button:first-child { justify-self: start; color: var(--mute); }
+  .au-sheet-head button:last-child { justify-self: end; font-weight: 600; }
+  .au-sheet-body { overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; }
+  .au-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 0; flex: 1; }
+  .au-col { overflow-y: auto; overscroll-behavior: contain; max-height: min(60vh, 460px); }
+  .au-col + .au-col { border-left: 1px solid var(--line); }
+  .au-col .au-sec { position: sticky; top: 0; z-index: 1; }
+  .au-sheet .au-pf { border: 0; }
+  @media (min-width: 700px) {
+    .au-scr { inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(560px, calc(100vw - 48px)); height: min(780px, calc(100vh - 48px)); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); padding-top: 0; }
+    .au-sheet { left: 50%; right: auto; transform: translateX(-50%); width: min(480px, 100vw); }
+  }
+
+  /* Характеристики на странице объявления и поля машины в форме */
+  .au-specs { display: grid; grid-template-columns: minmax(110px, max-content) minmax(0, 1fr); gap: 7px 18px; margin: 0 0 18px; font-size: 15.5px; line-height: 1.35; }
+  .au-specs dt { color: var(--mute); }
+  .au-specs dd { margin: 0; overflow-wrap: anywhere; }
+  .au-fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+  .au-fgrid .field select { padding: 11px 10px; }
+  .au-vblock { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 14px 2px; margin: 0 0 16px; background: var(--card); }
+  .au-vblock > h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
+  .au-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .au-checks label { display: flex; align-items: center; gap: 10px; font-size: 16px; cursor: pointer; }
+  .au-checks input { width: 20px; height: 20px; margin: 0; accent-color: var(--head); }
+  @media (max-width: 380px) { .au-specs { grid-template-columns: minmax(96px, max-content) minmax(0, 1fr); gap: 7px 12px; font-size: 15px; } }
+
   /* ---------- Подвал бокового меню ---------- */
   .drawer { display: flex; flex-direction: column; }
   .drawer-foot { margin-top: auto; padding-top: 28px; font-size: 13px; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 4px; }
@@ -861,6 +1017,7 @@
         <a href="#/" id="nav-home" hidden>Главная</a>
         <a href="#/news" data-route="news">Новости</a>
         <a href="#/ads" data-route="ads">Объявления</a>
+        <a href="#/auto" data-route="auto">Авто</a>
         <a href="#/rabota" data-route="rabota">Работа</a>
         <a href="#/events" data-route="events">Афиша</a>
         <a href="#/catalog" data-route="catalog">Справочник</a>
@@ -888,6 +1045,7 @@
   <a href="#/" data-route="">Главная</a>
   <a href="#/news" data-route="news">Новости</a>
   <a href="#/ads" data-route="ads">Объявления</a>
+  <a href="#/auto" data-route="auto">Авто</a>
   <a href="#/rabota" data-route="rabota">Работа</a>
   <a href="#/events" data-route="events">Афиша</a>
   <a href="#/catalog" data-route="catalog">Справочник</a>
@@ -1620,6 +1778,7 @@ const PAGES = {
   profile: renderProfile,
   ads: (query, parts) => routeAds(query, parts),
   rabota: (query, parts) => routeRabota(query, parts),
+  auto: (query, parts) => routeAuto(query, parts),
   news: routeNews,
   events: routeEvents,
   catalog: (query, parts) => routeCatalog(query, parts),
@@ -1852,7 +2011,7 @@ function requireLogin(next) {
 }
 
 // Разделы почти не меняются: держим в браузере 12 часов, чтобы не ждать сервер на каждой странице
-const CATS_KEY = 'olk_cats_0006';
+const CATS_KEY = 'olk_cats_0010';
 async function loadCats() {
   if (CATS) return CATS;
   let data = cacheGet(CATS_KEY, 12 * 3600e3);
@@ -1965,12 +2124,13 @@ async function renderAdView(id, base = 'ads') {
   app.innerHTML = '<p class="loading">Загружаем объявление…</p>';
   const [cats, res] = await Promise.all([
     loadCats().catch(() => null),
-    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)')
+    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)' +
+      (base === 'auto' ? ', ad_vehicles(*)' : ''))
       .eq('id', id).maybeSingle()
   ]);
   if (res.error) { app.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
   if (!res.data) {
-    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/' + base + '">' + (base === 'rabota' ? 'Вся работа' : 'Все объявления') + '</a></div>';
+    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/' + base + '">' + (base === 'rabota' ? 'Вся работа' : base === 'auto' ? 'Авто и техника' : 'Все объявления') + '</a></div>';
     return;
   }
   // Вакансии и резюме живут в rabota.olk.ru, остальное — на доске
@@ -1995,11 +2155,20 @@ async function renderAdView(id, base = 'ads') {
 
   const cat = cats?.byId[ad.category_id];
   const parent = cat?.parent_id ? cats.byId[cat.parent_id] : null;
-  const jobs = base === 'rabota';
-  document.title = ad.title + ' — ' + (jobs ? RABOTA_TITLE : BOARD_TITLE);
-  const crumbs = '<div class="crumbs"><a href="#/' + base + '">' + (jobs ? 'Работа' : 'Все объявления') + '</a>' +
-    (parent && !jobs ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
-    (cat && cat.slug !== 'rabota' ? ' → <a href="#/' + base + '?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+  const jobs = base === 'rabota', autoV = base === 'auto';
+  const veh = autoV ? vehOf(ad) : null;
+  document.title = ad.title + ' — ' + (jobs ? RABOTA_TITLE : autoV ? AUTO_TITLE : BOARD_TITLE);
+  let crumbs;
+  if (autoV) {
+    // auto.olk.ru: Авто → вкладка → вид запчастей или марка
+    const tk = cats ? autoTabOf(cats, ad.category_id) : 'car';
+    crumbs = '<div class="crumbs" id="crumbs"><a href="#/auto">Авто</a> → <a href="' + auHash(auEmpty(tk)) + '">' + AUTO_TAB[tk].name + '</a>' +
+      (tk === 'parts' && cat && PARTS_BY[cat.slug] ? ' → <a href="' + auHash({ ...auEmpty('parts'), cat: cat.slug }) + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+  } else {
+    crumbs = '<div class="crumbs"><a href="#/' + base + '">' + (jobs ? 'Работа' : 'Все объявления') + '</a>' +
+      (parent && !jobs ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
+      (cat && cat.slug !== 'rabota' ? ' → <a href="#/' + base + '?cat=' + cat.slug + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+  }
 
   const gallery = ad.photos.length
     ? '<div class="gallery-wrap"><div class="gallery" id="gal">' +
@@ -2016,6 +2185,7 @@ async function renderAdView(id, base = 'ads') {
       '<div>' +
         '<h1>' + esc(ad.title) + '</h1>' +
         gallery +
+        (veh ? vehSpecsHtml(veh) : '') +
         (ad.description ? '<p class="ad-desc">' + esc(ad.description) + '</p>' : '') +
         '<p class="meta">' + esc(ad.settlement) + ', поднято ' + fmtWhen(ad.bumped_at) + ', ' +
           ad.views + ' ' + plural(ad.views, 'просмотр', 'просмотра', 'просмотров') + '</p>' +
@@ -2039,6 +2209,12 @@ async function renderAdView(id, base = 'ads') {
   if (sp) sp.addEventListener('click', () => {
     $('#phone').innerHTML = '<a class="btn btn-accent" href="tel:' + esc(phoneDigits) + '">' + esc(ad.contact_phone) + '</a>';
   });
+
+  // Марка в крошках: ссылка на все объявления этой марки
+  if (veh && veh.brand_id) loadBrands().then(() => {
+    const c = $('#crumbs'), b = AU.byId[veh.brand_id];
+    if (c && b) c.insertAdjacentHTML('beforeend', ' → <a href="' + auHash({ ...auEmpty('car'), brand: [b.id] }) + '">' + esc(b.name) + '</a>');
+  }, () => {});
 
   const tools = $('#tools');
   if (tools) bindOwnerTools(tools, ad, $('#msg'), act => {
@@ -2116,7 +2292,8 @@ async function renderAdForm(query, editId, base = 'ads') {
     cats = await loadCats();
     if (editId) {
       const { data, error } = await sb.from('ads')
-        .select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, ad_photos(id, path, sort)')
+        .select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, ad_photos(id, path, sort)' +
+          (base === 'auto' ? ', ad_vehicles(*)' : ''))
         .eq('id', editId).maybeSingle();
       if (error) throw error;
       ad = data ? mapAd(data) : null;
@@ -2129,14 +2306,16 @@ async function renderAdForm(query, editId, base = 'ads') {
 
   // Предвыбор раздела: из объявления или из ссылки (?cat=rabota)
   const qcat = new URLSearchParams(query).get('cat');
-  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[qcat] || (base === 'rabota' ? cats.bySlug.vakansii || cats.bySlug.rabota : null);
+  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[qcat] || (base === 'rabota' ? cats.bySlug.vakansii || cats.bySlug.rabota : base === 'auto' ? cats.bySlug.legkovye : null);
+  if (base === 'auto' && !ad && pre && pre.slug === 'avto') pre = cats.bySlug.legkovye || pre;
   // Вакансии и резюме подаются в rabota.olk.ru, остальное — на доске
   const want = pre ? adBase(cats, pre.id) : base;
   if (want !== base) {
     location.replace('#/' + want + (ad ? '/' + ad.id + '/edit' : '/new' + (qcat ? '?cat=' + encodeURIComponent(qcat) : '')));
     return;
   }
-  const jobsForm = base === 'rabota';
+  const jobsForm = base === 'rabota', autoForm = base === 'auto';
+  const auKind = autoForm ? auKindOf(pre, ad) : '';
   let preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
   let preSub = pre && pre.parent_id ? pre : null;
 
@@ -2152,15 +2331,18 @@ async function renderAdForm(query, editId, base = 'ads') {
       '<h1>' + (ad ? 'Изменить объявление' : jobsForm ? 'Разместить вакансию или резюме' : 'Подать объявление') + '</h1>' +
       '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
       '<div id="msg"></div>' +
-      '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
-        cats.top.filter(c => c.slug !== 'rabota' || preTop === c)
-          .map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
-      '</select></div>' +
-      '<div class="field" id="sub-wrap" hidden><label for="a-sub">Подраздел</label><select id="a-sub"></select></div>' +
+      (autoForm
+        ? auFormTopHtml(auKind, pre && PARTS_BY[pre.slug] ? pre.slug : '') + vehFieldsHtml(vehOf(ad))
+        : '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
+            cats.top.filter(c => (c.slug !== 'rabota' && c.slug !== 'avto') || preTop === c)
+              .map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
+          '</select></div>' +
+          '<div class="field" id="sub-wrap" hidden><label for="a-sub">Подраздел</label><select id="a-sub"></select></div>') +
       '<div class="field" id="deal-wrap"><span class="flabel">Тип объявления</span><div class="seg" role="radiogroup" aria-label="Тип объявления">' +
         Object.entries(DEALS).map(([v, l]) => '<label><input type="radio" name="deal" value="' + v + '"' + (dl === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
       '</div></div>' +
-      '<div class="field"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="Например, лодка «Казанка-5М» с мотором"></div>' +
+      '<div class="field" id="title-wrap"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="' +
+        (autoForm ? 'Например, снегоход «Буран» 2015 года' : 'Например, лодка «Казанка-5М» с мотором') + '"></div>' +
       '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="Состояние, размеры, что входит в комплект">' + esc(ad?.description || '') + '</textarea>' +
         '<div class="hint"><span id="a-count">0</span> из 5000</div></div>' +
       '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Цена</span><div class="seg" role="radiogroup">' +
@@ -2199,8 +2381,12 @@ async function renderAdForm(query, editId, base = 'ads') {
       subWrap.hidden = true;
     }
   }
-  topSel.addEventListener('change', () => { preSub = null; fillSub(); });
-  fillSub();
+  let AF = null;
+  if (autoForm) AF = bindAutoForm(app, cats, ad);
+  else {
+    topSel.addEventListener('change', () => { preSub = null; fillSub(); });
+    fillSub();
+  }
 
   const desc = $('#a-desc'), count = $('#a-count');
   const updCount = () => { count.textContent = desc.value.length; };
@@ -2257,9 +2443,17 @@ async function renderAdForm(query, editId, base = 'ads') {
   $('#af').addEventListener('submit', async e => {
     e.preventDefault();
     if ($('#a-website').value) return; // бот заполнил скрытое поле
-    const top = cats.byId[+topSel.value];
-    const catId = top && top.children.length ? +subSel.value : top?.id;
-    const title = $('#a-title').value.trim();
+    const top = autoForm ? null : cats.byId[+topSel.value];
+    const catId = autoForm ? AF.catId() : top && top.children.length ? +subSel.value : top?.id;
+    let title = $('#a-title').value.trim();
+    // Легковой: заголовок собирается из марки, модели и года, характеристики — в ad_vehicles
+    let vrow = null;
+    if (autoForm && AF.kind() === 'car') {
+      const r = AF.readVeh();
+      if (r.err) { if (r.el) r.el.focus(); return setMsg(msg, r.err); }
+      vrow = r.row;
+      title = r.title;
+    }
     const description = desc.value.trim();
     const price_type = app.querySelector('input[name=pt]:checked').value;
     const priceRaw = $('#a-price').value.trim();
@@ -2267,8 +2461,8 @@ async function renderAdForm(query, editId, base = 'ads') {
     const contact_phone = $('#a-phone').value.trim();
     const digits = contact_phone.replace(/\D/g, '');
 
-    if (!top) return setMsg(msg, 'Выберите раздел.');
-    if (!catId) return setMsg(msg, 'Выберите подраздел.');
+    if (!autoForm && !top) return setMsg(msg, 'Выберите раздел.');
+    if (!catId) return setMsg(msg, autoForm ? (AF.kind() === 'parts' ? 'Выберите, какие запчасти продаёте.' : 'Выберите, что продаёте.') : 'Выберите подраздел.');
     if (title.length < 3) return setMsg(msg, 'Напишите заголовок: хотя бы 3 символа.');
     if (price_type === 'fixed' && priceRaw === '') return setMsg(msg, 'Укажите цену или выберите «Договорная».');
     if (priceRaw !== '' && (isNaN(+priceRaw) || +priceRaw < 0)) return setMsg(msg, 'Цена должна быть числом.');
@@ -2278,7 +2472,7 @@ async function renderAdForm(query, editId, base = 'ads') {
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
 
     const price = (price_type === 'free' || price_type === 'exchange' || priceRaw === '') ? null : Math.round(+priceRaw);
-    const deal = top.slug === 'rabota' ? 'sell' : app.querySelector('input[name=deal]:checked').value;
+    const deal = (top && top.slug === 'rabota') || vrow ? 'sell' : app.querySelector('input[name=deal]:checked').value;
     const fields = { category_id: catId, title, description, price, price_type, deal, settlement, contact_phone };
     const btn = $('#a-submit');
     btn.disabled = true; btn.textContent = ad ? 'Сохраняем…' : 'Публикуем…';
@@ -2300,6 +2494,19 @@ async function renderAdForm(query, editId, base = 'ads') {
         const { data, error } = await sb.from('ads').insert({ ...fields, author_id: session.user.id }).select('id').single();
         if (error) throw error;
         adId = data.id;
+      }
+
+      // Характеристики машины. Не сохранились у нового объявления — убираем само объявление, чтобы не было «пустого»
+      if (vrow) {
+        const { error: ve } = ad
+          ? await sb.from('ad_vehicles').upsert({ ...vrow, ad_id: adId }, { onConflict: 'ad_id' })
+          : await sb.from('ad_vehicles').insert({ ...vrow, ad_id: adId });
+        if (ve) {
+          if (!ad) await sb.from('ads').delete().eq('id', adId);
+          throw ve;
+        }
+      } else if (autoForm && ad && vehOf(ad)) {
+        await sb.from('ad_vehicles').delete().eq('ad_id', adId); // был легковой, стал другим видом
       }
 
       // Порядок фото: как на экране. Старые — обновляем позицию, новые — загружаем.
@@ -2349,6 +2556,7 @@ const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминско�
 const NEWS_TITLE = 'news.olk.ru — новости Олёкминского района';
 const RABOTA_TITLE = 'rabota.olk.ru — работа в Олёкминском районе';
 const AFISHA_TITLE = 'afisha.olk.ru — афиша Олёкминского района';
+const AUTO_TITLE = 'auto.olk.ru — авто и техника Олёкминского района';
 
 const HEADS = {
   portal: { name: 'olk.ru', sub: 'Олёкминский район', href: '#/', label: 'olk.ru — на главную',
@@ -2362,7 +2570,9 @@ const HEADS = {
   afisha: { pre: 'afisha', sub: 'Афиша района', href: '#/events', label: 'afisha.olk.ru — главная афиши',
     add: ['Добавить событие', '+ Добавить', '#/events/new'], title: AFISHA_TITLE, extra: afishaHeadHtml, bind: bindAfishaHead },
   catalog: { pre: 'catalog', sub: 'Справочник района', href: '#/catalog', label: 'catalog.olk.ru — главная справочника',
-    add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминского района', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() }
+    add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминского района', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() },
+  auto: { pre: 'auto', sub: 'Авто и техника', href: '#/auto', label: 'auto.olk.ru — главная раздела «Авто»',
+    add: ['Продать', '+ Продать', '#/auto/new'], title: AUTO_TITLE, extra: () => autoHeadHtml(), bind: () => bindAutoHead() }
 };
 
 function setHead(kind) {
@@ -2567,9 +2777,12 @@ function catTotal(c, counts) {
   return (counts[c.id] || 0) + c.children.reduce((sum, x) => sum + (counts[x.id] || 0), 0);
 }
 
-// Раздел объявления: 'rabota' для вакансий и резюме, иначе 'ads'
+// Раздел объявления: 'rabota' для вакансий и резюме, 'auto' для всего «Авто», иначе 'ads'
 function adBase(cats, catId) {
-  return cats && jobIds(cats).includes(catId) ? 'rabota' : 'ads';
+  if (!cats) return 'ads';
+  if (jobIds(cats).includes(catId)) return 'rabota';
+  if (autoIds(cats).includes(catId)) return 'auto';
+  return 'ads';
 }
 
 function jobIds(cats) {
@@ -2618,7 +2831,7 @@ function softHy(s) { SOFT_HY.forEach(([w, h]) => { s = s.split(w).join(h); }); r
 // Главная доски: разделы плитками с иконками (стили — общие со справочником)
 function catTilesHtml(list) {
   return '<ul class="otiles">' + list.map(c =>
-    '<li><a href="#/ads?cat=' + esc(c.slug) + '">' + adIcon(c.slug) +
+    '<li><a href="' + (c.slug === 'avto' ? '#/auto' : '#/ads?cat=' + esc(c.slug)) + '">' + adIcon(c.slug) +
       '<span class="otile-name">' + softHy(esc(c.name)) + '</span><span class="n" data-cid="' + c.id + '" hidden></span></a></li>'
   ).join('') + '</ul>';
 }
@@ -2666,6 +2879,17 @@ function buildBoardQuery(st, ids, exclude, from, countOnly) {
 // Карточка в ленте: фото листаются пальцем, на компьютере — стрелками
 function boardCard(a) {
   const href = '#/ads/' + a.id;
+  return '<li><div class="bcard">' + cardPhotosHtml(a, href) +
+    '<a class="bbody" href="' + href + '">' +
+      (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
+      fmtPrice(a.price, a.price_type) +
+      '<span class="btitle">' + esc(a.title) + '</span>' +
+      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+    '</a></div></li>';
+}
+
+// Фото карточки (листаются; сразу грузится только первое)
+function cardPhotosHtml(a, href) {
   const photos = a.photos.slice(0, 8);
   const track = '<a class="bph-track" href="' + href + '" tabindex="-1" aria-hidden="true">' +
     (photos.length
@@ -2678,13 +2902,7 @@ function boardCard(a) {
       '<button class="barr next" type="button" tabindex="-1" aria-label="Следующее фото">›</button>' +
       '<span class="bph-n">1 / ' + photos.length + '</span>'
     : '';
-  return '<li><div class="bcard"><div class="bph">' + track + nav + '</div>' +
-    '<a class="bbody" href="' + href + '">' +
-      (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
-      fmtPrice(a.price, a.price_type) +
-      '<span class="btitle">' + esc(a.title) + '</span>' +
-      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
-    '</a></div></li>';
+  return '<div class="bph">' + track + nav + '</div>';
 }
 
 // Остальные фото карточки грузим, только когда к ней прикоснулись — бережём мобильный интернет
@@ -2737,9 +2955,11 @@ async function renderBoard(query) {
   }
   if (seq !== routeSeq) return;
 
-  const jobs = jobIds(cats);
+  const jobs = jobIds(cats), autos = autoIds(cats);
   let sel = cats.bySlug[st.cat] || null;
   if (sel && jobs.includes(sel.id)) { location.hash = '#/rabota' + qs({ cat: sel.slug }); return; }
+  if (sel && autos.includes(sel.id)) { location.replace(autoHashForCat(cats, sel)); return; }
+  const hidden = jobs.concat(autos); // работа и авто живут в своих разделах
   BOARD_CAT = sel ? sel.slug : '';
   const top = sel ? (sel.parent_id ? cats.byId[sel.parent_id] : sel) : null;
   const searching = !!(st.q || st.photo || st.min || st.max || st.place || st.deal || st.sort !== 'new');
@@ -2770,7 +2990,7 @@ async function renderBoard(query) {
 
   const ids = sel ? [sel.id, ...sel.children.map(c => c.id)] : null;
   if (searching) {
-    buildBoardQuery(st, ids, jobs, 0, true).then(({ count, error }) => {
+    buildBoardQuery(st, ids, hidden, 0, true).then(({ count, error }) => {
       const box = $('#bfound');
       if (!box || seq !== routeSeq) return;
       if (error || count == null) { box.remove(); return; }
@@ -2784,7 +3004,7 @@ async function renderBoard(query) {
   bindCardPhotos(listEl);
   startFeed({
     listEl, stateEl: $('#list-state'),
-    fetchPage: from => buildBoardQuery(st, ids, jobs, from, false),
+    fetchPage: from => buildBoardQuery(st, ids, hidden, from, false),
     renderItems: rows => rows.map(mapAd).map(boardCard).join(''),
     emptyHtml: searching
       ? '<p class="empty">Ничего не нашлось. Попробуйте изменить запрос или параметры.</p>'
@@ -2898,6 +3118,1101 @@ function routeAds(query, parts) {
   if (parts[0] === 'my') return renderMyAds();
   if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0]) : renderAdView(+parts[0]);
   renderStub('404');
+}
+
+/* ---------------- auto.olk.ru: авто и техника ---------------- */
+// Образец — Дром. Весь раздел «Авто» доски живёт здесь: #/auto (главная и поиск), #/auto/ID, #/auto/ID/edit, #/auto/new.
+// Автомобили — с марками и моделями (vehicle_brands, vehicle_models) и характеристиками (ad_vehicles).
+// Спецтехника, мототехника, водная — пока простые ленты своих разделов (марки в заходах 2–4). Запчасти — 14 видов.
+const AUTO_TABS = [
+  { key: 'car', name: 'Автомобили', icon: 'car', cats: ['legkovye'] },
+  { key: 'spec', name: 'Спецтехника', icon: 'truck', cats: ['spectehnika'] },
+  { key: 'moto', name: 'Мототехника', icon: 'moto', cats: ['moto'] },
+  { key: 'water', name: 'Водная', icon: 'boat', cats: ['lodki'] },
+  { key: 'parts', name: 'Запчасти', icon: 'engine', cats: null }
+];
+const AUTO_TAB = Object.fromEntries(AUTO_TABS.map(t => [t.key, t]));
+// Запчасти: слаг раздела → короткая подпись чипа
+const PARTS = [['shiny', 'Шины'], ['diski', 'Диски'], ['zap-kuzov', 'Кузов'], ['zap-dvigatel', 'Двигатель'], ['zap-hodovaya', 'Ходовая'],
+  ['zap-optika', 'Оптика'], ['zap-kpp', 'КПП'], ['zap-elektrika', 'Электрика'], ['zapchasti', 'Другие'], ['avtorazbor', 'Авторазбор'],
+  ['avtohimiya', 'Автохимия'], ['avtoaudio', 'Аудио'], ['avto-instrumenty', 'Инструменты'], ['avto-raznoe', 'Разное']];
+const PARTS_BY = Object.fromEntries(PARTS);
+const AU_Q_PH = { spec: 'Марка, модель, вид техники', moto: 'Марка, модель', water: 'Лодка, мотор, марка', parts: 'Запчасть или номер' };
+const CAR_CHIPS = [['', 'Свежие'], ['100000', 'До 100 тыс.'], ['200000', 'До 200 тыс.'], ['300000', 'До 300 тыс.']];
+const AU_SORTS = [['new', 'Сначала новые'], ['cheap', 'Сначала дешевле'], ['dear', 'Сначала дороже'], ['year', 'Сначала новее по году']];
+
+// Значения характеристик — коды как в ad_vehicles
+const V_FUEL = { petrol: 'Бензин', diesel: 'Дизель', hybrid: 'Гибрид', gas: 'Газ', electric: 'Электро' };
+const V_TRANS = { auto: 'Автомат', manual: 'Механика', cvt: 'Вариатор', robot: 'Робот' };
+const V_TRANS_S = { auto: 'АКПП', manual: 'МКПП', cvt: 'вариатор', robot: 'робот' };
+const V_DRIVE = { front: 'Передний', rear: 'Задний', '4wd': '4WD' };
+const V_WHEEL = { left: 'Левый', right: 'Правый' };
+const V_BODY = { sedan: 'Седан', hatch5: 'Хэтчбек 5 дв.', hatch3: 'Хэтчбек 3 дв.', liftback: 'Лифтбек', suv5: 'Джип 5 дв.', suv3: 'Джип 3 дв.',
+  wagon: 'Универсал', minivan: 'Минивэн', pickup: 'Пикап', coupe: 'Купе', cabrio: 'Открытый', van: 'Фургон' };
+const V_COLOR = { grey: 'Серый', silver: 'Серебристый', white: 'Белый', black: 'Чёрный', blue: 'Синий', lightblue: 'Голубой', brown: 'Коричневый',
+  violet: 'Фиолетовый', green: 'Зелёный', red: 'Красный', burgundy: 'Бордовый', orange: 'Оранжевый', pink: 'Розовый', beige: 'Бежевый', yellow: 'Жёлтый', gold: 'Золотистый' };
+const V_COND = { ok: 'Не требует ремонта', repair: 'Требует ремонта или не на ходу' };
+const V_DOCS = { ok: 'В порядке', problem: 'Нет или проблемные' };
+const V_SELLER = { owner: 'Собственник', private: 'Частник', company: 'Компания' };
+
+// Иконки — Tabler Icons (MIT) и в их стиле, контуры 24×24
+const AU_ICONS = {
+  car: 'M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5',
+  truck: 'M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5',
+  moto: 'M2 16a3 3 0 1 0 6 0a3 3 0 1 0 -6 0 M16 16a3 3 0 1 0 6 0a3 3 0 1 0 -6 0 M7.5 14h5l4 -4h-10.5m1.5 4l4 -4 M13 6h2l1.5 3l2 4',
+  boat: 'M3 15h14.5a2.5 2.5 0 0 0 2.2 -1.3l1.3 -2.7h-8.5l-2.5 2h-7 M6 13l1.6 -4.2a1 1 0 0 1 .94 -.65h2.96l1.5 2.85 M3 19c1.5 1 3 1 4.5 0s3 -1 4.5 0s3 1 4.5 0s3 -1 4.5 0',
+  engine: 'M3 10v6 M12 5v3 M10 5h4 M5 13h-2 M6 10h2l2 -2h3.382a1 1 0 0 1 .894 .553l1.448 2.894a1 1 0 0 0 .894 .553h1.382v-2h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2v-2h-3v2a1 1 0 0 1 -1 1h-3.465a1 1 0 0 1 -.832 -.445l-1.703 -2.555h-2v-6l0 0',
+  search: 'M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0 M21 21l-6 -6',
+  pin: 'M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0 M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0',
+  params: 'M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M4 6h8 M16 6h4 M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M4 12h2 M10 12h10 M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M4 18h11 M19 18h1',
+  check: 'M5 12l5 5l10 -10',
+  close: 'M18 6l-12 12 M6 6l12 12'
+};
+function auIcon(k, cls, w) {
+  return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 1.7) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + AU_ICONS[k] + '"/></svg>';
+}
+
+const AU = { st: null, brands: null, brandsP: null, byId: {}, models: {}, counts: null, countsP: null, countsT: 0 };
+const auNorm = t => String(t || '').toLowerCase().replace(/ё/g, 'е').trim();
+const auYearNow = () => +dayKeyFmt.format(new Date()).slice(0, 4);
+
+function autoIds(cats) {
+  const a = cats && cats.bySlug.avto;
+  return a ? [a.id, ...a.children.map(c => c.id)] : [];
+}
+// Вкладка, к которой относится раздел объявления
+function autoTabOf(cats, catId) {
+  const c = cats.byId[catId];
+  if (!c) return 'car';
+  if (PARTS_BY[c.slug]) return 'parts';
+  const t = AUTO_TABS.find(t => t.cats && t.cats.includes(c.slug));
+  return t ? t.key : 'car';
+}
+function auCatIds(cats, st) {
+  const slugs = st.tab === 'parts' ? (st.cat ? [st.cat] : PARTS.map(p => p[0])) : AUTO_TAB[st.tab].cats;
+  return slugs.map(s => cats.bySlug[s]?.id).filter(Boolean);
+}
+// Адрес auto.olk.ru для раздела доски (ссылки на «Авто» с доски ведут сюда)
+function autoHashForCat(cats, cat) {
+  const tab = cat.slug === 'avto' ? 'car' : autoTabOf(cats, cat.id);
+  return '#/auto' + qs({ tab: tab === 'car' ? '' : tab, cat: PARTS_BY[cat.slug] ? cat.slug : '' });
+}
+
+/* ----- Состояние поиска в адресе ----- */
+function auEmpty(tab) {
+  return { tab: tab || 'car', brand: [], model: [], yf: '', yt: '', min: '', max: '', place: '', photo: '', q: '', cat: '', sort: 'new' };
+}
+function auParse(query) {
+  const p = new URLSearchParams(query);
+  const num = k => /^\d{1,9}$/.test(p.get(k) || '') ? String(+p.get(k)) : '';
+  const ints = k => [...new Set((p.get(k) || '').split(',').map(Number).filter(n => Number.isInteger(n) && n > 0))].slice(0, 30);
+  const st = auEmpty(AUTO_TAB[p.get('tab')] ? p.get('tab') : 'car');
+  st.min = num('min'); st.max = num('max');
+  st.place = p.get('place') || '';
+  st.photo = p.get('photo') ? '1' : '';
+  st.q = (p.get('q') || '').slice(0, 100);
+  if (st.tab === 'car') {
+    st.brand = ints('brand');
+    st.model = st.brand.length === 1 ? ints('model') : [];
+    st.yf = num('yf'); st.yt = num('yt');
+  }
+  if (st.tab === 'parts' && PARTS_BY[p.get('cat')]) st.cat = p.get('cat');
+  const s = p.get('sort');
+  if (AU_SORTS.some(x => x[0] === s) && (s !== 'year' || st.tab === 'car')) st.sort = s;
+  return st;
+}
+function auHash(st) {
+  return '#/auto' + qs({
+    tab: st.tab === 'car' ? '' : st.tab, brand: st.brand.join(','), model: st.brand.length === 1 ? st.model.join(',') : '',
+    yf: st.yf, yt: st.yt, min: st.min, max: st.max, place: st.place, photo: st.photo, q: st.q, cat: st.cat, sort: st.sort
+  });
+}
+const auCopy = st => ({ ...st, brand: st.brand.slice(), model: st.model.slice() });
+const auFiltered = st => !!(st.brand.length || st.yf || st.yt || st.min || st.max || st.place || st.photo || st.q || st.cat);
+
+/* ----- Запросы ----- */
+const AU_VEH_COLS = 'brand_id, model_id, year, mileage, engine_volume, power, fuel, transmission, drive, wheel';
+function buildAutoQuery(st, ids, from, countOnly) {
+  const vInner = st.tab === 'car' && !!(st.brand.length || st.yf || st.yt);
+  let q;
+  if (countOnly) {
+    const sel = ['id'];
+    if (st.photo) sel.push('ad_photos!inner(id)');
+    if (vInner) sel.push('ad_vehicles!inner(ad_id)');
+    q = sb.from('ads').select(sel.join(', '), { count: 'exact', head: true });
+  } else {
+    q = sb.from('ads').select('id, category_id, title, price, price_type, deal, settlement, bumped_at, ' +
+      (st.photo ? 'ad_photos!inner(path, sort)' : 'ad_photos(path, sort)') + ', ' +
+      (vInner ? 'ad_vehicles!inner(' : 'ad_vehicles(') + AU_VEH_COLS + ')');
+  }
+  q = q.eq('status', 'active').gt('expires_at', new Date().toISOString()).in('category_id', ids);
+  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
+  if (st.min) q = q.gte('price', +st.min);
+  if (st.max) q = q.lte('price', +st.max);
+  if (st.place) q = q.eq('settlement', st.place);
+  if (vInner) {
+    if (st.brand.length) q = q.in('ad_vehicles.brand_id', st.brand);
+    if (st.model.length) q = q.in('ad_vehicles.model_id', st.model);
+    if (st.yf) q = q.gte('ad_vehicles.year', +st.yf);
+    if (st.yt) q = q.lte('ad_vehicles.year', +st.yt);
+  }
+  if (countOnly) return q;
+  if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
+  if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
+  if (st.sort === 'year') q = q.order('ad_vehicles(year)', { ascending: false, nullsFirst: false });
+  return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
+}
+async function auCount(st) {
+  const cats = await loadCats();
+  const { count, error } = await buildAutoQuery(st, auCatIds(cats, st), 0, true);
+  if (error) throw error;
+  return count || 0;
+}
+function showLabel(n) {
+  if (n == null) return 'Показать объявления';
+  return n ? 'Показать ' + n.toLocaleString('ru-RU') + ' ' + plural(n, 'объявление', 'объявления', 'объявлений') : 'Ничего не найдено';
+}
+// «Показать N» пересчитывается сразу при каждом изменении (с небольшой задержкой, чтобы не слать запрос на каждую букву)
+function auCounter(btn) {
+  let seq = 0, t = null;
+  return st => {
+    clearTimeout(t);
+    const my = ++seq;
+    btn.classList.add('busy');
+    t = setTimeout(async () => {
+      let n = null;
+      try { n = await auCount(st); } catch (e) { console.error(e); }
+      if (my !== seq) return;
+      btn.textContent = showLabel(n);
+      btn.classList.remove('busy');
+    }, 250);
+  };
+}
+
+/* ----- Марки и модели: 426 марок грузим один раз и держим в браузере неделю, модели — по марке ----- */
+const VB_KEY = 'olk_vb_car_1';
+function brandGroup(name) {
+  const ch = (name || '').charAt(0).toUpperCase();
+  if (/[A-Z]/.test(ch)) return [0, ch];
+  if (/[А-ЯЁ]/.test(ch)) return [1, ch === 'Ё' ? 'Е' : ch];
+  return [2, '#'];
+}
+function loadBrands() {
+  if (AU.brands) return Promise.resolve(AU.brands);
+  if (!AU.brandsP) AU.brandsP = (async () => {
+    let rows = cacheGet(VB_KEY, 7 * 864e5);
+    if (!rows) {
+      const { data, error } = await sb.from('vehicle_brands').select('id, name, name_ru, country, popular').eq('kind', 'car').order('name').limit(1000);
+      if (error) throw error;
+      rows = data || [];
+      if (rows.length) cacheSet(VB_KEY, rows);
+    }
+    rows = rows.map(b => ({ ...b, g: brandGroup(b.name) }))
+      .sort((a, b) => a.g[0] - b.g[0] || a.name.localeCompare(b.name, 'ru', { sensitivity: 'base', numeric: true }));
+    AU.byId = Object.fromEntries(rows.map(b => [b.id, b]));
+    AU.brands = rows;
+    return rows;
+  })().catch(e => { AU.brandsP = null; throw e; });
+  return AU.brandsP;
+}
+async function loadModels(brandId) {
+  if (AU.models[brandId]) return AU.models[brandId];
+  const key = 'olk_vm_' + brandId;
+  let rows = cacheGet(key, 7 * 864e5);
+  if (!rows) {
+    const { data, error } = await sb.from('vehicle_models').select('id, name, name_ru, year_from, year_to').eq('brand_id', brandId).order('name').limit(1000);
+    if (error) throw error;
+    rows = data || [];
+    cacheSet(key, rows);
+  }
+  rows = rows.slice().sort((a, b) => a.name.localeCompare(b.name, 'ru', { sensitivity: 'base', numeric: true }));
+  AU.models[brandId] = rows;
+  return rows;
+}
+// Числа объявлений по маркам и моделям; обновляем не чаще раза в 5 минут
+function loadVehCounts() {
+  if (!AU.countsP || Date.now() - AU.countsT > 5 * 60e3) {
+    AU.countsT = Date.now();
+    AU.countsP = sb.rpc('vehicle_counts', { p_kind: 'car' }).then(({ data, error }) => {
+      if (error) throw error;
+      const b = {}, m = {};
+      (data || []).forEach(r => {
+        const n = Number(r.n) || 0;
+        if (r.brand_id) b[r.brand_id] = (b[r.brand_id] || 0) + n;
+        if (r.model_id) m[r.model_id] = (m[r.model_id] || 0) + n;
+      });
+      return (AU.counts = { b, m });
+    }).catch(e => { console.error(e); AU.countsT = 0; return { b: {}, m: {} }; });
+  }
+  return AU.countsP;
+}
+// Подгрузить названия выбранных марок и моделей (для подписи «Toyota Premio»)
+async function auNames(st) {
+  if (!st.brand.length) return;
+  await loadBrands();
+  if (st.brand.length === 1 && st.model.length) await loadModels(st.brand[0]);
+}
+function auSelText(st) {
+  if (!st.brand.length) return '';
+  const names = st.brand.map(id => AU.byId[id]?.name || '…');
+  const many = (list, k) => list.length > k ? list.slice(0, k).join(', ') + ' и ещё ' + (list.length - k) : list.join(', ');
+  if (st.brand.length === 1 && st.model.length) {
+    const ms = AU.models[st.brand[0]] || [];
+    return names[0] + ' ' + many(st.model.map(id => ms.find(m => m.id === id)?.name || '…'), 2);
+  }
+  return many(names, 3);
+}
+
+/* ----- Подписи ----- */
+const shortRub = n => {
+  n = +n;
+  if (n >= 1e6) return String(Math.round(n / 1e5) / 10).replace('.', ',') + ' млн';
+  if (n >= 1000) return Math.round(n / 1000).toLocaleString('ru-RU') + ' тыс.';
+  return n + ' ₽';
+};
+function rangeText(a, b, f) {
+  if (a && b) return a === b ? f(a) : f(a) + '–' + f(b);
+  if (a) return 'от ' + f(a);
+  if (b) return 'до ' + f(b);
+  return '';
+}
+function priceText(a, b) {
+  const unit = x => +x >= 1e6 ? 'млн' : +x >= 1000 ? 'тыс.' : '₽';
+  if (a && b && a !== b && unit(a) === unit(b)) return shortRub(a).replace(/ (млн|тыс\.|₽)$/, '') + '–' + shortRub(b);
+  return rangeText(a, b, shortRub);
+}
+function vehOf(a) {
+  const v = a && a.ad_vehicles;
+  return Array.isArray(v) ? v[0] || null : v || null;
+}
+const fmtVol = x => (+x).toFixed(1);
+const fmtKm = n => +n >= 1000 ? Math.round(+n / 1000).toLocaleString('ru-RU') + ' тыс. км' : (+n).toLocaleString('ru-RU') + ' км';
+// Строка характеристик в ленте: «1.8 л, бензин, АКПП, 4WD, 120 тыс. км, правый руль»
+function vehLine(v) {
+  if (!v) return '';
+  return [
+    v.engine_volume ? fmtVol(v.engine_volume) + ' л' : '',
+    V_FUEL[v.fuel] ? V_FUEL[v.fuel].toLowerCase() : '',
+    V_TRANS_S[v.transmission] || '',
+    v.drive === '4wd' ? '4WD' : V_DRIVE[v.drive] ? V_DRIVE[v.drive].toLowerCase() + ' привод' : '',
+    v.mileage ? fmtKm(v.mileage) : '',
+    V_WHEEL[v.wheel] ? V_WHEEL[v.wheel].toLowerCase() + ' руль' : ''
+  ].filter(Boolean).join(', ');
+}
+// Таблица характеристик на странице объявления
+function vehSpecsHtml(v) {
+  if (!v) return '';
+  const yes = 'Да';
+  const engine = [v.engine_volume ? fmtVol(v.engine_volume) + ' л' : '', V_FUEL[v.fuel] ? V_FUEL[v.fuel].toLowerCase() : '', v.power ? v.power + ' л. с.' : ''].filter(Boolean).join(', ');
+  const rows = [
+    ['Год выпуска', v.year],
+    ['Пробег', v.mileage === 0 ? 'без пробега' : v.mileage ? (+v.mileage).toLocaleString('ru-RU') + ' км' : ''],
+    ['Двигатель', engine],
+    ['Коробка', V_TRANS[v.transmission]],
+    ['Привод', V_DRIVE[v.drive]],
+    ['Руль', V_WHEEL[v.wheel]],
+    ['Кузов', V_BODY[v.body]],
+    ['Цвет', V_COLOR[v.color]],
+    ['Состояние', V_COND[v.condition]],
+    ['Документы', V_DOCS[v.documents]],
+    ['Владельцев', v.owners ? (v.owners >= 4 ? '4 и более' : v.owners) : ''],
+    ['Продавец', V_SELLER[v.seller]],
+    ['Без пробега по РФ', v.no_rf_mileage ? yes : ''],
+    ['Возможен обмен', v.exchange_ok ? yes : '']
+  ].filter(r => r[1] !== '' && r[1] != null);
+  return rows.length ? '<dl class="au-specs">' + rows.map(r => '<dt>' + esc(r[0]) + '</dt><dd>' + esc(String(r[1])) + '</dd>').join('') + '</dl>' : '';
+}
+
+// Карточка в ленте auto.olk.ru: фото, «Марка Модель, год», цена, характеристики, село
+function autoCard(a) {
+  const href = '#/auto/' + a.id;
+  const line = vehLine(vehOf(a));
+  return '<li><div class="bcard">' + cardPhotosHtml(a, href) +
+    '<a class="bbody" href="' + href + '">' +
+      '<span class="btitle au-t">' + esc(a.title) + '</span>' +
+      (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
+      fmtPrice(a.price, a.price_type) +
+      (line ? '<span class="au-spec">' + esc(line) + '</span>' : '') +
+      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+    '</a></div></li>';
+}
+
+/* ----- Шапка auto.olk.ru: вкладки, блок подбора, чипы ----- */
+function autoHeadHtml() {
+  return '<div class="au-head" id="au-head">' +
+    '<nav class="au-tabs" id="au-tabs" aria-label="Вид техники">' +
+      AUTO_TABS.map(t => '<a href="#/auto' + (t.key === 'car' ? '' : '?tab=' + t.key) + '" data-tab="' + t.key + '">' + auIcon(t.icon) + '<span>' + t.name + '</span></a>').join('') +
+    '</nav>' +
+    '<div class="au-box" id="au-box"></div>' +
+    '<nav class="hchips au-chips" id="au-chips" aria-label="Быстрый выбор"></nav>' +
+  '</div>';
+}
+
+function bindAutoHead() {
+  const head = $('#au-head');
+  head.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]');
+    const st = AU.st;
+    if (!b || !st) return;
+    const go = patch => goHash(auHash({ ...auCopy(st), ...patch }));
+    switch (b.dataset.act) {
+      case 'brand': auBrandScreen(st, s => go({ brand: s.brand, model: s.model })); break;
+      case 'brand-x': go({ brand: [], model: [] }); break;
+      case 'year': auYearSheet(st, (yf, yt) => go({ yf, yt })); break;
+      case 'price': auPriceSheet(st, (min, max) => go({ min, max })); break;
+      case 'params': auParamsScreen(st); break;
+      case 'place': auPlaceScreen(st.place, p => go({ place: p })); break;
+      case 'place-x': go({ place: '' }); break;
+      case 'show': { const r = $('#au-res'); if (r) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); break; }
+      case 'chip': go({ min: '', max: b.dataset.v }); break;
+      case 'pcat': go({ cat: b.dataset.v }); break;
+    }
+  });
+  head.addEventListener('submit', e => {
+    if (e.target.id !== 'au-qf') return;
+    e.preventDefault();
+    const inp = $('#au-q');
+    inp.blur();
+    goHash(auHash({ ...auCopy(AU.st), q: inp.value.trim().slice(0, 100) }));
+  });
+}
+
+function fillAutoHead(st) {
+  if (HEAD_KIND !== 'auto') return;
+  AU.st = st;
+  // Вкладки: при переходе на другую сохраняем только населённый пункт
+  $('#au-tabs').querySelectorAll('a').forEach(a => {
+    const on = a.dataset.tab === st.tab;
+    a.classList.toggle('on', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    a.href = auHash({ ...auEmpty(a.dataset.tab), place: st.place });
+  });
+  const car = st.tab === 'car';
+  const sel = auSelText(st);
+  const extra = (st.photo ? 1 : 0) + (car && st.q ? 1 : 0);
+  const cell = (act, label, val, ph) => '<button type="button" class="au-cell" data-act="' + act + '"><small>' + label + '</small>' +
+    '<span' + (val ? '' : ' class="au-ph"') + '>' + esc(val || ph) + '</span></button>';
+  let box = car
+    ? '<div class="au-row"><button type="button" class="au-main" data-act="brand"><span class="au-lab' + (st.brand.length ? '' : ' au-ph') + '" id="au-sel">' +
+        esc(st.brand.length ? sel : 'Марка, модель') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
+        (st.brand.length ? '<button type="button" class="au-x" data-act="brand-x" aria-label="Сбросить марку и модель">×</button>' : '') + '</div>'
+    : '<form class="au-row au-q" id="au-qf" role="search">' + auIcon('search', 'au-ico') +
+        '<input id="au-q" type="search" enterkeyhint="search" maxlength="100" placeholder="' + esc(AU_Q_PH[st.tab]) + '" aria-label="Поиск: ' + esc(AU_Q_PH[st.tab]) + '" value="' + esc(st.q) + '"></form>';
+  box += '<div class="au-cells' + (car ? '' : ' two') + '">' +
+    (car ? cell('year', 'Год', rangeText(st.yf, st.yt, x => x), 'любой') : '') +
+    cell('price', 'Цена', priceText(st.min, st.max), 'любая') +
+    '<button type="button" class="au-cell au-pcell" data-act="params">' + auIcon('params', 'au-ico') + '<span>Параметры</span>' +
+      (extra ? '<b class="au-badge" aria-label="выбрано: ' + extra + '">' + extra + '</b>' : '') + '</button>' +
+  '</div>';
+  box += '<div class="au-row"><button type="button" class="au-main" data-act="place">' + auIcon('pin', 'au-ico') +
+      '<span class="au-lab' + (st.place ? '' : ' au-ph') + '">' + esc(st.place ? placeLabel(st.place) : 'Весь район') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
+      (st.place ? '<button type="button" class="au-x" data-act="place-x" aria-label="Весь район">×</button>' : '') + '</div>';
+  box += '<button type="button" class="btn btn-accent au-show" data-act="show" id="au-show">Показать объявления</button>';
+  $('#au-box').innerHTML = box;
+
+  let chips = '';
+  if (car) chips = CAR_CHIPS.map(([v, l]) => {
+    const on = v ? (st.max === v && !st.min) : (!st.max && !st.min);
+    return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-act="chip" data-v="' + v + '" aria-pressed="' + on + '">' + l + '</button>';
+  }).join('');
+  if (st.tab === 'parts') chips = [['', 'Все']].concat(PARTS).map(([v, l]) =>
+    '<button type="button" class="chip' + (st.cat === v ? ' on' : '') + '" data-act="pcat" data-v="' + v + '" aria-pressed="' + (st.cat === v) + '">' + l + '</button>').join('');
+  $('#au-chips').innerHTML = chips;
+  const on = $('#au-chips .chip.on');
+  if (on && on.offsetLeft > 0) $('#au-chips').scrollLeft = on.offsetLeft - 16;
+
+  // Названия выбранных марок могут быть ещё не загружены
+  if (st.brand.length && (!AU.brands || (st.model.length && !AU.models[st.brand[0]]))) {
+    auNames(st).then(() => {
+      if (AU.st !== st) return;
+      const el = $('#au-sel');
+      if (el) el.textContent = auSelText(st);
+      const h = $('#au-h');
+      if (h) h.firstChild.textContent = auSelText(st) + ' ';
+    }, e => console.error(e));
+  }
+}
+
+/* ----- Главная и поиск auto.olk.ru ----- */
+async function renderAuto(query) {
+  if (!sb) return renderNoDb('Авто и техника');
+  const app = $('#app');
+  const seq = routeSeq;
+  const st = auParse(query);
+  $('#top').classList.remove('au-compact');
+  fillAutoHead(st);
+  app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
+  let cats;
+  try {
+    cats = await loadCats();
+  } catch (e) {
+    console.error(e);
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+
+  const tab = AUTO_TAB[st.tab];
+  const filtered = auFiltered(st);
+  const name = st.brand.length ? auSelText(st) : st.cat ? cats.bySlug[st.cat]?.name || PARTS_BY[st.cat] : tab.name;
+  document.title = (filtered ? name + ' — ' : tab.key === 'car' ? '' : tab.name + ' — ') + AUTO_TITLE;
+  const newCat = st.tab === 'parts' ? (st.cat || '') : st.tab === 'car' ? '' : tab.cats[0];
+  const sorts = AU_SORTS.filter(s => s[0] !== 'year' || st.tab === 'car');
+
+  app.innerHTML =
+    '<div class="bhead au-res" id="au-res"><h2 id="au-h">' + esc(filtered ? name : 'Свежие объявления') + ' <span class="n" id="au-n"></span></h2>' +
+      '<select class="au-sort" id="au-sort" aria-label="Сортировка">' +
+        sorts.map(([v, l]) => '<option value="' + v + '"' + (st.sort === v ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' +
+    (filtered && st.place ? '<p class="bfound">Населённый пункт: ' + esc(placeLabel(st.place)) + '. <a href="' + esc(auHash({ ...auCopy(st), place: '' })) + '">Искать во всём районе</a></p>' : '') +
+    '<ul class="bfeed" id="list"></ul><div id="list-state"></div>';
+
+  $('#au-sort').addEventListener('change', e => goHash(auHash({ ...auCopy(st), sort: e.target.value })));
+
+  const ids = auCatIds(cats, st);
+  buildAutoQuery(st, ids, 0, true).then(({ count, error }) => {
+    if (seq !== routeSeq) return;
+    if (error) { console.error(error); return; }
+    const n = count || 0;
+    const nEl = $('#au-n');
+    if (nEl) nEl.textContent = n.toLocaleString('ru-RU');
+    const btn = $('#au-show');
+    if (btn) btn.textContent = showLabel(n);
+  }, e => console.error(e));
+
+  const listEl = $('#list');
+  bindCardPhotos(listEl);
+  startFeed({
+    listEl, stateEl: $('#list-state'),
+    fetchPage: from => buildAutoQuery(st, ids, from, false),
+    renderItems: rows => rows.map(mapAd).map(autoCard).join(''),
+    emptyHtml: filtered
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.' + (st.tab === 'car' && (st.brand.length || st.yf || st.yt) ? ' Объявления, поданные до появления выбора марки, видны без фильтра по марке и году.' : '') + '</p>'
+      : '<p class="empty">Объявлений пока нет. <a href="#/auto/new' + (newCat ? '?cat=' + newCat : '') + '">Подайте первое</a>.</p>'
+  });
+}
+
+function routeAuto(query, parts) {
+  if (!parts.length) return renderAuto(query);
+  if (parts[0] === 'new') return renderAdForm(query, null, 'auto');
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0], 'auto') : renderAdView(+parts[0], 'auto');
+  renderStub('404');
+}
+
+/* ----- Экраны и выезжающие снизу списки ----- */
+const AU_LAYERS = [];
+function auLayer(cls) {
+  const el = document.createElement('div');
+  el.className = 'au-layer ' + cls;
+  el.style.zIndex = 60 + AU_LAYERS.length * 2;
+  document.body.appendChild(el);
+  AU_LAYERS.push(el);
+  document.body.classList.add('au-lock');
+  return el;
+}
+function auClose(el) {
+  const i = AU_LAYERS.indexOf(el);
+  if (i < 0) return;
+  AU_LAYERS.splice(i, 1);
+  el.remove();
+  if (!AU_LAYERS.length) document.body.classList.remove('au-lock');
+  if (el.onClose) el.onClose();
+}
+function auCloseAll() { AU_LAYERS.slice().reverse().forEach(auClose); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && AU_LAYERS.length) { e.preventDefault(); e.stopImmediatePropagation(); auClose(AU_LAYERS[AU_LAYERS.length - 1]); }
+}, true);
+const auDesk = () => matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+function auScreen({ title, reset, body, foot }) {
+  const layer = auLayer('scr');
+  layer.innerHTML = '<div class="au-scr" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
+    '<div class="au-scr-head"><button type="button" class="au-close" aria-label="Закрыть">' + auIcon('close', '', 2) + '</button>' +
+      '<b>' + esc(title) + '</b>' + (reset ? '<button type="button" class="au-reset">Сбросить</button>' : '<span></span>') + '</div>' +
+    '<div class="au-scr-mid">' + body + '</div>' +
+    (foot ? '<div class="au-scr-foot">' + foot + '</div>' : '') + '</div>';
+  const scr = layer.firstChild;
+  const close = () => auClose(layer);
+  scr.querySelector('.au-close').addEventListener('click', close);
+  layer.addEventListener('click', e => { if (e.target === layer) close(); });
+  if (reset) scr.querySelector('.au-reset').addEventListener('click', reset);
+  if (!auDesk()) scr.querySelector('.au-close').focus({ preventScroll: true });
+  return { layer, scr, close };
+}
+
+function auSheet({ title, body, onDone }) {
+  const layer = auLayer('sheet');
+  layer.innerHTML = '<div class="au-sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
+    '<div class="au-sheet-head"><button type="button" class="au-sh-cancel">Отмена</button><b>' + esc(title) + '</b><button type="button" class="au-sh-done">Готово</button></div>' +
+    body + '</div>';
+  const sh = layer.firstChild;
+  const close = () => auClose(layer);
+  sh.querySelector('.au-sh-cancel').addEventListener('click', close);
+  sh.querySelector('.au-sh-done').addEventListener('click', () => { if (onDone(sh) !== false) close(); });
+  layer.addEventListener('click', e => { if (e.target === layer) close(); });
+  sh.querySelector('.au-sh-done').focus({ preventScroll: true });
+  return sh;
+}
+
+// Строка списка: галочка справа (один выбор) или квадрат слева (несколько)
+function auOpt(attrs, label, on, multi, n, cls) {
+  return '<button type="button" class="au-opt' + (on ? ' on' : '') + (cls ? ' ' + cls : '') + '" ' + attrs + ' aria-pressed="' + !!on + '">' +
+    (multi ? '<span class="au-check">' + auIcon('check', '', 3) + '</span>' : '') +
+    '<span>' + label + '</span>' + (n ? '<span class="au-n">' + n.toLocaleString('ru-RU') + '</span>' : '') +
+    (multi ? '' : auIcon('check', 'au-tick', 2.4)) + '</button>';
+}
+
+// Год: два столбца «от» и «до»
+const auYears = () => { const y = auYearNow(), out = []; for (let i = y; i >= 1950; i--) out.push(String(i)); return out; };
+function auYearSheet(st, onDone) {
+  let yf = st.yf, yt = st.yt;
+  const col = (key, val, title) => '<div class="au-col" data-k="' + key + '"><div class="au-sec">' + title + '</div>' +
+    auOpt('data-v=""', 'Любой', !val, false) + auYears().map(y => auOpt('data-v="' + y + '"', y, val === y, false)).join('') + '</div>';
+  const sh = auSheet({
+    title: 'Год выпуска',
+    body: '<div class="au-cols">' + col('yf', yf, 'от') + col('yt', yt, 'до') + '</div>',
+    onDone: () => { if (yf && yt && +yf > +yt) [yf, yt] = [yt, yf]; onDone(yf, yt); }
+  });
+  sh.querySelectorAll('.au-col').forEach(c => {
+    c.addEventListener('click', e => {
+      const b = e.target.closest('.au-opt');
+      if (!b) return;
+      c.querySelectorAll('.au-opt').forEach(o => { o.classList.toggle('on', o === b); o.setAttribute('aria-pressed', String(o === b)); });
+      if (c.dataset.k === 'yf') yf = b.dataset.v; else yt = b.dataset.v;
+    });
+    const on = c.querySelector('.au-opt.on');
+    if (on && on.dataset.v) c.scrollTop = on.offsetTop - c.clientHeight / 2;
+  });
+}
+
+// Цена: от и до
+function auPriceSheet(st, onDone) {
+  const sh = auSheet({
+    title: 'Цена, ₽',
+    body: '<div class="au-sheet-body"><div class="au-pf"><div class="au-two">' +
+      '<input id="ps-min" type="number" inputmode="numeric" min="0" placeholder="от" aria-label="Цена от" value="' + esc(st.min) + '">' +
+      '<input id="ps-max" type="number" inputmode="numeric" min="0" placeholder="до" aria-label="Цена до" value="' + esc(st.max) + '"></div></div></div>',
+    onDone: s => {
+      const val = id => { const v = s.querySelector(id).value.trim(); return /^\d{1,9}$/.test(v) ? String(+v) : ''; };
+      let a = val('#ps-min'), b = val('#ps-max');
+      if (a && b && +a > +b) [a, b] = [b, a];
+      onDone(a, b);
+    }
+  });
+  sh.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sh.querySelector('.au-sh-done').click(); } });
+}
+
+// Населённый пункт: весь район или одно село
+function auPlaceScreen(cur, onPick) {
+  const S = auScreen({
+    title: 'Населённый пункт',
+    body: '<div class="au-search"><input type="search" id="pl-q" placeholder="Начните вводить название" aria-label="Поиск населённого пункта" autocomplete="off"></div>' +
+      '<div class="au-scr-body" id="pl-list"></div>'
+  });
+  const list = S.scr.querySelector('#pl-list'), inp = S.scr.querySelector('#pl-q');
+  const draw = () => {
+    const q = inp.value;
+    const items = placeNorm(q) ? placeMatches(q) : [''].concat(PLACES);
+    list.innerHTML = items.length
+      ? items.map(p => auOpt('data-v="' + esc(p) + '"', p ? esc(placeLabel(p)) : 'Весь район', p === cur, false, 0, p ? '' : 'all')).join('')
+      : '<p class="au-empty">Такого нет в списке</p>';
+  };
+  draw();
+  inp.addEventListener('input', draw);
+  list.addEventListener('click', e => { const b = e.target.closest('.au-opt'); if (b) { S.close(); onPick(b.dataset.v); } });
+  if (auDesk()) inp.focus();
+}
+
+// «Выбрана 1 марка», «Выбрано 2 марки»
+const pickedText = (n, words) => n ? (n % 10 === 1 && n % 100 !== 11 ? 'Выбрана ' : 'Выбрано ') + n + ' ' + plural(n, ...words) : '';
+
+/* ----- Экран «Марки»: популярные, все по алфавиту с буквами, поиск по марке и модели ----- */
+async function auBrandScreen(st0, onDone) {
+  const sel = auCopy(st0);
+  const S = auScreen({
+    title: 'Марки',
+    reset: () => { sel.brand = []; sel.model = []; marks(); upd(); },
+    body: '<div class="au-search"><input type="search" id="ab-q" placeholder="Марка или модель" aria-label="Поиск марки или модели" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="au-lwrap rail" id="ab-wrap"><div class="au-scr-body" id="ab-list"><p class="loading au-empty">Загружаем марки…</p></div><div class="au-rail" id="ab-rail" aria-hidden="true"></div></div>',
+    foot: '<span class="au-picked" id="ab-n"></span><button type="button" class="btn btn-accent" id="ab-go">Показать объявления</button>'
+  });
+  const $s = id => S.scr.querySelector(id);
+  const list = $s('#ab-list'), inp = $s('#ab-q'), rail = $s('#ab-rail'), go = $s('#ab-go');
+  const recount = auCounter(go);
+  const upd = () => { $s('#ab-n').textContent = pickedText(sel.brand.length, ['марка', 'марки', 'марок']); recount(sel); };
+  upd();
+
+  let brands, counts;
+  try {
+    [brands, counts] = await Promise.all([loadBrands(), loadVehCounts()]);
+  } catch (e) {
+    console.error(e);
+    list.innerHTML = '<div class="notice err" style="margin:16px">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (!S.layer.isConnected) return;
+
+  const row = b => auOpt('data-b="' + b.id + '"', esc(b.name), sel.brand.includes(b.id), true, counts.b[b.id]);
+  function marks() {
+    list.querySelectorAll('[data-b]').forEach(o => {
+      const on = sel.brand.includes(+o.dataset.b);
+      o.classList.toggle('on', on);
+      o.setAttribute('aria-pressed', String(on));
+    });
+  }
+  let mseq = 0, mt = null;
+  function draw() {
+    const q = auNorm(inp.value);
+    clearTimeout(mt);
+    if (!q) {
+      $s('#ab-wrap').classList.add('rail');
+      let html = '<div class="au-sec">Популярные</div>' + brands.filter(b => b.popular).sort((a, b) => a.name.localeCompare(b.name, 'ru')).map(row).join('');
+      html += '<div class="au-sec">Все марки</div>';
+      let L = null;
+      const letters = [];
+      brands.forEach(b => {
+        if (b.g[1] !== L) { L = b.g[1]; letters.push(L); html += '<div class="au-sec" data-letter="' + esc(L) + '">' + esc(L) + '</div>'; }
+        html += row(b);
+      });
+      list.innerHTML = html;
+      rail.innerHTML = letters.map(l => '<span data-l="' + esc(l) + '">' + esc(l) + '</span>').join('');
+      rail.hidden = false;
+      return;
+    }
+    $s('#ab-wrap').classList.remove('rail');
+    rail.hidden = true;
+    const found = brands.filter(b => auNorm(b.name).includes(q) || auNorm(b.name_ru).includes(q))
+      .sort((a, b) => (auNorm(b.name).startsWith(q) || auNorm(b.name_ru).startsWith(q)) - (auNorm(a.name).startsWith(q) || auNorm(a.name_ru).startsWith(q)));
+    list.innerHTML = (found.length ? '<div class="au-sec">Марки</div>' + found.map(row).join('') : '') + '<div id="ab-models"></div>' +
+      (found.length ? '' : '<p class="au-empty" id="ab-none">Ищем модели…</p>');
+    // Модели ищем на сервере: «премио», «land cruiser»
+    const my = ++mseq;
+    const t = inp.value.replace(/[",().*%\\:]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (t.length < 2) { const n = $s('#ab-none'); if (n) n.textContent = 'Ничего не нашлось'; return; }
+    mt = setTimeout(async () => {
+      const { data, error } = await sb.from('vehicle_models').select('id, name, brand_id, vehicle_brands!inner(kind)')
+        .eq('vehicle_brands.kind', 'car').or('name.ilike."*' + t + '*",name_ru.ilike."*' + t + '*"').order('name').limit(30);
+      if (my !== mseq || !S.layer.isConnected) return;
+      const box = $s('#ab-models'), none = $s('#ab-none');
+      if (error) { console.error(error); if (none) none.textContent = 'Ничего не нашлось'; return; }
+      const rows = (data || []).filter(m => AU.byId[m.brand_id]);
+      if (none) none.remove();
+      box.innerHTML = rows.length
+        ? '<div class="au-sec">Модели</div>' + rows.map(m => auOpt('data-m="' + m.id + '" data-mb="' + m.brand_id + '"',
+            esc(AU.byId[m.brand_id].name + ' ' + m.name), false, false, counts.m[m.id])).join('')
+        : (found.length ? '' : '<p class="au-empty">Ничего не нашлось</p>');
+    }, 300);
+  }
+  draw();
+  inp.addEventListener('input', draw);
+
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.au-opt');
+    if (!b) return;
+    if (b.dataset.m) {
+      // Найдена модель: выбираем её марку и открываем модели с этой моделью
+      sel.brand = [+b.dataset.mb]; sel.model = [+b.dataset.m];
+      marks(); upd();
+      auModelScreen(sel, s => { Object.assign(sel, auCopy(s)); marks(); upd(); }, onDone);
+      return;
+    }
+    const id = +b.dataset.b;
+    sel.brand = sel.brand.includes(id) ? sel.brand.filter(x => x !== id) : sel.brand.concat(id);
+    sel.model = []; // модели относятся к одной марке — при смене марок сбрасываем
+    marks(); upd();
+  });
+
+  // Полоса букв: нажать или провести пальцем — список прыгает к букве
+  let dragging = false;
+  const jump = e => {
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const l = el && el.dataset ? el.dataset.l : null;
+    const h = l && list.querySelector('[data-letter="' + CSS.escape(l) + '"]');
+    if (h) list.scrollTop = h.offsetTop;
+  };
+  rail.addEventListener('pointerdown', e => { dragging = true; try { rail.setPointerCapture(e.pointerId); } catch {} jump(e); });
+  rail.addEventListener('pointermove', e => { if (dragging) jump(e); });
+  ['pointerup', 'pointercancel'].forEach(t => rail.addEventListener(t, () => { dragging = false; }));
+
+  // Одна марка — дальше её модели; несколько — сразу показываем
+  go.addEventListener('click', () => {
+    if (sel.brand.length === 1) auModelScreen(sel, s => { Object.assign(sel, auCopy(s)); marks(); upd(); }, onDone);
+    else onDone(sel);
+  });
+  if (auDesk()) inp.focus();
+}
+
+/* ----- Экран моделей одной марки ----- */
+async function auModelScreen(st1, onBack, onDone) {
+  const sel = auCopy(st1);
+  const bid = sel.brand[0];
+  const brand = AU.byId[bid];
+  const S = auScreen({
+    title: brand ? brand.name : 'Модели',
+    reset: () => { sel.model = []; marks(); upd(); },
+    body: '<div class="au-search"><input type="search" id="am-q" placeholder="Модель" aria-label="Поиск модели" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="au-scr-body" id="am-list"><p class="loading au-empty">Загружаем модели…</p></div>',
+    foot: '<span class="au-picked" id="am-n"></span><button type="button" class="btn btn-accent" id="am-go">Показать объявления</button>'
+  });
+  // Вернулись к маркам (стрелка, Esc): передаём туда выбранные модели
+  S.layer.onClose = () => onBack(sel);
+  const closeBtn = S.scr.querySelector('.au-close');
+  closeBtn.setAttribute('aria-label', 'Назад к маркам');
+  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg>';
+  const $s = id => S.scr.querySelector(id);
+  const list = $s('#am-list'), inp = $s('#am-q'), go = $s('#am-go');
+  const recount = auCounter(go);
+  const upd = () => { $s('#am-n').textContent = pickedText(sel.model.length, ['модель', 'модели', 'моделей']); recount(sel); };
+  upd();
+  let models, counts;
+  try {
+    [models, counts] = await Promise.all([loadModels(bid), loadVehCounts()]);
+  } catch (e) {
+    console.error(e);
+    list.innerHTML = '<div class="notice err" style="margin:16px">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (!S.layer.isConnected) return;
+  function marks() {
+    list.querySelectorAll('.au-opt').forEach(o => {
+      const on = o.dataset.m ? sel.model.includes(+o.dataset.m) : !sel.model.length;
+      o.classList.toggle('on', on);
+      o.setAttribute('aria-pressed', String(on));
+    });
+  }
+  function draw() {
+    const q = auNorm(inp.value);
+    const found = q ? models.filter(m => auNorm(m.name).includes(q) || auNorm(m.name_ru).includes(q)) : models;
+    list.innerHTML = (q ? '' : auOpt('data-all="1"', 'Все модели', !sel.model.length, true, counts.b[bid], 'all')) +
+      (found.length ? found.map(m => auOpt('data-m="' + m.id + '"', esc(m.name) +
+          (m.year_from ? '<small>' + m.year_from + '–' + (m.year_to && m.year_to < auYearNow() ? m.year_to : 'н. в.') + '</small>' : ''),
+          sel.model.includes(m.id), true, counts.m[m.id])).join('')
+        : '<p class="au-empty">Такой модели нет в списке. Сбросьте поиск и выберите «Все модели».</p>');
+  }
+  draw();
+  inp.addEventListener('input', draw);
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.au-opt');
+    if (!b) return;
+    if (b.dataset.all) sel.model = [];
+    else { const id = +b.dataset.m; sel.model = sel.model.includes(id) ? sel.model.filter(x => x !== id) : sel.model.concat(id); }
+    marks(); upd();
+  });
+  go.addEventListener('click', () => onDone(sel));
+  // Модель из поиска: прокрутить к ней
+  const first = sel.model.length && list.querySelector('[data-m="' + sel.model[0] + '"]');
+  if (first) list.scrollTop = first.offsetTop - list.clientHeight / 3;
+  if (auDesk()) inp.focus();
+}
+
+/* ----- Экран «Параметры» ----- */
+function auParamsScreen(st0) {
+  const p = auCopy(st0);
+  const car = p.tab === 'car';
+  const yearOpts = sel => '<option value="">любой</option>' + auYears().map(y => '<option' + (sel === y ? ' selected' : '') + '>' + y + '</option>').join('');
+  const body = '<div class="au-scr-body">' +
+    '<div class="au-pf"><label class="au-pl" for="ap-place">Населённый пункт</label>' + placeFieldHtml('ap-place', true) + '</div>' +
+    (car ? '<div class="au-pf"><span class="au-pl">Марка, модель</span>' +
+      '<button type="button" class="au-opt" id="ap-brand"><span id="ap-brand-t"></span><span class="au-arr" aria-hidden="true">›</span></button></div>' +
+      '<div class="au-pf"><span class="au-pl">Год выпуска</span><div class="au-two">' +
+        '<select id="ap-yf" aria-label="Год от">' + yearOpts(p.yf) + '</select><select id="ap-yt" aria-label="Год до">' + yearOpts(p.yt) + '</select></div></div>' : '') +
+    (p.tab === 'parts' ? '<div class="au-pf"><label class="au-pl" for="ap-cat">Вид запчастей</label><select id="ap-cat"><option value="">Все</option>' +
+      PARTS.map(([v, l]) => '<option value="' + v + '"' + (p.cat === v ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' : '') +
+    '<div class="au-pf"><span class="au-pl">Цена, ₽</span><div class="au-two">' +
+      '<input id="ap-min" type="number" inputmode="numeric" min="0" placeholder="от" aria-label="Цена от" value="' + esc(p.min) + '">' +
+      '<input id="ap-max" type="number" inputmode="numeric" min="0" placeholder="до" aria-label="Цена до" value="' + esc(p.max) + '"></div></div>' +
+    '<div class="au-pf"><label class="au-sw">Только с фото<input type="checkbox" id="ap-photo"' + (p.photo ? ' checked' : '') + '></label></div>' +
+    '<div class="au-pf"><label class="au-pl" for="ap-q">Ключевые слова</label><input id="ap-q" type="search" maxlength="100" enterkeyhint="search" placeholder="Например, лебёдка или зимняя резина" value="' + esc(p.q) + '"></div>' +
+  '</div>';
+  const S = auScreen({
+    title: 'Параметры',
+    reset: () => {
+      Object.assign(p, auEmpty(p.tab), { sort: p.sort });
+      setPlace('#ap-place', '');
+      ['#ap-yf', '#ap-yt', '#ap-cat', '#ap-min', '#ap-max', '#ap-q'].forEach(id => { const el = S.scr.querySelector(id); if (el) el.value = ''; });
+      S.scr.querySelector('#ap-photo').checked = false;
+      refresh();
+    },
+    body,
+    foot: '<button type="button" class="btn btn-accent" id="ap-go">Показать объявления</button>'
+  });
+  const $s = id => S.scr.querySelector(id);
+  const recount = auCounter($s('#ap-go'));
+  const num = id => { const v = ($s(id)?.value || '').trim(); return /^\d{1,9}$/.test(v) ? String(+v) : ''; };
+  function read() {
+    p.min = num('#ap-min'); p.max = num('#ap-max');
+    p.photo = $s('#ap-photo').checked ? '1' : '';
+    p.q = $s('#ap-q').value.trim().slice(0, 100);
+    if (car) { p.yf = $s('#ap-yf').value; p.yt = $s('#ap-yt').value; }
+    if ($s('#ap-cat')) p.cat = $s('#ap-cat').value;
+    const pl = placeValue('#ap-place');
+    if (pl !== null) p.place = pl;
+  }
+  function refresh() {
+    if (car) {
+      const t = $s('#ap-brand-t');
+      t.textContent = p.brand.length ? auSelText(p) : 'Любая';
+      t.className = p.brand.length ? '' : 'au-lab au-ph';
+      if (p.brand.length) auNames(p).then(() => { if (S.layer.isConnected) t.textContent = auSelText(p); }, () => {});
+    }
+    recount(p);
+  }
+  setPlace('#ap-place', p.place);
+  bindPlace('#ap-place', true, v => { p.place = v; recount(p); });
+  $s('.au-scr-body').addEventListener('input', () => { read(); recount(p); });
+  $s('.au-scr-body').addEventListener('change', () => { read(); recount(p); });
+  if (car) $s('#ap-brand').addEventListener('click', () => auBrandScreen(p, s => {
+    // Марки выбраны: закрываем экраны марок и моделей, возвращаемся в «Параметры»
+    p.brand = s.brand.slice(); p.model = s.model.slice();
+    while (AU_LAYERS.length && AU_LAYERS[AU_LAYERS.length - 1] !== S.layer) auClose(AU_LAYERS[AU_LAYERS.length - 1]);
+    refresh();
+  }));
+  $s('#ap-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $s('#ap-go').click(); } });
+  $s('#ap-go').addEventListener('click', () => {
+    read();
+    if (placeValue('#ap-place') === null) { $s('#ap-place-err').hidden = false; $s('#ap-place').focus(); return; }
+    if (p.min && p.max && +p.min > +p.max) [p.min, p.max] = [p.max, p.min];
+    if (p.yf && p.yt && +p.yf > +p.yt) [p.yf, p.yt] = [p.yt, p.yf];
+    goHash(auHash(p));
+  });
+  refresh();
+}
+
+/* ----- Форма «+ Продать»: что продаёте и поля автомобиля ----- */
+const AU_KINDS = [['car', 'Легковой'], ['spec', 'Грузовик, спецтехника'], ['moto', 'Мото'], ['snow', 'Снегоход'],
+  ['boat', 'Лодка, мотор'], ['parts', 'Запчасти'], ['other', 'Другое']];
+// Снегоходы до захода 2 лежат в разделе «Лодки, моторы, снегоходы»
+const AU_KIND_CAT = { car: 'legkovye', spec: 'spectehnika', moto: 'moto', snow: 'lodki', boat: 'lodki', other: 'avto-raznoe' };
+const V_DRIVE_F = { front: 'Передний', rear: 'Задний', '4wd': 'Полный (4WD)' };
+const V_OWNERS = { 1: 'Один', 2: 'Два', 3: 'Три', 4: 'Четыре и более' };
+
+function auKindOf(cat, ad) {
+  if (!cat || cat.slug === 'avto') return 'car';
+  if (cat.slug === 'avto-raznoe') return 'other';
+  if (PARTS_BY[cat.slug]) return 'parts';
+  if (cat.slug === 'lodki') return /снегоход/i.test(ad?.title || '') ? 'snow' : 'boat';
+  return { legkovye: 'car', spectehnika: 'spec', moto: 'moto' }[cat.slug] || 'car';
+}
+
+function auSeg(name, dict, val, label) {
+  return '<div class="field"><span class="flabel" id="' + name + '-l">' + label + '</span><div class="seg" role="radiogroup" aria-labelledby="' + name + '-l">' +
+    Object.entries(dict).map(([v, l]) => '<label><input type="radio" name="' + name + '" value="' + v + '"' + (String(val) === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+  '</div></div>';
+}
+
+function auFormTopHtml(kind, partSlug) {
+  return '<div class="field"><span class="flabel" id="akind-l">Что продаёте</span><div class="seg" role="radiogroup" aria-labelledby="akind-l">' +
+      AU_KINDS.map(([v, l]) => '<label><input type="radio" name="akind" value="' + v + '"' + (kind === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+    '</div></div>' +
+    '<div class="field" id="ap-wrap" hidden><label for="a-psub">Какие запчасти</label><select id="a-psub"><option value="">Выберите</option>' +
+      PARTS.filter(p => p[0] !== 'avto-raznoe').map(([v]) => '<option value="' + v + '"' + (partSlug === v ? ' selected' : '') + '></option>').join('') +
+    '</select></div>';
+}
+
+function vehFieldsHtml(v) {
+  v = v || {};
+  const sel = (id, label, dict, val, ph) => '<div class="field"><label for="' + id + '">' + label + '</label><select id="' + id + '"><option value="">' + (ph || 'Не указан') + '</option>' +
+    Object.entries(dict).map(([k, l]) => '<option value="' + k + '"' + (String(val ?? '') === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>';
+  const combo = (id, ph) => '<div class="pcombo"><input id="' + id + '" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="' + id + '-list"' +
+    ' autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="' + ph + '"><ul class="plist" id="' + id + '-list" role="listbox" hidden></ul></div>';
+  return '<div class="au-vblock" id="veh-wrap" hidden><h2>Автомобиль</h2>' +
+    '<div class="field"><label for="v-brand">Марка</label>' + combo('v-brand', 'Загружаем марки…') + '</div>' +
+    '<div class="field" id="v-bo-wrap" hidden><label for="v-bo">Название марки</label><input id="v-bo" maxlength="40" value="' + esc(v.brand_other || '') + '"></div>' +
+    '<div class="field" id="v-model-wrap"><label for="v-model">Модель</label>' + combo('v-model', 'Сначала выберите марку') + '</div>' +
+    '<div class="field" id="v-mo-wrap" hidden><label for="v-mo">Название модели</label><input id="v-mo" maxlength="60" value="' + esc(v.model_other || '') + '"></div>' +
+    '<div class="au-fgrid">' +
+      '<div class="field"><label for="v-year">Год выпуска</label><select id="v-year"><option value="">Выберите</option>' +
+        auYears().map(y => '<option' + (String(v.year || '') === y ? ' selected' : '') + '>' + y + '</option>').join('') + '</select></div>' +
+      '<div class="field"><label for="v-mil">Пробег, км</label><input id="v-mil" type="number" inputmode="numeric" min="0" max="3000000" value="' + (v.mileage ?? '') + '"></div>' +
+      '<div class="field"><label for="v-vol">Объём, л</label><input id="v-vol" type="text" inputmode="decimal" maxlength="5" placeholder="1.8" value="' + (v.engine_volume ? fmtVol(v.engine_volume) : '') + '"></div>' +
+      '<div class="field"><label for="v-pow">Мощность, л. с.</label><input id="v-pow" type="number" inputmode="numeric" min="1" max="3000" value="' + (v.power ?? '') + '"></div>' +
+    '</div>' +
+    auSeg('v-fuel', V_FUEL, v.fuel, 'Топливо') +
+    auSeg('v-trans', V_TRANS, v.transmission, 'Коробка') +
+    auSeg('v-drive', V_DRIVE_F, v.drive, 'Привод') +
+    auSeg('v-wheel', V_WHEEL, v.wheel, 'Руль') +
+    '<div class="au-fgrid">' + sel('v-body', 'Кузов', V_BODY, v.body) + sel('v-color', 'Цвет', V_COLOR, v.color) + '</div>' +
+    auSeg('v-cond', V_COND, v.condition, 'Состояние') +
+    auSeg('v-docs', V_DOCS, v.documents, 'Документы') +
+    '<div class="au-fgrid">' + sel('v-owners', 'Владельцев по ПТС', V_OWNERS, v.owners >= 4 ? 4 : v.owners, 'Не указано') + sel('v-seller', 'Продавец', V_SELLER, v.seller) + '</div>' +
+    '<div class="au-checks">' +
+      '<label><input type="checkbox" id="v-norf"' + (v.no_rf_mileage ? ' checked' : '') + '>Без пробега по РФ</label>' +
+      '<label><input type="checkbox" id="v-exch"' + (v.exchange_ok ? ' checked' : '') + '>Обмен возможен</label>' +
+    '</div>' +
+  '</div>';
+}
+
+// Поле с подсказками из списка (марка, модель). items(q) → [{ v, label, cls }]
+function bindCombo(inp, list, items, onPick) {
+  let cur = [], act = -1;
+  const close = () => { list.hidden = true; act = -1; inp.setAttribute('aria-expanded', 'false'); };
+  const mark = () => list.querySelectorAll('[role=option]').forEach((li, i) => {
+    li.classList.toggle('act', i === act);
+    if (i === act) li.scrollIntoView({ block: 'nearest' });
+  });
+  const draw = q => {
+    cur = items(q);
+    act = auNorm(q) && cur.length ? 0 : -1;
+    list.innerHTML = cur.length
+      ? cur.map((it, i) => '<li role="option" data-i="' + i + '"' + (it.cls ? ' class="' + it.cls + '"' : '') + '>' + esc(it.label) + '</li>').join('')
+      : '<li class="none">Ничего не нашлось</li>';
+    list.hidden = false;
+    inp.setAttribute('aria-expanded', 'true');
+    mark();
+  };
+  const pick = it => { close(); onPick(it); };
+  inp.addEventListener('focus', () => { draw(inp.dataset.v ? '' : inp.value); if (inp.dataset.v) inp.select(); });
+  inp.addEventListener('input', () => draw(inp.value));
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (list.hidden) draw(inp.value);
+      if (!cur.length) return;
+      e.preventDefault();
+      act = (act + (e.key === 'ArrowDown' ? 1 : -1) + cur.length) % cur.length;
+      mark();
+    } else if (e.key === 'Enter' && !list.hidden && act >= 0) {
+      e.preventDefault();
+      pick(cur[act]);
+    } else if (e.key === 'Escape' && !list.hidden) {
+      e.preventDefault();
+      close();
+    }
+  });
+  // Ушли из поля: точное совпадение с названием из списка засчитываем
+  inp.addEventListener('blur', () => {
+    close();
+    const t = auNorm(inp.value);
+    if (!t || (inp.dataset.v && inp.value === inp.dataset.label)) return;
+    const it = items(inp.value).find(x => x.v !== 'other' && auNorm(x.label) === t);
+    if (it) onPick(it);
+  });
+  list.addEventListener('pointerdown', e => {
+    const li = e.target.closest('[role=option]');
+    e.preventDefault();
+    if (li) pick(cur[+li.dataset.i]);
+  });
+}
+
+// Привязать «Что продаёте» и поля автомобиля; вернуть чтение значений
+function bindAutoForm(app, cats, ad) {
+  const v = vehOf(ad) || {};
+  const bInp = $('#v-brand'), mInp = $('#v-model');
+  const kind = () => (app.querySelector('input[name=akind]:checked') || {}).value || 'car';
+  $('#a-psub').querySelectorAll('option[value]').forEach(o => { if (o.value) o.textContent = cats.bySlug[o.value]?.name || PARTS_BY[o.value]; });
+
+  function syncKind() {
+    const k = kind();
+    $('#ap-wrap').hidden = k !== 'parts';
+    $('#veh-wrap').hidden = k !== 'car';
+    $('#title-wrap').hidden = k === 'car';
+    $('#deal-wrap').hidden = k === 'car';
+  }
+  app.querySelectorAll('input[name=akind]').forEach(r => r.addEventListener('change', syncKind));
+  syncKind();
+
+  function setModel(it) {
+    mInp.dataset.v = it ? String(it.v) : '';
+    mInp.dataset.label = it ? it.label : '';
+    if (it) mInp.value = it.label;
+    $('#v-mo-wrap').hidden = !(it && it.v === 'other') && bInp.dataset.v !== 'other';
+  }
+  async function setBrand(it, keepModel) {
+    bInp.dataset.v = it ? String(it.v) : '';
+    bInp.dataset.label = it ? it.label : '';
+    if (it) bInp.value = it.label;
+    const other = it && it.v === 'other';
+    $('#v-bo-wrap').hidden = !other;
+    $('#v-model-wrap').hidden = other;
+    if (!keepModel) { mInp.value = ''; setModel(null); }
+    $('#v-mo-wrap').hidden = !(other || mInp.dataset.v === 'other');
+    mInp.disabled = !it || other;
+    mInp.placeholder = !it ? 'Сначала выберите марку' : 'Загружаем модели…';
+    if (!it || other) return;
+    try {
+      await loadModels(it.v);
+      if (bInp.dataset.v === String(it.v)) mInp.placeholder = 'Например, ' + (AU.models[it.v][0]?.name || 'модель');
+    } catch (e) {
+      console.error(e);
+      mInp.placeholder = 'Не загрузилось — выберите «Другая модель»';
+    }
+  }
+  bInp.addEventListener('input', () => { if (bInp.dataset.v) setBrand(null); });
+  mInp.addEventListener('input', () => { if (mInp.dataset.v) { mInp.dataset.v = ''; $('#v-mo-wrap').hidden = true; } });
+
+  const OTHER_B = { v: 'other', label: 'Другая марка', cls: 'all' }, OTHER_M = { v: 'other', label: 'Другая модель', cls: 'all' };
+  bindCombo(mInp, $('#v-model-list'), q => {
+    const list = AU.models[bInp.dataset.v] || [];
+    const n = auNorm(q);
+    const found = n ? list.filter(m => auNorm(m.name).includes(n) || auNorm(m.name_ru).includes(n))
+      .sort((a, b) => auNorm(b.name).startsWith(n) - auNorm(a.name).startsWith(n)) : list;
+    return found.slice(0, 60).map(m => ({ v: m.id, label: m.name })).concat(OTHER_M);
+  }, setModel);
+
+  const ready = loadBrands().then(brands => {
+    bInp.placeholder = 'Например, Toyota';
+    bindCombo(bInp, $('#v-brand-list'), q => {
+      const n = auNorm(q);
+      const found = n
+        ? brands.filter(b => auNorm(b.name).includes(n) || auNorm(b.name_ru).includes(n))
+            .sort((a, b) => (auNorm(b.name).startsWith(n) || auNorm(b.name_ru).startsWith(n)) - (auNorm(a.name).startsWith(n) || auNorm(a.name_ru).startsWith(n)))
+        : brands.filter(b => b.popular).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+      return found.slice(0, 40).map(b => ({ v: b.id, label: b.name })).concat(OTHER_B);
+    }, it => setBrand(it));
+    // Правка: подставить сохранённые марку и модель
+    if (v.brand_id && AU.byId[v.brand_id]) {
+      return setBrand({ v: v.brand_id, label: AU.byId[v.brand_id].name }, true).then(() => {
+        const m = (AU.models[v.brand_id] || []).find(x => x.id === v.model_id);
+        if (m) setModel({ v: m.id, label: m.name });
+        else if (v.model_other) setModel(OTHER_M);
+      });
+    }
+    if (v.brand_other) return setBrand(OTHER_B, true);
+  }, e => {
+    console.error(e);
+    bInp.placeholder = 'Список не загрузился';
+    setBrand(OTHER_B);
+  });
+
+  function readVeh() {
+    const bv = bInp.dataset.v, mv = mInp.dataset.v;
+    const bo = $('#v-bo').value.trim(), mo = $('#v-mo').value.trim();
+    if (!bv) return { err: 'Выберите марку из списка или «Другая марка».', el: bInp };
+    if (bv === 'other' && bo.length < 2) return { err: 'Напишите название марки.', el: $('#v-bo') };
+    const manual = bv === 'other' || mv === 'other';
+    if (!manual && !mv) return { err: 'Выберите модель из списка или «Другая модель».', el: mInp };
+    if (manual && !mo) return { err: 'Напишите название модели.', el: $('#v-mo') };
+    const year = $('#v-year').value;
+    if (!year) return { err: 'Укажите год выпуска.', el: $('#v-year') };
+    const mil = $('#v-mil').value.trim();
+    if (mil !== '' && !(/^\d+$/.test(mil) && +mil <= 3e6)) return { err: 'Пробег — число километров, не больше 3 000 000.', el: $('#v-mil') };
+    let vol = $('#v-vol').value.trim().replace(',', '.');
+    if (vol !== '' && /^\d+$/.test(vol) && +vol >= 100 && +vol <= 30000) vol = String(+vol / 1000); // ввели в кубиках: 1800 → 1.8
+    if (vol !== '' && !(/^\d+(\.\d+)?$/.test(vol) && +vol > 0 && +vol <= 30)) return { err: 'Объём двигателя — в литрах, например 1.8.', el: $('#v-vol') };
+    const pow = $('#v-pow').value.trim();
+    if (pow !== '' && !(/^\d+$/.test(pow) && +pow >= 1 && +pow <= 3000)) return { err: 'Мощность — число лошадиных сил, от 1 до 3000.', el: $('#v-pow') };
+    const radio = n => (app.querySelector('input[name=' + n + ']:checked') || {}).value || null;
+    const brandName = bv === 'other' ? bo : AU.byId[bv]?.name || '';
+    const modelName = manual ? mo : (AU.models[bv] || []).find(m => String(m.id) === mv)?.name || '';
+    const row = {
+      kind: 'car',
+      brand_id: bv === 'other' ? null : +bv, model_id: manual ? null : +mv,
+      brand_other: bv === 'other' ? bo : null, model_other: manual ? mo : null,
+      year: +year, mileage: mil === '' ? null : +mil,
+      engine_volume: vol === '' ? null : Math.round(+vol * 10) / 10, power: pow === '' ? null : +pow,
+      fuel: radio('v-fuel'), transmission: radio('v-trans'), drive: radio('v-drive'), wheel: radio('v-wheel'),
+      body: $('#v-body').value || null, color: $('#v-color').value || null,
+      condition: radio('v-cond'), documents: radio('v-docs'),
+      owners: $('#v-owners').value ? +$('#v-owners').value : null, seller: $('#v-seller').value || null,
+      no_rf_mileage: $('#v-norf').checked, exchange_ok: $('#v-exch').checked
+    };
+    return { row, title: (brandName + ' ' + modelName + ', ' + year).slice(0, 120) };
+  }
+
+  function catId() {
+    const k = kind();
+    if (k === 'parts') return cats.bySlug[$('#a-psub').value]?.id || null;
+    return cats.bySlug[AU_KIND_CAT[k]]?.id || null;
+  }
+  return { kind, catId, readVeh, ready };
 }
 
 /* ---------------- Лента с автоподгрузкой ---------------- */
@@ -5211,14 +6526,17 @@ function route() {
 
   routeSeq++;
   stopFeed();
+  auCloseAll();
   document.title = DEFAULT_TITLE;
   document.querySelectorAll('.nav a, .drawer a[data-route]').forEach(a => a.classList.toggle('active', a.dataset.route === section));
   closeDrawer();
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
-  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha', catalog: 'catalog' }[section] || 'portal';
+  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha', catalog: 'catalog', auto: 'auto' }[section] || 'portal';
   setHead(kind);
+  // На странице объявления и в форме auto.olk.ru блок подбора не нужен — его показывает renderAuto
+  $('#top').classList.toggle('au-compact', kind === 'auto');
   if (kind === 'doska') { BOARD_CAT = ''; fillBoardHead({}); }
   if (kind === 'news') fillNewsHead({});
   if (kind === 'rabota') fillRabotaHead({});
