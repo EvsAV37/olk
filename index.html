@@ -80,7 +80,8 @@
   a:hover { text-decoration: underline; }
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
   img { max-width: 100%; display: block; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  /* Рамка сайта: на мониторах до 1440 px, шире — поля по бокам */
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 16px; }
 
   /* ---------- Шапка (у каждого раздела своя: olk.ru, doska.olk.ru…) ---------- */
   .top { background: var(--head); color: #fff; padding-top: env(safe-area-inset-top, 0px); margin-bottom: 16px; }
@@ -180,7 +181,7 @@
   .rgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 40px; }
   .rgrid .ads { grid-template-columns: 1fr; }
   .rgrid .section { margin-bottom: 20px; }
-  .rlist { max-width: 780px; }
+  .rlist { max-width: 980px; }
   .bcount { color: var(--mute); font-weight: 400; font-size: 15px; margin-left: 6px; }
   .rlist .ads { grid-template-columns: 1fr; }
   @media (max-width: 700px) {
@@ -503,7 +504,7 @@
   .flabel { display: block; font-weight: 500; font-size: 15px; margin-bottom: 6px; }
 
   /* ---------- Новости: лента ---------- */
-  .nfeed { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .nfeed { list-style: none; margin: 0; padding: 0; max-width: 980px; }
   .nfeed li { border-top: 1px solid var(--line); }
   .nrow { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; color: inherit; }
   .nrow:hover { text-decoration: none; }
@@ -557,7 +558,7 @@
   .c-login { border-top: 1px solid var(--line); padding-top: 16px; margin: 0; }
 
   /* ---------- Админка ---------- */
-  .adm-list { list-style: none; margin: 0; padding: 0; max-width: 820px; }
+  .adm-list { list-style: none; margin: 0; padding: 0; max-width: 980px; }
   .adm-list li { border-top: 1px solid var(--line); }
   .adm-row { display: block; padding: 12px 0; color: inherit; }
   .adm-row:hover { text-decoration: none; }
@@ -590,7 +591,7 @@
   #pv .article { border-top: 1px solid var(--line); padding-top: 8px; }
 
   /* ---------- Афиша ---------- */
-  .efeed { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .efeed { list-style: none; margin: 0; padding: 0; max-width: 980px; }
   .efeed > li { border-top: 1px solid var(--line); }
   .efeed > li.eday { border-top: 0; padding: 22px 0 2px; }
   .efeed > li.eday:first-child { padding-top: 2px; }
@@ -607,9 +608,9 @@
   .erow-title { display: block; font-weight: 600; font-size: 18px; line-height: 1.3; margin: 1px 0 3px; color: var(--ink); overflow-wrap: anywhere; }
   .erow-info { display: block; font-size: 15px; color: var(--mute); overflow-wrap: anywhere; }
   .erow-img { width: 90px; aspect-ratio: 3 / 4; flex: none; object-fit: cover; border-radius: 8px; background: var(--thumb); }
-  .ehome { align-items: center; margin: 2px 0 6px; max-width: 780px; }
+  .ehome { align-items: center; margin: 2px 0 6px; max-width: 980px; }
   .ehome p { margin: 0; color: var(--mute); font-size: 15px; }
-  .eadd { max-width: 780px; margin: 22px 0 6px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--mute); font-size: 15px; }
+  .eadd { max-width: 980px; margin: 22px 0 6px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--mute); font-size: 15px; }
   .eadd a { font-weight: 500; }
   .event { max-width: 720px; }
   .event h1 { font-size: 32px; line-height: 1.16; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 12px; overflow-wrap: anywhere; }
@@ -662,12 +663,12 @@
   }
 
   /* ---------- Справочник ---------- */
-  .ephones { background: var(--err-bg); border: 1px solid var(--err-line); border-radius: var(--radius); padding: 10px 14px; margin: 0 0 16px; max-width: 980px; }
+  .ephones { background: var(--err-bg); border: 1px solid var(--err-line); border-radius: var(--radius); padding: 10px 14px; margin: 0 0 16px; }
   .ephones > b { display: block; font-size: 14px; font-weight: 600; color: var(--err-ink); margin-bottom: 4px; }
   .ephones div { display: flex; flex-wrap: wrap; gap: 4px 18px; }
   .ephones a { color: var(--err-ink); font-size: 15px; white-space: nowrap; padding: 4px 0; }
   .ephones a b { color: var(--berry); font-size: 18px; font-weight: 600; margin-right: 2px; }
-  .otiles { list-style: none; margin: 0 0 6px; padding: 0; max-width: 980px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .otiles { list-style: none; margin: 0 0 6px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
   .otiles a { display: flex; align-items: center; gap: 12px; min-height: 64px; height: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); font-weight: 500; font-size: 16px; line-height: 1.25; }
   .otiles a:hover { text-decoration: none; border-color: var(--brand); }
   .otiles a:hover .otile-name { color: var(--brand); }
@@ -675,14 +676,14 @@
   .otile-name { flex: 1; min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
   .otiles .n, .osubs .n { color: var(--mute); font-size: 14px; font-weight: 400; white-space: nowrap; }
   .oico-h { width: 26px; height: 26px; color: var(--brand); vertical-align: -3px; margin-right: 8px; }
-  .osubs { list-style: none; margin: 0 0 22px; padding: 0; max-width: 780px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .osubs { list-style: none; margin: 0 0 22px; padding: 0; max-width: 980px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
   .osubs li + li { border-top: 1px solid var(--line); }
   .osubs a { display: flex; align-items: center; gap: 10px; padding: 12px 14px; color: var(--ink); font-weight: 500; }
   .osubs a::after { content: '›'; color: var(--mute); font-size: 20px; line-height: 1; }
   .osubs a:hover { text-decoration: none; color: var(--brand); }
   .osub-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
   .osec { font-size: 19px; font-weight: 600; margin: 0 0 2px; }
-  .olist { list-style: none; margin: 0; padding: 0; max-width: 780px; }
+  .olist { list-style: none; margin: 0; padding: 0; max-width: 980px; }
   .olist > li { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; border-top: 1px solid var(--line); }
   .orow { flex: 1; min-width: 0; display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; color: inherit; }
   .orow:hover { text-decoration: none; }
@@ -811,6 +812,13 @@
   .au-res { align-items: center; }
   .au-sort { font: inherit; font-size: 15px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); max-width: 100%; }
   .au-t { font-weight: 600; margin: 0 0 2px; }
+  /* На компьютере блок подбора в одну строку: марка | год, цена, параметры | село | кнопка */
+  @media (min-width: 1024px) {
+    .au-box { max-width: none; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 2.1fr) minmax(0, 1.3fr) auto; }
+    .au-box > .au-row, .au-box > .au-cells { border-top: 0; min-height: 60px; }
+    .au-box > .au-row + .au-cells, .au-box > .au-cells + .au-row { border-left: 1px solid var(--line); }
+    .au-box .au-show { width: auto; margin: 8px; padding: 12px 22px; white-space: nowrap; }
+  }
   .au-spec { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.35; color: var(--mute); margin: 2px 0 3px; }
   @media (max-width: 400px) {
     .au-cell { padding: 6px 10px; }
@@ -823,7 +831,7 @@
     .au-pcell .au-ico { width: 18px; height: 18px; }
   }
 
-  /* Экраны «Параметры», «Марки», «Населённый пункт»: на телефоне — весь экран, на компьютере — окно */
+  /* Экраны «Параметры», «Марки», «Модели», «Населённый пункт»: на телефоне — весь экран, на компьютере — окно */
   body.au-lock { overflow: hidden; }
   .au-layer { position: fixed; inset: 0; z-index: 60; }
   .au-layer.sheet, .au-layer.scr { background: rgba(8, 20, 17, .5); }
@@ -833,54 +841,89 @@
   }
   .au-scr-head { display: grid; grid-template-columns: minmax(48px, 1fr) auto minmax(48px, 1fr); align-items: center; min-height: 54px; padding: 0 4px; border-bottom: 1px solid var(--line); flex: none; }
   .au-scr-head b { font-size: 17px; font-weight: 600; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .au-close { width: 44px; height: 44px; border: 0; background: none; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .au-close { width: 44px; height: 44px; border: 0; background: none; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 999px; }
   .au-close svg { width: 24px; height: 24px; }
   .au-reset { justify-self: end; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 500; color: var(--brand); padding: 10px 10px; cursor: pointer; }
+  /* Крупный заголовок слева (марки, модели) */
+  .au-bh { flex: none; padding: 4px 16px 2px; }
+  .au-bh-top { display: flex; align-items: center; min-height: 48px; margin-left: -8px; }
+  .au-bh .au-close { background: var(--bg); }
+  .au-back { width: auto; height: 38px; gap: 2px; padding: 0 14px 0 8px; font: inherit; font-size: 16px; font-weight: 500; }
+  .au-back svg { width: 20px; height: 20px; }
+  .au-bh-t { margin: 4px 0 0; font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  .au-scr.big .au-search { border-bottom: 0; padding-top: 10px; }
   .au-scr-mid { flex: 1; min-height: 0; display: flex; flex-direction: column; }
   .au-scr-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; position: relative; }
   .au-scr-foot { flex: none; display: flex; align-items: center; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); background: var(--card); }
   .au-scr-foot .btn { flex: 1; padding: 13px 14px; font-size: 16px; }
-  .au-picked { font-size: 14px; color: var(--mute); line-height: 1.25; flex: 0 1 auto; min-width: 0; }
-  .au-picked:empty { display: none; }
   .au-search { flex: none; padding: 10px 16px; border-bottom: 1px solid var(--line); }
   .au-search input { width: 100%; font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  /* Выбранные марка и модели чипами */
+  .au-picks { flex: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 16px 10px; }
+  .au-pick-chip { display: inline-flex; align-items: center; max-width: 100%; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); font-size: 15px; }
+  .au-pc-t { padding: 6px 4px 6px 12px; border: 0; background: none; font: inherit; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+  span.au-pc-t { cursor: default; }
+  .au-pc-x { flex: none; width: 34px; height: 32px; border: 0; background: none; color: var(--mute); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .au-pc-x svg { width: 16px; height: 16px; }
   .au-lwrap { flex: 1; min-height: 0; display: flex; position: relative; }
-  .au-sec { font-size: 13px; font-weight: 600; color: var(--mute); text-transform: uppercase; letter-spacing: .03em; padding: 14px 16px 6px; background: var(--bg); }
+  .au-sec { font-size: 15px; font-weight: 700; color: var(--ink); padding: 18px 16px 6px; }
+  .au-sec.au-let { font-size: 14px; color: var(--mute); padding: 12px 16px 4px; }
   .au-opt {
     display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 10px 16px;
     border: 0; border-bottom: 1px solid var(--line); background: none; font: inherit; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer;
   }
-  .au-opt > span:not(.au-check):not(.au-n) { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .au-opt > .au-lbl { flex: 1; min-width: 0; overflow-wrap: anywhere; }
   .au-opt small { display: block; color: var(--mute); font-size: 13px; }
   .au-opt > .au-arr { flex: none; }
   .au-opt.all { color: var(--brand); font-weight: 600; }
   @media (hover: hover) { .au-opt:hover { background: var(--bg); } }
   .au-n { color: var(--mute); font-size: 14px; flex: none; }
-  .au-tick { width: 20px; height: 20px; flex: none; color: var(--brand); visibility: hidden; }
-  .au-opt.on .au-tick { visibility: visible; }
-  .au-check { width: 22px; height: 22px; flex: none; border-radius: 6px; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; color: transparent; }
-  .au-check svg { width: 16px; height: 16px; }
-  .au-opt.on .au-check { background: var(--head); border-color: var(--head); color: #fff; }
-  .au-lwrap.rail .au-opt { padding-right: 34px; }
+  /* Зелёный кружок с галочкой у выбранного */
+  .au-dot { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--ok); color: var(--card); display: flex; align-items: center; justify-content: center; visibility: hidden; }
+  .au-dot svg { width: 15px; height: 15px; }
+  .au-opt.on .au-dot { visibility: visible; }
+  .au-opt.grp { font-weight: 600; }
+  /* «Выбрать все модели»: пустой кружок, минус — выбраны некоторые */
+  .au-ring { width: 24px; height: 24px; flex: none; border-radius: 50%; border: 2px solid var(--line); color: transparent; display: flex; align-items: center; justify-content: center; }
+  .au-ring svg { width: 14px; height: 14px; }
+  .au-allm.part .au-ring { border-color: var(--ok); color: var(--ok); }
+  .au-cdot { width: 22px; height: 22px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(128,128,128,.5); }
+  .au-lwrap.rail .au-opt, .au-lwrap.rail .au-sec { padding-right: 36px; }
   .au-rail {
     position: absolute; right: 0; top: 0; bottom: 0; width: 28px; display: flex; flex-direction: column; justify-content: center;
     padding: 6px 0; touch-action: none; user-select: none; -webkit-user-select: none; z-index: 2;
   }
-  .au-rail span { flex: 1 1 0; min-height: 0; max-height: 20px; display: flex; align-items: center; justify-content: center; font-size: clamp(8px, 1.55vh, 12px); font-weight: 600; color: var(--brand); cursor: pointer; }
+  .au-rail[hidden] { display: none; }
+  .au-rail span { flex: 1 1 0; min-height: 0; max-height: 18px; display: flex; align-items: center; justify-content: center; font-size: clamp(8px, 1.45vh, 11.5px); font-weight: 600; color: var(--brand); cursor: pointer; }
+  .au-rail svg { width: 11px; height: 11px; }
   .au-empty { padding: 20px 16px; color: var(--mute); }
   .au-pf { padding: 12px 16px; border-bottom: 1px solid var(--line); }
-  .au-pl { display: block; font-size: 14px; color: var(--mute); margin-bottom: 6px; }
   .au-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .au-pf input:not([type=checkbox]), .au-pf select {
     width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink);
   }
-  .au-pf .au-opt { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
-  .au-pf .perr { color: var(--berry); }
-  .au-sw { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 16px; cursor: pointer; }
-  .au-sw input { appearance: none; -webkit-appearance: none; width: 48px; height: 28px; border-radius: 999px; background: var(--line); position: relative; flex: none; margin: 0; cursor: pointer; transition: background .2s; }
-  .au-sw input::after { content: ''; position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
-  .au-sw input:checked { background: var(--head); }
+  .au-err { color: var(--berry); font-size: 14px; margin: 8px 0 0; }
+  .au-sw { display: inline-flex; flex: none; }
+  .au-sw input { appearance: none; -webkit-appearance: none; width: 50px; height: 30px; border-radius: 999px; background: var(--line); position: relative; flex: none; margin: 0; cursor: pointer; transition: background .2s; }
+  .au-sw input::after { content: ''; position: absolute; left: 3px; top: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s; }
+  .au-sw input:checked { background: var(--ok); }
   .au-sw input:checked::after { transform: translateX(20px); }
+  .au-sw input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  /* «Параметры»: группы строк на сером фоне, значение справа */
+  .ap-body { background: var(--bg); padding: 12px 12px 4px; }
+  .ap-grp { background: var(--card); border-radius: 12px; overflow: hidden; margin: 0 0 12px; border: 1px solid var(--line); }
+  .ap-row {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 50px; padding: 8px 14px; border: 0; background: none;
+    font: inherit; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer;
+  }
+  .ap-row + .ap-row { border-top: 1px solid var(--line); }
+  @media (hover: hover) { button.ap-row:hover { background: var(--bg); } }
+  .ap-l { flex: none; max-width: 62%; }
+  .ap-v { flex: 1; min-width: 0; text-align: right; color: var(--brand); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ap-sw .ap-l { flex: 1; max-width: none; }
+  .ap-kw { flex-wrap: wrap; gap: 6px 12px; cursor: default; padding-top: 10px; padding-bottom: 12px; }
+  .ap-kw .ap-l { flex: 1 0 100%; max-width: none; }
+  .ap-kw input { flex: 1; width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
   /* Выбор значения выезжает снизу */
   .au-sheet {
     position: absolute; left: 0; right: 0; bottom: 0; max-height: 82vh; display: flex; flex-direction: column;
@@ -893,14 +936,24 @@
   .au-sheet-head button:first-child { justify-self: start; color: var(--mute); }
   .au-sheet-head button:last-child { justify-self: end; font-weight: 600; }
   .au-sheet-body { overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; }
+  .au-pick .au-opt:last-child { border-bottom: 0; }
   .au-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 0; flex: 1; }
   .au-col { overflow-y: auto; overscroll-behavior: contain; max-height: min(60vh, 460px); }
   .au-col + .au-col { border-left: 1px solid var(--line); }
-  .au-col .au-sec { position: sticky; top: 0; z-index: 1; }
+  .au-col .au-sec { position: sticky; top: 0; z-index: 1; background: var(--card); font-size: 14px; color: var(--mute); padding: 10px 16px 6px; }
   .au-sheet .au-pf { border: 0; }
+  /* Кузов: силуэты по 3 в ряд */
+  .au-bodies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px; }
+  .au-body {
+    display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px 8px; border-radius: 12px; border: 1.5px solid transparent;
+    background: var(--bg); color: var(--ink); font: inherit; font-size: 13.5px; line-height: 1.2; text-align: center; cursor: pointer;
+  }
+  .au-body svg { width: 64px; height: 32px; color: var(--mute); }
+  .au-body.on { border-color: var(--ok); background: var(--ok-bg); }
+  .au-body.on svg { color: var(--ok); }
   @media (min-width: 700px) {
-    .au-scr { inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(560px, calc(100vw - 48px)); height: min(780px, calc(100vh - 48px)); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); padding-top: 0; }
-    .au-sheet { left: 50%; right: auto; transform: translateX(-50%); width: min(480px, 100vw); }
+    .au-scr { inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(600px, calc(100vw - 48px)); height: min(820px, calc(100vh - 48px)); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); padding-top: 0; }
+    .au-sheet { left: 50%; right: auto; transform: translateX(-50%); width: min(520px, 100vw); }
   }
 
   /* Характеристики на странице объявления и поля машины в форме */
@@ -952,7 +1005,7 @@
   }
   /* В шапке у вошедшего только аватар (имя во всплывающей подсказке и в меню).
      Шапка раздела (doska, news, rabota) длиннее: логотип вида doska.olk.ru и пункт «Главная»,
-     поэтому кнопка всегда короткая (полная у админа не помещается даже на 1280 px) */
+     поэтому кнопка короткая; полная — с 1240 px (см. ниже) */
   .top .user-chip { padding: 3px; }
   .top .user-chip span:last-child { display: none; }
   .top.sec .logo b { font-size: 26px; }
@@ -960,6 +1013,11 @@
   .top.sec .nav a { padding: 8px 9px; }
   .top.sec .top-row .btn-accent:not(.add-mobile) { display: none; }
   .top.sec .top-row .add-mobile { display: inline-flex; }
+  /* С рамкой 1440 px полная кнопка («Разместить вакансию», «Добавить организацию») помещается у админа с 1220 px (замер), берём с запасом */
+  @media (min-width: 1240px) {
+    .top.sec .top-row .btn-accent:not(.add-mobile) { display: inline-flex; }
+    .top.sec .top-row .add-mobile { display: none; }
+  }
   @media (min-width: 861px) and (max-width: 1180px) {
     .top.sec .logo b { font-size: 21px; }
     .top.sec .top-row { gap: 8px; }
@@ -3154,6 +3212,30 @@ const V_COLOR = { grey: 'Серый', silver: 'Серебристый', white: '
 const V_COND = { ok: 'Не требует ремонта', repair: 'Требует ремонта или не на ходу' };
 const V_DOCS = { ok: 'В порядке', problem: 'Нет или проблемные' };
 const V_SELLER = { owner: 'Собственник', private: 'Частник', company: 'Компания' };
+// Для «Параметров» поиска — подписи как у Дрома
+const V_COND_F = { ok: 'Не требуется ремонт', repair: 'Требуется ремонт или не на ходу' };
+const V_OWN_F = { 1: 'Один', 2: 'До двух', 3: 'До трёх' };
+const AU_CTRY = [['ru', 'Отечественные'], ['jp', 'Япония'], ['kr', 'Корея'], ['cn', 'Китай'], ['de', 'Германия'], ['us', 'США'], ['oth', 'Другие иномарки']];
+const AU_CTRY_OF = { 'Россия': 'ru', 'Япония': 'jp', 'Республика Корея': 'kr', 'Южная Корея': 'kr', 'Корея': 'kr', 'Китай': 'cn', 'Германия': 'de', 'США': 'us' };
+const AU_FOREIGN = ['jp', 'kr', 'cn', 'de', 'us', 'oth'];
+const COLOR_CSS = { grey: '#8c9196', silver: 'linear-gradient(135deg,#f4f5f7,#a7acb2)', white: '#ffffff', black: '#1d1d1f', blue: '#2050d8', lightblue: '#3fa9f5',
+  brown: '#8a5a2e', violet: '#7c3fe0', green: '#2f9e4a', red: '#e0352b', burgundy: '#8a1d2e', orange: '#f2851f', pink: '#e6489a', beige: '#e6cfa4',
+  yellow: '#f4d01e', gold: 'linear-gradient(135deg,#f5e17c,#b6862a)' };
+// Силуэты кузовов сбоку (капот слева): контур сверху [x, y, …] и линии дверей [[x, y]]; колёса и арки общие
+const BODY_SHAPE = {
+  sedan: [[5,24, 5,18.5, 15,16.5, 23,10.5, 41,10.5, 48,16, 59,17.5, 59,24], [[33,11]]],
+  hatch5: [[5,24, 5,18.5, 15,16.5, 23,10.5, 50,10.5, 57,16, 57,24], [[34,11]]],
+  hatch3: [[7,24, 7,18.5, 16,16.5, 24,10.5, 47,10.5, 55,16, 55,24], []],
+  liftback: [[5,24, 5,18.5, 15,16.5, 23,10.5, 37,10.5, 55,15.5, 59,17, 59,24], [[33,11]]],
+  suv5: [[5,24, 5,15, 12,13.5, 18,7, 54,7, 58,12, 58,24], [[35,8]]],
+  suv3: [[7,24, 7,15, 13,13.5, 19,7, 50,7, 55,12, 55,24], []],
+  wagon: [[5,24, 5,18.5, 15,16.5, 23,10.5, 55,10.5, 58,16, 58,24], [[34,11]]],
+  minivan: [[5,24, 5,16, 13,9, 20,7, 55,7, 58,12, 58,24], [[28,8], [40,8]]],
+  pickup: [[5,24, 5,16, 13,14.5, 19,8, 33,8, 35,14.5, 59,14.5, 59,24], []],
+  coupe: [[6,24, 6,18.5, 17,16.5, 27,10.5, 40,10.5, 51,16, 58,17.5, 58,24], []],
+  cabrio: [[5,24, 5,18.5, 17,16.5, 24,11, 26,16, 48,16, 59,17.5, 59,24], []],
+  van: [[5,24, 5,15, 9,10, 16,6, 58,6, 58,24], [[24,7]]]
+};
 
 // Иконки — Tabler Icons (MIT) и в их стиле, контуры 24×24
 const AU_ICONS = {
@@ -3199,9 +3281,19 @@ function autoHashForCat(cats, cat) {
 }
 
 /* ----- Состояние поиска в адресе ----- */
+// Поля «Параметров» автомобиля: несколько значений, одно значение, от–до, переключатели
+const AU_LISTS = { tr: V_TRANS, fuel: V_FUEL, body: V_BODY, color: V_COLOR, ctry: Object.fromEntries(AU_CTRY) };
+const AU_ONES = { drive: V_DRIVE, wheel: V_WHEEL, docs: V_DOCS, cond: V_COND_F, own: V_OWN_F, seller: V_SELLER };
+const AU_RANGES = { vol: ['vf', 'vt'], pow: ['pf', 'pt'], mil: ['mf', 'mt'] };
+const AU_FLAGS = ['norf', 'exch'];
 function auEmpty(tab) {
-  return { tab: tab || 'car', brand: [], model: [], yf: '', yt: '', min: '', max: '', place: '', photo: '', q: '', cat: '', sort: 'new' };
+  const st = { tab: tab || 'car', brand: [], model: [], yf: '', yt: '', min: '', max: '', place: '', photo: '', q: '', cat: '', sort: 'new',
+    vf: '', vt: '', pf: '', pt: '', mf: '', mt: '', norf: '', exch: '' };
+  Object.keys(AU_LISTS).forEach(k => { st[k] = []; });
+  Object.keys(AU_ONES).forEach(k => { st[k] = ''; });
+  return st;
 }
+const auVol = v => /^\d{1,2}(\.\d)?$/.test(v || '') && +v > 0 ? String(+v) : '';
 function auParse(query) {
   const p = new URLSearchParams(query);
   const num = k => /^\d{1,9}$/.test(p.get(k) || '') ? String(+p.get(k)) : '';
@@ -3215,6 +3307,11 @@ function auParse(query) {
     st.brand = ints('brand');
     st.model = st.brand.length === 1 ? ints('model') : [];
     st.yf = num('yf'); st.yt = num('yt');
+    for (const k in AU_LISTS) st[k] = [...new Set((p.get(k) || '').split(','))].filter(v => Object.hasOwn(AU_LISTS[k], v));
+    for (const k in AU_ONES) st[k] = Object.hasOwn(AU_ONES[k], p.get(k) || '') ? p.get(k) : '';
+    st.vf = auVol(p.get('vf')); st.vt = auVol(p.get('vt'));
+    ['pf', 'pt', 'mf', 'mt'].forEach(k => { st[k] = num(k); });
+    AU_FLAGS.forEach(k => { st[k] = p.get(k) ? '1' : ''; });
   }
   if (st.tab === 'parts' && PARTS_BY[p.get('cat')]) st.cat = p.get('cat');
   const s = p.get('sort');
@@ -3222,18 +3319,49 @@ function auParse(query) {
   return st;
 }
 function auHash(st) {
-  return '#/auto' + qs({
+  const o = {
     tab: st.tab === 'car' ? '' : st.tab, brand: st.brand.join(','), model: st.brand.length === 1 ? st.model.join(',') : '',
-    yf: st.yf, yt: st.yt, min: st.min, max: st.max, place: st.place, photo: st.photo, q: st.q, cat: st.cat, sort: st.sort
-  });
+    yf: st.yf, yt: st.yt, min: st.min, max: st.max, place: st.place, photo: st.photo, q: st.q, cat: st.cat
+  };
+  if (st.tab === 'car') {
+    for (const k in AU_LISTS) o[k] = st[k].join(',');
+    for (const k in AU_ONES) o[k] = st[k];
+    ['vf', 'vt', 'pf', 'pt', 'mf', 'mt'].concat(AU_FLAGS).forEach(k => { o[k] = st[k]; });
+  }
+  o.sort = st.sort;
+  return '#/auto' + qs(o);
 }
-const auCopy = st => ({ ...st, brand: st.brand.slice(), model: st.model.slice() });
-const auFiltered = st => !!(st.brand.length || st.yf || st.yt || st.min || st.max || st.place || st.photo || st.q || st.cat);
+const auCopy = st => {
+  const c = { ...st };
+  ['brand', 'model'].concat(Object.keys(AU_LISTS)).forEach(k => { c[k] = (st[k] || []).slice(); });
+  return c;
+};
+// Какие поля «Параметров» автомобиля заданы (для значка и для запроса)
+const auVehKeys = st => st.tab !== 'car' ? [] : [
+  ...Object.keys(AU_LISTS).filter(k => st[k].length), ...Object.keys(AU_ONES).filter(k => st[k]),
+  ...Object.keys(AU_RANGES).filter(k => st[AU_RANGES[k][0]] || st[AU_RANGES[k][1]]), ...AU_FLAGS.filter(k => st[k])];
+const auFiltered = st => !!(st.brand.length || st.yf || st.yt || st.min || st.max || st.place || st.photo || st.q || st.cat || auVehKeys(st).length);
+// Страна марки → код группы: Россия — отечественные, пять стран по отдельности, остальное — «другие иномарки»
+const auCtryOf = b => AU_CTRY_OF[b.country] || 'oth';
 
 /* ----- Запросы ----- */
 const AU_VEH_COLS = 'brand_id, model_id, year, mileage, engine_volume, power, fuel, transmission, drive, wheel';
+// Фильтр по марке с учётом «Страны марки»: ['in', ids], ['not', ids] или null (без фильтра)
+function auBrandFilter(st) {
+  const ids = st.brand.length ? st.brand.slice() : null;
+  if (!st.ctry.length || !AU.brands) return ids ? ['in', ids] : null;
+  const ok = new Set(st.ctry);
+  const allow = AU.brands.filter(b => ok.has(auCtryOf(b))).map(b => b.id);
+  if (ids) { const left = ids.filter(id => allow.includes(id)); return ['in', left.length ? left : [0]]; }
+  if (allow.length === AU.brands.length) return null;
+  if (allow.length * 2 <= AU.brands.length) return ['in', allow.length ? allow : [0]];
+  const set = new Set(allow);
+  return ['not', AU.brands.filter(b => !set.has(b.id)).map(b => b.id)];
+}
+// «Страна марки» считается по списку марок — его нужно загрузить до запроса
+const auPrep = st => st.ctry && st.ctry.length ? loadBrands().catch(e => console.error(e)) : Promise.resolve();
 function buildAutoQuery(st, ids, from, countOnly) {
-  const vInner = st.tab === 'car' && !!(st.brand.length || st.yf || st.yt);
+  const vInner = st.tab === 'car' && !!(st.brand.length || st.yf || st.yt || auVehKeys(st).length);
   let q;
   if (countOnly) {
     const sel = ['id'];
@@ -3251,10 +3379,24 @@ function buildAutoQuery(st, ids, from, countOnly) {
   if (st.max) q = q.lte('price', +st.max);
   if (st.place) q = q.eq('settlement', st.place);
   if (vInner) {
-    if (st.brand.length) q = q.in('ad_vehicles.brand_id', st.brand);
-    if (st.model.length) q = q.in('ad_vehicles.model_id', st.model);
-    if (st.yf) q = q.gte('ad_vehicles.year', +st.yf);
-    if (st.yt) q = q.lte('ad_vehicles.year', +st.yt);
+    const V = 'ad_vehicles.';
+    const bf = auBrandFilter(st);
+    if (bf) q = bf[0] === 'in' ? q.in(V + 'brand_id', bf[1]) : q.not(V + 'brand_id', 'in', '(' + bf[1].join(',') + ')');
+    if (st.model.length) q = q.in(V + 'model_id', st.model);
+    if (st.yf) q = q.gte(V + 'year', +st.yf);
+    if (st.yt) q = q.lte(V + 'year', +st.yt);
+    const LIST_COL = { tr: 'transmission', fuel: 'fuel', body: 'body', color: 'color' };
+    for (const k in LIST_COL) if (st[k].length) q = q.in(V + LIST_COL[k], st[k]);
+    const ONE_COL = { drive: 'drive', wheel: 'wheel', docs: 'documents', cond: 'condition', seller: 'seller' };
+    for (const k in ONE_COL) if (st[k]) q = q.eq(V + ONE_COL[k], st[k]);
+    if (st.own) q = q.lte(V + 'owners', +st.own);
+    const RANGE_COL = [['vf', 'vt', 'engine_volume'], ['pf', 'pt', 'power'], ['mf', 'mt', 'mileage']];
+    RANGE_COL.forEach(([a, b, col]) => {
+      if (st[a]) q = q.gte(V + col, +st[a]);
+      if (st[b]) q = q.lte(V + col, +st[b]);
+    });
+    if (st.norf) q = q.eq(V + 'no_rf_mileage', true);
+    if (st.exch) q = q.eq(V + 'exchange_ok', true);
   }
   if (countOnly) return q;
   if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
@@ -3263,7 +3405,7 @@ function buildAutoQuery(st, ids, from, countOnly) {
   return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
 }
 async function auCount(st) {
-  const cats = await loadCats();
+  const [cats] = await Promise.all([loadCats(), auPrep(st)]);
   const { count, error } = await buildAutoQuery(st, auCatIds(cats, st), 0, true);
   if (error) throw error;
   return count || 0;
@@ -3293,9 +3435,10 @@ function auCounter(btn) {
 const VB_KEY = 'olk_vb_car_1';
 function brandGroup(name) {
   const ch = (name || '').charAt(0).toUpperCase();
-  if (/[A-Z]/.test(ch)) return [0, ch];
-  if (/[А-ЯЁ]/.test(ch)) return [1, ch === 'Ё' ? 'Е' : ch];
-  return [2, '#'];
+  if (/[0-9]/.test(ch)) return [0, ch];
+  if (/[A-Z]/.test(ch)) return [1, ch];
+  if (/[А-ЯЁ]/.test(ch)) return [2, ch === 'Ё' ? 'Е' : ch];
+  return [3, '#'];
 }
 function loadBrands() {
   if (AU.brands) return Promise.resolve(AU.brands);
@@ -3489,7 +3632,7 @@ function fillAutoHead(st) {
   });
   const car = st.tab === 'car';
   const sel = auSelText(st);
-  const extra = (st.photo ? 1 : 0) + (car && st.q ? 1 : 0);
+  const extra = (st.photo ? 1 : 0) + (car && st.q ? 1 : 0) + auVehKeys(st).length;
   const cell = (act, label, val, ph) => '<button type="button" class="au-cell" data-act="' + act + '"><small>' + label + '</small>' +
     '<span' + (val ? '' : ' class="au-ph"') + '>' + esc(val || ph) + '</span></button>';
   let box = car
@@ -3569,6 +3712,7 @@ async function renderAuto(query) {
   $('#au-sort').addEventListener('change', e => goHash(auHash({ ...auCopy(st), sort: e.target.value })));
 
   const ids = auCatIds(cats, st);
+  if (st.ctry.length) { await auPrep(st); if (seq !== routeSeq) return; }
   buildAutoQuery(st, ids, 0, true).then(({ count, error }) => {
     if (seq !== routeSeq) return;
     if (error) { console.error(error); return; }
@@ -3586,7 +3730,7 @@ async function renderAuto(query) {
     fetchPage: from => buildAutoQuery(st, ids, from, false),
     renderItems: rows => rows.map(mapAd).map(autoCard).join(''),
     emptyHtml: filtered
-      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.' + (st.tab === 'car' && (st.brand.length || st.yf || st.yt) ? ' Объявления, поданные до появления выбора марки, видны без фильтра по марке и году.' : '') + '</p>'
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.' + (st.tab === 'car' && (st.brand.length || st.yf || st.yt || auVehKeys(st).length) ? ' Объявления, поданные без характеристик машины, видны только без фильтров по марке, году и параметрам.' : '') + '</p>'
       : '<p class="empty">Объявлений пока нет. <a href="#/auto/new' + (newCat ? '?cat=' + newCat : '') + '">Подайте первое</a>.</p>'
   });
 }
@@ -3618,47 +3762,159 @@ function auClose(el) {
   if (el.onClose) el.onClose();
 }
 function auCloseAll() { AU_LAYERS.slice().reverse().forEach(auClose); }
+// Закрыть всё, что открыто поверх слоя (экраны марок и моделей поверх «Параметров»)
+function auCloseAbove(layer) {
+  while (AU_LAYERS.length && AU_LAYERS[AU_LAYERS.length - 1] !== layer) auClose(AU_LAYERS[AU_LAYERS.length - 1]);
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && AU_LAYERS.length) { e.preventDefault(); e.stopImmediatePropagation(); auClose(AU_LAYERS[AU_LAYERS.length - 1]); }
 }, true);
 const auDesk = () => matchMedia('(hover: hover) and (pointer: fine)').matches;
+const AU_CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg>';
+const AU_MINUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 12h10"/></svg>';
 
-function auScreen({ title, reset, body, foot }) {
+// Экран: обычный («× / Заголовок / Сбросить») или как у Дрома — с крупным заголовком слева (big), «‹ Марки» вместо крестика (back)
+function auScreen({ title, reset, body, foot, big, back }) {
   const layer = auLayer('scr');
-  layer.innerHTML = '<div class="au-scr" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
-    '<div class="au-scr-head"><button type="button" class="au-close" aria-label="Закрыть">' + auIcon('close', '', 2) + '</button>' +
-      '<b>' + esc(title) + '</b>' + (reset ? '<button type="button" class="au-reset">Сбросить</button>' : '<span></span>') + '</div>' +
+  const closeBtn = back
+    ? '<button type="button" class="au-close au-back" aria-label="Назад: ' + esc(back) + '">' + AU_CHEV_L + '<span>' + esc(back) + '</span></button>'
+    : '<button type="button" class="au-close" aria-label="Закрыть">' + auIcon('close', '', 2) + '</button>';
+  const head = big
+    ? '<div class="au-bh"><div class="au-bh-top">' + closeBtn + '</div><h2 class="au-bh-t">' + esc(title) + '</h2></div>'
+    : '<div class="au-scr-head">' + closeBtn + '<b>' + esc(title) + '</b>' + (reset ? '<button type="button" class="au-reset">Сбросить</button>' : '<span></span>') + '</div>';
+  layer.innerHTML = '<div class="au-scr' + (big ? ' big' : '') + '" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' + head +
     '<div class="au-scr-mid">' + body + '</div>' +
     (foot ? '<div class="au-scr-foot">' + foot + '</div>' : '') + '</div>';
   const scr = layer.firstChild;
   const close = () => auClose(layer);
   scr.querySelector('.au-close').addEventListener('click', close);
   layer.addEventListener('click', e => { if (e.target === layer) close(); });
-  if (reset) scr.querySelector('.au-reset').addEventListener('click', reset);
+  if (reset && !big) scr.querySelector('.au-reset').addEventListener('click', reset);
   if (!auDesk()) scr.querySelector('.au-close').focus({ preventScroll: true });
   return { layer, scr, close };
 }
 
-function auSheet({ title, body, onDone }) {
+// Лист снизу. instant — без «Готово»: выбор одного значения закрывает лист сразу
+function auSheet({ title, body, onDone, instant }) {
   const layer = auLayer('sheet');
   layer.innerHTML = '<div class="au-sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
-    '<div class="au-sheet-head"><button type="button" class="au-sh-cancel">Отмена</button><b>' + esc(title) + '</b><button type="button" class="au-sh-done">Готово</button></div>' +
+    '<div class="au-sheet-head"><button type="button" class="au-sh-cancel">Отмена</button><b>' + esc(title) + '</b>' +
+      (instant ? '<span></span>' : '<button type="button" class="au-sh-done">Готово</button>') + '</div>' +
     body + '</div>';
   const sh = layer.firstChild;
   const close = () => auClose(layer);
   sh.querySelector('.au-sh-cancel').addEventListener('click', close);
-  sh.querySelector('.au-sh-done').addEventListener('click', () => { if (onDone(sh) !== false) close(); });
+  if (!instant) sh.querySelector('.au-sh-done').addEventListener('click', () => { if (onDone(sh) !== false) close(); });
   layer.addEventListener('click', e => { if (e.target === layer) close(); });
-  sh.querySelector('.au-sh-done').focus({ preventScroll: true });
+  sh.querySelector(instant ? '.au-sh-cancel' : '.au-sh-done').focus({ preventScroll: true });
+  sh.close = close;
   return sh;
 }
 
-// Строка списка: галочка справа (один выбор) или квадрат слева (несколько)
-function auOpt(attrs, label, on, multi, n, cls) {
+// Строка списка: подпись, число объявлений, справа зелёный кружок с галочкой у выбранного
+function auOpt(attrs, label, on, multi, n, cls, lead) {
   return '<button type="button" class="au-opt' + (on ? ' on' : '') + (cls ? ' ' + cls : '') + '" ' + attrs + ' aria-pressed="' + !!on + '">' +
-    (multi ? '<span class="au-check">' + auIcon('check', '', 3) + '</span>' : '') +
-    '<span>' + label + '</span>' + (n ? '<span class="au-n">' + n.toLocaleString('ru-RU') + '</span>' : '') +
-    (multi ? '' : auIcon('check', 'au-tick', 2.4)) + '</button>';
+    (lead || '') + '<span class="au-lbl">' + label + '</span>' + (n ? '<span class="au-n">' + n.toLocaleString('ru-RU') + '</span>' : '') +
+    '<span class="au-dot" aria-hidden="true">' + auIcon('check', '', 3) + '</span></button>';
+}
+function auMarks(root, isOn) {
+  root.querySelectorAll('.au-opt[data-v]').forEach(o => {
+    const on = isOn(o.dataset.v, o);
+    o.classList.toggle('on', on);
+    o.setAttribute('aria-pressed', String(on));
+  });
+}
+
+// Выбор из списка: один (лист закрывается сразу) или несколько (с «Готово»).
+// opts: [[значение, подпись, html слева]]; any — строка «Неважно» для одного; groups: [[подпись, [значения]]] — строки «выбрать группу»
+function auPick({ title, opts, cur, multi, any, groups, onDone }) {
+  let sel = multi ? cur.slice() : cur;
+  const html = (any && !multi ? auOpt('data-v=""', esc(any), !sel, false) : '') +
+    (groups || []).map(([l, vals]) => auOpt('data-v="" data-g="' + vals.join(',') + '"', esc(l), vals.every(v => sel.includes(v)), true, 0, 'grp')).join('') +
+    opts.map(([v, l, lead]) => auOpt('data-v="' + esc(v) + '"', esc(l), multi ? sel.includes(v) : sel === v, multi, 0, '', lead)).join('');
+  const sh = auSheet({ title, instant: !multi, body: '<div class="au-sheet-body au-pick">' + html + '</div>', onDone: () => onDone(sel) });
+  const box = sh.querySelector('.au-pick');
+  const marks = () => auMarks(box, (v, o) => o.dataset.g ? o.dataset.g.split(',').every(x => sel.includes(x)) : multi ? sel.includes(v) : sel === v);
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.au-opt');
+    if (!b) return;
+    if (!multi) { sh.close(); onDone(b.dataset.v); return; }
+    if (b.dataset.g) {
+      const vals = b.dataset.g.split(',');
+      sel = vals.every(v => sel.includes(v)) ? sel.filter(v => !vals.includes(v)) : [...new Set(sel.concat(vals))];
+    } else {
+      const v = b.dataset.v;
+      sel = sel.includes(v) ? sel.filter(x => x !== v) : sel.concat(v);
+    }
+    marks();
+  });
+  const on = box.querySelector('.au-opt.on');
+  if (on && on.offsetTop > box.clientHeight) box.scrollTop = on.offsetTop - box.clientHeight / 2;
+}
+
+// Кузов: сетка силуэтов, можно несколько
+function auBodySvg(k) {
+  const [pts, doors] = BODY_SHAPE[k];
+  let d = 'M' + pts.slice(0, 2).join(' ');
+  for (let i = 2; i < pts.length; i += 2) d += 'L' + pts[i] + ' ' + pts[i + 1];
+  d += 'M' + pts[pts.length - 2] + ' 24H53.5A5.5 5.5 0 0 0 42.5 24H21.5A5.5 5.5 0 0 0 10.5 24H' + pts[0];
+  doors.forEach(([x, y]) => { d += 'M' + x + ' ' + y + 'V21'; });
+  return '<svg viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="' + d + '"/><circle cx="16" cy="24" r="4"/><circle cx="48" cy="24" r="4"/></svg>';
+}
+function auBodySheet(cur, onDone) {
+  let sel = cur.slice();
+  const sh = auSheet({
+    title: 'Кузов',
+    body: '<div class="au-sheet-body"><div class="au-bodies">' + Object.entries(V_BODY).map(([v, l]) =>
+      '<button type="button" class="au-body' + (sel.includes(v) ? ' on' : '') + '" data-v="' + v + '" aria-pressed="' + sel.includes(v) + '">' +
+        auBodySvg(v) + '<span>' + esc(l) + '</span></button>').join('') + '</div></div>',
+    onDone: () => onDone(sel)
+  });
+  sh.querySelector('.au-bodies').addEventListener('click', e => {
+    const b = e.target.closest('.au-body');
+    if (!b) return;
+    const v = b.dataset.v;
+    sel = sel.includes(v) ? sel.filter(x => x !== v) : sel.concat(v);
+    b.classList.toggle('on', sel.includes(v));
+    b.setAttribute('aria-pressed', String(sel.includes(v)));
+  });
+}
+
+// От и до: объём (литры, можно с запятой; 1800 → 1,8), мощность, пробег
+function auRangeSheet({ title, a, b, dec, onDone }) {
+  const inp = (id, v, ph) => '<input id="' + id + '" type="text" inputmode="' + (dec ? 'decimal' : 'numeric') + '" autocomplete="off" placeholder="' + ph + '" aria-label="' + esc(title) + ' ' + ph + '" value="' + esc(dec ? String(v).replace('.', ',') : v) + '">';
+  const sh = auSheet({
+    title,
+    body: '<div class="au-sheet-body"><div class="au-pf"><div class="au-two">' + inp('rs-a', a, 'от') + inp('rs-b', b, 'до') + '</div>' +
+      '<p class="au-err" id="rs-err" hidden></p></div></div>',
+    onDone: s => {
+      const val = id => {
+        let v = s.querySelector(id).value.trim().replace(/\s/g, '');
+        if (!v) return '';
+        if (dec) {
+          v = v.replace(',', '.');
+          if (!/^\d+(\.\d+)?$/.test(v)) return null;
+          let x = +v;
+          if (x >= 100) x = x / 1000;
+          x = Math.round(x * 10) / 10;
+          return x > 0 && x < 100 ? String(x) : null;
+        }
+        return /^\d{1,7}$/.test(v) ? String(+v) : null;
+      };
+      let x = val('#rs-a'), y = val('#rs-b');
+      if (x === null || y === null) {
+        const err = s.querySelector('#rs-err');
+        err.textContent = dec ? 'Введите объём в литрах, например 1,5' : 'Введите число';
+        err.hidden = false;
+        return false;
+      }
+      if (x && y && +x > +y) [x, y] = [y, x];
+      onDone(x, y);
+    }
+  });
+  sh.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sh.querySelector('.au-sh-done').click(); } });
+  if (auDesk()) sh.querySelector('#rs-a').focus();
 }
 
 // Год: два столбца «от» и «до»
@@ -3676,8 +3932,8 @@ function auYearSheet(st, onDone) {
     c.addEventListener('click', e => {
       const b = e.target.closest('.au-opt');
       if (!b) return;
-      c.querySelectorAll('.au-opt').forEach(o => { o.classList.toggle('on', o === b); o.setAttribute('aria-pressed', String(o === b)); });
       if (c.dataset.k === 'yf') yf = b.dataset.v; else yt = b.dataset.v;
+      auMarks(c, v => v === (c.dataset.k === 'yf' ? yf : yt));
     });
     const on = c.querySelector('.au-opt.on');
     if (on && on.dataset.v) c.scrollTop = on.offsetTop - c.clientHeight / 2;
@@ -3699,6 +3955,7 @@ function auPriceSheet(st, onDone) {
     }
   });
   sh.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sh.querySelector('.au-sh-done').click(); } });
+  if (auDesk()) sh.querySelector('#ps-min').focus();
 }
 
 // Населённый пункт: весь район или одно село
@@ -3722,23 +3979,63 @@ function auPlaceScreen(cur, onPick) {
   if (auDesk()) inp.focus();
 }
 
-// «Выбрана 1 марка», «Выбрано 2 марки»
-const pickedText = (n, words) => n ? (n % 10 === 1 && n % 100 !== 11 ? 'Выбрана ' : 'Выбрано ') + n + ' ' + plural(n, ...words) : '';
+// Полоса букв справа: нажать или провести пальцем — список прыгает к букве; значок поиска — к началу
+function auRail(rail, list, letters, onSearch) {
+  rail.innerHTML = '<span data-l="" aria-label="К поиску">' + auIcon('search', '', 2.4) + '</span>' +
+    letters.map(l => '<span data-l="' + esc(l) + '">' + esc(l) + '</span>').join('');
+  rail.hidden = false;
+  if (rail.bound) return;
+  rail.bound = true;
+  let dragging = false;
+  const jump = e => {
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const sp = el && el.closest && el.closest('[data-l]');
+    if (!sp || !rail.contains(sp)) return;
+    if (!sp.dataset.l) { list.scrollTop = 0; return; }
+    const h = list.querySelector('[data-letter="' + CSS.escape(sp.dataset.l) + '"]');
+    if (h) list.scrollTop = h.offsetTop;
+  };
+  rail.addEventListener('pointerdown', e => { dragging = true; try { rail.setPointerCapture(e.pointerId); } catch {} jump(e); });
+  rail.addEventListener('pointermove', e => { if (dragging) jump(e); });
+  ['pointerup', 'pointercancel'].forEach(t => rail.addEventListener(t, () => { dragging = false; }));
+  rail.addEventListener('click', e => { const sp = e.target.closest('[data-l]'); if (sp && !sp.dataset.l && onSearch) onSearch(); });
+}
+// Список по алфавиту с буквами-разделителями: цифры, латиница, кириллица
+function auAlpha(items, rowFn) {
+  let html = '', L = null;
+  const letters = [];
+  items.forEach(x => {
+    const g = brandGroup(x.name)[1];
+    if (g !== L) { L = g; letters.push(L); html += '<div class="au-sec au-let" data-letter="' + esc(L) + '">' + esc(L) + '</div>'; }
+    html += rowFn(x);
+  });
+  return { html, letters };
+}
 
-/* ----- Экран «Марки»: популярные, все по алфавиту с буквами, поиск по марке и модели ----- */
+/* ----- Экран «Марки» (как у Дрома): нажатие на марку сразу открывает её модели ----- */
 async function auBrandScreen(st0, onDone) {
   const sel = auCopy(st0);
   const S = auScreen({
-    title: 'Марки',
-    reset: () => { sel.brand = []; sel.model = []; marks(); upd(); },
+    title: 'Марки', big: true,
     body: '<div class="au-search"><input type="search" id="ab-q" placeholder="Марка или модель" aria-label="Поиск марки или модели" autocomplete="off" spellcheck="false"></div>' +
-      '<div class="au-lwrap rail" id="ab-wrap"><div class="au-scr-body" id="ab-list"><p class="loading au-empty">Загружаем марки…</p></div><div class="au-rail" id="ab-rail" aria-hidden="true"></div></div>',
-    foot: '<span class="au-picked" id="ab-n"></span><button type="button" class="btn btn-accent" id="ab-go">Показать объявления</button>'
+      '<div class="au-picks" id="ab-picks" hidden></div>' +
+      '<div class="au-lwrap rail" id="ab-wrap"><div class="au-scr-body" id="ab-list"><p class="loading au-empty">Загружаем марки…</p></div><div class="au-rail" id="ab-rail" aria-hidden="true" hidden></div></div>',
+    foot: '<button type="button" class="btn btn-accent" id="ab-go">Показать объявления</button>'
   });
   const $s = id => S.scr.querySelector(id);
-  const list = $s('#ab-list'), inp = $s('#ab-q'), rail = $s('#ab-rail'), go = $s('#ab-go');
+  const list = $s('#ab-list'), inp = $s('#ab-q'), rail = $s('#ab-rail'), go = $s('#ab-go'), picks = $s('#ab-picks');
   const recount = auCounter(go);
-  const upd = () => { $s('#ab-n').textContent = pickedText(sel.brand.length, ['марка', 'марки', 'марок']); recount(sel); };
+  // Выбранная марка — чипом сверху: «Toyota · 2 модели ×»
+  function upd() {
+    recount(sel);
+    if (!sel.brand.length) { picks.hidden = true; picks.innerHTML = ''; return; }
+    const n = sel.brand.length === 1 ? sel.model.length : 0;
+    picks.hidden = false;
+    picks.innerHTML = '<span class="au-pick-chip"><button type="button" class="au-pc-t" data-open="1">' +
+      esc(sel.brand.map(id => AU.byId[id]?.name || '…').join(', ')) + (n ? ' · ' + n + ' ' + plural(n, 'модель', 'модели', 'моделей') : '') + '</button>' +
+      '<button type="button" class="au-pc-x" data-clear="1" aria-label="Сбросить марку">' + auIcon('close', '', 2.2) + '</button></span>';
+  }
+  go.addEventListener('click', () => onDone(sel));
   upd();
 
   let brands, counts;
@@ -3750,32 +4047,21 @@ async function auBrandScreen(st0, onDone) {
     return;
   }
   if (!S.layer.isConnected) return;
+  upd();
 
-  const row = b => auOpt('data-b="' + b.id + '"', esc(b.name), sel.brand.includes(b.id), true, counts.b[b.id]);
-  function marks() {
-    list.querySelectorAll('[data-b]').forEach(o => {
-      const on = sel.brand.includes(+o.dataset.b);
-      o.classList.toggle('on', on);
-      o.setAttribute('aria-pressed', String(on));
-    });
-  }
+  const row = b => auOpt('data-v="' + b.id + '"', esc(b.name), sel.brand.includes(b.id), false, counts.b[b.id]);
+  const marks = () => auMarks(list, v => sel.brand.includes(+v));
+  const openModels = () => auModelScreen(sel, s => { Object.assign(sel, auCopy(s)); marks(); upd(); }, onDone);
   let mseq = 0, mt = null;
   function draw() {
     const q = auNorm(inp.value);
     clearTimeout(mt);
     if (!q) {
       $s('#ab-wrap').classList.add('rail');
-      let html = '<div class="au-sec">Популярные</div>' + brands.filter(b => b.popular).sort((a, b) => a.name.localeCompare(b.name, 'ru')).map(row).join('');
-      html += '<div class="au-sec">Все марки</div>';
-      let L = null;
-      const letters = [];
-      brands.forEach(b => {
-        if (b.g[1] !== L) { L = b.g[1]; letters.push(L); html += '<div class="au-sec" data-letter="' + esc(L) + '">' + esc(L) + '</div>'; }
-        html += row(b);
-      });
-      list.innerHTML = html;
-      rail.innerHTML = letters.map(l => '<span data-l="' + esc(l) + '">' + esc(l) + '</span>').join('');
-      rail.hidden = false;
+      const pop = brands.filter(b => b.popular); // уже по алфавиту: латиница, потом кириллица
+      const all = auAlpha(brands, row);
+      list.innerHTML = '<div class="au-sec">Популярные</div>' + pop.map(row).join('') + '<div class="au-sec">Все марки</div>' + all.html;
+      auRail(rail, list, all.letters, () => inp.focus());
       return;
     }
     $s('#ab-wrap').classList.remove('rail');
@@ -3784,6 +4070,7 @@ async function auBrandScreen(st0, onDone) {
       .sort((a, b) => (auNorm(b.name).startsWith(q) || auNorm(b.name_ru).startsWith(q)) - (auNorm(a.name).startsWith(q) || auNorm(a.name_ru).startsWith(q)));
     list.innerHTML = (found.length ? '<div class="au-sec">Марки</div>' + found.map(row).join('') : '') + '<div id="ab-models"></div>' +
       (found.length ? '' : '<p class="au-empty" id="ab-none">Ищем модели…</p>');
+    list.scrollTop = 0;
     // Модели ищем на сервере: «премио», «land cruiser»
     const my = ++mseq;
     const t = inp.value.replace(/[",().*%\\:]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -3798,7 +4085,7 @@ async function auBrandScreen(st0, onDone) {
       if (none) none.remove();
       box.innerHTML = rows.length
         ? '<div class="au-sec">Модели</div>' + rows.map(m => auOpt('data-m="' + m.id + '" data-mb="' + m.brand_id + '"',
-            esc(AU.byId[m.brand_id].name + ' ' + m.name), false, false, counts.m[m.id])).join('')
+            esc(AU.byId[m.brand_id].name + ' ' + m.name), sel.model.includes(m.id), false, counts.m[m.id])).join('')
         : (found.length ? '' : '<p class="au-empty">Ничего не нашлось</p>');
     }, 300);
   }
@@ -3810,59 +4097,42 @@ async function auBrandScreen(st0, onDone) {
     if (!b) return;
     if (b.dataset.m) {
       // Найдена модель: выбираем её марку и открываем модели с этой моделью
-      sel.brand = [+b.dataset.mb]; sel.model = [+b.dataset.m];
-      marks(); upd();
-      auModelScreen(sel, s => { Object.assign(sel, auCopy(s)); marks(); upd(); }, onDone);
-      return;
+      const mb = +b.dataset.mb, m = +b.dataset.m;
+      if (!(sel.brand.length === 1 && sel.brand[0] === mb)) { sel.brand = [mb]; sel.model = []; }
+      if (!sel.model.includes(m)) sel.model = sel.model.concat(m);
+    } else {
+      const id = +b.dataset.v;
+      if (!(sel.brand.length === 1 && sel.brand[0] === id)) { sel.brand = [id]; sel.model = []; }
     }
-    const id = +b.dataset.b;
-    sel.brand = sel.brand.includes(id) ? sel.brand.filter(x => x !== id) : sel.brand.concat(id);
-    sel.model = []; // модели относятся к одной марке — при смене марок сбрасываем
     marks(); upd();
+    openModels();
   });
-
-  // Полоса букв: нажать или провести пальцем — список прыгает к букве
-  let dragging = false;
-  const jump = e => {
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    const l = el && el.dataset ? el.dataset.l : null;
-    const h = l && list.querySelector('[data-letter="' + CSS.escape(l) + '"]');
-    if (h) list.scrollTop = h.offsetTop;
-  };
-  rail.addEventListener('pointerdown', e => { dragging = true; try { rail.setPointerCapture(e.pointerId); } catch {} jump(e); });
-  rail.addEventListener('pointermove', e => { if (dragging) jump(e); });
-  ['pointerup', 'pointercancel'].forEach(t => rail.addEventListener(t, () => { dragging = false; }));
-
-  // Одна марка — дальше её модели; несколько — сразу показываем
-  go.addEventListener('click', () => {
-    if (sel.brand.length === 1) auModelScreen(sel, s => { Object.assign(sel, auCopy(s)); marks(); upd(); }, onDone);
-    else onDone(sel);
+  picks.addEventListener('click', e => {
+    if (e.target.closest('[data-clear]')) { sel.brand = []; sel.model = []; marks(); upd(); return; }
+    if (e.target.closest('[data-open]') && sel.brand.length === 1) openModels();
   });
   if (auDesk()) inp.focus();
 }
 
-/* ----- Экран моделей одной марки ----- */
+/* ----- Экран моделей одной марки: «‹ Марки», выбранные чипами, «Выбрать все модели», популярные, все по алфавиту ----- */
 async function auModelScreen(st1, onBack, onDone) {
   const sel = auCopy(st1);
   const bid = sel.brand[0];
   const brand = AU.byId[bid];
   const S = auScreen({
-    title: brand ? brand.name : 'Модели',
-    reset: () => { sel.model = []; marks(); upd(); },
-    body: '<div class="au-search"><input type="search" id="am-q" placeholder="Модель" aria-label="Поиск модели" autocomplete="off" spellcheck="false"></div>' +
-      '<div class="au-scr-body" id="am-list"><p class="loading au-empty">Загружаем модели…</p></div>',
-    foot: '<span class="au-picked" id="am-n"></span><button type="button" class="btn btn-accent" id="am-go">Показать объявления</button>'
+    title: brand ? brand.name : 'Модели', big: true, back: 'Марки',
+    body: '<div class="au-search"><input type="search" id="am-q" placeholder="Модели" aria-label="Поиск модели" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="au-picks" id="am-picks" hidden></div>' +
+      '<div class="au-lwrap rail" id="am-wrap"><div class="au-scr-body" id="am-list"><p class="loading au-empty">Загружаем модели…</p></div><div class="au-rail" id="am-rail" aria-hidden="true" hidden></div></div>',
+    foot: '<button type="button" class="btn btn-accent" id="am-go">Показать объявления</button>'
   });
-  // Вернулись к маркам (стрелка, Esc): передаём туда выбранные модели
+  // Вернулись к маркам («‹ Марки», Esc): передаём туда выбранные модели
   S.layer.onClose = () => onBack(sel);
-  const closeBtn = S.scr.querySelector('.au-close');
-  closeBtn.setAttribute('aria-label', 'Назад к маркам');
-  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg>';
   const $s = id => S.scr.querySelector(id);
-  const list = $s('#am-list'), inp = $s('#am-q'), go = $s('#am-go');
+  const list = $s('#am-list'), inp = $s('#am-q'), go = $s('#am-go'), picks = $s('#am-picks'), rail = $s('#am-rail');
   const recount = auCounter(go);
-  const upd = () => { $s('#am-n').textContent = pickedText(sel.model.length, ['модель', 'модели', 'моделей']); recount(sel); };
-  upd();
+  go.addEventListener('click', () => onDone(sel));
+  recount(sel);
   let models, counts;
   try {
     [models, counts] = await Promise.all([loadModels(bid), loadVehCounts()]);
@@ -3872,109 +4142,162 @@ async function auModelScreen(st1, onBack, onDone) {
     return;
   }
   if (!S.layer.isConnected) return;
-  function marks() {
-    list.querySelectorAll('.au-opt').forEach(o => {
-      const on = o.dataset.m ? sel.model.includes(+o.dataset.m) : !sel.model.length;
-      o.classList.toggle('on', on);
-      o.setAttribute('aria-pressed', String(on));
-    });
+  // По алфавиту: цифры, латиница, кириллица (2000GT раньше 4Runner)
+  models = models.map(m => ({ m, g: brandGroup(m.name) })).sort((a, b) => a.g[0] - b.g[0] || a.m.name.localeCompare(b.m.name, 'ru', { sensitivity: 'base' })).map(x => x.m);
+  const byId = Object.fromEntries(models.map(m => [m.id, m]));
+  const years = m => m.year_from ? '<small>' + m.year_from + '–' + (m.year_to && m.year_to < auYearNow() ? m.year_to : 'н. в.') + '</small>' : '';
+  const row = m => auOpt('data-v="' + m.id + '"', esc(m.name) + years(m), sel.model.includes(m.id), true, counts.m[m.id]);
+  function upd() {
+    recount(sel);
+    picks.hidden = !sel.model.length;
+    picks.innerHTML = sel.model.map(id => '<span class="au-pick-chip"><span class="au-pc-t">' + esc(byId[id]?.name || '…') + '</span>' +
+      '<button type="button" class="au-pc-x" data-x="' + id + '" aria-label="Убрать ' + esc(byId[id]?.name || '') + '">' + auIcon('close', '', 2.2) + '</button></span>').join('');
+    const all = list.querySelector('.au-allm');
+    if (all) all.classList.toggle('part', sel.model.length > 0);
   }
+  const marks = () => auMarks(list, v => sel.model.includes(+v));
   function draw() {
     const q = auNorm(inp.value);
-    const found = q ? models.filter(m => auNorm(m.name).includes(q) || auNorm(m.name_ru).includes(q)) : models;
-    list.innerHTML = (q ? '' : auOpt('data-all="1"', 'Все модели', !sel.model.length, true, counts.b[bid], 'all')) +
-      (found.length ? found.map(m => auOpt('data-m="' + m.id + '"', esc(m.name) +
-          (m.year_from ? '<small>' + m.year_from + '–' + (m.year_to && m.year_to < auYearNow() ? m.year_to : 'н. в.') + '</small>' : ''),
-          sel.model.includes(m.id), true, counts.m[m.id])).join('')
-        : '<p class="au-empty">Такой модели нет в списке. Сбросьте поиск и выберите «Все модели».</p>');
+    if (q) {
+      $s('#am-wrap').classList.remove('rail');
+      rail.hidden = true;
+      const found = models.filter(m => auNorm(m.name).includes(q) || auNorm(m.name_ru).includes(q));
+      list.innerHTML = found.length ? found.map(row).join('') : '<p class="au-empty">Такой модели нет в списке</p>';
+      list.scrollTop = 0;
+      return;
+    }
+    $s('#am-wrap').classList.add('rail');
+    const pop = models.filter(m => counts.m[m.id]).sort((a, b) => counts.m[b.id] - counts.m[a.id] || a.name.localeCompare(b.name, 'ru')).slice(0, 10);
+    const all = auAlpha(models, row);
+    list.innerHTML = '<button type="button" class="au-opt au-allm' + (sel.model.length ? ' part' : '') + '" data-all="1">' +
+        '<span class="au-lbl">Выбрать все модели</span><span class="au-ring" aria-hidden="true">' + AU_MINUS + '</span></button>' +
+      (pop.length ? '<div class="au-sec">Популярные</div>' + pop.map(row).join('') : '') +
+      '<div class="au-sec">Все модели</div>' + all.html;
+    auRail(rail, list, all.letters, () => inp.focus());
   }
   draw();
+  upd();
   inp.addEventListener('input', draw);
   list.addEventListener('click', e => {
     const b = e.target.closest('.au-opt');
     if (!b) return;
-    if (b.dataset.all) sel.model = [];
-    else { const id = +b.dataset.m; sel.model = sel.model.includes(id) ? sel.model.filter(x => x !== id) : sel.model.concat(id); }
+    if (b.dataset.all) {
+      // Есть выбранные — снимаем; ничего не выбрано — показываем все модели марки
+      if (sel.model.length) { sel.model = []; marks(); upd(); } else onDone(sel);
+      return;
+    }
+    const id = +b.dataset.v;
+    sel.model = sel.model.includes(id) ? sel.model.filter(x => x !== id) : sel.model.concat(id);
     marks(); upd();
   });
-  go.addEventListener('click', () => onDone(sel));
+  picks.addEventListener('click', e => {
+    const x = e.target.closest('[data-x]');
+    if (!x) return;
+    sel.model = sel.model.filter(id => id !== +x.dataset.x);
+    marks(); upd();
+  });
   // Модель из поиска: прокрутить к ней
-  const first = sel.model.length && list.querySelector('[data-m="' + sel.model[0] + '"]');
+  const first = sel.model.length && list.querySelector('[data-v="' + sel.model[0] + '"]');
   if (first) list.scrollTop = first.offsetTop - list.clientHeight / 3;
   if (auDesk()) inp.focus();
 }
 
-/* ----- Экран «Параметры» ----- */
+/* ----- Экран «Параметры» (как у Дрома): группы строк, значение справа, выбор в листе снизу ----- */
 function auParamsScreen(st0) {
   const p = auCopy(st0);
   const car = p.tab === 'car';
-  const yearOpts = sel => '<option value="">любой</option>' + auYears().map(y => '<option' + (sel === y ? ' selected' : '') + '>' + y + '</option>').join('');
-  const body = '<div class="au-scr-body">' +
-    '<div class="au-pf"><label class="au-pl" for="ap-place">Населённый пункт</label>' + placeFieldHtml('ap-place', true) + '</div>' +
-    (car ? '<div class="au-pf"><span class="au-pl">Марка, модель</span>' +
-      '<button type="button" class="au-opt" id="ap-brand"><span id="ap-brand-t"></span><span class="au-arr" aria-hidden="true">›</span></button></div>' +
-      '<div class="au-pf"><span class="au-pl">Год выпуска</span><div class="au-two">' +
-        '<select id="ap-yf" aria-label="Год от">' + yearOpts(p.yf) + '</select><select id="ap-yt" aria-label="Год до">' + yearOpts(p.yt) + '</select></div></div>' : '') +
-    (p.tab === 'parts' ? '<div class="au-pf"><label class="au-pl" for="ap-cat">Вид запчастей</label><select id="ap-cat"><option value="">Все</option>' +
-      PARTS.map(([v, l]) => '<option value="' + v + '"' + (p.cat === v ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' : '') +
-    '<div class="au-pf"><span class="au-pl">Цена, ₽</span><div class="au-two">' +
-      '<input id="ap-min" type="number" inputmode="numeric" min="0" placeholder="от" aria-label="Цена от" value="' + esc(p.min) + '">' +
-      '<input id="ap-max" type="number" inputmode="numeric" min="0" placeholder="до" aria-label="Цена до" value="' + esc(p.max) + '"></div></div>' +
-    '<div class="au-pf"><label class="au-sw">Только с фото<input type="checkbox" id="ap-photo"' + (p.photo ? ' checked' : '') + '></label></div>' +
-    '<div class="au-pf"><label class="au-pl" for="ap-q">Ключевые слова</label><input id="ap-q" type="search" maxlength="100" enterkeyhint="search" placeholder="Например, лебёдка или зимняя резина" value="' + esc(p.q) + '"></div>' +
-  '</div>';
   const S = auScreen({
     title: 'Параметры',
-    reset: () => {
-      Object.assign(p, auEmpty(p.tab), { sort: p.sort });
-      setPlace('#ap-place', '');
-      ['#ap-yf', '#ap-yt', '#ap-cat', '#ap-min', '#ap-max', '#ap-q'].forEach(id => { const el = S.scr.querySelector(id); if (el) el.value = ''; });
-      S.scr.querySelector('#ap-photo').checked = false;
-      refresh();
-    },
-    body,
+    reset: () => { const keep = { tab: p.tab, sort: p.sort }; Object.assign(p, auEmpty(p.tab), keep); draw(); },
+    body: '<div class="au-scr-body ap-body" id="ap-body"></div>',
     foot: '<button type="button" class="btn btn-accent" id="ap-go">Показать объявления</button>'
   });
   const $s = id => S.scr.querySelector(id);
-  const recount = auCounter($s('#ap-go'));
-  const num = id => { const v = ($s(id)?.value || '').trim(); return /^\d{1,9}$/.test(v) ? String(+v) : ''; };
-  function read() {
-    p.min = num('#ap-min'); p.max = num('#ap-max');
-    p.photo = $s('#ap-photo').checked ? '1' : '';
-    p.q = $s('#ap-q').value.trim().slice(0, 100);
-    if (car) { p.yf = $s('#ap-yf').value; p.yt = $s('#ap-yt').value; }
-    if ($s('#ap-cat')) p.cat = $s('#ap-cat').value;
-    const pl = placeValue('#ap-place');
-    if (pl !== null) p.place = pl;
-  }
-  function refresh() {
+  const body = $s('#ap-body'), go = $s('#ap-go');
+  const recount = auCounter(go);
+  const list = (k, dict) => p[k].map(v => dict[v]).join(', ');
+  const ctryText = () => AU_FOREIGN.every(v => p.ctry.includes(v)) && !p.ctry.includes('ru') ? 'Иномарки' : list('ctry', AU_LISTS.ctry);
+  const unitRange = (a, b, f, unit) => (a || b) ? rangeText(a, b, f) + ' ' + unit : '';
+  const fVol = x => String(x).replace('.', ',');
+  const fInt = x => (+x).toLocaleString('ru-RU');
+  const row = (k, label, val) => '<button type="button" class="ap-row" data-k="' + k + '"><span class="ap-l">' + label + '</span>' +
+    '<span class="ap-v">' + esc(val || '') + '</span></button>';
+  const sw = (k, label) => '<label class="ap-row ap-sw"><span class="ap-l">' + label + '</span><span class="au-sw"><input type="checkbox" data-sw="' + k + '"' +
+    (p[k] ? ' checked' : '') + '></span></label>';
+  const grp = rows => '<div class="ap-grp">' + rows.filter(Boolean).join('') + '</div>';
+  function draw() {
+    const top = body.scrollTop;
+    let h = grp([
+      row('place', 'Населённый пункт', p.place ? placeLabel(p.place) : ''),
+      car && row('brand', 'Марка, модель', auSelText(p)),
+      p.tab === 'parts' && row('cat', 'Вид запчастей', PARTS_BY[p.cat] || '')
+    ]);
+    h += grp([car && row('year', 'Год выпуска', rangeText(p.yf, p.yt, x => x)), row('price', 'Цена', priceText(p.min, p.max))]);
+    h += grp([sw('photo', 'Только с фото'), car && row('docs', 'Документы', V_DOCS[p.docs]), car && row('cond', 'Повреждения', V_COND_F[p.cond])]);
     if (car) {
-      const t = $s('#ap-brand-t');
-      t.textContent = p.brand.length ? auSelText(p) : 'Любая';
-      t.className = p.brand.length ? '' : 'au-lab au-ph';
-      if (p.brand.length) auNames(p).then(() => { if (S.layer.isConnected) t.textContent = auSelText(p); }, () => {});
+      h += grp([
+        row('tr', 'Коробка передач', list('tr', V_TRANS)),
+        row('vol', 'Объём двигателя', unitRange(p.vf, p.vt, fVol, 'л')),
+        row('fuel', 'Топливо', list('fuel', V_FUEL)),
+        row('drive', 'Привод', V_DRIVE[p.drive]),
+        row('wheel', 'Расположение руля', V_WHEEL[p.wheel]),
+        row('pow', 'Мощность', unitRange(p.pf, p.pt, fInt, 'л. с.')),
+        row('mil', 'Пробег', unitRange(p.mf, p.mt, fInt, 'км')),
+        row('body', 'Кузов', list('body', V_BODY)),
+        row('color', 'Цвет', list('color', V_COLOR))
+      ]);
+      h += grp([
+        row('own', 'Количество владельцев', V_OWN_F[p.own]),
+        row('seller', 'Продавец', V_SELLER[p.seller]),
+        row('ctry', 'Страна марки', ctryText()),
+        sw('norf', 'Без пробега по РФ'),
+        sw('exch', 'Обмен возможен')
+      ]);
     }
+    h += '<div class="ap-grp"><label class="ap-row ap-kw"><span class="ap-l">Ключевые слова</span>' +
+      '<input id="ap-q" type="search" maxlength="100" enterkeyhint="search" placeholder="Например, лебёдка" value="' + esc(p.q) + '"></label></div>';
+    body.innerHTML = h;
+    body.scrollTop = top;
     recount(p);
+    // Названия марки и модели могут быть ещё не загружены
+    if (car && p.brand.length && (!AU.brands || (p.model.length && !AU.models[p.brand[0]]))) {
+      auNames(p).then(() => { const v = body.querySelector('[data-k="brand"] .ap-v'); if (v && S.layer.isConnected) v.textContent = auSelText(p); }, () => {});
+    }
   }
-  setPlace('#ap-place', p.place);
-  bindPlace('#ap-place', true, v => { p.place = v; recount(p); });
-  $s('.au-scr-body').addEventListener('input', () => { read(); recount(p); });
-  $s('.au-scr-body').addEventListener('change', () => { read(); recount(p); });
-  if (car) $s('#ap-brand').addEventListener('click', () => auBrandScreen(p, s => {
-    // Марки выбраны: закрываем экраны марок и моделей, возвращаемся в «Параметры»
-    p.brand = s.brand.slice(); p.model = s.model.slice();
-    while (AU_LAYERS.length && AU_LAYERS[AU_LAYERS.length - 1] !== S.layer) auClose(AU_LAYERS[AU_LAYERS.length - 1]);
-    refresh();
-  }));
-  $s('#ap-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $s('#ap-go').click(); } });
-  $s('#ap-go').addEventListener('click', () => {
-    read();
-    if (placeValue('#ap-place') === null) { $s('#ap-place-err').hidden = false; $s('#ap-place').focus(); return; }
-    if (p.min && p.max && +p.min > +p.max) [p.min, p.max] = [p.max, p.min];
-    if (p.yf && p.yt && +p.yf > +p.yt) [p.yf, p.yt] = [p.yt, p.yf];
-    goHash(auHash(p));
+  const set = patch => { Object.assign(p, patch); draw(); };
+  const pick = (title, dict, k, any) => auPick({ title, opts: Object.entries(dict), cur: p[k], any, onDone: v => set({ [k]: v }) });
+  const picks = (title, dict, k, extra) => auPick({ title, opts: Object.entries(dict), cur: p[k], multi: true, ...extra, onDone: v => set({ [k]: v }) });
+  body.addEventListener('click', e => {
+    const r = e.target.closest('[data-k]');
+    if (!r) return;
+    switch (r.dataset.k) {
+      case 'place': auPlaceScreen(p.place, v => set({ place: v })); break;
+      case 'brand': auBrandScreen(p, s => { auCloseAbove(S.layer); set({ brand: s.brand.slice(), model: s.model.slice() }); }); break;
+      case 'cat': auPick({ title: 'Вид запчастей', opts: PARTS, cur: p.cat, any: 'Все', onDone: v => set({ cat: v }) }); break;
+      case 'year': auYearSheet(p, (yf, yt) => set({ yf, yt })); break;
+      case 'price': auPriceSheet(p, (min, max) => set({ min, max })); break;
+      case 'docs': pick('Документы', V_DOCS, 'docs', 'Неважно'); break;
+      case 'cond': pick('Повреждения', V_COND_F, 'cond', 'Неважно'); break;
+      case 'tr': picks('Коробка передач', V_TRANS, 'tr'); break;
+      case 'vol': auRangeSheet({ title: 'Объём двигателя, л', a: p.vf, b: p.vt, dec: true, onDone: (vf, vt) => set({ vf, vt }) }); break;
+      case 'fuel': picks('Топливо', V_FUEL, 'fuel'); break;
+      case 'drive': pick('Привод', V_DRIVE, 'drive', 'Любой'); break;
+      case 'wheel': pick('Расположение руля', V_WHEEL, 'wheel', 'Любой'); break;
+      case 'pow': auRangeSheet({ title: 'Мощность, л. с.', a: p.pf, b: p.pt, onDone: (pf, pt) => set({ pf, pt }) }); break;
+      case 'mil': auRangeSheet({ title: 'Пробег, км', a: p.mf, b: p.mt, onDone: (mf, mt) => set({ mf, mt }) }); break;
+      case 'body': auBodySheet(p.body, v => set({ body: v })); break;
+      case 'color': auPick({ title: 'Цвет', multi: true, cur: p.color, onDone: v => set({ color: v }),
+        opts: Object.entries(V_COLOR).map(([v, l]) => [v, l, '<span class="au-cdot" style="background:' + COLOR_CSS[v] + '"></span>']) }); break;
+      case 'own': pick('Количество владельцев', V_OWN_F, 'own', 'Любое'); break;
+      case 'seller': pick('Продавец', V_SELLER, 'seller', 'Любой'); break;
+      case 'ctry': picks('Страна марки', AU_LISTS.ctry, 'ctry', { groups: [['Все иномарки', AU_FOREIGN]] }); break;
+    }
   });
-  refresh();
+  body.addEventListener('change', e => { const k = e.target.dataset.sw; if (k) { p[k] = e.target.checked ? '1' : ''; recount(p); } });
+  body.addEventListener('input', e => { if (e.target.id === 'ap-q') { p.q = e.target.value.trim().slice(0, 100); recount(p); } });
+  body.addEventListener('keydown', e => { if (e.target.id === 'ap-q' && e.key === 'Enter') { e.preventDefault(); go.click(); } });
+  go.addEventListener('click', () => goHash(auHash(p)));
+  draw();
 }
 
 /* ----- Форма «+ Продать»: что продаёте и поля автомобиля ----- */
