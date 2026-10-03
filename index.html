@@ -964,6 +964,7 @@
   .au-fgrid .field select { padding: 11px 10px; }
   .au-vblock { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 14px 2px; margin: 0 0 16px; background: var(--card); }
   .au-vblock > h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
+  .au-vblock [hidden], .au-top [hidden] { display: none !important; }
   .au-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
   .au-checks label { display: flex; align-items: center; gap: 10px; font-size: 16px; cursor: pointer; }
   .au-checks input { width: 20px; height: 20px; margin: 0; accent-color: var(--head); }
@@ -2069,7 +2070,7 @@ function requireLogin(next) {
 }
 
 // Разделы почти не меняются: держим в браузере 12 часов, чтобы не ждать сервер на каждой странице
-const CATS_KEY = 'olk_cats_0010';
+const CATS_KEY = 'olk_cats_0012';
 async function loadCats() {
   if (CATS) return CATS;
   let data = cacheGet(CATS_KEY, 12 * 3600e3);
@@ -2220,8 +2221,10 @@ async function renderAdView(id, base = 'ads') {
   if (autoV) {
     // auto.olk.ru: Авто → вкладка → вид запчастей или марка
     const tk = cats ? autoTabOf(cats, ad.category_id) : 'car';
+    const mc = tk === 'moto' && cat ? MOTO_BY_SLUG[cat.slug] : null;
     crumbs = '<div class="crumbs" id="crumbs"><a href="#/auto">Авто</a> → <a href="' + auHash(auEmpty(tk)) + '">' + AUTO_TAB[tk].name + '</a>' +
-      (tk === 'parts' && cat && PARTS_BY[cat.slug] ? ' → <a href="' + auHash({ ...auEmpty('parts'), cat: cat.slug }) + '">' + esc(cat.name) + '</a>' : '') + '</div>';
+      (tk === 'parts' && cat && PARTS_BY[cat.slug] ? ' → <a href="' + auHash({ ...auEmpty('parts'), cat: cat.slug }) + '">' + esc(cat.name) + '</a>' : '') +
+      (mc ? ' → <a href="' + auHash({ ...auEmpty('moto'), cls: mc[0] }) + '">' + mc[1] + '</a>' : '') + '</div>';
   } else {
     crumbs = '<div class="crumbs"><a href="#/' + base + '">' + (jobs ? 'Работа' : 'Все объявления') + '</a>' +
       (parent && !jobs ? ' → <a href="#/ads?cat=' + parent.slug + '">' + esc(parent.name) + '</a>' : '') +
@@ -2269,9 +2272,10 @@ async function renderAdView(id, base = 'ads') {
   });
 
   // Марка в крошках: ссылка на все объявления этой марки
-  if (veh && veh.brand_id) loadBrands().then(() => {
+  if (veh && veh.brand_id) loadBrands(veh.kind === 'moto' ? 'moto' : 'car').then(() => {
     const c = $('#crumbs'), b = AU.byId[veh.brand_id];
-    if (c && b) c.insertAdjacentHTML('beforeend', ' → <a href="' + auHash({ ...auEmpty('car'), brand: [b.id] }) + '">' + esc(b.name) + '</a>');
+    const mc = veh.kind === 'moto' && cats ? MOTO_BY_SLUG[cats.byId[ad.category_id]?.slug] : null;
+    if (c && b) c.insertAdjacentHTML('beforeend', ' → <a href="' + auHash({ ...auEmpty(veh.kind === 'moto' ? 'moto' : 'car'), cls: mc ? mc[0] : '', brand: [b.id] }) + '">' + esc(b.name) + '</a>');
   }, () => {});
 
   const tools = $('#tools');
@@ -2373,7 +2377,7 @@ async function renderAdForm(query, editId, base = 'ads') {
     return;
   }
   const jobsForm = base === 'rabota', autoForm = base === 'auto';
-  const auKind = autoForm ? auKindOf(pre, ad) : '';
+  const auKind = autoForm ? auKindOf(pre) : '';
   let preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
   let preSub = pre && pre.parent_id ? pre : null;
 
@@ -2390,7 +2394,7 @@ async function renderAdForm(query, editId, base = 'ads') {
       '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
       '<div id="msg"></div>' +
       (autoForm
-        ? auFormTopHtml(auKind, pre && PARTS_BY[pre.slug] ? pre.slug : '') + vehFieldsHtml(vehOf(ad))
+        ? auFormTopHtml(auKind, pre && PARTS_BY[pre.slug] ? pre.slug : '', pre && MOTO_BY_SLUG[pre.slug] ? MOTO_BY_SLUG[pre.slug][0] : '') + vehFieldsHtml(vehOf(ad))
         : '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
             cats.top.filter(c => (c.slug !== 'rabota' && c.slug !== 'avto') || preTop === c)
               .map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
@@ -2400,7 +2404,7 @@ async function renderAdForm(query, editId, base = 'ads') {
         Object.entries(DEALS).map(([v, l]) => '<label><input type="radio" name="deal" value="' + v + '"' + (dl === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
       '</div></div>' +
       '<div class="field" id="title-wrap"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="' +
-        (autoForm ? 'Например, снегоход «Буран» 2015 года' : 'Например, лодка «Казанка-5М» с мотором') + '"></div>' +
+        (autoForm ? 'Например, лодка «Казанка-5М» с мотором «Ямаха 40»' : 'Например, лодка «Казанка-5М» с мотором') + '"></div>' +
       '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="Состояние, размеры, что входит в комплект">' + esc(ad?.description || '') + '</textarea>' +
         '<div class="hint"><span id="a-count">0</span> из 5000</div></div>' +
       '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Цена</span><div class="seg" role="radiogroup">' +
@@ -2504,9 +2508,9 @@ async function renderAdForm(query, editId, base = 'ads') {
     const top = autoForm ? null : cats.byId[+topSel.value];
     const catId = autoForm ? AF.catId() : top && top.children.length ? +subSel.value : top?.id;
     let title = $('#a-title').value.trim();
-    // Легковой: заголовок собирается из марки, модели и года, характеристики — в ad_vehicles
+    // Легковой и мототехника: заголовок собирается из марки, модели и года, характеристики — в ad_vehicles
     let vrow = null;
-    if (autoForm && AF.kind() === 'car') {
+    if (autoForm && AF.hasVeh()) {
       const r = AF.readVeh();
       if (r.err) { if (r.el) r.el.focus(); return setMsg(msg, r.err); }
       vrow = r.row;
@@ -2564,7 +2568,7 @@ async function renderAdForm(query, editId, base = 'ads') {
           throw ve;
         }
       } else if (autoForm && ad && vehOf(ad)) {
-        await sb.from('ad_vehicles').delete().eq('ad_id', adId); // был легковой, стал другим видом
+        await sb.from('ad_vehicles').delete().eq('ad_id', adId); // был легковой или мото, стал другим видом
       }
 
       // Порядок фото: как на экране. Старые — обновляем позицию, новые — загружаем.
@@ -3181,11 +3185,12 @@ function routeAds(query, parts) {
 /* ---------------- auto.olk.ru: авто и техника ---------------- */
 // Образец — Дром. Весь раздел «Авто» доски живёт здесь: #/auto (главная и поиск), #/auto/ID, #/auto/ID/edit, #/auto/new.
 // Автомобили — с марками и моделями (vehicle_brands, vehicle_models) и характеристиками (ad_vehicles).
-// Спецтехника, мототехника, водная — пока простые ленты своих разделов (марки в заходах 2–4). Запчасти — 14 видов.
+// Мототехника (заход 2) — тоже с марками и моделями, четыре класса чипами. Спецтехника, водная — пока простые ленты
+// своих разделов (марки в заходах 3–4). Запчасти — 14 видов.
 const AUTO_TABS = [
   { key: 'car', name: 'Автомобили', icon: 'car', cats: ['legkovye'] },
   { key: 'spec', name: 'Спецтехника', icon: 'truck', cats: ['spectehnika'] },
-  { key: 'moto', name: 'Мототехника', icon: 'moto', cats: ['moto'] },
+  { key: 'moto', name: 'Мототехника', icon: 'moto', cats: ['moto', 'snegohody', 'kvadrotsikly', 'mopedy'] },
   { key: 'water', name: 'Водная', icon: 'boat', cats: ['lodki'] },
   { key: 'parts', name: 'Запчасти', icon: 'engine', cats: null }
 ];
@@ -3195,8 +3200,19 @@ const PARTS = [['shiny', 'Шины'], ['diski', 'Диски'], ['zap-kuzov', 'К
   ['zap-optika', 'Оптика'], ['zap-kpp', 'КПП'], ['zap-elektrika', 'Электрика'], ['zapchasti', 'Другие'], ['avtorazbor', 'Авторазбор'],
   ['avtohimiya', 'Автохимия'], ['avtoaudio', 'Аудио'], ['avto-instrumenty', 'Инструменты'], ['avto-raznoe', 'Разное']];
 const PARTS_BY = Object.fromEntries(PARTS);
-const AU_Q_PH = { spec: 'Марка, модель, вид техники', moto: 'Марка, модель', water: 'Лодка, мотор, марка', parts: 'Запчасть или номер' };
-const CAR_CHIPS = [['', 'Свежие'], ['100000', 'До 100 тыс.'], ['200000', 'До 200 тыс.'], ['300000', 'До 300 тыс.']];
+const AU_Q_PH = { spec: 'Марка, модель, вид техники', water: 'Лодка, мотор, марка', parts: 'Запчасть или номер' };
+// Мототехника: класс → [подпись чипа, раздел, слово для заголовка без модели, подпись в форме]
+const MOTO_CLS = [
+  ['moto', 'Мотоциклы', 'moto', 'Мотоцикл', 'Мотоцикл'],
+  ['snow', 'Снегоходы', 'snegohody', 'Снегоход', 'Снегоход, мотобуксировщик'],
+  ['atv', 'Квадроциклы', 'kvadrotsikly', 'Квадроцикл', 'Квадроцикл, багги'],
+  ['moped', 'Мопеды', 'mopedy', 'Мопед', 'Мопед, скутер']
+];
+const MOTO_CL = Object.fromEntries(MOTO_CLS.map(c => [c[0], c]));
+const MOTO_BY_SLUG = Object.fromEntries(MOTO_CLS.map(c => [c[2], c]));
+// Вкладки с марками, моделями и характеристиками; вид марок в базе (vehicle_brands.kind)
+const auVeh = tab => tab === 'car' || tab === 'moto';
+const auKindTab = tab => tab === 'moto' ? 'moto' : 'car';
 const AU_SORTS = [['new', 'Сначала новые'], ['cheap', 'Сначала дешевле'], ['dear', 'Сначала дороже'], ['year', 'Сначала новее по году']];
 
 // Значения характеристик — коды как в ad_vehicles
@@ -3212,6 +3228,10 @@ const V_COLOR = { grey: 'Серый', silver: 'Серебристый', white: '
 const V_COND = { ok: 'Не требует ремонта', repair: 'Требует ремонта или не на ходу' };
 const V_DOCS = { ok: 'В порядке', problem: 'Нет или проблемные' };
 const V_SELLER = { owner: 'Собственник', private: 'Частник', company: 'Компания' };
+// Мототехника
+const V_STROKES = { 2: '2-тактный', 4: '4-тактный' };
+const V_FSYS = { injector: 'Инжектор', carb: 'Карбюратор' };
+const V_DRIVE_ATV = { rear: '2WD', '4wd': '4WD' };
 // Для «Параметров» поиска — подписи как у Дрома
 const V_COND_F = { ok: 'Не требуется ремонт', repair: 'Требуется ремонт или не на ходу' };
 const V_OWN_F = { 1: 'Один', 2: 'До двух', 3: 'До трёх' };
@@ -3254,7 +3274,8 @@ function auIcon(k, cls, w) {
   return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 1.7) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + AU_ICONS[k] + '"/></svg>';
 }
 
-const AU = { st: null, brands: null, brandsP: null, byId: {}, models: {}, counts: null, countsP: null, countsT: 0 };
+// k — марки по видам ({ car: { rows, p }, moto: … }), byId — все загруженные марки, cnt — числа объявлений
+const AU = { st: null, brands: null, k: {}, byId: {}, models: {}, cnt: {} };
 const auNorm = t => String(t || '').toLowerCase().replace(/ё/g, 'е').trim();
 const auYearNow = () => +dayKeyFmt.format(new Date()).slice(0, 4);
 
@@ -3271,26 +3292,44 @@ function autoTabOf(cats, catId) {
   return t ? t.key : 'car';
 }
 function auCatIds(cats, st) {
-  const slugs = st.tab === 'parts' ? (st.cat ? [st.cat] : PARTS.map(p => p[0])) : AUTO_TAB[st.tab].cats;
+  const slugs = st.tab === 'parts' ? (st.cat ? [st.cat] : PARTS.map(p => p[0]))
+    : st.tab === 'moto' && st.cls ? [MOTO_CL[st.cls][2]] : AUTO_TAB[st.tab].cats;
   return slugs.map(s => cats.bySlug[s]?.id).filter(Boolean);
 }
 // Адрес auto.olk.ru для раздела доски (ссылки на «Авто» с доски ведут сюда)
 function autoHashForCat(cats, cat) {
   const tab = cat.slug === 'avto' ? 'car' : autoTabOf(cats, cat.id);
-  return '#/auto' + qs({ tab: tab === 'car' ? '' : tab, cat: PARTS_BY[cat.slug] ? cat.slug : '' });
+  const mc = MOTO_BY_SLUG[cat.slug];
+  return '#/auto' + qs({ tab: tab === 'car' ? '' : tab, cls: mc ? mc[0] : '', cat: PARTS_BY[cat.slug] ? cat.slug : '' });
 }
 
 /* ----- Состояние поиска в адресе ----- */
-// Поля «Параметров» автомобиля: несколько значений, одно значение, от–до, переключатели
-const AU_LISTS = { tr: V_TRANS, fuel: V_FUEL, body: V_BODY, color: V_COLOR, ctry: Object.fromEntries(AU_CTRY) };
-const AU_ONES = { drive: V_DRIVE, wheel: V_WHEEL, docs: V_DOCS, cond: V_COND_F, own: V_OWN_F, seller: V_SELLER };
-const AU_RANGES = { vol: ['vf', 'vt'], pow: ['pf', 'pt'], mil: ['mf', 'mt'] };
-const AU_FLAGS = ['norf', 'exch'];
+// Поля «Параметров» по вкладкам: несколько значений, одно значение, от–до, переключатели
+const AU_SPEC = {
+  car: {
+    lists: { tr: V_TRANS, fuel: V_FUEL, body: V_BODY, color: V_COLOR, ctry: Object.fromEntries(AU_CTRY) },
+    ones: { drive: V_DRIVE, wheel: V_WHEEL, docs: V_DOCS, cond: V_COND_F, own: V_OWN_F, seller: V_SELLER },
+    ranges: { vol: ['vf', 'vt'], pow: ['pf', 'pt'], mil: ['mf', 'mt'] },
+    flags: ['norf', 'exch']
+  },
+  // Объём мототехники — в см³ (cf, ct), привод — только у квадроциклов
+  moto: {
+    lists: {},
+    ones: { str: V_STROKES, fs: V_FSYS, drive: V_DRIVE_ATV, docs: V_DOCS, cond: V_COND_F, seller: V_SELLER },
+    ranges: { cc: ['cf', 'ct'], mil: ['mf', 'mt'] },
+    flags: ['exch']
+  }
+};
+const AU_NONE = { lists: {}, ones: {}, ranges: {}, flags: [] };
+const auSpec = tab => AU_SPEC[tab] || AU_NONE;
+const AU_LISTS = AU_SPEC.car.lists;
 function auEmpty(tab) {
-  const st = { tab: tab || 'car', brand: [], model: [], yf: '', yt: '', min: '', max: '', place: '', photo: '', q: '', cat: '', sort: 'new',
-    vf: '', vt: '', pf: '', pt: '', mf: '', mt: '', norf: '', exch: '' };
-  Object.keys(AU_LISTS).forEach(k => { st[k] = []; });
-  Object.keys(AU_ONES).forEach(k => { st[k] = ''; });
+  const st = { tab: tab || 'car', cls: '', brand: [], model: [], yf: '', yt: '', min: '', max: '', place: '', photo: '', q: '', cat: '', sort: 'new' };
+  Object.values(AU_SPEC).forEach(S => {
+    Object.keys(S.lists).forEach(k => { st[k] = []; });
+    Object.keys(S.ones).forEach(k => { st[k] = ''; });
+    Object.values(S.ranges).flat().concat(S.flags).forEach(k => { st[k] = ''; });
+  });
   return st;
 }
 const auVol = v => /^\d{1,2}(\.\d)?$/.test(v || '') && +v > 0 ? String(+v) : '';
@@ -3303,30 +3342,33 @@ function auParse(query) {
   st.place = p.get('place') || '';
   st.photo = p.get('photo') ? '1' : '';
   st.q = (p.get('q') || '').slice(0, 100);
-  if (st.tab === 'car') {
+  if (auVeh(st.tab)) {
+    const S = auSpec(st.tab);
+    if (st.tab === 'moto' && MOTO_CL[p.get('cls')]) st.cls = p.get('cls');
     st.brand = ints('brand');
     st.model = st.brand.length === 1 ? ints('model') : [];
     st.yf = num('yf'); st.yt = num('yt');
-    for (const k in AU_LISTS) st[k] = [...new Set((p.get(k) || '').split(','))].filter(v => Object.hasOwn(AU_LISTS[k], v));
-    for (const k in AU_ONES) st[k] = Object.hasOwn(AU_ONES[k], p.get(k) || '') ? p.get(k) : '';
-    st.vf = auVol(p.get('vf')); st.vt = auVol(p.get('vt'));
-    ['pf', 'pt', 'mf', 'mt'].forEach(k => { st[k] = num(k); });
-    AU_FLAGS.forEach(k => { st[k] = p.get(k) ? '1' : ''; });
+    for (const k in S.lists) st[k] = [...new Set((p.get(k) || '').split(','))].filter(v => Object.hasOwn(S.lists[k], v));
+    for (const k in S.ones) st[k] = Object.hasOwn(S.ones[k], p.get(k) || '') ? p.get(k) : '';
+    if (st.tab === 'moto' && st.cls !== 'atv') st.drive = '';
+    Object.values(S.ranges).flat().forEach(k => { st[k] = k === 'vf' || k === 'vt' ? auVol(p.get(k)) : num(k); });
+    S.flags.forEach(k => { st[k] = p.get(k) ? '1' : ''; });
   }
   if (st.tab === 'parts' && PARTS_BY[p.get('cat')]) st.cat = p.get('cat');
   const s = p.get('sort');
-  if (AU_SORTS.some(x => x[0] === s) && (s !== 'year' || st.tab === 'car')) st.sort = s;
+  if (AU_SORTS.some(x => x[0] === s) && (s !== 'year' || auVeh(st.tab))) st.sort = s;
   return st;
 }
 function auHash(st) {
   const o = {
-    tab: st.tab === 'car' ? '' : st.tab, brand: st.brand.join(','), model: st.brand.length === 1 ? st.model.join(',') : '',
+    tab: st.tab === 'car' ? '' : st.tab, cls: st.tab === 'moto' ? st.cls : '', brand: st.brand.join(','), model: st.brand.length === 1 ? st.model.join(',') : '',
     yf: st.yf, yt: st.yt, min: st.min, max: st.max, place: st.place, photo: st.photo, q: st.q, cat: st.cat
   };
-  if (st.tab === 'car') {
-    for (const k in AU_LISTS) o[k] = st[k].join(',');
-    for (const k in AU_ONES) o[k] = st[k];
-    ['vf', 'vt', 'pf', 'pt', 'mf', 'mt'].concat(AU_FLAGS).forEach(k => { o[k] = st[k]; });
+  if (auVeh(st.tab)) {
+    const S = auSpec(st.tab);
+    for (const k in S.lists) o[k] = st[k].join(',');
+    for (const k in S.ones) o[k] = st[k];
+    Object.values(S.ranges).flat().concat(S.flags).forEach(k => { o[k] = st[k]; });
   }
   o.sort = st.sort;
   return '#/auto' + qs(o);
@@ -3336,20 +3378,40 @@ const auCopy = st => {
   ['brand', 'model'].concat(Object.keys(AU_LISTS)).forEach(k => { c[k] = (st[k] || []).slice(); });
   return c;
 };
-// Какие поля «Параметров» автомобиля заданы (для значка и для запроса)
-const auVehKeys = st => st.tab !== 'car' ? [] : [
-  ...Object.keys(AU_LISTS).filter(k => st[k].length), ...Object.keys(AU_ONES).filter(k => st[k]),
-  ...Object.keys(AU_RANGES).filter(k => st[AU_RANGES[k][0]] || st[AU_RANGES[k][1]]), ...AU_FLAGS.filter(k => st[k])];
-const auFiltered = st => !!(st.brand.length || st.yf || st.yt || st.min || st.max || st.place || st.photo || st.q || st.cat || auVehKeys(st).length);
+// Какие поля «Параметров» заданы (для значка и для запроса)
+function auVehKeys(st) {
+  if (!auVeh(st.tab)) return [];
+  const S = auSpec(st.tab);
+  return [...Object.keys(S.lists).filter(k => st[k].length), ...Object.keys(S.ones).filter(k => st[k]),
+    ...Object.keys(S.ranges).filter(k => st[S.ranges[k][0]] || st[S.ranges[k][1]]), ...S.flags.filter(k => st[k])];
+}
+const auFiltered = st => !!(st.brand.length || st.yf || st.yt || st.min || st.max || st.place || st.photo || st.q || st.cat || st.cls || auVehKeys(st).length);
+// Марки и модели вкладки: у мототехники — только подходящие выбранному классу
+const auBrandOk = (b, st) => st.tab !== 'moto' || !st.cls || !b.classes || b.classes.includes(st.cls);
+const auBrandPop = (b, st) => st.tab === 'moto' && st.cls ? (b.pop_classes || []).includes(st.cls) : b.popular;
+const auModelOk = (m, st) => st.tab !== 'moto' || !st.cls || !m.vclass || m.vclass === st.cls;
+// Сменили класс мототехники: марку другого класса сбрасываем, привод — только у квадроциклов
+function auClsPatch(st, cls) {
+  const patch = { cls };
+  if (cls !== 'atv') patch.drive = '';
+  const t = { tab: 'moto', cls };
+  const b = AU.byId[st.brand[0]];
+  if (st.brand.length && b && !auBrandOk(b, t)) { patch.brand = []; patch.model = []; }
+  else if (st.model.length) {
+    const ms = AU.models[st.brand[0]] || [];
+    patch.model = st.model.filter(id => { const m = ms.find(x => x.id === id); return !m || auModelOk(m, t); });
+  }
+  return patch;
+}
 // Страна марки → код группы: Россия — отечественные, пять стран по отдельности, остальное — «другие иномарки»
 const auCtryOf = b => AU_CTRY_OF[b.country] || 'oth';
 
 /* ----- Запросы ----- */
-const AU_VEH_COLS = 'brand_id, model_id, year, mileage, engine_volume, power, fuel, transmission, drive, wheel';
+const AU_VEH_COLS = 'kind, brand_id, model_id, year, mileage, engine_volume, power, fuel, transmission, drive, wheel, strokes, fuel_system';
 // Фильтр по марке с учётом «Страны марки»: ['in', ids], ['not', ids] или null (без фильтра)
 function auBrandFilter(st) {
   const ids = st.brand.length ? st.brand.slice() : null;
-  if (!st.ctry.length || !AU.brands) return ids ? ['in', ids] : null;
+  if (st.tab !== 'car' || !st.ctry.length || !AU.brands) return ids ? ['in', ids] : null;
   const ok = new Set(st.ctry);
   const allow = AU.brands.filter(b => ok.has(auCtryOf(b))).map(b => b.id);
   if (ids) { const left = ids.filter(id => allow.includes(id)); return ['in', left.length ? left : [0]]; }
@@ -3359,9 +3421,9 @@ function auBrandFilter(st) {
   return ['not', AU.brands.filter(b => !set.has(b.id)).map(b => b.id)];
 }
 // «Страна марки» считается по списку марок — его нужно загрузить до запроса
-const auPrep = st => st.ctry && st.ctry.length ? loadBrands().catch(e => console.error(e)) : Promise.resolve();
+const auPrep = st => st.tab === 'car' && st.ctry.length ? loadBrands().catch(e => console.error(e)) : Promise.resolve();
 function buildAutoQuery(st, ids, from, countOnly) {
-  const vInner = st.tab === 'car' && !!(st.brand.length || st.yf || st.yt || auVehKeys(st).length);
+  const vInner = auVeh(st.tab) && !!(st.brand.length || st.yf || st.yt || auVehKeys(st).length);
   let q;
   if (countOnly) {
     const sel = ['id'];
@@ -3387,13 +3449,14 @@ function buildAutoQuery(st, ids, from, countOnly) {
     if (st.yt) q = q.lte(V + 'year', +st.yt);
     const LIST_COL = { tr: 'transmission', fuel: 'fuel', body: 'body', color: 'color' };
     for (const k in LIST_COL) if (st[k].length) q = q.in(V + LIST_COL[k], st[k]);
-    const ONE_COL = { drive: 'drive', wheel: 'wheel', docs: 'documents', cond: 'condition', seller: 'seller' };
+    const ONE_COL = { drive: 'drive', wheel: 'wheel', docs: 'documents', cond: 'condition', seller: 'seller', str: 'strokes', fs: 'fuel_system' };
     for (const k in ONE_COL) if (st[k]) q = q.eq(V + ONE_COL[k], st[k]);
     if (st.own) q = q.lte(V + 'owners', +st.own);
-    const RANGE_COL = [['vf', 'vt', 'engine_volume'], ['pf', 'pt', 'power'], ['mf', 'mt', 'mileage']];
-    RANGE_COL.forEach(([a, b, col]) => {
-      if (st[a]) q = q.gte(V + col, +st[a]);
-      if (st[b]) q = q.lte(V + col, +st[b]);
+    // Объём в базе в литрах: у мототехники в адресе см³ (650 → 0.65)
+    const RANGE_COL = [['vf', 'vt', 'engine_volume', 1], ['cf', 'ct', 'engine_volume', 1000], ['pf', 'pt', 'power', 1], ['mf', 'mt', 'mileage', 1]];
+    RANGE_COL.forEach(([a, b, col, d]) => {
+      if (st[a]) q = q.gte(V + col, +st[a] / d);
+      if (st[b]) q = q.lte(V + col, +st[b] / d);
     });
     if (st.norf) q = q.eq(V + 'no_rf_mileage', true);
     if (st.exch) q = q.eq(V + 'exchange_ok', true);
@@ -3431,8 +3494,7 @@ function auCounter(btn) {
   };
 }
 
-/* ----- Марки и модели: 426 марок грузим один раз и держим в браузере неделю, модели — по марке ----- */
-const VB_KEY = 'olk_vb_car_1';
+/* ----- Марки и модели: грузим один раз и держим в браузере неделю (по видам: car, moto), модели — по марке ----- */
 function brandGroup(name) {
   const ch = (name || '').charAt(0).toUpperCase();
   if (/[0-9]/.test(ch)) return [0, ch];
@@ -3440,30 +3502,35 @@ function brandGroup(name) {
   if (/[А-ЯЁ]/.test(ch)) return [2, ch === 'Ё' ? 'Е' : ch];
   return [3, '#'];
 }
-function loadBrands() {
-  if (AU.brands) return Promise.resolve(AU.brands);
-  if (!AU.brandsP) AU.brandsP = (async () => {
-    let rows = cacheGet(VB_KEY, 7 * 864e5);
+function loadBrands(kind = 'car') {
+  const K = AU.k[kind] || (AU.k[kind] = { rows: null, p: null });
+  if (K.rows) return Promise.resolve(K.rows);
+  if (!K.p) K.p = (async () => {
+    const key = 'olk_vb_' + kind + '_1';
+    let rows = cacheGet(key, 7 * 864e5);
     if (!rows) {
-      const { data, error } = await sb.from('vehicle_brands').select('id, name, name_ru, country, popular').eq('kind', 'car').order('name').limit(1000);
+      const { data, error } = await sb.from('vehicle_brands').select('id, name, name_ru, country, popular' + (kind === 'car' ? '' : ', classes, pop_classes'))
+        .eq('kind', kind).order('name').limit(1000);
       if (error) throw error;
       rows = data || [];
-      if (rows.length) cacheSet(VB_KEY, rows);
+      if (rows.length) cacheSet(key, rows);
     }
     rows = rows.map(b => ({ ...b, g: brandGroup(b.name) }))
       .sort((a, b) => a.g[0] - b.g[0] || a.name.localeCompare(b.name, 'ru', { sensitivity: 'base', numeric: true }));
-    AU.byId = Object.fromEntries(rows.map(b => [b.id, b]));
-    AU.brands = rows;
+    rows.forEach(b => { AU.byId[b.id] = b; });
+    K.rows = rows;
+    if (kind === 'car') AU.brands = rows;
     return rows;
-  })().catch(e => { AU.brandsP = null; throw e; });
-  return AU.brandsP;
+  })().catch(e => { K.p = null; throw e; });
+  return K.p;
 }
+const auHasBrands = st => !!(AU.k[auKindTab(st.tab)] || {}).rows;
 async function loadModels(brandId) {
   if (AU.models[brandId]) return AU.models[brandId];
   const key = 'olk_vm_' + brandId;
   let rows = cacheGet(key, 7 * 864e5);
   if (!rows) {
-    const { data, error } = await sb.from('vehicle_models').select('id, name, name_ru, year_from, year_to').eq('brand_id', brandId).order('name').limit(1000);
+    const { data, error } = await sb.from('vehicle_models').select('id, name, name_ru, year_from, year_to, vclass').eq('brand_id', brandId).order('name').limit(1000);
     if (error) throw error;
     rows = data || [];
     cacheSet(key, rows);
@@ -3472,11 +3539,12 @@ async function loadModels(brandId) {
   AU.models[brandId] = rows;
   return rows;
 }
-// Числа объявлений по маркам и моделям; обновляем не чаще раза в 5 минут
-function loadVehCounts() {
-  if (!AU.countsP || Date.now() - AU.countsT > 5 * 60e3) {
-    AU.countsT = Date.now();
-    AU.countsP = sb.rpc('vehicle_counts', { p_kind: 'car' }).then(({ data, error }) => {
+// Числа объявлений по маркам и моделям (вид техники, при классе мототехники — его раздел); не чаще раза в 5 минут
+function loadVehCounts(kind = 'car', cat = null) {
+  const c = AU.cnt[kind + ':' + (cat || '')] || (AU.cnt[kind + ':' + (cat || '')] = { p: null, t: 0 });
+  if (!c.p || Date.now() - c.t > 5 * 60e3) {
+    c.t = Date.now();
+    c.p = sb.rpc('vehicle_counts', cat ? { p_kind: kind, p_cat: cat } : { p_kind: kind }).then(({ data, error }) => {
       if (error) throw error;
       const b = {}, m = {};
       (data || []).forEach(r => {
@@ -3484,15 +3552,20 @@ function loadVehCounts() {
         if (r.brand_id) b[r.brand_id] = (b[r.brand_id] || 0) + n;
         if (r.model_id) m[r.model_id] = (m[r.model_id] || 0) + n;
       });
-      return (AU.counts = { b, m });
-    }).catch(e => { console.error(e); AU.countsT = 0; return { b: {}, m: {} }; });
+      return { b, m };
+    }).catch(e => { console.error(e); c.t = 0; return { b: {}, m: {} }; });
   }
-  return AU.countsP;
+  return c.p;
+}
+async function auCountsFor(st) {
+  let cat = null;
+  if (st.tab === 'moto' && st.cls) cat = (await loadCats()).bySlug[MOTO_CL[st.cls][2]]?.id || null;
+  return loadVehCounts(auKindTab(st.tab), cat);
 }
 // Подгрузить названия выбранных марок и моделей (для подписи «Toyota Premio»)
 async function auNames(st) {
   if (!st.brand.length) return;
-  await loadBrands();
+  await loadBrands(auKindTab(st.tab));
   if (st.brand.length === 1 && st.model.length) await loadModels(st.brand[0]);
 }
 function auSelText(st) {
@@ -3530,9 +3603,17 @@ function vehOf(a) {
 }
 const fmtVol = x => (+x).toFixed(1);
 const fmtKm = n => +n >= 1000 ? Math.round(+n / 1000).toLocaleString('ru-RU') + ' тыс. км' : (+n).toLocaleString('ru-RU') + ' км';
-// Строка характеристик в ленте: «1.8 л, бензин, АКПП, 4WD, 120 тыс. км, правый руль»
+const fmtCc = x => Math.round(+x * 1000) + ' см³';
+// Строка характеристик в ленте: «1.8 л, бензин, АКПП, 4WD, 120 тыс. км, правый руль»; у мототехники «650 см³, 4-тактный, инжектор, 4WD, 3 тыс. км»
 function vehLine(v) {
   if (!v) return '';
+  if (v.kind === 'moto') return [
+    v.engine_volume ? fmtCc(v.engine_volume) : '',
+    V_STROKES[v.strokes] || '',
+    V_FSYS[v.fuel_system] ? V_FSYS[v.fuel_system].toLowerCase() : '',
+    v.drive === '4wd' ? '4WD' : '',
+    v.mileage ? fmtKm(v.mileage) : ''
+  ].filter(Boolean).join(', ');
   return [
     v.engine_volume ? fmtVol(v.engine_volume) + ' л' : '',
     V_FUEL[v.fuel] ? V_FUEL[v.fuel].toLowerCase() : '',
@@ -3546,6 +3627,21 @@ function vehLine(v) {
 function vehSpecsHtml(v) {
   if (!v) return '';
   const yes = 'Да';
+  if (v.kind === 'moto') {
+    const eng = [v.engine_volume ? fmtCc(v.engine_volume) : '', V_STROKES[v.strokes] || '', V_FSYS[v.fuel_system] ? V_FSYS[v.fuel_system].toLowerCase() : '',
+      v.power ? v.power + ' л. с.' : ''].filter(Boolean).join(', ');
+    const mr = [
+      ['Год выпуска', v.year],
+      ['Пробег', v.mileage === 0 ? 'без пробега' : v.mileage ? (+v.mileage).toLocaleString('ru-RU') + ' км' : ''],
+      ['Двигатель', eng],
+      ['Привод', V_DRIVE_ATV[v.drive]],
+      ['Состояние', V_COND[v.condition]],
+      ['Документы', V_DOCS[v.documents]],
+      ['Продавец', V_SELLER[v.seller]],
+      ['Возможен обмен', v.exchange_ok ? yes : '']
+    ].filter(r => r[1] !== '' && r[1] != null);
+    return mr.length ? '<dl class="au-specs">' + mr.map(r => '<dt>' + esc(r[0]) + '</dt><dd>' + esc(String(r[1])) + '</dd>').join('') + '</dl>' : '';
+  }
   const engine = [v.engine_volume ? fmtVol(v.engine_volume) + ' л' : '', V_FUEL[v.fuel] ? V_FUEL[v.fuel].toLowerCase() : '', v.power ? v.power + ' л. с.' : ''].filter(Boolean).join(', ');
   const rows = [
     ['Год выпуска', v.year],
@@ -3607,7 +3703,7 @@ function bindAutoHead() {
       case 'place': auPlaceScreen(st.place, p => go({ place: p })); break;
       case 'place-x': go({ place: '' }); break;
       case 'show': { const r = $('#au-res'); if (r) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); break; }
-      case 'chip': go({ min: '', max: b.dataset.v }); break;
+      case 'mcls': go(auClsPatch(st, b.dataset.v)); break;
       case 'pcat': go({ cat: b.dataset.v }); break;
     }
   });
@@ -3630,19 +3726,19 @@ function fillAutoHead(st) {
     if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     a.href = auHash({ ...auEmpty(a.dataset.tab), place: st.place });
   });
-  const car = st.tab === 'car';
+  const veh = auVeh(st.tab);
   const sel = auSelText(st);
-  const extra = (st.photo ? 1 : 0) + (car && st.q ? 1 : 0) + auVehKeys(st).length;
+  const extra = (st.photo ? 1 : 0) + (veh && st.q ? 1 : 0) + auVehKeys(st).length;
   const cell = (act, label, val, ph) => '<button type="button" class="au-cell" data-act="' + act + '"><small>' + label + '</small>' +
     '<span' + (val ? '' : ' class="au-ph"') + '>' + esc(val || ph) + '</span></button>';
-  let box = car
+  let box = veh
     ? '<div class="au-row"><button type="button" class="au-main" data-act="brand"><span class="au-lab' + (st.brand.length ? '' : ' au-ph') + '" id="au-sel">' +
         esc(st.brand.length ? sel : 'Марка, модель') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
         (st.brand.length ? '<button type="button" class="au-x" data-act="brand-x" aria-label="Сбросить марку и модель">×</button>' : '') + '</div>'
     : '<form class="au-row au-q" id="au-qf" role="search">' + auIcon('search', 'au-ico') +
         '<input id="au-q" type="search" enterkeyhint="search" maxlength="100" placeholder="' + esc(AU_Q_PH[st.tab]) + '" aria-label="Поиск: ' + esc(AU_Q_PH[st.tab]) + '" value="' + esc(st.q) + '"></form>';
-  box += '<div class="au-cells' + (car ? '' : ' two') + '">' +
-    (car ? cell('year', 'Год', rangeText(st.yf, st.yt, x => x), 'любой') : '') +
+  box += '<div class="au-cells' + (veh ? '' : ' two') + '">' +
+    (veh ? cell('year', 'Год', rangeText(st.yf, st.yt, x => x), 'любой') : '') +
     cell('price', 'Цена', priceText(st.min, st.max), 'любая') +
     '<button type="button" class="au-cell au-pcell" data-act="params">' + auIcon('params', 'au-ico') + '<span>Параметры</span>' +
       (extra ? '<b class="au-badge" aria-label="выбрано: ' + extra + '">' + extra + '</b>' : '') + '</button>' +
@@ -3653,11 +3749,10 @@ function fillAutoHead(st) {
   box += '<button type="button" class="btn btn-accent au-show" data-act="show" id="au-show">Показать объявления</button>';
   $('#au-box').innerHTML = box;
 
+  // Чипы: классы мототехники, виды запчастей; у автомобилей чипов нет (цену задают в «Цене»)
   let chips = '';
-  if (car) chips = CAR_CHIPS.map(([v, l]) => {
-    const on = v ? (st.max === v && !st.min) : (!st.max && !st.min);
-    return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-act="chip" data-v="' + v + '" aria-pressed="' + on + '">' + l + '</button>';
-  }).join('');
+  if (st.tab === 'moto') chips = [['', 'Все']].concat(MOTO_CLS).map(([v, l]) =>
+    '<button type="button" class="chip' + (st.cls === v ? ' on' : '') + '" data-act="mcls" data-v="' + v + '" aria-pressed="' + (st.cls === v) + '">' + l + '</button>').join('');
   if (st.tab === 'parts') chips = [['', 'Все']].concat(PARTS).map(([v, l]) =>
     '<button type="button" class="chip' + (st.cat === v ? ' on' : '') + '" data-act="pcat" data-v="' + v + '" aria-pressed="' + (st.cat === v) + '">' + l + '</button>').join('');
   $('#au-chips').innerHTML = chips;
@@ -3665,7 +3760,7 @@ function fillAutoHead(st) {
   if (on && on.offsetLeft > 0) $('#au-chips').scrollLeft = on.offsetLeft - 16;
 
   // Названия выбранных марок могут быть ещё не загружены
-  if (st.brand.length && (!AU.brands || (st.model.length && !AU.models[st.brand[0]]))) {
+  if (st.brand.length && (!auHasBrands(st) || (st.model.length && !AU.models[st.brand[0]]))) {
     auNames(st).then(() => {
       if (AU.st !== st) return;
       const el = $('#au-sel');
@@ -3697,10 +3792,10 @@ async function renderAuto(query) {
 
   const tab = AUTO_TAB[st.tab];
   const filtered = auFiltered(st);
-  const name = st.brand.length ? auSelText(st) : st.cat ? cats.bySlug[st.cat]?.name || PARTS_BY[st.cat] : tab.name;
+  const name = st.brand.length ? auSelText(st) : st.cat ? cats.bySlug[st.cat]?.name || PARTS_BY[st.cat] : st.cls ? MOTO_CL[st.cls][1] : tab.name;
   document.title = (filtered ? name + ' — ' : tab.key === 'car' ? '' : tab.name + ' — ') + AUTO_TITLE;
-  const newCat = st.tab === 'parts' ? (st.cat || '') : st.tab === 'car' ? '' : tab.cats[0];
-  const sorts = AU_SORTS.filter(s => s[0] !== 'year' || st.tab === 'car');
+  const newCat = st.tab === 'parts' ? (st.cat || '') : st.tab === 'car' ? '' : st.cls ? MOTO_CL[st.cls][2] : tab.cats[0];
+  const sorts = AU_SORTS.filter(s => s[0] !== 'year' || auVeh(st.tab));
 
   app.innerHTML =
     '<div class="bhead au-res" id="au-res"><h2 id="au-h">' + esc(filtered ? name : 'Свежие объявления') + ' <span class="n" id="au-n"></span></h2>' +
@@ -3730,7 +3825,7 @@ async function renderAuto(query) {
     fetchPage: from => buildAutoQuery(st, ids, from, false),
     renderItems: rows => rows.map(mapAd).map(autoCard).join(''),
     emptyHtml: filtered
-      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.' + (st.tab === 'car' && (st.brand.length || st.yf || st.yt || auVehKeys(st).length) ? ' Объявления, поданные без характеристик машины, видны только без фильтров по марке, году и параметрам.' : '') + '</p>'
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.' + (auVeh(st.tab) && (st.brand.length || st.yf || st.yt || auVehKeys(st).length) ? ' Объявления, поданные без марки и характеристик, видны только без фильтров по марке, году и параметрам.' : '') + '</p>'
       : '<p class="empty">Объявлений пока нет. <a href="#/auto/new' + (newCat ? '?cat=' + newCat : '') + '">Подайте первое</a>.</p>'
   });
 }
@@ -4038,9 +4133,11 @@ async function auBrandScreen(st0, onDone) {
   go.addEventListener('click', () => onDone(sel));
   upd();
 
+  const kind = auKindTab(sel.tab);
   let brands, counts;
   try {
-    [brands, counts] = await Promise.all([loadBrands(), loadVehCounts()]);
+    [brands, counts] = await Promise.all([loadBrands(kind), auCountsFor(sel)]);
+    brands = brands.filter(b => auBrandOk(b, sel));
   } catch (e) {
     console.error(e);
     list.innerHTML = '<div class="notice err" style="margin:16px">' + esc(ruError(e)) + '</div>';
@@ -4058,7 +4155,7 @@ async function auBrandScreen(st0, onDone) {
     clearTimeout(mt);
     if (!q) {
       $s('#ab-wrap').classList.add('rail');
-      const pop = brands.filter(b => b.popular); // уже по алфавиту: латиница, потом кириллица
+      const pop = brands.filter(b => auBrandPop(b, sel)); // уже по алфавиту: латиница, потом кириллица
       const all = auAlpha(brands, row);
       list.innerHTML = '<div class="au-sec">Популярные</div>' + pop.map(row).join('') + '<div class="au-sec">Все марки</div>' + all.html;
       auRail(rail, list, all.letters, () => inp.focus());
@@ -4076,12 +4173,12 @@ async function auBrandScreen(st0, onDone) {
     const t = inp.value.replace(/[",().*%\\:]/g, ' ').replace(/\s+/g, ' ').trim();
     if (t.length < 2) { const n = $s('#ab-none'); if (n) n.textContent = 'Ничего не нашлось'; return; }
     mt = setTimeout(async () => {
-      const { data, error } = await sb.from('vehicle_models').select('id, name, brand_id, vehicle_brands!inner(kind)')
-        .eq('vehicle_brands.kind', 'car').or('name.ilike."*' + t + '*",name_ru.ilike."*' + t + '*"').order('name').limit(30);
+      const { data, error } = await sb.from('vehicle_models').select('id, name, brand_id, vclass, vehicle_brands!inner(kind)')
+        .eq('vehicle_brands.kind', kind).or('name.ilike."*' + t + '*",name_ru.ilike."*' + t + '*"').order('name').limit(30);
       if (my !== mseq || !S.layer.isConnected) return;
       const box = $s('#ab-models'), none = $s('#ab-none');
       if (error) { console.error(error); if (none) none.textContent = 'Ничего не нашлось'; return; }
-      const rows = (data || []).filter(m => AU.byId[m.brand_id]);
+      const rows = (data || []).filter(m => AU.byId[m.brand_id] && auBrandOk(AU.byId[m.brand_id], sel) && auModelOk(m, sel));
       if (none) none.remove();
       box.innerHTML = rows.length
         ? '<div class="au-sec">Модели</div>' + rows.map(m => auOpt('data-m="' + m.id + '" data-mb="' + m.brand_id + '"',
@@ -4135,7 +4232,8 @@ async function auModelScreen(st1, onBack, onDone) {
   recount(sel);
   let models, counts;
   try {
-    [models, counts] = await Promise.all([loadModels(bid), loadVehCounts()]);
+    [models, counts] = await Promise.all([loadModels(bid), auCountsFor(sel)]);
+    models = models.filter(m => auModelOk(m, sel));
   } catch (e) {
     console.error(e);
     list.innerHTML = '<div class="notice err" style="margin:16px">' + esc(ruError(e)) + '</div>';
@@ -4172,8 +4270,8 @@ async function auModelScreen(st1, onBack, onDone) {
     list.innerHTML = '<button type="button" class="au-opt au-allm' + (sel.model.length ? ' part' : '') + '" data-all="1">' +
         '<span class="au-lbl">Выбрать все модели</span><span class="au-ring" aria-hidden="true">' + AU_MINUS + '</span></button>' +
       (pop.length ? '<div class="au-sec">Популярные</div>' + pop.map(row).join('') : '') +
-      '<div class="au-sec">Все модели</div>' + all.html;
-    auRail(rail, list, all.letters, () => inp.focus());
+      (models.length ? '<div class="au-sec">Все модели</div>' + all.html : '<p class="au-empty">Моделей этой марки нет в списке. Нажмите «Показать», чтобы увидеть все её объявления.</p>');
+    if (models.length) auRail(rail, list, all.letters, () => inp.focus()); else rail.hidden = true;
   }
   draw();
   upd();
@@ -4205,7 +4303,7 @@ async function auModelScreen(st1, onBack, onDone) {
 /* ----- Экран «Параметры» (как у Дрома): группы строк, значение справа, выбор в листе снизу ----- */
 function auParamsScreen(st0) {
   const p = auCopy(st0);
-  const car = p.tab === 'car';
+  const car = p.tab === 'car', moto = p.tab === 'moto', veh = car || moto;
   const S = auScreen({
     title: 'Параметры',
     reset: () => { const keep = { tab: p.tab, sort: p.sort }; Object.assign(p, auEmpty(p.tab), keep); draw(); },
@@ -4229,11 +4327,22 @@ function auParamsScreen(st0) {
     const top = body.scrollTop;
     let h = grp([
       row('place', 'Населённый пункт', p.place ? placeLabel(p.place) : ''),
-      car && row('brand', 'Марка, модель', auSelText(p)),
+      moto && row('cls', 'Вид мототехники', p.cls ? MOTO_CL[p.cls][1] : ''),
+      veh && row('brand', 'Марка, модель', auSelText(p)),
       p.tab === 'parts' && row('cat', 'Вид запчастей', PARTS_BY[p.cat] || '')
     ]);
-    h += grp([car && row('year', 'Год выпуска', rangeText(p.yf, p.yt, x => x)), row('price', 'Цена', priceText(p.min, p.max))]);
-    h += grp([sw('photo', 'Только с фото'), car && row('docs', 'Документы', V_DOCS[p.docs]), car && row('cond', 'Повреждения', V_COND_F[p.cond])]);
+    h += grp([veh && row('year', 'Год выпуска', rangeText(p.yf, p.yt, x => x)), row('price', 'Цена', priceText(p.min, p.max))]);
+    h += grp([sw('photo', 'Только с фото'), veh && row('docs', 'Документы', V_DOCS[p.docs]), veh && row('cond', 'Повреждения', V_COND_F[p.cond])]);
+    if (moto) {
+      h += grp([
+        row('cc', 'Объём двигателя', unitRange(p.cf, p.ct, fInt, 'см³')),
+        row('str', 'Тактность', V_STROKES[p.str]),
+        row('fs', 'Подача топлива', V_FSYS[p.fs]),
+        p.cls === 'atv' && row('drive', 'Привод', V_DRIVE_ATV[p.drive]),
+        row('mil', 'Пробег', unitRange(p.mf, p.mt, fInt, 'км'))
+      ]);
+      h += grp([row('seller', 'Продавец', V_SELLER[p.seller]), sw('exch', 'Обмен возможен')]);
+    }
     if (car) {
       h += grp([
         row('tr', 'Коробка передач', list('tr', V_TRANS)),
@@ -4260,7 +4369,7 @@ function auParamsScreen(st0) {
     body.scrollTop = top;
     recount(p);
     // Названия марки и модели могут быть ещё не загружены
-    if (car && p.brand.length && (!AU.brands || (p.model.length && !AU.models[p.brand[0]]))) {
+    if (veh && p.brand.length && (!auHasBrands(p) || (p.model.length && !AU.models[p.brand[0]]))) {
       auNames(p).then(() => { const v = body.querySelector('[data-k="brand"] .ap-v'); if (v && S.layer.isConnected) v.textContent = auSelText(p); }, () => {});
     }
   }
@@ -4272,6 +4381,10 @@ function auParamsScreen(st0) {
     if (!r) return;
     switch (r.dataset.k) {
       case 'place': auPlaceScreen(p.place, v => set({ place: v })); break;
+      case 'cls': auPick({ title: 'Вид мототехники', opts: MOTO_CLS.map(c => [c[0], c[1]]), cur: p.cls, any: 'Вся мототехника', onDone: v => set(auClsPatch(p, v)) }); break;
+      case 'cc': auRangeSheet({ title: 'Объём двигателя, см³', a: p.cf, b: p.ct, onDone: (cf, ct) => set({ cf, ct }) }); break;
+      case 'str': pick('Тактность', V_STROKES, 'str', 'Неважно'); break;
+      case 'fs': pick('Подача топлива', V_FSYS, 'fs', 'Неважно'); break;
       case 'brand': auBrandScreen(p, s => { auCloseAbove(S.layer); set({ brand: s.brand.slice(), model: s.model.slice() }); }); break;
       case 'cat': auPick({ title: 'Вид запчастей', opts: PARTS, cur: p.cat, any: 'Все', onDone: v => set({ cat: v }) }); break;
       case 'year': auYearSheet(p, (yf, yt) => set({ yf, yt })); break;
@@ -4281,7 +4394,7 @@ function auParamsScreen(st0) {
       case 'tr': picks('Коробка передач', V_TRANS, 'tr'); break;
       case 'vol': auRangeSheet({ title: 'Объём двигателя, л', a: p.vf, b: p.vt, dec: true, onDone: (vf, vt) => set({ vf, vt }) }); break;
       case 'fuel': picks('Топливо', V_FUEL, 'fuel'); break;
-      case 'drive': pick('Привод', V_DRIVE, 'drive', 'Любой'); break;
+      case 'drive': pick('Привод', moto ? V_DRIVE_ATV : V_DRIVE, 'drive', 'Любой'); break;
       case 'wheel': pick('Расположение руля', V_WHEEL, 'wheel', 'Любой'); break;
       case 'pow': auRangeSheet({ title: 'Мощность, л. с.', a: p.pf, b: p.pt, onDone: (pf, pt) => set({ pf, pt }) }); break;
       case 'mil': auRangeSheet({ title: 'Пробег, км', a: p.mf, b: p.mt, onDone: (mf, mt) => set({ mf, mt }) }); break;
@@ -4301,19 +4414,20 @@ function auParamsScreen(st0) {
 }
 
 /* ----- Форма «+ Продать»: что продаёте и поля автомобиля ----- */
-const AU_KINDS = [['car', 'Легковой'], ['spec', 'Грузовик, спецтехника'], ['moto', 'Мото'], ['snow', 'Снегоход'],
+const AU_KINDS = [['car', 'Легковой'], ['spec', 'Грузовик, спецтехника'], ['moto', 'Мототехника'],
   ['boat', 'Лодка, мотор'], ['parts', 'Запчасти'], ['other', 'Другое']];
-// Снегоходы до захода 2 лежат в разделе «Лодки, моторы, снегоходы»
-const AU_KIND_CAT = { car: 'legkovye', spec: 'spectehnika', moto: 'moto', snow: 'lodki', boat: 'lodki', other: 'avto-raznoe' };
+// Раздел по виду; у мототехники — по классу (MOTO_CL), у запчастей — по виду запчастей
+const AU_KIND_CAT = { car: 'legkovye', spec: 'spectehnika', boat: 'lodki', other: 'avto-raznoe' };
 const V_DRIVE_F = { front: 'Передний', rear: 'Задний', '4wd': 'Полный (4WD)' };
+const V_DRIVE_ATV_F = { rear: '2WD (задний)', '4wd': '4WD (полный)' };
 const V_OWNERS = { 1: 'Один', 2: 'Два', 3: 'Три', 4: 'Четыре и более' };
 
-function auKindOf(cat, ad) {
+function auKindOf(cat) {
   if (!cat || cat.slug === 'avto') return 'car';
   if (cat.slug === 'avto-raznoe') return 'other';
   if (PARTS_BY[cat.slug]) return 'parts';
-  if (cat.slug === 'lodki') return /снегоход/i.test(ad?.title || '') ? 'snow' : 'boat';
-  return { legkovye: 'car', spectehnika: 'spec', moto: 'moto' }[cat.slug] || 'car';
+  if (MOTO_BY_SLUG[cat.slug]) return 'moto';
+  return { legkovye: 'car', spectehnika: 'spec', lodki: 'boat' }[cat.slug] || 'car';
 }
 
 function auSeg(name, dict, val, label) {
@@ -4322,43 +4436,55 @@ function auSeg(name, dict, val, label) {
   '</div></div>';
 }
 
-function auFormTopHtml(kind, partSlug) {
-  return '<div class="field"><span class="flabel" id="akind-l">Что продаёте</span><div class="seg" role="radiogroup" aria-labelledby="akind-l">' +
+function auFormTopHtml(kind, partSlug, mcls) {
+  return '<div class="au-top">' +
+    '<div class="field"><span class="flabel" id="akind-l">Что продаёте</span><div class="seg" role="radiogroup" aria-labelledby="akind-l">' +
       AU_KINDS.map(([v, l]) => '<label><input type="radio" name="akind" value="' + v + '"' + (kind === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+    '</div></div>' +
+    '<div class="field" id="mcls-wrap" hidden><span class="flabel" id="mcls-l">Вид мототехники</span><div class="seg" role="radiogroup" aria-labelledby="mcls-l">' +
+      MOTO_CLS.map(c => '<label><input type="radio" name="mcls" value="' + c[0] + '"' + (mcls === c[0] ? ' checked' : '') + '><span>' + c[4] + '</span></label>').join('') +
     '</div></div>' +
     '<div class="field" id="ap-wrap" hidden><label for="a-psub">Какие запчасти</label><select id="a-psub"><option value="">Выберите</option>' +
       PARTS.filter(p => p[0] !== 'avto-raznoe').map(([v]) => '<option value="' + v + '"' + (partSlug === v ? ' selected' : '') + '></option>').join('') +
-    '</select></div>';
+    '</select></div></div>';
 }
 
+// Поля техники: общие, только легкового (.vcar) и только мототехники (.vmoto) — лишние прячет bindAutoForm
 function vehFieldsHtml(v) {
   v = v || {};
+  const moto = v.kind === 'moto';
   const sel = (id, label, dict, val, ph) => '<div class="field"><label for="' + id + '">' + label + '</label><select id="' + id + '"><option value="">' + (ph || 'Не указан') + '</option>' +
     Object.entries(dict).map(([k, l]) => '<option value="' + k + '"' + (String(val ?? '') === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>';
   const combo = (id, ph) => '<div class="pcombo"><input id="' + id + '" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="' + id + '-list"' +
     ' autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="' + ph + '"><ul class="plist" id="' + id + '-list" role="listbox" hidden></ul></div>';
-  return '<div class="au-vblock" id="veh-wrap" hidden><h2>Автомобиль</h2>' +
+  const only = (cls, html) => html.replace(/^<(div|label) class="/, '<$1 data-only="' + cls + '" class="');
+  const car = h => only('car', h), mo = h => only('moto', h);
+  return '<div class="au-vblock" id="veh-wrap" hidden><h2 id="veh-h">Автомобиль</h2>' +
     '<div class="field"><label for="v-brand">Марка</label>' + combo('v-brand', 'Загружаем марки…') + '</div>' +
     '<div class="field" id="v-bo-wrap" hidden><label for="v-bo">Название марки</label><input id="v-bo" maxlength="40" value="' + esc(v.brand_other || '') + '"></div>' +
-    '<div class="field" id="v-model-wrap"><label for="v-model">Модель</label>' + combo('v-model', 'Сначала выберите марку') + '</div>' +
+    '<div class="field" id="v-model-wrap"><label for="v-model" id="v-model-l">Модель</label>' + combo('v-model', 'Сначала выберите марку') + '</div>' +
     '<div class="field" id="v-mo-wrap" hidden><label for="v-mo">Название модели</label><input id="v-mo" maxlength="60" value="' + esc(v.model_other || '') + '"></div>' +
     '<div class="au-fgrid">' +
       '<div class="field"><label for="v-year">Год выпуска</label><select id="v-year"><option value="">Выберите</option>' +
         auYears().map(y => '<option' + (String(v.year || '') === y ? ' selected' : '') + '>' + y + '</option>').join('') + '</select></div>' +
       '<div class="field"><label for="v-mil">Пробег, км</label><input id="v-mil" type="number" inputmode="numeric" min="0" max="3000000" value="' + (v.mileage ?? '') + '"></div>' +
-      '<div class="field"><label for="v-vol">Объём, л</label><input id="v-vol" type="text" inputmode="decimal" maxlength="5" placeholder="1.8" value="' + (v.engine_volume ? fmtVol(v.engine_volume) : '') + '"></div>' +
+      car('<div class="field"><label for="v-vol">Объём, л</label><input id="v-vol" type="text" inputmode="decimal" maxlength="5" placeholder="1.8" value="' + (v.engine_volume && !moto ? fmtVol(v.engine_volume) : '') + '"></div>') +
+      mo('<div class="field"><label for="v-cc">Объём, см³</label><input id="v-cc" type="text" inputmode="numeric" maxlength="5" placeholder="650" value="' + (v.engine_volume && moto ? Math.round(v.engine_volume * 1000) : '') + '"></div>') +
       '<div class="field"><label for="v-pow">Мощность, л. с.</label><input id="v-pow" type="number" inputmode="numeric" min="1" max="3000" value="' + (v.power ?? '') + '"></div>' +
     '</div>' +
-    auSeg('v-fuel', V_FUEL, v.fuel, 'Топливо') +
-    auSeg('v-trans', V_TRANS, v.transmission, 'Коробка') +
-    auSeg('v-drive', V_DRIVE_F, v.drive, 'Привод') +
-    auSeg('v-wheel', V_WHEEL, v.wheel, 'Руль') +
-    '<div class="au-fgrid">' + sel('v-body', 'Кузов', V_BODY, v.body) + sel('v-color', 'Цвет', V_COLOR, v.color) + '</div>' +
+    mo(auSeg('v-str', V_STROKES, v.strokes, 'Тактность')) +
+    mo(auSeg('v-fs', V_FSYS, v.fuel_system, 'Подача топлива')) +
+    mo(auSeg('v-mdrive', V_DRIVE_ATV_F, moto ? v.drive : '', 'Привод').replace('<div class="field"', '<div class="field" id="v-mdrive-wrap"')) +
+    car(auSeg('v-fuel', V_FUEL, v.fuel, 'Топливо')) +
+    car(auSeg('v-trans', V_TRANS, v.transmission, 'Коробка')) +
+    car(auSeg('v-drive', V_DRIVE_F, moto ? '' : v.drive, 'Привод')) +
+    car(auSeg('v-wheel', V_WHEEL, v.wheel, 'Руль')) +
+    car('<div class="au-fgrid">' + sel('v-body', 'Кузов', V_BODY, v.body) + sel('v-color', 'Цвет', V_COLOR, v.color) + '</div>') +
     auSeg('v-cond', V_COND, v.condition, 'Состояние') +
     auSeg('v-docs', V_DOCS, v.documents, 'Документы') +
-    '<div class="au-fgrid">' + sel('v-owners', 'Владельцев по ПТС', V_OWNERS, v.owners >= 4 ? 4 : v.owners, 'Не указано') + sel('v-seller', 'Продавец', V_SELLER, v.seller) + '</div>' +
+    '<div class="au-fgrid">' + car(sel('v-owners', 'Владельцев по ПТС', V_OWNERS, v.owners >= 4 ? 4 : v.owners, 'Не указано')) + sel('v-seller', 'Продавец', V_SELLER, v.seller) + '</div>' +
     '<div class="au-checks">' +
-      '<label><input type="checkbox" id="v-norf"' + (v.no_rf_mileage ? ' checked' : '') + '>Без пробега по РФ</label>' +
+      car('<label class="vchk"><input type="checkbox" id="v-norf"' + (v.no_rf_mileage ? ' checked' : '') + '>Без пробега по РФ</label>') +
       '<label><input type="checkbox" id="v-exch"' + (v.exchange_ok ? ' checked' : '') + '>Обмен возможен</label>' +
     '</div>' +
   '</div>';
@@ -4415,22 +4541,40 @@ function bindCombo(inp, list, items, onPick) {
   });
 }
 
-// Привязать «Что продаёте» и поля автомобиля; вернуть чтение значений
+// Привязать «Что продаёте», вид мототехники и поля техники; вернуть чтение значений
 function bindAutoForm(app, cats, ad) {
   const v = vehOf(ad) || {};
   const bInp = $('#v-brand'), mInp = $('#v-model');
   const kind = () => (app.querySelector('input[name=akind]:checked') || {}).value || 'car';
+  const mcls = () => (app.querySelector('input[name=mcls]:checked') || {}).value || '';
+  const hasVeh = () => auVeh(kind());
+  const vk = () => auKindTab(kind());
+  // Условия подбора марок и моделей (класс мототехники)
+  const fst = () => ({ tab: kind(), cls: kind() === 'moto' ? mcls() : '' });
+  const brandRows = () => ((AU.k[vk()] || {}).rows || []).filter(b => auBrandOk(b, fst()));
   $('#a-psub').querySelectorAll('option[value]').forEach(o => { if (o.value) o.textContent = cats.bySlug[o.value]?.name || PARTS_BY[o.value]; });
 
+  const OTHER_B = { v: 'other', label: 'Другая марка', cls: 'all' }, OTHER_M = { v: 'other', label: 'Другая модель', cls: 'all' };
+  let shownKind = null;
   function syncKind() {
-    const k = kind();
+    const k = kind(), moto = k === 'moto';
     $('#ap-wrap').hidden = k !== 'parts';
-    $('#veh-wrap').hidden = k !== 'car';
-    $('#title-wrap').hidden = k === 'car';
-    $('#deal-wrap').hidden = k === 'car';
+    $('#mcls-wrap').hidden = !moto;
+    $('#veh-wrap').hidden = !hasVeh();
+    $('#title-wrap').hidden = hasVeh();
+    $('#deal-wrap').hidden = hasVeh();
+    $('#veh-h').textContent = moto ? (MOTO_CL[mcls()] ? MOTO_CL[mcls()][3] : 'Мототехника') : 'Автомобиль';
+    $('#v-model-l').textContent = moto ? 'Модель (если знаете)' : 'Модель';
+    app.querySelectorAll('#veh-wrap [data-only]').forEach(el => { el.hidden = el.dataset.only !== (moto ? 'moto' : 'car'); });
+    $('#v-mdrive-wrap').hidden = !(moto && mcls() === 'atv');
+    if (!hasVeh()) return;
+    // Выбранная марка не подходит новому виду или классу — сбрасываем; модель другого класса — тоже
+    const bv = bInp.dataset.v;
+    if (bv && bv !== 'other' && !brandRows().includes(AU.byId[bv])) { bInp.value = ''; setBrand(null); }
+    const m = (AU.models[bInp.dataset.v] || []).find(x => String(x.id) === mInp.dataset.v);
+    if (m && !auModelOk(m, fst())) { mInp.value = ''; setModel(null); }
+    if (shownKind !== vk()) { shownKind = vk(); ensureBrands(); }
   }
-  app.querySelectorAll('input[name=akind]').forEach(r => r.addEventListener('change', syncKind));
-  syncKind();
 
   function setModel(it) {
     mInp.dataset.v = it ? String(it.v) : '';
@@ -4452,7 +4596,8 @@ function bindAutoForm(app, cats, ad) {
     if (!it || other) return;
     try {
       await loadModels(it.v);
-      if (bInp.dataset.v === String(it.v)) mInp.placeholder = 'Например, ' + (AU.models[it.v][0]?.name || 'модель');
+      const first = AU.models[it.v].find(m => auModelOk(m, fst()));
+      if (bInp.dataset.v === String(it.v)) mInp.placeholder = first ? 'Например, ' + first.name : kind() === 'moto' ? 'Напишите, если знаете' : 'Выберите «Другая модель»';
     } catch (e) {
       console.error(e);
       mInp.placeholder = 'Не загрузилось — выберите «Другая модель»';
@@ -4461,81 +4606,115 @@ function bindAutoForm(app, cats, ad) {
   bInp.addEventListener('input', () => { if (bInp.dataset.v) setBrand(null); });
   mInp.addEventListener('input', () => { if (mInp.dataset.v) { mInp.dataset.v = ''; $('#v-mo-wrap').hidden = true; } });
 
-  const OTHER_B = { v: 'other', label: 'Другая марка', cls: 'all' }, OTHER_M = { v: 'other', label: 'Другая модель', cls: 'all' };
   bindCombo(mInp, $('#v-model-list'), q => {
-    const list = AU.models[bInp.dataset.v] || [];
+    const list = (AU.models[bInp.dataset.v] || []).filter(m => auModelOk(m, fst()));
     const n = auNorm(q);
     const found = n ? list.filter(m => auNorm(m.name).includes(n) || auNorm(m.name_ru).includes(n))
       .sort((a, b) => auNorm(b.name).startsWith(n) - auNorm(a.name).startsWith(n)) : list;
     return found.slice(0, 60).map(m => ({ v: m.id, label: m.name })).concat(OTHER_M);
   }, setModel);
+  bindCombo(bInp, $('#v-brand-list'), q => {
+    const brands = brandRows(), n = auNorm(q), t = fst();
+    const found = n
+      ? brands.filter(b => auNorm(b.name).includes(n) || auNorm(b.name_ru).includes(n))
+          .sort((a, b) => (auNorm(b.name).startsWith(n) || auNorm(b.name_ru).startsWith(n)) - (auNorm(a.name).startsWith(n) || auNorm(a.name_ru).startsWith(n)))
+      : brands.filter(b => auBrandPop(b, t)).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    return found.slice(0, 40).map(b => ({ v: b.id, label: b.name })).concat(OTHER_B);
+  }, it => setBrand(it));
 
-  const ready = loadBrands().then(brands => {
-    bInp.placeholder = 'Например, Toyota';
-    bindCombo(bInp, $('#v-brand-list'), q => {
-      const n = auNorm(q);
-      const found = n
-        ? brands.filter(b => auNorm(b.name).includes(n) || auNorm(b.name_ru).includes(n))
-            .sort((a, b) => (auNorm(b.name).startsWith(n) || auNorm(b.name_ru).startsWith(n)) - (auNorm(a.name).startsWith(n) || auNorm(a.name_ru).startsWith(n)))
-        : brands.filter(b => b.popular).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-      return found.slice(0, 40).map(b => ({ v: b.id, label: b.name })).concat(OTHER_B);
-    }, it => setBrand(it));
-    // Правка: подставить сохранённые марку и модель
-    if (v.brand_id && AU.byId[v.brand_id]) {
+  // Марки нужного вида: грузятся при первом выборе вида
+  function ensureBrands() {
+    const k = vk();
+    if ((AU.k[k] || {}).rows) { bInp.placeholder = k === 'moto' ? 'Например, Yamaha' : 'Например, Toyota'; return Promise.resolve(); }
+    bInp.placeholder = 'Загружаем марки…';
+    return loadBrands(k).then(() => {
+      if (vk() !== k) return;
+      bInp.placeholder = k === 'moto' ? 'Например, Yamaha' : 'Например, Toyota';
+      const bv = bInp.dataset.v;
+      if (bv && bv !== 'other' && !brandRows().includes(AU.byId[bv])) { bInp.value = ''; setBrand(null); }
+    }, e => {
+      console.error(e);
+      if (vk() !== k) return;
+      bInp.placeholder = 'Список не загрузился';
+      setBrand(OTHER_B);
+    });
+  }
+
+  // Правка: подставить сохранённые марку и модель
+  let ready = Promise.resolve();
+  const k0 = v.kind === 'moto' ? 'moto' : 'car';
+  if (v.brand_id) {
+    ready = loadBrands(k0).then(() => {
+      if (!AU.byId[v.brand_id]) return;
       return setBrand({ v: v.brand_id, label: AU.byId[v.brand_id].name }, true).then(() => {
         const m = (AU.models[v.brand_id] || []).find(x => x.id === v.model_id);
         if (m) setModel({ v: m.id, label: m.name });
         else if (v.model_other) setModel(OTHER_M);
       });
-    }
-    if (v.brand_other) return setBrand(OTHER_B, true);
-  }, e => {
-    console.error(e);
-    bInp.placeholder = 'Список не загрузился';
-    setBrand(OTHER_B);
-  });
+    }, e => console.error(e));
+  } else if (v.brand_other) ready = setBrand(OTHER_B, true);
+  app.querySelectorAll('input[name=akind], input[name=mcls]').forEach(r => r.addEventListener('change', syncKind));
+  syncKind();
 
   function readVeh() {
+    const moto = kind() === 'moto', cls = mcls();
+    if (moto && !cls) return { err: 'Выберите вид мототехники.', el: app.querySelector('input[name=mcls]') };
     const bv = bInp.dataset.v, mv = mInp.dataset.v;
     const bo = $('#v-bo').value.trim(), mo = $('#v-mo').value.trim();
     if (!bv) return { err: 'Выберите марку из списка или «Другая марка».', el: bInp };
     if (bv === 'other' && bo.length < 2) return { err: 'Напишите название марки.', el: $('#v-bo') };
     const manual = bv === 'other' || mv === 'other';
-    if (!manual && !mv) return { err: 'Выберите модель из списка или «Другая модель».', el: mInp };
-    if (manual && !mo) return { err: 'Напишите название модели.', el: $('#v-mo') };
+    // У мототехники модель можно не указывать; написанное без выбора из списка сохраняем как есть
+    const typed = moto && !manual && !mv ? mInp.value.trim().slice(0, 60) : '';
+    if (!moto && !manual && !mv) return { err: 'Выберите модель из списка или «Другая модель».', el: mInp };
+    if (manual && !mo && !(moto && bv === 'other')) return { err: 'Напишите название модели.', el: $('#v-mo') };
     const year = $('#v-year').value;
     if (!year) return { err: 'Укажите год выпуска.', el: $('#v-year') };
     const mil = $('#v-mil').value.trim();
     if (mil !== '' && !(/^\d+$/.test(mil) && +mil <= 3e6)) return { err: 'Пробег — число километров, не больше 3 000 000.', el: $('#v-mil') };
-    let vol = $('#v-vol').value.trim().replace(',', '.');
-    if (vol !== '' && /^\d+$/.test(vol) && +vol >= 100 && +vol <= 30000) vol = String(+vol / 1000); // ввели в кубиках: 1800 → 1.8
-    if (vol !== '' && !(/^\d+(\.\d+)?$/.test(vol) && +vol > 0 && +vol <= 30)) return { err: 'Объём двигателя — в литрах, например 1.8.', el: $('#v-vol') };
+    let vol;
+    if (moto) {
+      let cc = $('#v-cc').value.trim().replace(/\s/g, '').replace(',', '.');
+      if (cc !== '' && /^\d(\.\d+)?$/.test(cc) && +cc > 0 && +cc < 10 && cc.includes('.')) cc = String(Math.round(+cc * 1000)); // ввели в литрах: 0,65 → 650
+      if (cc !== '' && !(/^\d+$/.test(cc) && +cc >= 1 && +cc <= 3000)) return { err: 'Объём двигателя — в кубических сантиметрах, например 650.', el: $('#v-cc') };
+      vol = cc === '' ? null : +cc / 1000;
+    } else {
+      let vs = $('#v-vol').value.trim().replace(',', '.');
+      if (vs !== '' && /^\d+$/.test(vs) && +vs >= 100 && +vs <= 30000) vs = String(+vs / 1000); // ввели в кубиках: 1800 → 1.8
+      if (vs !== '' && !(/^\d+(\.\d+)?$/.test(vs) && +vs > 0 && +vs <= 30)) return { err: 'Объём двигателя — в литрах, например 1.8.', el: $('#v-vol') };
+      vol = vs === '' ? null : Math.round(+vs * 10) / 10;
+    }
     const pow = $('#v-pow').value.trim();
     if (pow !== '' && !(/^\d+$/.test(pow) && +pow >= 1 && +pow <= 3000)) return { err: 'Мощность — число лошадиных сил, от 1 до 3000.', el: $('#v-pow') };
     const radio = n => (app.querySelector('input[name=' + n + ']:checked') || {}).value || null;
     const brandName = bv === 'other' ? bo : AU.byId[bv]?.name || '';
-    const modelName = manual ? mo : (AU.models[bv] || []).find(m => String(m.id) === mv)?.name || '';
-    const row = {
-      kind: 'car',
-      brand_id: bv === 'other' ? null : +bv, model_id: manual ? null : +mv,
-      brand_other: bv === 'other' ? bo : null, model_other: manual ? mo : null,
-      year: +year, mileage: mil === '' ? null : +mil,
-      engine_volume: vol === '' ? null : Math.round(+vol * 10) / 10, power: pow === '' ? null : +pow,
-      fuel: radio('v-fuel'), transmission: radio('v-trans'), drive: radio('v-drive'), wheel: radio('v-wheel'),
-      body: $('#v-body').value || null, color: $('#v-color').value || null,
-      condition: radio('v-cond'), documents: radio('v-docs'),
-      owners: $('#v-owners').value ? +$('#v-owners').value : null, seller: $('#v-seller').value || null,
-      no_rf_mileage: $('#v-norf').checked, exchange_ok: $('#v-exch').checked
+    const modelName = manual ? mo : typed || (AU.models[bv] || []).find(m => String(m.id) === mv)?.name || '';
+    const base = {
+      kind: moto ? 'moto' : 'car',
+      brand_id: bv === 'other' ? null : +bv, model_id: manual || !mv ? null : +mv,
+      brand_other: bv === 'other' ? bo : null, model_other: manual ? (mo || null) : typed || null,
+      year: +year, mileage: mil === '' ? null : +mil, engine_volume: vol, power: pow === '' ? null : +pow,
+      condition: radio('v-cond'), documents: radio('v-docs'), seller: $('#v-seller').value || null, exchange_ok: $('#v-exch').checked
     };
-    return { row, title: (brandName + ' ' + modelName + ', ' + year).slice(0, 120) };
+    const row = moto
+      ? { ...base, strokes: radio('v-str') ? +radio('v-str') : null, fuel_system: radio('v-fs'), drive: cls === 'atv' ? radio('v-mdrive') : null,
+          fuel: null, transmission: null, wheel: null, body: null, color: null, owners: null, no_rf_mileage: false }
+      : { ...base, fuel: radio('v-fuel'), transmission: radio('v-trans'), drive: radio('v-drive'), wheel: radio('v-wheel'),
+          body: $('#v-body').value || null, color: $('#v-color').value || null,
+          owners: $('#v-owners').value ? +$('#v-owners').value : null, no_rf_mileage: $('#v-norf').checked,
+          strokes: null, fuel_system: null };
+    // Заголовок: «Yamaha Viking 540, 2015»; у мототехники без модели — «Снегоход Ikudzo, 2019»
+    const name = modelName ? brandName + ' ' + modelName : moto ? MOTO_CL[cls][3] + ' ' + brandName : brandName;
+    return { row, title: (name + ', ' + year).slice(0, 120) };
   }
 
   function catId() {
     const k = kind();
     if (k === 'parts') return cats.bySlug[$('#a-psub').value]?.id || null;
+    if (k === 'moto') return MOTO_CL[mcls()] ? cats.bySlug[MOTO_CL[mcls()][2]]?.id || null : null;
     return cats.bySlug[AU_KIND_CAT[k]]?.id || null;
   }
-  return { kind, catId, readVeh, ready };
+  return { kind, catId, readVeh, ready, hasVeh };
 }
 
 /* ---------------- Лента с автоподгрузкой ---------------- */
