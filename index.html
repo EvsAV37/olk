@@ -985,6 +985,37 @@
   .au-checks input { width: 20px; height: 20px; margin: 0; accent-color: var(--head); }
   @media (max-width: 380px) { .au-specs { grid-template-columns: minmax(96px, max-content) minmax(0, 1fr); gap: 7px 12px; font-size: 15px; } }
 
+  /* ---------- dom.olk.ru: «Купить | Снять | Ищут», комнаты, цена ---------- */
+  .dm-modes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0 0 10px; }
+  .dm-modes [hidden] { display: none; }
+  .dm-seg span { padding: 5px 12px; font-size: 15px; }
+  .dm-seg .dm-n { font-size: 12px; font-weight: 500; opacity: .75; }
+  .dm-rooms { display: flex; align-items: stretch; }
+  .dm-rooms button {
+    flex: 1 1 0; min-width: 0; min-height: 52px; padding: 6px 2px; border: 0; background: none; cursor: pointer;
+    font: inherit; font-size: 15px; font-weight: 500; color: var(--ink); white-space: nowrap;
+  }
+  .dm-rooms button:first-child { flex-grow: 1.7; }
+  .dm-rooms button + button { border-left: 1px solid var(--line); }
+  .dm-rooms button.on { background: var(--head); color: #fff; }
+  .dm-rooms button:focus-visible { outline-offset: -3px; }
+  .dm-price { display: block; }
+  .dm-per { font-size: 13px; color: var(--mute); font-weight: 400; }
+  .dm-down { display: block; font-size: 12.5px; font-weight: 600; color: var(--ok); line-height: 1.3; }
+  .dm-down s { color: var(--mute); font-weight: 400; margin-right: 4px; }
+  .ad-side .dm-per { font-size: 15px; }
+  .ad-side .dm-down { font-size: 14px; margin-bottom: 4px; }
+  .dm-dep { align-items: center; }
+  .dm-dep .au-checks { margin: 12px 0 0; }
+  #r-title { color: var(--ink); font-size: 14px; }
+  @media (min-width: 1024px) {
+    .au-box.dm3 { grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.4fr) auto; }
+  }
+  @media (max-width: 360px) {
+    .dm-seg span { padding: 4px 9px; font-size: 14px; }
+    .dm-rooms button { font-size: 14px; }
+  }
+
   /* ---------- Подвал бокового меню ---------- */
   .drawer { display: flex; flex-direction: column; }
   .drawer-foot { margin-top: auto; padding-top: 28px; font-size: 13px; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 4px; }
@@ -1003,7 +1034,7 @@
     .ads { grid-template-columns: 1fr; }
   }
   /* Планшет боком и небольшие ноутбуки: полное меню, но шапка ужата */
-  @media (min-width: 861px) and (max-width: 1180px) {
+  @media (min-width: 961px) and (max-width: 1240px) {
     .top-row { gap: 10px; }
     .nav { margin-left: 4px; gap: 0; }
     .nav a { padding: 8px 7px; font-size: 15px; }
@@ -1012,7 +1043,7 @@
     .user-chip { padding: 3px; }
     .user-chip span:last-child { display: none; }
   }
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .nav, .top-row .btn { display: none; }
     .top-row .add-mobile { display: inline-flex; }
     .top-row .user-chip { display: none; }
@@ -1021,7 +1052,7 @@
   }
   /* В шапке у вошедшего только аватар (имя во всплывающей подсказке и в меню).
      Шапка раздела (doska, news, rabota) длиннее: логотип вида doska.olk.ru и пункт «Главная»,
-     поэтому кнопка короткая; полная — с 1240 px (см. ниже) */
+     поэтому кнопка короткая; полная — с 1320 px (см. ниже) */
   .top .user-chip { padding: 3px; }
   .top .user-chip span:last-child { display: none; }
   .top.sec .logo b { font-size: 26px; }
@@ -1029,24 +1060,24 @@
   .top.sec .nav a { padding: 8px 9px; }
   .top.sec .top-row .btn-accent:not(.add-mobile) { display: none; }
   .top.sec .top-row .add-mobile { display: inline-flex; }
-  /* С рамкой 1440 px полная кнопка («Разместить вакансию», «Добавить организацию») помещается у админа с 1220 px (замер), берём с запасом */
-  @media (min-width: 1240px) {
+  /* С рамкой 1440 px и пунктом «Недвижимость» полная кнопка («Разместить вакансию», «Добавить организацию») помещается с 1300 px (замер 07.10), берём с запасом */
+  @media (min-width: 1320px) {
     .top.sec .top-row .btn-accent:not(.add-mobile) { display: inline-flex; }
     .top.sec .top-row .add-mobile { display: none; }
   }
-  @media (min-width: 861px) and (max-width: 1180px) {
+  @media (min-width: 961px) and (max-width: 1240px) {
     .top.sec .logo b { font-size: 21px; }
     .top.sec .top-row { gap: 8px; }
     .top.sec .nav { margin-left: 0; }
     .top.sec .nav a { padding: 8px 5px; font-size: 14px; }
   }
-  @media (min-width: 861px) and (max-width: 940px) {
+  @media (min-width: 961px) and (max-width: 1040px) {
     .top.sec .logo b { font-size: 19px; }
     .top.sec .logo small { font-size: 11px; }
     .top.sec .nav a { padding: 8px 4px; font-size: 13.5px; }
     .top.sec .add-mobile { padding: 8px 9px; }
   }
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .top.sec .logo b { font-size: 24px; }
     .top.sec .top-row { gap: 10px; }
     .top.sec .top-row .btn-ghost, .top.sec .top-row .user-chip { display: none; }
@@ -1066,7 +1097,7 @@
     .bsearch-opts { gap: 14px; }
     .hseg span { padding: 4px 10px; }
   }
-  @media (min-width: 861px) and (max-width: 900px) {
+  @media (min-width: 961px) and (max-width: 1000px) {
     .top:not(.sec) .nav a { padding: 8px 6px; }
   }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -1092,6 +1123,7 @@
         <a href="#/news" data-route="news">Новости</a>
         <a href="#/ads" data-route="ads">Объявления</a>
         <a href="#/auto" data-route="auto">Авто</a>
+        <a href="#/dom" data-route="dom">Недвижимость</a>
         <a href="#/rabota" data-route="rabota">Работа</a>
         <a href="#/events" data-route="events">Афиша</a>
         <a href="#/catalog" data-route="catalog">Справочник</a>
@@ -1120,6 +1152,7 @@
   <a href="#/news" data-route="news">Новости</a>
   <a href="#/ads" data-route="ads">Объявления</a>
   <a href="#/auto" data-route="auto">Авто</a>
+  <a href="#/dom" data-route="dom">Недвижимость</a>
   <a href="#/rabota" data-route="rabota">Работа</a>
   <a href="#/events" data-route="events">Афиша</a>
   <a href="#/catalog" data-route="catalog">Справочник</a>
@@ -1853,6 +1886,7 @@ const PAGES = {
   ads: (query, parts) => routeAds(query, parts),
   rabota: (query, parts) => routeRabota(query, parts),
   auto: (query, parts) => routeAuto(query, parts),
+  dom: (query, parts) => routeDom(query, parts),
   news: routeNews,
   events: routeEvents,
   catalog: (query, parts) => routeCatalog(query, parts),
@@ -2213,12 +2247,12 @@ async function renderAdView(id, base = 'ads') {
   const [cats, res] = await Promise.all([
     loadCats().catch(() => null),
     sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)' +
-      (base === 'auto' ? ', ad_vehicles(*)' : ''))
+      (base === 'auto' ? ', ad_vehicles(*)' : base === 'dom' ? ', ad_realty(*)' : ''))
       .eq('id', id).maybeSingle()
   ]);
   if (res.error) { app.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
   if (!res.data) {
-    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/' + base + '">' + (base === 'rabota' ? 'Вся работа' : base === 'auto' ? 'Авто и техника' : 'Все объявления') + '</a></div>';
+    app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, его сняли с публикации или удалили.</p><a class="btn btn-brand" href="#/' + base + '">' + (base === 'rabota' ? 'Вся работа' : base === 'auto' ? 'Авто и техника' : base === 'dom' ? 'Вся недвижимость' : 'Все объявления') + '</a></div>';
     return;
   }
   // Вакансии и резюме живут в rabota.olk.ru, остальное — на доске
@@ -2243,11 +2277,19 @@ async function renderAdView(id, base = 'ads') {
 
   const cat = cats?.byId[ad.category_id];
   const parent = cat?.parent_id ? cats.byId[cat.parent_id] : null;
-  const jobs = base === 'rabota', autoV = base === 'auto';
+  const jobs = base === 'rabota', autoV = base === 'auto', domV = base === 'dom';
   const veh = autoV ? vehOf(ad) : null;
-  document.title = ad.title + ' — ' + (jobs ? RABOTA_TITLE : autoV ? AUTO_TITLE : BOARD_TITLE);
+  const rlt = domV ? realtyOf(ad) : null;
+  document.title = ad.title + ' — ' + (jobs ? RABOTA_TITLE : autoV ? AUTO_TITLE : domV ? HEADS.dom.title : BOARD_TITLE);
   let crumbs;
-  if (autoV) {
+  if (domV) {
+    // dom.olk.ru: Недвижимость → Купить / Снять / Ищут → вид
+    const tk = cats ? domTabOf(cats, ad.category_id) : 'flat';
+    const mode = domModeOfDeal(ad.deal);
+    const ms = { ...domEmpty(tk), mode, rent: mode === 'rent' && rlt && rlt.rent === 'day' ? 'day' : 'month' };
+    crumbs = '<div class="crumbs"><a href="#/dom">Недвижимость</a> → <a href="' + domHash({ ...ms, tab: 'flat' }) + '">' + DOM_MODE[mode] + '</a> → <a href="' + domHash(ms) + '">' +
+      DOM_TAB[tk].name + '</a></div>';
+  } else if (autoV) {
     // auto.olk.ru: Авто → вкладка → вид запчастей или марка
     const tk = cats ? autoTabOf(cats, ad.category_id) : 'car';
     const mc = auHasCls(tk) && cat ? VCL_BY_SLUG[cat.slug] : null;
@@ -2276,13 +2318,14 @@ async function renderAdView(id, base = 'ads') {
         '<h1>' + esc(ad.title) + '</h1>' +
         gallery +
         (veh ? '<div id="au-specs">' + vehSpecsHtml(veh) + '</div>' : '') +
+        (rlt ? realtySpecsHtml(rlt) : '') +
         (ad.description ? '<p class="ad-desc">' + esc(ad.description) + '</p>' : '') +
         '<p class="meta">' + esc(ad.settlement) + ', поднято ' + fmtWhen(ad.bumped_at) + ', ' +
           ad.views + ' ' + plural(ad.views, 'просмотр', 'просмотра', 'просмотров') + '</p>' +
       '</div>' +
       '<aside class="ad-side aside-block">' +
         (ad.deal && ad.deal !== 'sell' && DEALS[ad.deal] ? '<span class="deal">' + DEALS[ad.deal] + '</span>' : '') +
-        fmtPrice(ad.price, ad.price_type) +
+        (domV ? domPriceHtml(ad, rlt) : fmtPrice(ad.price, ad.price_type)) +
         (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
         '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
           '<div class="meta">на olk.ru</div></div></div>' +
@@ -2387,7 +2430,7 @@ async function renderAdForm(query, editId, base = 'ads') {
     if (editId) {
       const { data, error } = await sb.from('ads')
         .select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, ad_photos(id, path, sort)' +
-          (base === 'auto' ? ', ad_vehicles(*)' : ''))
+          (base === 'auto' ? ', ad_vehicles(*)' : base === 'dom' ? ', ad_realty(*)' : ''))
         .eq('id', editId).maybeSingle();
       if (error) throw error;
       ad = data ? mapAd(data) : null;
@@ -2400,15 +2443,16 @@ async function renderAdForm(query, editId, base = 'ads') {
 
   // Предвыбор раздела: из объявления или из ссылки (?cat=rabota)
   const qcat = new URLSearchParams(query).get('cat');
-  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[qcat] || (base === 'rabota' ? cats.bySlug.vakansii || cats.bySlug.rabota : base === 'auto' ? cats.bySlug.legkovye : null);
+  let pre = ad ? cats.byId[ad.category_id] : cats.bySlug[qcat] || (base === 'rabota' ? cats.bySlug.vakansii || cats.bySlug.rabota : base === 'auto' ? cats.bySlug.legkovye : base === 'dom' ? cats.bySlug.kvartiry : null);
   if (base === 'auto' && !ad && pre && pre.slug === 'avto') pre = cats.bySlug.legkovye || pre;
+  if (base === 'dom' && !ad && pre && pre.slug === 'nedvizhimost') pre = cats.bySlug.kvartiry || pre;
   // Вакансии и резюме подаются в rabota.olk.ru, остальное — на доске
   const want = pre ? adBase(cats, pre.id) : base;
   if (want !== base) {
     location.replace('#/' + want + (ad ? '/' + ad.id + '/edit' : '/new' + (qcat ? '?cat=' + encodeURIComponent(qcat) : '')));
     return;
   }
-  const jobsForm = base === 'rabota', autoForm = base === 'auto';
+  const jobsForm = base === 'rabota', autoForm = base === 'auto', domForm = base === 'dom';
   const auKind = autoForm ? auKindOf(pre) : '';
   let preTop = pre ? (pre.parent_id ? cats.byId[pre.parent_id] : pre) : null;
   let preSub = pre && pre.parent_id ? pre : null;
@@ -2417,18 +2461,22 @@ async function renderAdForm(query, editId, base = 'ads') {
   try { savedPhone = localStorage.getItem('olk_phone') || ''; } catch {}
 
   const pt = ad ? ad.price_type : 'fixed';
-  const dl = ad?.deal || 'sell';
-  const priceTypes = [['fixed', 'Цена'], ['negotiable', 'Договорная'], ['free', 'Даром'], ['exchange', 'Обмен']];
+  const qp = new URLSearchParams(query);
+  const dl = ad?.deal || (domForm && DEALS[qp.get('deal')] && qp.get('deal') !== 'exchange' ? qp.get('deal') : 'sell');
+  // У недвижимости цена или договорная; «Даром» и «Обмен» не нужны
+  const priceTypes = [['fixed', 'Цена'], ['negotiable', 'Договорная'], ['free', 'Даром'], ['exchange', 'Обмен']].filter(p => !domForm || p[0] === 'fixed' || p[0] === 'negotiable');
 
   app.innerHTML =
     '<form class="form wide" id="af" novalidate>' +
-      '<h1>' + (ad ? 'Изменить объявление' : jobsForm ? 'Разместить вакансию или резюме' : 'Подать объявление') + '</h1>' +
+      '<h1>' + (ad ? 'Изменить объявление' : jobsForm ? 'Разместить вакансию или резюме' : domForm ? 'Объявление о недвижимости' : 'Подать объявление') + '</h1>' +
       '<p class="sub">' + (ad ? 'Изменения появятся сразу после сохранения.' : 'Объявление будет видно 30 дней. Потом его можно продлить.') + '</p>' +
       '<div id="msg"></div>' +
-      (autoForm
+      (domForm
+        ? domFormTopHtml(pre ? DOM_BY_CAT[pre.slug] || 'flat' : 'flat', dl, realtyOf(ad)?.rent || (qp.get('rent') === 'day' ? 'day' : 'month')) + realtyFieldsHtml(realtyOf(ad))
+        : autoForm
         ? auFormTopHtml(auKind, pre && PARTS_BY[pre.slug] ? pre.slug : '', pre && VCL_BY_SLUG[pre.slug] ? VCL_BY_SLUG[pre.slug][0] : '', vehOf(ad)?.vtype || '') + vehFieldsHtml(vehOf(ad))
         : '<div class="field"><label for="a-top">Раздел</label><select id="a-top"><option value="">Выберите раздел</option>' +
-            cats.top.filter(c => (c.slug !== 'rabota' && c.slug !== 'avto') || preTop === c)
+            cats.top.filter(c => (c.slug !== 'rabota' && c.slug !== 'avto' && c.slug !== 'nedvizhimost') || preTop === c)
               .map(c => '<option value="' + c.id + '"' + (preTop === c ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') +
           '</select></div>' +
           '<div class="field" id="sub-wrap" hidden><label for="a-sub">Подраздел</label><select id="a-sub"></select></div>') +
@@ -2437,7 +2485,7 @@ async function renderAdForm(query, editId, base = 'ads') {
       '</div></div>' +
       '<div class="field" id="title-wrap"><label for="a-title">Заголовок</label><input id="a-title" maxlength="120" value="' + esc(ad?.title || '') + '" placeholder="' +
         (autoForm ? 'Например, лодка «Казанка-5М» с мотором «Ямаха 40»' : 'Например, лодка «Казанка-5М» с мотором') + '"></div>' +
-      '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="Состояние, размеры, что входит в комплект">' + esc(ad?.description || '') + '</textarea>' +
+      '<div class="field"><label for="a-desc">Описание</label><textarea id="a-desc" maxlength="5000" placeholder="' + (domForm ? 'Что рядом, состояние, мебель, когда можно посмотреть' : 'Состояние, размеры, что входит в комплект') + '">' + esc(ad?.description || '') + '</textarea>' +
         '<div class="hint"><span id="a-count">0</span> из 5000</div></div>' +
       '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Цена</span><div class="seg" role="radiogroup">' +
         priceTypes.map(([v, l]) => '<label><input type="radio" name="pt" value="' + v + '"' + (pt === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
@@ -2475,8 +2523,9 @@ async function renderAdForm(query, editId, base = 'ads') {
       subWrap.hidden = true;
     }
   }
-  let AF = null;
+  let AF = null, DF = null;
   if (autoForm) AF = bindAutoForm(app, cats, ad);
+  else if (domForm) { DF = bindDomForm(app, cats, ad); $('#deal-wrap').hidden = true; }
   else {
     topSel.addEventListener('change', () => { preSub = null; fillSub(); });
     fillSub();
@@ -2490,9 +2539,10 @@ async function renderAdForm(query, editId, base = 'ads') {
   const updPrice = () => {
     const v = app.querySelector('input[name=pt]:checked').value;
     priceWrap.hidden = v === 'free' || v === 'exchange';
-    $('#a-price').previousElementSibling.textContent = v === 'negotiable' ? 'Сумма, ₽ (необязательно)' : 'Сумма, ₽';
+    const lab = DF ? DF.priceLabel() : 'Сумма, ₽';
+    $('#a-price').previousElementSibling.textContent = v === 'negotiable' ? lab + ' (необязательно)' : lab;
   };
-  app.querySelectorAll('input[name=pt]').forEach(r => r.addEventListener('change', updPrice));
+  app.querySelectorAll('input[name=pt]' + (DF ? ', input[name=ddeal], input[name=drent]' : '')).forEach(r => r.addEventListener('change', updPrice));
   updPrice();
 
   // Фото: старые (из базы) и новые (сжатые в браузере)
@@ -2537,9 +2587,17 @@ async function renderAdForm(query, editId, base = 'ads') {
   $('#af').addEventListener('submit', async e => {
     e.preventDefault();
     if ($('#a-website').value) return; // бот заполнил скрытое поле
-    const top = autoForm ? null : cats.byId[+topSel.value];
-    const catId = autoForm ? AF.catId() : top && top.children.length ? +subSel.value : top?.id;
+    const top = autoForm || domForm ? null : cats.byId[+topSel.value];
+    const catId = autoForm ? AF.catId() : domForm ? DF.catId() : top && top.children.length ? +subSel.value : top?.id;
     let title = $('#a-title').value.trim();
+    // Недвижимость: у квартиры и комнаты заголовок собирается сам, характеристики — в ad_realty
+    let rrow = null;
+    if (domForm) {
+      const r = DF.read();
+      if (r.err) { if (r.el) r.el.focus(); return setMsg(msg, r.err); }
+      rrow = r.row;
+      if (r.auto) title = r.title;
+    }
     // Легковой и мототехника: заголовок собирается из марки, модели и года, характеристики — в ad_vehicles
     let vrow = null;
     if (autoForm && AF.hasVeh()) {
@@ -2555,7 +2613,7 @@ async function renderAdForm(query, editId, base = 'ads') {
     const contact_phone = $('#a-phone').value.trim();
     const digits = contact_phone.replace(/\D/g, '');
 
-    if (!autoForm && !top) return setMsg(msg, 'Выберите раздел.');
+    if (!autoForm && !domForm && !top) return setMsg(msg, 'Выберите раздел.');
     if (!catId) return setMsg(msg, autoForm ? (AF.kind() === 'parts' ? 'Выберите, какие запчасти продаёте.' : 'Выберите, что продаёте.') : 'Выберите подраздел.');
     if (title.length < 3) return setMsg(msg, 'Напишите заголовок: хотя бы 3 символа.');
     if (price_type === 'fixed' && priceRaw === '') return setMsg(msg, 'Укажите цену или выберите «Договорная».');
@@ -2566,7 +2624,7 @@ async function renderAdForm(query, editId, base = 'ads') {
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
 
     const price = (price_type === 'free' || price_type === 'exchange' || priceRaw === '') ? null : Math.round(+priceRaw);
-    const deal = (top && top.slug === 'rabota') || vrow ? 'sell' : app.querySelector('input[name=deal]:checked').value;
+    const deal = domForm ? DF.deal() : (top && top.slug === 'rabota') || vrow ? 'sell' : app.querySelector('input[name=deal]:checked').value;
     const fields = { category_id: catId, title, description, price, price_type, deal, settlement, contact_phone };
     const btn = $('#a-submit');
     btn.disabled = true; btn.textContent = ad ? 'Сохраняем…' : 'Публикуем…';
@@ -2601,6 +2659,16 @@ async function renderAdForm(query, editId, base = 'ads') {
         }
       } else if (autoForm && ad && vehOf(ad)) {
         await sb.from('ad_vehicles').delete().eq('ad_id', adId); // был легковой или мото, стал другим видом
+      }
+      // Характеристики недвижимости: так же — не сохранились у нового объявления, убираем его
+      if (rrow) {
+        const { error: re } = ad
+          ? await sb.from('ad_realty').upsert({ ...rrow, ad_id: adId }, { onConflict: 'ad_id' })
+          : await sb.from('ad_realty').insert({ ...rrow, ad_id: adId });
+        if (re) {
+          if (!ad) await sb.from('ads').delete().eq('id', adId);
+          throw re;
+        }
       }
 
       // Порядок фото: как на экране. Старые — обновляем позицию, новые — загружаем.
@@ -2666,7 +2734,9 @@ const HEADS = {
   catalog: { pre: 'catalog', sub: 'Справочник района', href: '#/catalog', label: 'catalog.olk.ru — главная справочника',
     add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминского района', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() },
   auto: { pre: 'auto', sub: 'Авто и техника', href: '#/auto', label: 'auto.olk.ru — главная раздела «Авто»',
-    add: ['Продать', '+ Продать', '#/auto/new'], title: AUTO_TITLE, extra: () => autoHeadHtml(), bind: () => bindAutoHead() }
+    add: ['Продать', '+ Продать', '#/auto/new'], title: AUTO_TITLE, extra: () => autoHeadHtml(), bind: () => bindAutoHead() },
+  dom: { pre: 'dom', sub: 'Недвижимость', href: '#/dom', label: 'dom.olk.ru — главная раздела «Недвижимость»',
+    add: ['Разместить объявление', '+ Добавить', '#/dom/new'], title: 'dom.olk.ru — недвижимость Олёкминского района', extra: () => domHeadHtml(), bind: () => bindDomHead() }
 };
 
 function setHead(kind) {
@@ -2871,11 +2941,12 @@ function catTotal(c, counts) {
   return (counts[c.id] || 0) + c.children.reduce((sum, x) => sum + (counts[x.id] || 0), 0);
 }
 
-// Раздел объявления: 'rabota' для вакансий и резюме, 'auto' для всего «Авто», иначе 'ads'
+// Раздел объявления: 'rabota' для вакансий и резюме, 'auto' для всего «Авто», 'dom' для недвижимости, иначе 'ads'
 function adBase(cats, catId) {
   if (!cats) return 'ads';
   if (jobIds(cats).includes(catId)) return 'rabota';
   if (autoIds(cats).includes(catId)) return 'auto';
+  if (domIds(cats).includes(catId)) return 'dom';
   return 'ads';
 }
 
@@ -2925,7 +2996,7 @@ function softHy(s) { SOFT_HY.forEach(([w, h]) => { s = s.split(w).join(h); }); r
 // Главная доски: разделы плитками с иконками (стили — общие со справочником)
 function catTilesHtml(list) {
   return '<ul class="otiles">' + list.map(c =>
-    '<li><a href="' + (c.slug === 'avto' ? '#/auto' : '#/ads?cat=' + esc(c.slug)) + '">' + adIcon(c.slug) +
+    '<li><a href="' + (c.slug === 'avto' ? '#/auto' : c.slug === 'nedvizhimost' ? '#/dom' : '#/ads?cat=' + esc(c.slug)) + '">' + adIcon(c.slug) +
       '<span class="otile-name">' + softHy(esc(c.name)) + '</span><span class="n" data-cid="' + c.id + '" hidden></span></a></li>'
   ).join('') + '</ul>';
 }
@@ -3049,11 +3120,12 @@ async function renderBoard(query) {
   }
   if (seq !== routeSeq) return;
 
-  const jobs = jobIds(cats), autos = autoIds(cats);
+  const jobs = jobIds(cats), autos = autoIds(cats), homes = domIds(cats);
   let sel = cats.bySlug[st.cat] || null;
   if (sel && jobs.includes(sel.id)) { location.hash = '#/rabota' + qs({ cat: sel.slug }); return; }
   if (sel && autos.includes(sel.id)) { location.replace(autoHashForCat(cats, sel)); return; }
-  const hidden = jobs.concat(autos); // работа и авто живут в своих разделах
+  if (sel && homes.includes(sel.id)) { location.replace(domHashForCat(cats, sel)); return; }
+  const hidden = jobs.concat(autos, homes); // работа, авто и недвижимость живут в своих разделах
   BOARD_CAT = sel ? sel.slug : '';
   const top = sel ? (sel.parent_id ? cats.byId[sel.parent_id] : sel) : null;
   const searching = !!(st.q || st.photo || st.min || st.max || st.place || st.deal || st.sort !== 'new');
@@ -4243,6 +4315,7 @@ function auRangeSheet({ title, a, b, dec, onDone }) {
           if (!/^\d+(\.\d+)?$/.test(v)) return null;
           let x = +v;
           if (dec === 'pow') { x = Math.round(x * 10) / 10; return x > 0 && x < 10000 ? String(x) : null; }
+          if (dec === 'm2') { x = Math.round(x * 10) / 10; return x > 0 && x <= 100000 ? String(x) : null; }
           // Тонны; ввели килограммы (1500) — переводим
           if (dec === 'ton') { if (x >= 200) x = x / 1000; x = Math.round(x * 100) / 100; return x > 0 && x < 1000 ? String(x) : null; }
           if (dec === 'len') { if (x >= 100) x = x / 100; x = Math.round(x * 100) / 100; return x > 0 && x < 100 ? String(x) : null; }
@@ -4255,7 +4328,7 @@ function auRangeSheet({ title, a, b, dec, onDone }) {
       let x = val('#rs-a'), y = val('#rs-b');
       if (x === null || y === null) {
         const err = s.querySelector('#rs-err');
-        err.textContent = dec === 'ton' ? 'Введите тонны, например 1,5' : dec === 'len' ? 'Введите длину в метрах, например 4,6' : dec === 'pow' ? 'Введите число, например 9,9' : dec ? 'Введите объём в литрах, например 1,5' : 'Введите число';
+        err.textContent = dec === 'm2' ? 'Введите площадь в м², например 45' : dec === 'ton' ? 'Введите тонны, например 1,5' : dec === 'len' ? 'Введите длину в метрах, например 4,6' : dec === 'pow' ? 'Введите число, например 9,9' : dec ? 'Введите объём в литрах, например 1,5' : 'Введите число';
         err.hidden = false;
         return false;
       }
@@ -5184,6 +5257,724 @@ function bindAutoForm(app, cats, ad) {
     return cats.bySlug[AU_KIND_CAT[k]]?.id || null;
   }
   return { kind, catId, readVeh, ready, hasVeh };
+}
+
+/* ---------------- dom.olk.ru: недвижимость ---------------- */
+// Образец — Авито и Домклик. Весь раздел «Недвижимость» доски живёт здесь: #/dom (главная и поиск), #/dom/ID, #/dom/ID/edit, #/dom/new.
+// Характеристики — ad_realty (0015). Сверху «Купить | Снять | Ищут» (у «Снять» — помесячно / посуточно), шесть вкладок.
+// Заход 1: квартиры и комнаты — с полным поиском и полями формы; дома, участки, гаражи, коммерческая — пока простой лентой.
+const DOM_TITLE = 'dom.olk.ru — недвижимость Олёкминского района';
+const DOM_TABS = [
+  { key: 'flat', name: 'Квартиры', cat: 'kvartiry', icon: 'flat', acc: 'квартиру', form: 'Квартира' },
+  { key: 'room', name: 'Комнаты', cat: 'komnaty', icon: 'room', acc: 'комнату', form: 'Комната' },
+  { key: 'house', name: 'Дома', cat: 'doma', icon: 'house', acc: 'дом', form: 'Дом, дача' },
+  { key: 'land', name: 'Участки', cat: 'uchastki', icon: 'land', acc: 'участок', form: 'Участок' },
+  { key: 'garage', name: 'Гаражи', cat: 'garazhi', icon: 'garage', acc: 'гараж', form: 'Гараж' },
+  { key: 'commercial', name: 'Коммерция', cat: 'kommercheskaya', icon: 'comm', acc: 'помещение', form: 'Коммерческая' }
+];
+const DOM_TAB = Object.fromEntries(DOM_TABS.map(t => [t.key, t]));
+const DOM_BY_CAT = Object.fromEntries(DOM_TABS.map(t => [t.cat, t.key]));
+const DOM_FULL = ['flat', 'room'];             // вкладки с полным поиском (заход 1)
+const domFull = tab => DOM_FULL.includes(tab);
+const DOM_MODES = [['buy', 'Купить'], ['rent', 'Снять'], ['want', 'Ищут']];
+const DOM_MODE = Object.fromEntries(DOM_MODES);
+const DOM_RENT = { month: 'Помесячно', day: 'Посуточно' };
+const DOM_WANT = [['', 'Все'], ['buy', 'Купят'], ['rent', 'Снимут']];
+// Комнаты в блоке подбора: «4+» — четыре и больше
+const R_ROOMS = [['0', 'Студия'], ['1', '1'], ['2', '2'], ['3', '3'], ['4', '4+']];
+const R_ROOMS_F = { 0: 'Студия', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5+' };
+const R_FROOMS = { 2: '2', 3: '3', 4: '4', 5: '5+' };      // комнат в квартире у комнаты
+const R_MAT = { brick: 'Кирпич', panel: 'Панель', block: 'Блоки', monolith: 'Монолит', wood: 'Дерево (бревно)', timber: 'Брус', frame: 'Каркас' };
+const R_MAT_S = { brick: 'кирпич', panel: 'панель', block: 'блоки', monolith: 'монолит', wood: 'дерево', timber: 'брус', frame: 'каркас' };
+const R_COMF = { full: 'Благоустроенная', partial: 'Частично благоустроенная', none: 'Неблагоустроенная' };
+const R_COMF_S = { full: 'благоустр.', partial: 'частично благоустр.', none: 'неблагоустр.' };
+const R_REN = { need: 'Требует ремонта', cosmetic: 'Косметический', good: 'Хороший' };
+const R_SELLER = { owner: 'Собственник', agency: 'Агентство' };
+const R_SELLER_F = { owner: 'Только собственники', agency: 'Только агентства' };
+const R_DEALS = [['sell', 'Продать'], ['rent_out', 'Сдать'], ['buy', 'Купить'], ['rent_in', 'Снять']];
+const DOM_SORTS = [['new', 'Сначала новые'], ['cheap', 'Сначала дешевле'], ['dear', 'Сначала дороже'], ['big', 'Сначала больше площадь']];
+// Иконки вкладок — Tabler Icons (MIT): building, door, home, fence, car-garage, building-store
+const DOM_ICONS = {
+  flat: 'M3 21l18 0 M9 8l1 0 M9 12l1 0 M9 16l1 0 M14 8l1 0 M14 12l1 0 M14 16l1 0 M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16',
+  room: 'M14 12v.01 M3 21h18 M6 21v-16a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v16',
+  house: 'M5 12l-2 0l9 -9l9 9l-2 0 M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7 M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6',
+  land: 'M4 12v4h16v-4l-16 0 M6 16v4h4v-4m0 -4v-6l-2 -2l-2 2v6 M14 16v4h4v-4m0 -4v-6l-2 -2l-2 2v6',
+  garage: 'M5 20a2 2 0 1 0 4 0a2 2 0 0 0 -4 0 M15 20a2 2 0 1 0 4 0a2 2 0 0 0 -4 0 M5 20h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5 M3 6l9 -4l9 4',
+  comm: 'M3 21l18 0 M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4 M5 21l0 -10.15 M19 21l0 -10.15 M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4'
+};
+const domIcon = k => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + DOM_ICONS[k] + '"/></svg>';
+
+const DOM = { st: null, cnt: null, cntT: 0 };
+
+function domIds(cats) {
+  const n = cats && cats.bySlug.nedvizhimost;
+  return n ? [n.id, ...n.children.map(c => c.id)] : [];
+}
+const domTabOf = (cats, catId) => DOM_BY_CAT[cats.byId[catId]?.slug] || 'flat';
+const domCatIds = (cats, st) => [cats.bySlug[DOM_TAB[st.tab].cat]?.id].filter(Boolean);
+// Адрес dom.olk.ru для раздела доски (ссылки на «Недвижимость» с доски ведут сюда)
+const domHashForCat = (cats, cat) => '#/dom' + (DOM_BY_CAT[cat.slug] && DOM_BY_CAT[cat.slug] !== 'flat' ? '?tab=' + DOM_BY_CAT[cat.slug] : '');
+// Сделка объявления → режим раздела
+const domModeOfDeal = d => d === 'rent_out' ? 'rent' : d === 'buy' || d === 'rent_in' ? 'want' : 'buy';
+function realtyOf(a) {
+  const r = a && a.ad_realty;
+  return Array.isArray(r) ? r[0] || null : r || null;
+}
+
+/* ----- Состояние поиска в адресе ----- */
+// Несколько значений, от–до, переключатели. Ключи адреса: rooms, mat, comf, ren; af/at — площадь, kf/kt — кухня,
+// ff/ft — этаж, hf/ht — этажей в доме; nf — не первый, nl — не последний; mort, matcap, kids, pets, util, nodep
+const DOM_LISTS = { rooms: Object.fromEntries(R_ROOMS), mat: R_MAT, comf: R_COMF, ren: R_REN };
+const DOM_RANGES = { area: ['af', 'at'], kitchen: ['kf', 'kt'], floor: ['ff', 'ft'], floors: ['hf', 'ht'] };
+const DOM_FLAGS = ['nf', 'nl', 'mort', 'matcap', 'kids', 'pets', 'util', 'nodep'];
+function domEmpty(tab) {
+  const st = { tab: tab || 'flat', mode: 'buy', rent: 'month', want: '', min: '', max: '', seller: '', street: '', place: '', photo: '', q: '', sort: 'new' };
+  Object.keys(DOM_LISTS).forEach(k => { st[k] = []; });
+  Object.values(DOM_RANGES).flat().concat(DOM_FLAGS).forEach(k => { st[k] = ''; });
+  return st;
+}
+// Какое поле есть при текущей вкладке и режиме
+function domOn(st, k) {
+  const full = domFull(st.tab), want = st.mode === 'want';
+  switch (k) {
+    case 'rooms': return st.tab === 'flat';
+    case 'kitchen': return st.tab === 'flat' && !want;
+    case 'area': case 'floor': case 'floors': case 'nf': case 'nl': case 'mat': case 'comf': case 'ren': case 'street': return full && !want;
+    case 'mort': case 'matcap': return full && st.mode === 'buy';
+    case 'kids': case 'pets': case 'util': case 'nodep': return full && st.mode === 'rent';
+    case 'seller': return !want;
+  }
+  return true;
+}
+function domDrop(st) {
+  Object.keys(DOM_LISTS).forEach(k => { if (!domOn(st, k)) st[k] = []; });
+  Object.keys(DOM_RANGES).forEach(k => { if (!domOn(st, k)) DOM_RANGES[k].forEach(x => { st[x] = ''; }); });
+  DOM_FLAGS.forEach(k => { if (!domOn(st, k)) st[k] = ''; });
+  if (!domOn(st, 'seller')) st.seller = '';
+  if (!domOn(st, 'street')) st.street = '';
+  if (st.sort === 'big' && !(domFull(st.tab) && st.mode !== 'want')) st.sort = 'new';
+  return st;
+}
+const domDec = v => /^\d{1,6}(\.\d)?$/.test(v || '') && +v > 0 ? String(+v) : '';
+function domParse(query) {
+  const p = new URLSearchParams(query);
+  const num = k => /^\d{1,9}$/.test(p.get(k) || '') ? String(+p.get(k)) : '';
+  const st = domEmpty(DOM_TAB[p.get('tab')] ? p.get('tab') : 'flat');
+  st.mode = DOM_MODE[p.get('mode')] ? p.get('mode') : 'buy';
+  if (st.mode === 'rent' && p.get('rent') === 'day') st.rent = 'day';
+  if (st.mode === 'want' && ['buy', 'rent'].includes(p.get('want'))) st.want = p.get('want');
+  st.min = num('min'); st.max = num('max');
+  st.place = p.get('place') || '';
+  st.photo = p.get('photo') ? '1' : '';
+  st.q = (p.get('q') || '').slice(0, 100);
+  st.street = (p.get('street') || '').replace(/[%_*,()\\]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 40);
+  st.seller = R_SELLER[p.get('seller')] ? p.get('seller') : '';
+  for (const k in DOM_LISTS) st[k] = [...new Set((p.get(k) || '').split(','))].filter(v => Object.hasOwn(DOM_LISTS[k], v));
+  ['af', 'at', 'kf', 'kt'].forEach(k => { st[k] = domDec(p.get(k)); });
+  ['ff', 'ft', 'hf', 'ht'].forEach(k => { st[k] = /^\d{1,2}$/.test(p.get(k) || '') && +p.get(k) > 0 ? String(+p.get(k)) : ''; });
+  DOM_FLAGS.forEach(k => { st[k] = p.get(k) ? '1' : ''; });
+  const s = p.get('sort');
+  if (DOM_SORTS.some(x => x[0] === s)) st.sort = s;
+  return domDrop(st);
+}
+function domHash(st) {
+  const o = { tab: st.tab === 'flat' ? '' : st.tab, mode: st.mode === 'buy' ? '' : st.mode, rent: st.mode === 'rent' && st.rent === 'day' ? 'day' : '',
+    want: st.mode === 'want' ? st.want : '' };
+  for (const k in DOM_LISTS) o[k] = st[k].join(',');
+  Object.values(DOM_RANGES).flat().concat(DOM_FLAGS).forEach(k => { o[k] = st[k]; });
+  Object.assign(o, { min: st.min, max: st.max, seller: st.seller, street: st.street, place: st.place, photo: st.photo, q: st.q, sort: st.sort });
+  return '#/dom' + qs(o);
+}
+const domCopy = st => { const c = { ...st }; Object.keys(DOM_LISTS).forEach(k => { c[k] = st[k].slice(); }); return c; };
+// Поля характеристик, которые заданы (для запроса и значка «Параметров»)
+function domKeys(st) {
+  return [...Object.keys(DOM_LISTS).filter(k => st[k].length), ...Object.keys(DOM_RANGES).filter(k => st[DOM_RANGES[k][0]] || st[DOM_RANGES[k][1]]),
+    ...DOM_FLAGS.filter(k => st[k]), ...(st.seller ? ['seller'] : []), ...(st.street ? ['street'] : [])];
+}
+const domFiltered = st => !!(st.min || st.max || st.place || st.photo || st.q || domKeys(st).length);
+// «Купить квартиру», «Снять комнату посуточно», «Ищут дом»
+const domHeadTitle = st => (st.mode === 'want' ? (st.want === 'buy' ? 'Купят ' : st.want === 'rent' ? 'Снимут ' : 'Ищут ') : DOM_MODE[st.mode] + ' ') +
+  DOM_TAB[st.tab].acc + (st.mode === 'rent' && st.rent === 'day' ? ' посуточно' : '');
+
+/* ----- Запросы ----- */
+const DOM_COLS = 'kind, rent, rooms, area, kitchen_area, floor, floors, material, comfort, renovation, street, seller, mortgage_ok, matcap_ok, kids_ok, pets_ok, utilities_incl, deposit, price_prev';
+function domDeals(st) {
+  if (st.mode === 'rent') return ['rent_out'];
+  if (st.mode === 'want') return st.want === 'buy' ? ['buy'] : st.want === 'rent' ? ['rent_in'] : ['buy', 'rent_in'];
+  return ['sell'];
+}
+// «4+» — четыре комнаты и больше
+const domRoomVals = list => [...new Set(list.flatMap(v => v === '4' ? [4, 5, 6, 7, 8, 9, 10] : [+v]))];
+function buildDomQuery(st, ids, from, countOnly) {
+  const inner = st.mode === 'rent' || domKeys(st).length > 0;
+  let q;
+  if (countOnly) {
+    const sel = ['id'];
+    if (st.photo) sel.push('ad_photos!inner(id)');
+    if (inner) sel.push('ad_realty!inner(ad_id)');
+    q = sb.from('ads').select(sel.join(', '), { count: 'exact', head: true });
+  } else {
+    q = sb.from('ads').select('id, category_id, title, price, price_type, deal, settlement, bumped_at, ' +
+      (st.photo ? 'ad_photos!inner(path, sort)' : 'ad_photos(path, sort)') + ', ' + (inner ? 'ad_realty!inner(' : 'ad_realty(') + DOM_COLS + ')');
+  }
+  q = q.eq('status', 'active').gt('expires_at', new Date().toISOString()).in('category_id', ids);
+  const deals = domDeals(st);
+  q = deals.length === 1 ? q.eq('deal', deals[0]) : q.in('deal', deals);
+  if (st.q) q = q.textSearch('search', st.q, { type: 'websearch', config: 'russian' });
+  if (st.min) q = q.gte('price', +st.min);
+  if (st.max) q = q.lte('price', +st.max);
+  if (st.place) q = q.eq('settlement', st.place);
+  if (inner) {
+    const R = 'ad_realty.';
+    if (st.mode === 'rent') q = q.eq(R + 'rent', st.rent);
+    if (st.rooms.length) q = q.in(R + 'rooms', domRoomVals(st.rooms));
+    const RANGE_COL = { area: 'area', kitchen: 'kitchen_area', floor: 'floor', floors: 'floors' };
+    for (const k in RANGE_COL) {
+      const [a, b] = DOM_RANGES[k];
+      if (st[a]) q = q.gte(R + RANGE_COL[k], +st[a]);
+      if (st[b]) q = q.lte(R + RANGE_COL[k], +st[b]);
+    }
+    if (st.nf) q = q.gt(R + 'floor', 1);
+    if (st.nl) q = q.eq(R + 'last_floor', false);
+    const LIST_COL = { mat: 'material', comf: 'comfort', ren: 'renovation' };
+    for (const k in LIST_COL) if (st[k].length) q = q.in(R + LIST_COL[k], st[k]);
+    if (st.seller) q = q.eq(R + 'seller', st.seller);
+    if (st.street) q = q.ilike(R + 'street', '%' + st.street + '%');
+    const FLAG_COL = { mort: 'mortgage_ok', matcap: 'matcap_ok', kids: 'kids_ok', pets: 'pets_ok', util: 'utilities_incl' };
+    for (const k in FLAG_COL) if (st[k]) q = q.eq(R + FLAG_COL[k], true);
+    if (st.nodep) q = q.eq(R + 'deposit', 0);
+  }
+  if (countOnly) return q;
+  if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
+  if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
+  if (st.sort === 'big') q = q.order('ad_realty(area)', { ascending: false, nullsFirst: false });
+  return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
+}
+async function domCount(st) {
+  const cats = await loadCats();
+  const { count, error } = await buildDomQuery(st, domCatIds(cats, st), 0, true);
+  if (error) throw error;
+  return count || 0;
+}
+// «Показать N» пересчитывается при каждом изменении (с задержкой, чтобы не слать запрос на каждую букву)
+function domCounter(btn) {
+  let seq = 0, t = null;
+  return st => {
+    clearTimeout(t);
+    const my = ++seq;
+    t = setTimeout(async () => {
+      let n = null;
+      try { n = await domCount(st); } catch (e) { console.error(e); }
+      if (my === seq) btn.textContent = showLabel(n);
+    }, 250);
+  };
+}
+// Числа у «Купить | Снять | Ищут»: по разделу, сделке и сроку аренды; не чаще раза в 5 минут
+function loadRealtyCounts() {
+  if (!DOM.cnt || Date.now() - DOM.cntT > 5 * 60e3) {
+    DOM.cntT = Date.now();
+    DOM.cnt = sb.rpc('realty_counts').then(({ data, error }) => { if (error) throw error; return data || []; })
+      .catch(e => { console.error(e); DOM.cntT = 0; return []; });
+  }
+  return DOM.cnt;
+}
+
+/* ----- Подписи ----- */
+const fmtM2 = x => fmtNum(x) + ' м²';
+// «Ленина» → «ул. Ленина»; «пер. Почтовый», «мкр Солнечный» — как написано
+function streetText(s) {
+  if (!s) return '';
+  return /^(ул\.|ул |улица|пер\.|пер |переулок|пр\.|пр-т|проспект|проезд|мкр|микрорайон|кв-л|квартал|тракт|шоссе|пл\.|площадь|наб\.|набережная)/i.test(s) ? s : 'ул. ' + s;
+}
+const roomsWord = n => +n === 0 ? 'Студия' : +n >= 5 ? 'Многокомнатная квартира' : n + '-комн. квартира';
+// Заголовок: «2-комн. квартира, 48 м², 3/5 эт.», «Студия, 25 м²», «Комната 14 м² в 3-комн. квартире»
+function realtyTitle(r) {
+  if (!r) return '';
+  const fl = r.floor ? ', ' + r.floor + (r.floors ? '/' + r.floors : '') + ' эт.' : '';
+  if (r.kind === 'flat') return (r.rooms == null ? 'Квартира' : roomsWord(r.rooms)) + (r.area ? ', ' + fmtM2(r.area) : '') + fl;
+  if (r.kind === 'room') return 'Комната' + (r.area ? ' ' + fmtM2(r.area) : '') + (r.rooms ? ' в ' + (r.rooms >= 5 ? 'многокомнатной' : r.rooms + '-комн.') + ' квартире' : '') + fl;
+  return '';
+}
+// Строка в ленте: «3/5 эт., панель, благоустр., ул. Ленина»
+function realtyLine(r) {
+  if (!r) return '';
+  return capFirst([
+    r.floor ? r.floor + (r.floors ? '/' + r.floors : '') + ' эт.' : r.floors ? r.floors + '-эт. дом' : '',
+    R_MAT_S[r.material] || '',
+    R_COMF_S[r.comfort] || '',
+    streetText(r.street)
+  ].filter(Boolean).join(', '));
+}
+const DOM_PER = { month: 'в месяц', day: 'за сутки' };
+// Цена с «в месяц» / «за сутки» и отметкой «Цена снижена» (прежняя цена зачёркнута)
+function domPriceHtml(a, r) {
+  const per = r && r.rent && a.price != null ? ' <span class="dm-per">' + DOM_PER[r.rent] + '</span>' : '';
+  const down = r && r.price_prev && a.price != null && +r.price_prev > +a.price
+    ? '<span class="dm-down"><s>' + new Intl.NumberFormat('ru-RU').format(r.price_prev) + ' ₽</s> цена снижена</span>' : '';
+  return '<span class="dm-price">' + fmtPrice(a.price, a.price_type) + per + '</span>' + down;
+}
+// Таблица характеристик на странице объявления
+function realtySpecsHtml(r) {
+  if (!r) return '';
+  const yes = 'Да';
+  const rows = [
+    ['Срок аренды', DOM_RENT[r.rent]],
+    ['Комнат', r.kind === 'flat' && r.rooms != null ? (r.rooms === 0 ? 'Студия' : r.rooms >= 5 ? '5 и больше' : r.rooms) : ''],
+    [r.kind === 'room' ? 'Площадь комнаты' : 'Общая площадь', r.area ? fmtM2(r.area) : ''],
+    ['Кухня', r.kitchen_area ? fmtM2(r.kitchen_area) : ''],
+    ['Комнат в квартире', r.kind === 'room' && r.rooms ? (r.rooms >= 5 ? '5 и больше' : r.rooms) : ''],
+    ['Этаж', r.floor ? r.floor + (r.floors ? ' из ' + r.floors : '') : ''],
+    ['Этажей в доме', !r.floor && r.floors ? r.floors : ''],
+    ['Материал дома', R_MAT[r.material]],
+    ['Благоустройство', R_COMF[r.comfort]],
+    ['Ремонт', R_REN[r.renovation]],
+    ['Улица', streetText(r.street)],
+    ['Продавец', R_SELLER[r.seller]],
+    ['Ипотека', r.mortgage_ok ? 'Возможна' : ''],
+    ['Материнский капитал', r.matcap_ok ? 'Можно' : ''],
+    ['Можно с детьми', r.kids_ok ? yes : ''],
+    ['Можно с животными', r.pets_ok ? yes : ''],
+    ['Коммунальные платежи', r.utilities_incl ? 'Включены в цену' : ''],
+    ['Залог', r.deposit === 0 ? 'Без залога' : r.deposit ? new Intl.NumberFormat('ru-RU').format(r.deposit) + ' ₽' : '']
+  ].filter(x => x[1] !== '' && x[1] != null);
+  return rows.length ? '<dl class="au-specs">' + rows.map(x => '<dt>' + esc(x[0]) + '</dt><dd>' + esc(String(x[1])) + '</dd>').join('') + '</dl>' : '';
+}
+
+// Карточка в ленте: фото, цена, заголовок, характеристики, село
+function domCard(a) {
+  const href = '#/dom/' + a.id, r = realtyOf(a), line = realtyLine(r);
+  return '<li><div class="bcard">' + cardPhotosHtml(a, href) +
+    '<a class="bbody" href="' + href + '">' +
+      (a.deal === 'buy' || a.deal === 'rent_in' ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
+      domPriceHtml(a, r) +
+      '<span class="btitle au-t">' + esc(a.title) + '</span>' +
+      (line ? '<span class="au-spec">' + esc(line) + '</span>' : '') +
+      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+    '</a></div></li>';
+}
+
+/* ----- Шапка dom.olk.ru: «Купить | Снять | Ищут», вкладки, блок подбора ----- */
+function domHeadHtml() {
+  const seg = (name, label, opts, hid) => '<span class="hseg dm-seg" id="' + name + '" role="radiogroup" aria-label="' + label + '"' + (hid ? ' hidden' : '') + '>' +
+    opts.map(([v, l]) => '<label><input type="radio" name="' + name + '" value="' + v + '"><span>' + l + '<small class="dm-n" data-n="' + v + '"></small></span></label>').join('') + '</span>';
+  return '<div class="au-head dm-head" id="dm-head">' +
+    '<div class="dm-modes">' + seg('dm-mode', 'Что ищем', DOM_MODES) + seg('dm-rent', 'Срок аренды', Object.entries(DOM_RENT), true) +
+      seg('dm-want', 'Кто ищет', DOM_WANT, true) + '</div>' +
+    '<nav class="au-tabs" id="dm-tabs" aria-label="Вид недвижимости">' +
+      DOM_TABS.map(t => '<a href="#/dom' + (t.key === 'flat' ? '' : '?tab=' + t.key) + '" data-tab="' + t.key + '">' + domIcon(t.icon) + '<span>' + t.name + '</span></a>').join('') +
+    '</nav>' +
+    '<div class="au-box" id="dm-box"></div>' +
+  '</div>';
+}
+
+function bindDomHead() {
+  const head = $('#dm-head');
+  head.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]');
+    const st = DOM.st;
+    if (!b || !st) return;
+    const go = patch => goHash(domHash(domDrop({ ...domCopy(st), ...patch })));
+    switch (b.dataset.act) {
+      case 'room': { const v = b.dataset.v; go({ rooms: st.rooms.includes(v) ? st.rooms.filter(x => x !== v) : st.rooms.concat(v) }); break; }
+      case 'price': auPriceSheet(st, (min, max) => go({ min, max })); break;
+      case 'area': auRangeSheet({ title: st.tab === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²', a: st.af, b: st.at, dec: 'm2', onDone: (af, at) => go({ af, at }) }); break;
+      case 'params': domParamsScreen(st); break;
+      case 'place': auPlaceScreen(st.place, p => go({ place: p })); break;
+      case 'place-x': go({ place: '' }); break;
+      case 'show': { const r = $('#dm-res'); if (r) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); break; }
+    }
+  });
+  // Смена «Купить / Снять / Ищут»: цены несравнимы — цену сбрасываем, остальное, что подходит, оставляем
+  head.addEventListener('change', e => {
+    const st = DOM.st, t = e.target;
+    if (!st || t.type !== 'radio') return;
+    if (t.name === 'dm-mode') goHash(domHash(domDrop({ ...domCopy(st), mode: t.value, rent: 'month', want: '', min: '', max: '' })));
+    if (t.name === 'dm-rent') goHash(domHash({ ...domCopy(st), rent: t.value, min: '', max: '' }));
+    if (t.name === 'dm-want') goHash(domHash({ ...domCopy(st), want: t.value }));
+  });
+  head.addEventListener('submit', e => {
+    if (e.target.id !== 'dm-qf') return;
+    e.preventDefault();
+    const inp = $('#dm-q');
+    inp.blur();
+    goHash(domHash({ ...domCopy(DOM.st), q: inp.value.trim().slice(0, 100) }));
+  });
+}
+
+function fillDomHead(st) {
+  if (HEAD_KIND !== 'dom') return;
+  DOM.st = st;
+  const head = $('#dm-head');
+  head.querySelector('input[name=dm-mode][value=' + st.mode + ']').checked = true;
+  head.querySelector('input[name=dm-rent][value=' + st.rent + ']').checked = true;
+  head.querySelector('input[name=dm-want][value="' + st.want + '"]').checked = true;
+  $('#dm-rent').hidden = st.mode !== 'rent';
+  $('#dm-want').hidden = st.mode !== 'want';
+  // Вкладки: при переходе сохраняем «Купить / Снять / Ищут», срок аренды и населённый пункт
+  $('#dm-tabs').querySelectorAll('a').forEach(a => {
+    const on = a.dataset.tab === st.tab;
+    a.classList.toggle('on', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    a.href = domHash({ ...domEmpty(a.dataset.tab), mode: st.mode, rent: st.rent, want: st.want, place: st.place });
+  });
+  const full = domFull(st.tab), want = st.mode === 'want';
+  const area = full && !want;
+  const extra = (st.photo ? 1 : 0) + (full && st.q ? 1 : 0) + domKeys(st).filter(k => k !== 'rooms' && k !== 'area').length;
+  const cell = (act, label, val, ph) => '<button type="button" class="au-cell" data-act="' + act + '"><small>' + label + '</small>' +
+    '<span' + (val ? '' : ' class="au-ph"') + '>' + esc(val || ph) + '</span></button>';
+  let box = '';
+  if (domOn(st, 'rooms')) {
+    box += '<div class="au-row dm-rooms" role="group" aria-label="Комнат">' + R_ROOMS.map(([v, l]) =>
+      '<button type="button" data-act="room" data-v="' + v + '" class="' + (st.rooms.includes(v) ? 'on' : '') + '" aria-pressed="' + st.rooms.includes(v) + '">' + l + '</button>').join('') + '</div>';
+  } else if (!full) {
+    box += '<form class="au-row au-q" id="dm-qf" role="search">' + auIcon('search', 'au-ico') +
+      '<input id="dm-q" type="search" enterkeyhint="search" maxlength="100" placeholder="Поиск: ' + esc(DOM_TAB[st.tab].name.toLowerCase()) + '" aria-label="Поиск по объявлениям" value="' + esc(st.q) + '"></form>';
+  }
+  const priceLab = st.mode === 'rent' ? (st.rent === 'day' ? 'Цена за сутки' : 'Цена в месяц') : st.mode === 'want' ? 'Бюджет' : 'Цена';
+  box += '<div class="au-cells' + (area ? '' : ' two') + '">' +
+    cell('price', priceLab, priceText(st.min, st.max), 'любая') +
+    (area ? cell('area', 'Площадь', st.af || st.at ? rangeText(st.af, st.at, fmtNum) + ' м²' : '', 'любая') : '') +
+    '<button type="button" class="au-cell au-pcell" data-act="params">' + auIcon('params', 'au-ico') + '<span>Параметры</span>' +
+      (extra ? '<b class="au-badge" aria-label="выбрано: ' + extra + '">' + extra + '</b>' : '') + '</button>' +
+  '</div>';
+  box += '<div class="au-row"><button type="button" class="au-main" data-act="place">' + auIcon('pin', 'au-ico') +
+      '<span class="au-lab' + (st.place ? '' : ' au-ph') + '">' + esc(st.place ? placeLabel(st.place) : 'Весь район') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
+      (st.place ? '<button type="button" class="au-x" data-act="place-x" aria-label="Весь район">×</button>' : '') + '</div>';
+  box += '<button type="button" class="btn btn-accent au-show" data-act="show" id="dm-show">Показать объявления</button>';
+  $('#dm-box').innerHTML = box;
+  $('#dm-box').classList.toggle('dm3', st.tab === 'room');
+  // Числа у «Купить | Снять | Ищут» для текущей вкладки
+  head.querySelectorAll('.dm-n').forEach(el => { el.textContent = ''; });
+  Promise.all([loadCats(), loadRealtyCounts()]).then(([cats, rows]) => {
+    if (DOM.st !== st) return;
+    const cid = cats.bySlug[DOM_TAB[st.tab].cat]?.id;
+    const sum = f => rows.filter(r => r.category_id === cid && f(r)).reduce((s, r) => s + (Number(r.n) || 0), 0);
+    const n = {
+      'dm-mode': { buy: sum(r => r.deal === 'sell'), rent: sum(r => r.deal === 'rent_out'), want: sum(r => r.deal === 'buy' || r.deal === 'rent_in') },
+      'dm-rent': { month: sum(r => r.deal === 'rent_out' && r.rent !== 'day'), day: sum(r => r.deal === 'rent_out' && r.rent === 'day') },
+      'dm-want': { buy: sum(r => r.deal === 'buy'), rent: sum(r => r.deal === 'rent_in') }
+    };
+    for (const g in n) for (const v in n[g]) {
+      const el = head.querySelector('#' + g + ' .dm-n[data-n="' + v + '"]');
+      if (el) el.textContent = n[g][v] ? ' ' + n[g][v].toLocaleString('ru-RU') : '';
+    }
+  }, e => console.error(e));
+}
+
+/* ----- Главная и поиск dom.olk.ru ----- */
+async function renderDom(query) {
+  if (!sb) return renderNoDb('Недвижимость');
+  const app = $('#app');
+  const seq = routeSeq;
+  const st = domParse(query);
+  $('#top').classList.remove('au-compact');
+  fillDomHead(st);
+  app.innerHTML = '<p class="loading">Загружаем объявления…</p>';
+  let cats;
+  try {
+    cats = await loadCats();
+  } catch (e) {
+    console.error(e);
+    if (seq === routeSeq) app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
+    return;
+  }
+  if (seq !== routeSeq) return;
+  const title = domHeadTitle(st);
+  document.title = title.charAt(0).toUpperCase() + title.slice(1) + ' — ' + DOM_TITLE;
+  const sorts = DOM_SORTS.filter(s => s[0] !== 'big' || (domFull(st.tab) && st.mode !== 'want'));
+  const filtered = domFiltered(st);
+  const deal = st.mode === 'rent' ? 'rent_out' : st.mode === 'want' ? (st.want === 'rent' ? 'rent_in' : 'buy') : 'sell';
+  const newHref = '#/dom/new' + qs({ cat: DOM_TAB[st.tab].cat, deal: deal === 'sell' ? '' : deal, rent: st.mode === 'rent' && st.rent === 'day' ? 'day' : '' });
+
+  app.innerHTML =
+    '<div class="bhead au-res" id="dm-res"><h1 id="dm-h">' + esc(title.charAt(0).toUpperCase() + title.slice(1)) + ' <span class="n" id="dm-n"></span></h1>' +
+      '<select class="au-sort" id="dm-sort" aria-label="Сортировка">' +
+        sorts.map(([v, l]) => '<option value="' + v + '"' + (st.sort === v ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' +
+    (filtered && st.place ? '<p class="bfound">Населённый пункт: ' + esc(placeLabel(st.place)) + '. <a href="' + esc(domHash({ ...domCopy(st), place: '' })) + '">Искать во всём районе</a></p>' : '') +
+    '<ul class="bfeed" id="list"></ul><div id="list-state"></div>';
+
+  $('#dm-sort').addEventListener('change', e => goHash(domHash({ ...domCopy(st), sort: e.target.value })));
+
+  const ids = domCatIds(cats, st);
+  buildDomQuery(st, ids, 0, true).then(({ count, error }) => {
+    if (seq !== routeSeq) return;
+    if (error) { console.error(error); return; }
+    const n = count || 0;
+    const nEl = $('#dm-n');
+    if (nEl) nEl.textContent = n.toLocaleString('ru-RU');
+    const btn = $('#dm-show');
+    if (btn) btn.textContent = showLabel(n);
+  }, e => console.error(e));
+
+  const listEl = $('#list');
+  bindCardPhotos(listEl);
+  startFeed({
+    listEl, stateEl: $('#list-state'),
+    fetchPage: from => buildDomQuery(st, ids, from, false),
+    renderItems: rows => rows.map(mapAd).map(domCard).join(''),
+    emptyHtml: filtered
+      ? '<p class="empty">Ничего не нашлось. Попробуйте изменить параметры.</p>'
+      : '<p class="empty">Объявлений пока нет. <a href="' + esc(newHref) + '">Подайте первое</a>.</p>'
+  });
+}
+
+function routeDom(query, parts) {
+  if (!parts.length) return renderDom(query);
+  if (parts[0] === 'new') return renderAdForm(query, null, 'dom');
+  if (/^\d+$/.test(parts[0])) return parts[1] === 'edit' ? renderAdForm(query, +parts[0], 'dom') : renderAdView(+parts[0], 'dom');
+  renderStub('404');
+}
+
+/* ----- Экран «Параметры» недвижимости ----- */
+function domParamsScreen(st0) {
+  const p = domCopy(st0);
+  const S = auScreen({
+    title: 'Параметры',
+    reset: () => { const keep = { tab: p.tab, mode: p.mode, rent: p.rent, want: p.want, sort: p.sort }; Object.assign(p, domEmpty(p.tab), keep); draw(); },
+    body: '<div class="au-scr-body ap-body" id="ap-body"></div>',
+    foot: '<button type="button" class="btn btn-accent" id="ap-go">Показать объявления</button>'
+  });
+  const $s = id => S.scr.querySelector(id);
+  const body = $s('#ap-body'), go = $s('#ap-go');
+  const recount = domCounter(go);
+  const list = (k, dict) => p[k].map(v => dict[v]).join(', ');
+  const row = (k, label, val) => '<button type="button" class="ap-row" data-k="' + k + '"><span class="ap-l">' + label + '</span>' +
+    '<span class="ap-v">' + esc(val || '') + '</span></button>';
+  const sw = (k, label) => '<label class="ap-row ap-sw"><span class="ap-l">' + label + '</span><span class="au-sw"><input type="checkbox" data-sw="' + k + '"' +
+    (p[k] ? ' checked' : '') + '></span></label>';
+  const grp = rows => { rows = rows.filter(Boolean); return rows.length ? '<div class="ap-grp">' + rows.join('') + '</div>' : ''; };
+  const txt = (id, label, val, ph) => '<div class="ap-grp"><label class="ap-row ap-kw"><span class="ap-l">' + label + '</span>' +
+    '<input id="' + id + '" type="search" maxlength="' + (id === 'ap-street' ? 40 : 100) + '" enterkeyhint="search" placeholder="' + ph + '" value="' + esc(val) + '"></label></div>';
+  const m2 = (a, b) => a || b ? rangeText(a, b, fmtNum) + ' м²' : '';
+  const roomsText = () => p.rooms.map(v => v === '0' ? 'студия' : v === '4' ? '4+' : v).join(', ');
+  function draw() {
+    const top = body.scrollTop;
+    const on = k => domOn(p, k);
+    let h = grp([row('place', 'Населённый пункт', p.place ? placeLabel(p.place) : ''), on('rooms') && row('rooms', 'Комнат', roomsText())]);
+    if (on('street')) h += txt('ap-street', 'Улица', p.street, 'Например, Ленина');
+    h += grp([
+      row('price', p.mode === 'rent' ? (p.rent === 'day' ? 'Цена за сутки' : 'Цена в месяц') : p.mode === 'want' ? 'Бюджет' : 'Цена', priceText(p.min, p.max)),
+      on('area') && row('area', p.tab === 'room' ? 'Площадь комнаты' : 'Общая площадь', m2(p.af, p.at)),
+      on('kitchen') && row('kitchen', 'Площадь кухни', m2(p.kf, p.kt))
+    ]);
+    h += grp([
+      on('floor') && row('floor', 'Этаж', rangeText(p.ff, p.ft, x => x)),
+      on('nf') && sw('nf', 'Не первый этаж'),
+      on('nl') && sw('nl', 'Не последний этаж'),
+      on('floors') && row('floors', 'Этажей в доме', rangeText(p.hf, p.ht, x => x))
+    ]);
+    h += grp([
+      on('mat') && row('mat', 'Материал дома', list('mat', R_MAT)),
+      on('comf') && row('comf', 'Благоустройство', list('comf', R_COMF)),
+      on('ren') && row('ren', 'Ремонт', list('ren', R_REN))
+    ]);
+    h += grp([
+      on('mort') && sw('mort', 'Ипотека возможна'),
+      on('matcap') && sw('matcap', 'Можно за материнский капитал'),
+      on('kids') && sw('kids', 'Можно с детьми'),
+      on('pets') && sw('pets', 'Можно с животными'),
+      on('util') && sw('util', 'Коммунальные платежи включены'),
+      on('nodep') && sw('nodep', 'Без залога')
+    ]);
+    h += grp([on('seller') && row('seller', 'Продавец', R_SELLER_F[p.seller]), sw('photo', 'Только с фото')]);
+    h += txt('ap-q', 'Ключевые слова', p.q, 'Например, с мебелью');
+    body.innerHTML = h;
+    body.scrollTop = top;
+    recount(p);
+  }
+  const set = patch => { Object.assign(p, patch); draw(); };
+  const picks = (title, dict, k) => auPick({ title, opts: Object.entries(dict), cur: p[k], multi: true, onDone: v => set({ [k]: v }) });
+  const intRange = (title, a, b) => auRangeSheet({ title, a: p[a], b: p[b], onDone: (x, y) => {
+    const lim = v => v && +v > 99 ? '99' : v;
+    set({ [a]: lim(x), [b]: lim(y) });
+  } });
+  body.addEventListener('click', e => {
+    const r = e.target.closest('[data-k]');
+    if (!r) return;
+    switch (r.dataset.k) {
+      case 'place': auPlaceScreen(p.place, v => set({ place: v })); break;
+      case 'rooms': auPick({ title: 'Комнат', multi: true, cur: p.rooms, opts: R_ROOMS.map(([v, l]) => [v, v === '4' ? '4 и больше' : l]), onDone: v => set({ rooms: v }) }); break;
+      case 'price': auPriceSheet(p, (min, max) => set({ min, max })); break;
+      case 'area': auRangeSheet({ title: p.tab === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²', a: p.af, b: p.at, dec: 'm2', onDone: (af, at) => set({ af, at }) }); break;
+      case 'kitchen': auRangeSheet({ title: 'Площадь кухни, м²', a: p.kf, b: p.kt, dec: 'm2', onDone: (kf, kt) => set({ kf, kt }) }); break;
+      case 'floor': intRange('Этаж', 'ff', 'ft'); break;
+      case 'floors': intRange('Этажей в доме', 'hf', 'ht'); break;
+      case 'mat': picks('Материал дома', R_MAT, 'mat'); break;
+      case 'comf': picks('Благоустройство', R_COMF, 'comf'); break;
+      case 'ren': picks('Ремонт', R_REN, 'ren'); break;
+      case 'seller': auPick({ title: 'Продавец', opts: Object.entries(R_SELLER_F), cur: p.seller, any: 'Любой', onDone: v => set({ seller: v }) }); break;
+    }
+  });
+  body.addEventListener('change', e => { const k = e.target.dataset.sw; if (k) { p[k] = e.target.checked ? '1' : ''; recount(p); } });
+  body.addEventListener('input', e => {
+    if (e.target.id === 'ap-q') { p.q = e.target.value.trim().slice(0, 100); recount(p); }
+    if (e.target.id === 'ap-street') { p.street = e.target.value.replace(/[%_*,()\\]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 40); recount(p); }
+  });
+  body.addEventListener('keydown', e => { if ((e.target.id === 'ap-q' || e.target.id === 'ap-street') && e.key === 'Enter') { e.preventDefault(); go.click(); } });
+  go.addEventListener('click', () => goHash(domHash(domDrop(p))));
+  draw();
+}
+
+/* ----- Форма: что хотите, что именно, характеристики ----- */
+function domFormTopHtml(kind, deal, rent) {
+  const seg = (name, label, opts, cur) => '<div class="field" id="' + name + '-wrap"><span class="flabel" id="' + name + '-l">' + label + '</span>' +
+    '<div class="seg" role="radiogroup" aria-labelledby="' + name + '-l">' +
+      opts.map(([v, l]) => '<label><input type="radio" name="' + name + '" value="' + v + '"' + (cur === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
+    '</div></div>';
+  return '<div class="au-top">' +
+    seg('ddeal', 'Что хотите', R_DEALS, deal) +
+    seg('drent', 'Срок аренды', Object.entries(DOM_RENT), rent || 'month') +
+    seg('dkind', 'Что именно', DOM_TABS.map(t => [t.key, t.form]), kind) +
+  '</div>';
+}
+
+// Поля квартиры и комнаты. data-only — у кого поле есть: flat, room, full (обе), и сделка: sale (продать), rentout (сдать), offer (продать или сдать)
+function realtyFieldsHtml(r) {
+  r = r || {};
+  const num = x => x == null ? '' : fmtNum(x);
+  const only = (who, html) => html.replace(/^<(div|label) class="/, '<$1 data-only="' + who + '" class="');
+  const seg = (name, dict, val, label) => auSeg(name, dict, val == null ? '' : val, label);
+  const inp = (id, label, val, attrs) => '<div class="field"><label for="' + id + '" id="' + id + '-l">' + label + '</label><input id="' + id + '" ' + attrs + ' value="' + esc(val) + '"></div>';
+  return '<div class="au-vblock" id="re-wrap" hidden><h2 id="re-h">Квартира</h2>' +
+    only('flat', seg('r-rooms', R_ROOMS_F, r.kind === 'flat' ? r.rooms : '', 'Комнат')) +
+    only('room offer', seg('r-frooms', R_FROOMS, r.kind === 'room' ? (r.rooms >= 5 ? 5 : r.rooms) : '', 'Комнат в квартире')) +
+    only('full offer', '<div class="au-fgrid">' +
+      inp('r-area', 'Общая площадь, м²', num(r.area), 'type="text" inputmode="decimal" maxlength="7" placeholder="45"') +
+      only('flat', inp('r-kitchen', 'Кухня, м²', num(r.kitchen_area), 'type="text" inputmode="decimal" maxlength="5" placeholder="8"')) +
+      inp('r-floor', 'Этаж', r.floor ?? '', 'type="number" inputmode="numeric" min="1" max="99"') +
+      inp('r-floors', 'Этажей в доме', r.floors ?? '', 'type="number" inputmode="numeric" min="1" max="99"') +
+    '</div>') +
+    only('full offer', seg('r-mat', R_MAT, r.material, 'Материал дома')) +
+    only('full offer', seg('r-comf', R_COMF, r.comfort, 'Благоустройство')) +
+    only('full offer', seg('r-ren', R_REN, r.renovation, 'Ремонт')) +
+    only('offer', inp('r-street', 'Улица <span class="meta">без номера дома</span>', r.street || '', 'type="text" maxlength="60" autocapitalize="words" placeholder="Например, Ленина"')) +
+    only('offer', seg('r-seller', R_SELLER, r.seller, 'Кто продаёт')) +
+    only('full sale', '<div class="au-checks"><label><input type="checkbox" id="r-mort"' + (r.mortgage_ok ? ' checked' : '') + '>Ипотека возможна</label>' +
+      '<label><input type="checkbox" id="r-matcap"' + (r.matcap_ok ? ' checked' : '') + '>Можно за материнский капитал</label></div>') +
+    only('full rentout', '<div class="au-checks"><label><input type="checkbox" id="r-kids"' + (r.kids_ok ? ' checked' : '') + '>Можно с детьми</label>' +
+      '<label><input type="checkbox" id="r-pets"' + (r.pets_ok ? ' checked' : '') + '>Можно с животными</label>' +
+      '<label><input type="checkbox" id="r-util"' + (r.utilities_incl ? ' checked' : '') + '>Коммунальные платежи включены в цену</label></div>') +
+    only('full rentout', '<div class="au-fgrid dm-dep">' +
+      inp('r-dep', 'Залог, ₽', r.deposit ? r.deposit : '', 'type="number" inputmode="numeric" min="0" max="100000000"') +
+      '<div class="au-checks"><label><input type="checkbox" id="r-nodep"' + (r.deposit === 0 ? ' checked' : '') + '>Без залога</label></div></div>') +
+    only('full', '<div class="field"><label for="r-extra">Дополнение к заголовку <span class="meta">необязательно</span></label>' +
+      '<input id="r-extra" maxlength="60" placeholder="Например, рядом со школой"><div class="hint" id="r-title"></div></div>') +
+  '</div>';
+}
+
+// Привязать поля формы недвижимости; вернуть чтение значений
+function bindDomForm(app, cats, ad) {
+  const r0 = realtyOf(ad) || {};
+  const radio = n => (app.querySelector('input[name=' + n + ']:checked') || {}).value || null;
+  const kind = () => radio('dkind') || 'flat';
+  const deal = () => radio('ddeal') || 'sell';
+  const rentDeal = () => deal() === 'rent_out' || deal() === 'rent_in';
+  const offer = () => deal() === 'sell' || deal() === 'rent_out';
+  const full = () => domFull(kind());
+  // Поле видно (не спрятано по виду и сделке)
+  const shown = sel => { const el = app.querySelector(sel); const w = el && el.closest('[data-only]'); return !!el && (!w || !w.hidden); };
+  const dec = (id, max) => {
+    const t = $(id).value.trim().replace(/\s/g, '').replace(',', '.');
+    if (t === '') return '';
+    if (!/^\d+(\.\d+)?$/.test(t)) return null;
+    const x = Math.round(+t * 10) / 10;
+    return x > 0 && x <= max ? x : null;
+  };
+  const int = (id, lo, hi) => {
+    const t = $(id).value.trim();
+    if (t === '') return '';
+    return /^\d+$/.test(t) && +t >= lo && +t <= hi ? +t : null;
+  };
+  // Заголовок сам: черновик строки из видимых полей (без проверок)
+  function draft() {
+    const k = kind();
+    const rooms = k === 'flat' ? radio('r-rooms') : radio('r-frooms');
+    const area = shown('#r-area') ? dec('#r-area', 100000) : '';
+    const fl = shown('#r-floor') ? int('#r-floor', 1, 99) : '', fls = shown('#r-floors') ? int('#r-floors', 1, 99) : '';
+    return { kind: k, rooms: rooms == null ? null : +rooms, area: area || null, floor: fl || null, floors: fls || null };
+  }
+  function titleOf(d) {
+    const extra = $('#r-extra').value.trim();
+    return (realtyTitle(d) + (extra ? ', ' + extra : '')).slice(0, 120);
+  }
+  // Правка: дополнение к заголовку — то, что после собранной части
+  if (ad && full()) {
+    const base = realtyTitle(r0);
+    if (base && ad.title.startsWith(base + ', ')) $('#r-extra').value = ad.title.slice(base.length + 2);
+  }
+  function sync() {
+    const k = kind(), d = deal();
+    const who = [k, full() ? 'full' : '', offer() ? 'offer' : '', d === 'sell' ? 'sale' : '', d === 'rent_out' ? 'rentout' : ''].filter(Boolean);
+    $('#drent-wrap').hidden = !rentDeal();
+    $('#re-wrap').hidden = !(full() || offer());
+    $('#re-h').textContent = DOM_TAB[k].form === 'Коммерческая' ? 'Коммерческая недвижимость' : DOM_TAB[k].form;
+    app.querySelectorAll('#re-wrap [data-only]').forEach(el => { el.hidden = !el.dataset.only.split(' ').every(t => who.includes(t)); });
+    $('#r-area-l').textContent = k === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²';
+    $('#r-dep').disabled = $('#r-nodep').checked;
+    // Квартира и комната: заголовок собирается сам; остальное — пишут сами
+    $('#title-wrap').hidden = full();
+    $('#r-title').textContent = full() ? 'Заголовок: ' + (titleOf(draft()) || '—') : '';
+    $('#r-seller-l').textContent = d === 'rent_out' ? 'Кто сдаёт' : 'Кто продаёт';
+  }
+  app.querySelectorAll('input[name=ddeal], input[name=drent], input[name=dkind]').forEach(x => x.addEventListener('change', sync));
+  $('#re-wrap').addEventListener('input', () => { $('#r-title').textContent = full() ? 'Заголовок: ' + (titleOf(draft()) || '—') : ''; });
+  $('#re-wrap').addEventListener('change', sync);
+  sync();
+
+  function read() {
+    const k = kind(), d = deal();
+    const row = { kind: k, rent: rentDeal() ? radio('drent') || 'month' : null };
+    const NO_FULL = { rooms: null, area: null, kitchen_area: null, floor: null, floors: null, material: null, comfort: null, renovation: null,
+      mortgage_ok: false, matcap_ok: false, kids_ok: false, pets_ok: false, utilities_incl: false, deposit: null };
+    let street = '';
+    if (shown('#r-street')) {
+      street = $('#r-street').value.trim().replace(/\s+/g, ' ');
+      if (/\d/.test(street) && /[,\s]\d+[а-яa-z]?\s*$/i.test(street)) return { err: 'Улицу пишите без номера дома.', el: $('#r-street') };
+      if (street.length === 1) return { err: 'Напишите название улицы полностью.', el: $('#r-street') };
+    }
+    Object.assign(row, NO_FULL, { street: street || null, seller: shown('input[name=r-seller]') ? radio('r-seller') : null });
+    if (!full()) return { row, auto: false };
+    if (k === 'flat') {
+      const rooms = radio('r-rooms');
+      if (offer() && rooms == null) return { err: 'Укажите, сколько комнат.', el: app.querySelector('input[name=r-rooms]') };
+      row.rooms = rooms == null ? null : +rooms;
+    } else row.rooms = shown('input[name=r-frooms]') && radio('r-frooms') ? +radio('r-frooms') : null;
+    if (offer()) {
+      const area = dec('#r-area', 100000);
+      if (area === null || area === '') return { err: k === 'room' ? 'Укажите площадь комнаты в м², например 14.' : 'Укажите общую площадь в м², например 45.', el: $('#r-area') };
+      if (k === 'flat' && area < 8) return { err: 'Проверьте площадь: в квадратных метрах, например 45.', el: $('#r-area') };
+      row.area = area;
+      if (k === 'flat') {
+        const kit = dec('#r-kitchen', 500);
+        if (kit === null) return { err: 'Площадь кухни — в м², например 8.', el: $('#r-kitchen') };
+        if (kit !== '' && kit >= area) return { err: 'Кухня не может быть больше всей квартиры.', el: $('#r-kitchen') };
+        row.kitchen_area = kit === '' ? null : kit;
+      }
+      const fl = int('#r-floor', 1, 99), fls = int('#r-floors', 1, 99);
+      if (fl === null) return { err: 'Этаж — число от 1 до 99.', el: $('#r-floor') };
+      if (fls === null) return { err: 'Этажей в доме — число от 1 до 99.', el: $('#r-floors') };
+      if (fl !== '' && fls !== '' && fl > fls) return { err: 'Этаж не может быть выше, чем этажей в доме.', el: $('#r-floor') };
+      row.floor = fl === '' ? null : fl;
+      row.floors = fls === '' ? null : fls;
+      row.material = radio('r-mat'); row.comfort = radio('r-comf'); row.renovation = radio('r-ren');
+      if (d === 'sell') { row.mortgage_ok = $('#r-mort').checked; row.matcap_ok = $('#r-matcap').checked; }
+      if (d === 'rent_out') {
+        row.kids_ok = $('#r-kids').checked; row.pets_ok = $('#r-pets').checked; row.utilities_incl = $('#r-util').checked;
+        if ($('#r-nodep').checked) row.deposit = 0;
+        else {
+          const dep = int('#r-dep', 0, 100000000);
+          if (dep === null) return { err: 'Залог — сумма в рублях.', el: $('#r-dep') };
+          row.deposit = dep === '' ? null : dep;
+        }
+      }
+    }
+    return { row, auto: true, title: titleOf(row) };
+  }
+  const catId = () => cats.bySlug[DOM_TAB[kind()].cat]?.id || null;
+  // Подпись цены: «Цена в месяц, ₽», у ищущих — «Бюджет»
+  const priceLabel = () => ({ sell: 'Цена, ₽', rent_out: radio('drent') === 'day' ? 'Цена за сутки, ₽' : 'Цена в месяц, ₽', buy: 'Бюджет, ₽',
+    rent_in: radio('drent') === 'day' ? 'Бюджет за сутки, ₽' : 'Бюджет в месяц, ₽' })[deal()];
+  return { kind, deal, catId, read, priceLabel };
 }
 
 /* ---------------- Лента с автоподгрузкой ---------------- */
@@ -7504,10 +8295,10 @@ function route() {
   window.scrollTo(0, 0);
 
   $('#intro').hidden = !!path;
-  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha', catalog: 'catalog', auto: 'auto' }[section] || 'portal';
+  const kind = { ads: 'doska', news: 'news', rabota: 'rabota', events: 'afisha', catalog: 'catalog', auto: 'auto', dom: 'dom' }[section] || 'portal';
   setHead(kind);
-  // На странице объявления и в форме auto.olk.ru блок подбора не нужен — его показывает renderAuto
-  $('#top').classList.toggle('au-compact', kind === 'auto');
+  // На странице объявления и в форме auto.olk.ru и dom.olk.ru блок подбора не нужен — его показывают renderAuto и renderDom
+  $('#top').classList.toggle('au-compact', kind === 'auto' || kind === 'dom');
   if (kind === 'doska') { BOARD_CAT = ''; fillBoardHead({}); }
   if (kind === 'news') fillNewsHead({});
   if (kind === 'rabota') fillRabotaHead({});
@@ -7551,7 +8342,7 @@ backdrop.addEventListener('click', () => closeDrawer(true));
 drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeDrawer(false)));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(true); });
 // Если экран стал широким (поворот планшета) — меню больше не нужно
-matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches) closeDrawer(false); });
+matchMedia('(min-width: 961px)').addEventListener('change', e => { if (e.matches) closeDrawer(false); });
 
 window.addEventListener('hashchange', route);
 renderInfo();
