@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>olk.ru — всё об Олёкминском районе</title>
-<meta name="description" content="Новости, события, объявления и вакансии Олёкминска и наслегов района в одном месте.">
+<title>olk.ru — всё об Олёкминске</title>
+<meta name="description" content="Новости, события, объявления и вакансии Олёкминска в одном месте.">
 <meta name="theme-color" content="#1F5E52">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,6 +149,7 @@
   .hseg input:checked + span { background: var(--accent); color: var(--on-accent); font-weight: 600; }
   .hseg input:focus-visible + span { outline: 3px solid #fff; outline-offset: 1px; }
   .bparams.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bparams.three { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 560px; }
 
   /* ---------- Поле «Населённый пункт» с подсказками ---------- */
   .pcombo { position: relative; }
@@ -186,7 +187,7 @@
   .bcount { color: var(--mute); font-weight: 400; font-size: 15px; margin-left: 6px; }
   .rlist .ads { grid-template-columns: 1fr; }
   @media (max-width: 700px) {
-    .bparams, .bparams.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bparams, .bparams.four, .bparams.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .rgrid { grid-template-columns: 1fr; }
     .bparams .bp-wide { grid-column: 1 / -1; }
   }
@@ -818,21 +819,20 @@
   .au-res { align-items: center; }
   .au-sort { font: inherit; font-size: 15px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); max-width: 100%; }
   .au-t { font-weight: 600; margin: 0 0 2px; }
-  /* На компьютере блок подбора в одну строку: марка | год, цена, параметры | село | кнопка */
+  /* На компьютере блок подбора в одну строку: марка | год, цена, параметры | кнопка */
   @media (min-width: 1024px) {
-    .au-box { max-width: none; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 2.1fr) minmax(0, 1.3fr) auto; }
+    .au-box { max-width: none; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 2.6fr) auto; }
     .au-box > .au-row, .au-box > .au-cells { border-top: 0; min-height: 60px; }
     .au-box > .au-row + .au-cells, .au-box > .au-cells + .au-row { border-left: 1px solid var(--line); }
     .au-box .au-show { width: auto; margin: 8px; padding: 12px 22px; white-space: nowrap; }
     /* У спецтехники ещё строка «Вид техники» впереди */
-    .au-box.vk { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.6fr) minmax(0, 2.4fr) minmax(0, 1.3fr) auto; }
+    .au-box.vk { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.6fr) minmax(0, 2.6fr) auto; }
     .au-box > .au-row + .au-row { border-top: 0; border-left: 1px solid var(--line); }
   }
-  /* 1024–1279 px: у спецтехники в одну строку тесно — село и кнопка вторым рядом */
+  /* 1024–1279 px: у спецтехники в одну строку тесно — кнопка вторым рядом справа */
   @media (min-width: 1024px) and (max-width: 1279px) {
     .au-box.vk { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.5fr); }
-    .au-box.vk > .au-row:nth-child(4) { grid-column: 1 / 3; border-left: 0; border-top: 1px solid var(--line); }
-    .au-box.vk > .au-show { border-top: 0; }
+    .au-box.vk > .au-show { grid-column: 1 / -1; justify-self: end; }
   }
   .au-spec { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.35; color: var(--mute); margin: 2px 0 3px; }
   @media (max-width: 400px) {
@@ -999,6 +999,14 @@
   .dm-rooms button + button { border-left: 1px solid var(--line); }
   .dm-rooms button.on { background: var(--head); color: #fff; }
   .dm-rooms button:focus-visible { outline-offset: -3px; }
+  /* Кнопки типа (участки, гаражи, коммерческая): сеткой, линии между ними — фоном */
+  .dm-types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+  .dm-types[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dm-types button { background: var(--card); padding: 6px 4px; overflow: hidden; text-overflow: ellipsis; }
+  .dm-types button + button { border-left: 0; }
+  .dm-types button.on { background: var(--head); }
+  .dm-types[data-n="5"] button:last-child { grid-column: span 2; }   /* 3 + 2, без пустой клетки */
+  @media (max-width: 360px) { .dm-types button { font-size: 13px; padding: 6px 2px; } }
   .dm-price { display: block; }
   .dm-per { font-size: 13px; color: var(--mute); font-weight: 400; }
   .dm-down { display: block; font-size: 12.5px; font-weight: 600; color: var(--ok); line-height: 1.3; }
@@ -1008,8 +1016,15 @@
   .dm-dep { align-items: center; }
   .dm-dep .au-checks { margin: 12px 0 0; }
   #r-title { color: var(--ink); font-size: 14px; }
+  .mcalc { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 14px 4px; margin: 0 0 18px; background: var(--card); }
+  .mcalc h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
+  .mc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; align-items: end; }
+  .mc-grid input { width: 100%; }
+  .mc-out { display: flex; flex-direction: column; gap: 2px; margin: 0 0 10px; font-size: 15px; }
+  .mc-pay b { display: block; font-size: 24px; font-weight: 700; color: var(--ink); }
+  @media (min-width: 900px) { .mc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   @media (min-width: 1024px) {
-    .au-box.dm3 { grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.4fr) auto; }
+    .au-box.dm3 { grid-template-columns: minmax(0, 1fr) auto; }
   }
   @media (max-width: 360px) {
     .dm-seg span { padding: 4px 9px; font-size: 14px; }
@@ -1116,7 +1131,7 @@
     <div class="top-row">
       <a class="logo" id="logo" href="#/" aria-label="olk.ru — на главную">
         <b>olk.ru</b>
-        <small>Олёкминский район</small>
+        <small>Олёкминск</small>
       </a>
       <nav class="nav" aria-label="Разделы">
         <a href="#/" id="nav-home" hidden>Главная</a>
@@ -1166,8 +1181,8 @@
 
 <div class="wrap" id="portal-bar">
   <div class="intro" id="intro" hidden>
-    <h1>Всё об Олёкминском районе</h1>
-    <p>Новости, события, объявления и вакансии Олёкминска и наслегов района в одном месте.</p>
+    <h1>Всё об Олёкминске</h1>
+    <p>Новости, события, объявления и вакансии Олёкминска в одном месте.</p>
   </div>
   <form class="search" id="search" role="search">
     <input id="q" type="search" name="q" placeholder="Что ищете?" aria-label="Поиск по сайту" enterkeyhint="search">
@@ -1183,7 +1198,7 @@
   <div class="wrap">
     <span class="copy">© 2026 Евсеев А.В.</span>
     <a href="#/privacy">Политика конфиденциальности</a>
-    <span>Олёкминский район, Республика Саха (Якутия)</span>
+    <span>Олёкминск, Республика Саха (Якутия)</span>
   </div>
 </footer>
 
@@ -1361,8 +1376,8 @@ const DEMO = {
     { id: 2, title: 'Зимние шины R15, комплект', price: 12000, price_type: 'fixed', settlement: 'Олёкминск', bumped_at: new Date(now - 3 * H).toISOString() },
     { id: 3, title: 'Сдам 1-комнатную квартиру в центре', price: 15000, price_type: 'fixed', settlement: 'Олёкминск', bumped_at: new Date(now - 6 * H).toISOString() },
     { id: 4, title: 'Отдам котят в добрые руки', price: null, price_type: 'free', settlement: 'Олёкминск', bumped_at: new Date(now - 1 * D).toISOString() },
-    { id: 5, title: 'Дрова колотые, берёза, с доставкой', price: 4500, price_type: 'fixed', settlement: 'Олёкминский район', bumped_at: new Date(now - 1 * D - 4 * H).toISOString() },
-    { id: 6, title: 'Куплю снегоход в рабочем состоянии', price: null, price_type: 'negotiable', settlement: 'Олёкминский район', bumped_at: new Date(now - 2 * D).toISOString() }
+    { id: 5, title: 'Дрова колотые, берёза, с доставкой', price: 4500, price_type: 'fixed', settlement: 'Олёкминск', bumped_at: new Date(now - 1 * D - 4 * H).toISOString() },
+    { id: 6, title: 'Куплю снегоход в рабочем состоянии', price: null, price_type: 'negotiable', settlement: 'Олёкминск', bumped_at: new Date(now - 2 * D).toISOString() }
   ],
   events: [
     { id: 1, title: 'Осенняя ярмарка', place: 'Центральная площадь', starts_at: new Date(now + 2 * D).toISOString() },
@@ -1611,7 +1626,7 @@ function updateHeader() {
 function renderLogin(query) {
   if (!sb) return renderNoDb('Вход');
   const next = new URLSearchParams(query).get('next') || '';
-  if (session) { location.hash = '#/' + next; return; }
+  if (session) { location.replace('#/' + next); return; }
   $('#app').innerHTML =
     '<form class="form" id="f" novalidate>' +
       '<h1>Вход</h1><p class="sub">Чтобы подавать объявления, комментировать и предлагать события.</p>' +
@@ -1631,14 +1646,14 @@ function renderLogin(query) {
     btn.disabled = true; btn.textContent = 'Входим…'; setMsg(msg, '');
     const { error } = await sb.auth.signInWithPassword({ email, password });
     if (error) { setMsg(msg, ruError(error)); btn.disabled = false; btn.textContent = 'Войти'; return; }
-    location.hash = '#/' + next;
+    location.replace('#/' + next); // «Назад» не вернёт на форму входа
   });
 }
 
 /* ----- Регистрация ----- */
 function renderRegister(query) {
   if (!sb) return renderNoDb('Регистрация');
-  if (session) { location.hash = '#/profile'; return; }
+  if (session) { location.replace('#/profile'); return; }
   $('#app').innerHTML =
     '<form class="form" id="f" novalidate>' +
       '<h1>Регистрация</h1><p class="sub">Займёт минуту. Потом подтвердите почту по ссылке из письма.</p>' +
@@ -1670,7 +1685,7 @@ function renderRegister(query) {
     if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
       return setMsg(msg, 'Эта почта уже зарегистрирована. Войдите или восстановите пароль.');
     }
-    if (data.session) { location.hash = '#/profile'; return; }
+    if (data.session) { location.replace('#/profile'); return; }
     $('#app').innerHTML =
       '<div class="form"><h1>Проверьте почту</h1>' +
       '<p class="sub">Мы отправили письмо на <b>' + esc(email) + '</b>. Откройте ссылку в письме, чтобы подтвердить почту, и затем войдите.</p>' +
@@ -1706,7 +1721,7 @@ function renderReset() {
 /* ----- Новый пароль (после ссылки из письма) ----- */
 function renderNewPassword() {
   if (!sb) return renderNoDb('Новый пароль');
-  if (!session) { location.hash = '#/reset'; return; }
+  if (!session) { location.replace('#/reset'); return; }
   $('#app').innerHTML =
     '<form class="form" id="f" novalidate>' +
       '<h1>Новый пароль</h1><p class="sub">Придумайте новый пароль для входа.</p>' +
@@ -1748,7 +1763,7 @@ async function makeAvatar(file) {
 
 async function renderProfile() {
   if (!sb) return renderNoDb('Профиль');
-  if (!session) { location.hash = '#/login?next=profile'; return; }
+  if (!session) { location.replace('#/login?next=profile'); return; }
   $('#app').innerHTML = '<p class="loading">Загружаем профиль…</p>';
   profile = await fetchProfile();
   updateHeader();
@@ -1915,7 +1930,7 @@ async function initAuth() {
     flashMsg = session
       ? { text: 'Почта подтверждена. Добро пожаловать!', ok: true }
       : { text: 'Почта подтверждена. Теперь войдите с паролем.', ok: true };
-    if (!session) location.hash = '#/login';
+    if (!session) location.replace('#/login');
   }
   if (params.toString()) history.replaceState(null, '', location.pathname + location.hash);
 
@@ -1945,6 +1960,9 @@ let PLACES = [
 let PLACE_TOP = 8;
 // Село Олёкминский легко спутать с городом Олёкминском — в подсказках подписываем
 const placeLabel = p => p === 'Олёкминский' ? 'Олёкминский (село)' : p;
+// Сайт — про Олёкминск: село пишем, только если объявление не из города (старые и недвижимость)
+const placeShort = p => p && p !== 'Олёкминск' ? placeLabel(p) : '';
+const metaWhere = (p, when) => esc([placeShort(p), when].filter(Boolean).join(', '));
 const placeNorm = t => String(t || '').toLowerCase().replace(/ё/g, 'е').replace(/\s*\(село\)\s*$/, '').replace(/[^a-zа-я0-9]+/g, ' ').trim();
 let PLACE_BY_NORM = new Map(PLACES.map(p => [placeNorm(p), p]));
 
@@ -2128,7 +2146,8 @@ function plural(n, one, few, many) {
 
 function requireLogin(next) {
   if (session) return true;
-  location.hash = '#/login?next=' + encodeURIComponent(next);
+  // replace: иначе «Назад» со страницы входа снова попадает сюда и опять перекидывает на вход
+  location.replace('#/login?next=' + encodeURIComponent(next));
   return false;
 }
 
@@ -2162,7 +2181,7 @@ function adItem(a, base = 'ads') {
              : '<span class="thumb">' + ICON_PHOTO + '</span>') +
     '<span><span class="ad-title">' + esc(a.title) + '</span>' +
     fmtPrice(a.price, a.price_type) +
-    '<span class="meta" style="display:block">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span></span>' +
+    '<span class="meta" style="display:block">' + metaWhere(a.settlement, fmtWhen(a.bumped_at)) + '</span></span>' +
   '</a></li>';
 }
 
@@ -2186,19 +2205,21 @@ function hoursUntilBump(ad) {
   return left > 0 ? Math.ceil(left / 3600e3) : 0;
 }
 
-function ownerToolsHtml(ad, base = 'ads') {
+// own — смотрит автор (поднимать и продлевать может только он; персонал правит, снимает и удаляет)
+function ownerToolsHtml(ad, base = 'ads', own = true) {
   const expired = new Date(ad.expires_at) < new Date();
   const wait = hoursUntilBump(ad);
   let html = '<div class="owner-tools">';
   if (ad.status !== 'blocked') {
     html += '<a class="btn btn-line" href="#/' + base + '/' + ad.id + '/edit">Изменить</a>';
     if (ad.status === 'active') {
-      html += wait
+      if (own) html += wait
         ? '<button class="btn btn-line" disabled>Поднять через ' + wait + ' ч</button>'
         : '<button class="btn btn-accent" data-act="bump">' + (expired ? 'Продлить' : 'Поднять') + '</button>';
       html += '<button class="btn btn-line" data-act="close">Снять с публикации</button>';
     } else {
-      html += '<button class="btn btn-accent" data-act="open">Вернуть в публикацию</button>';
+      // Срок истёк — при возврате объявление сразу продлевается на 30 дней
+      html += '<button class="btn btn-accent" data-act="open">' + (expired ? 'Вернуть и продлить' : 'Вернуть в публикацию') + '</button>';
     }
   }
   html += '<button class="btn btn-danger" data-act="delete">Удалить</button></div>';
@@ -2223,9 +2244,18 @@ function bindOwnerTools(root, ad, msgBox, onChange) {
         if (error) throw error;
         flashMsg = { text: 'Объявление поднято наверх и продлено на 30 дней.', ok: true };
       } else if (act === 'close' || act === 'open') {
-        const { error } = await sb.from('ads').update({ status: act === 'close' ? 'closed' : 'active' }).eq('id', ad.id);
+        // Вернуть истёкшее: автор продлевает через bump_ad, персонал (чужое) — сроком в самой записи
+        const expired = act === 'open' && new Date(ad.expires_at) < new Date();
+        const own = session && session.user.id === ad.author_id;
+        const patch = { status: act === 'close' ? 'closed' : 'active' };
+        if (expired && !own) patch.expires_at = new Date(Date.now() + 30 * 864e5).toISOString();
+        const { error } = await sb.from('ads').update(patch).eq('id', ad.id);
         if (error) throw error;
-        flashMsg = { text: act === 'close' ? 'Объявление снято с публикации.' : 'Объявление снова опубликовано.', ok: true };
+        if (expired && own) {
+          const { error: e2 } = await sb.rpc('bump_ad', { p_ad_id: ad.id });
+          if (e2) throw e2;
+        }
+        flashMsg = { text: act === 'close' ? 'Объявление снято с публикации.' : expired ? 'Объявление снова опубликовано и продлено на 30 дней.' : 'Объявление снова опубликовано.', ok: true };
       } else if (act === 'delete') {
         await deleteAd(ad);
         flashMsg = { text: 'Объявление удалено.', ok: true };
@@ -2263,7 +2293,7 @@ async function renderAdView(id, base = 'ads') {
   const isStaff = ['admin', 'moderator'].includes(profile?.role);
   const expired = new Date(ad.expires_at) < new Date();
 
-  if (!isOwner) {
+  if (!isOwner && !isStaff) {
     const key = 'olk_seen_' + ad.id;
     let seen = false;
     try { seen = sessionStorage.getItem(key); sessionStorage.setItem(key, '1'); } catch {}
@@ -2319,8 +2349,9 @@ async function renderAdView(id, base = 'ads') {
         gallery +
         (veh ? '<div id="au-specs">' + vehSpecsHtml(veh) + '</div>' : '') +
         (rlt ? realtySpecsHtml(rlt) : '') +
+        (rlt && ad.deal === 'sell' && DOM_BLD.includes(rlt.kind) && ad.price ? mortgageHtml(ad.price) : '') +
         (ad.description ? '<p class="ad-desc">' + esc(ad.description) + '</p>' : '') +
-        '<p class="meta">' + esc(ad.settlement) + ', поднято ' + fmtWhen(ad.bumped_at) + ', ' +
+        '<p class="meta">' + metaWhere(ad.settlement, 'поднято ' + fmtWhen(ad.bumped_at)) + ', ' +
           ad.views + ' ' + plural(ad.views, 'просмотр', 'просмотра', 'просмотров') + '</p>' +
       '</div>' +
       '<aside class="ad-side aside-block">' +
@@ -2329,10 +2360,11 @@ async function renderAdView(id, base = 'ads') {
         (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
         '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
           '<div class="meta">на olk.ru</div></div></div>' +
-        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad, base) + '</div>' : '') +
+        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad, base, isOwner) + '</div>' : '') +
       '</aside>' +
     '</div>';
 
+  if ($('#mcalc')) bindMortgage($('#mcalc'));
   const gal = $('#gal'), galN = $('#gal-n');
   if (gal && galN) gal.addEventListener('scroll', () => {
     galN.textContent = (Math.round(gal.scrollLeft / gal.clientWidth) + 1) + ' / ' + ad.photos.length;
@@ -2355,7 +2387,7 @@ async function renderAdView(id, base = 'ads') {
 
   const tools = $('#tools');
   if (tools) bindOwnerTools(tools, ad, $('#msg'), act => {
-    if (act === 'delete') location.hash = '#/ads/my';
+    if (act === 'delete') location.replace(isOwner ? '#/ads/my' : '#/' + base); // персонал удалил чужое — в раздел
     else renderAdView(id, base).then(showFlash);
   });
 }
@@ -2367,7 +2399,7 @@ async function renderMyAds() {
   const app = $('#app');
   app.innerHTML = '<p class="loading">Загружаем ваши объявления…</p>';
   const { data, error } = await sb.from('ads')
-    .select('id, category_id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
+    .select('id, author_id, category_id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
     .eq('author_id', session.user.id)
     .order('created_at', { ascending: false });
   if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
@@ -2491,7 +2523,7 @@ async function renderAdForm(query, editId, base = 'ads') {
         priceTypes.map(([v, l]) => '<label><input type="radio" name="pt" value="' + v + '"' + (pt === v ? ' checked' : '') + '><span>' + l + '</span></label>').join('') +
       '</div></div>' +
       '<div class="field" id="price-wrap"><label for="a-price">Сумма, ₽</label><input id="a-price" type="number" inputmode="numeric" min="0" step="1" value="' + (ad?.price ?? '') + '"></div>' +
-      '<div class="field"><label for="a-place">Населённый пункт</label>' + placeFieldHtml('a-place', false) + '</div>' +
+      (domForm ? '<div class="field"><label for="a-place">Где находится</label>' + placeFieldHtml('a-place', false) + '</div>' : '') +
       '<div class="field"><label for="a-phone">Телефон для связи</label><input id="a-phone" type="tel" autocomplete="tel" inputmode="tel" value="' + esc(ad?.contact_phone || savedPhone) + '" placeholder="+7 914 000-00-00"></div>' +
       '<div class="field"><span style="display:block;font-weight:500;font-size:15px;margin-bottom:6px">Фото <span class="meta">до 10 штук, первое будет главным</span></span>' +
         '<div class="photos" id="photos"></div><input type="file" id="a-files" accept="image/*" multiple hidden></div>' +
@@ -2500,14 +2532,15 @@ async function renderAdForm(query, editId, base = 'ads') {
       (ad ? '<div class="form-links"><a href="#/' + base + '/' + ad.id + '">Отменить</a></div>' : '') +
     '</form>';
 
-  // Место: из списка; у старого объявления с ручным вводом старое значение принимается, пока его не поменяют
-  if (ad && ad.settlement && !PLACES.includes(ad.settlement)) {
+  // Место (только недвижимость): из списка; у старого объявления с ручным вводом старое значение принимается, пока его не поменяют
+  if (!domForm) {}
+  else if (ad && ad.settlement && !PLACES.includes(ad.settlement)) {
     $('#a-place').dataset.old = ad.settlement;
     $('#a-place').dataset.place = ad.settlement;
     $('#a-place').value = ad.settlement;
     $('#a-place-err').hidden = true;
   } else setPlace('#a-place', ad?.settlement || 'Олёкминск');
-  bindPlace('#a-place', false);
+  if (domForm) bindPlace('#a-place', false);
 
   const msg = $('#msg');
   const topSel = $('#a-top'), subSel = $('#a-sub'), subWrap = $('#sub-wrap');
@@ -2609,7 +2642,8 @@ async function renderAdForm(query, editId, base = 'ads') {
     const description = desc.value.trim();
     const price_type = app.querySelector('input[name=pt]:checked').value;
     const priceRaw = $('#a-price').value.trim();
-    const settlement = placeValue('#a-place');
+    // Остальные разделы — только Олёкминск: у нового объявления место ставит база, у старого не меняем
+    const settlement = domForm ? placeValue('#a-place') : 'Олёкминск';
     const contact_phone = $('#a-phone').value.trim();
     const digits = contact_phone.replace(/\D/g, '');
 
@@ -2619,13 +2653,13 @@ async function renderAdForm(query, editId, base = 'ads') {
     if (price_type === 'fixed' && priceRaw === '') return setMsg(msg, 'Укажите цену или выберите «Договорная».');
     if (priceRaw !== '' && (isNaN(+priceRaw) || +priceRaw < 0)) return setMsg(msg, 'Цена должна быть числом.');
     if (settlement === null) { $('#a-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
-    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
     if (digits.length < 10 || digits.length > 12) return setMsg(msg, 'Проверьте номер телефона: нужно 10–11 цифр.');
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатываются.');
 
     const price = (price_type === 'free' || price_type === 'exchange' || priceRaw === '') ? null : Math.round(+priceRaw);
     const deal = domForm ? DF.deal() : (top && top.slug === 'rabota') || vrow ? 'sell' : app.querySelector('input[name=deal]:checked').value;
-    const fields = { category_id: catId, title, description, price, price_type, deal, settlement, contact_phone };
+    const fields = { category_id: catId, title, description, price, price_type, deal, contact_phone };
+    if (domForm) fields.settlement = settlement || 'Олёкминск';
     const btn = $('#a-submit');
     btn.disabled = true; btn.textContent = ad ? 'Сохраняем…' : 'Публикуем…';
     setMsg(msg, '');
@@ -2714,29 +2748,29 @@ async function renderAdForm(query, editId, base = 'ads') {
 // Новый раздел (афиша, справочник) — одна строка в HEADS плюс его поиск.
 let HEAD_KIND = null, BOARD_CAT = '';
 const DEALS = { sell: 'Продам', buy: 'Куплю', rent_out: 'Сдам', rent_in: 'Сниму', exchange: 'Обменяю' };
-const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминского района';
-const NEWS_TITLE = 'news.olk.ru — новости Олёкминского района';
-const RABOTA_TITLE = 'rabota.olk.ru — работа в Олёкминском районе';
-const AFISHA_TITLE = 'afisha.olk.ru — афиша Олёкминского района';
-const AUTO_TITLE = 'auto.olk.ru — авто и техника Олёкминского района';
+const BOARD_TITLE = 'doska.olk.ru — объявления Олёкминска';
+const NEWS_TITLE = 'news.olk.ru — новости Олёкминска';
+const RABOTA_TITLE = 'rabota.olk.ru — работа в Олёкминске';
+const AFISHA_TITLE = 'afisha.olk.ru — афиша Олёкминска';
+const AUTO_TITLE = 'auto.olk.ru — авто и техника Олёкминска';
 
 const HEADS = {
-  portal: { name: 'olk.ru', sub: 'Олёкминский район', href: '#/', label: 'olk.ru — на главную',
+  portal: { name: 'olk.ru', sub: 'Олёкминск', href: '#/', label: 'olk.ru — на главную',
     add: ['Подать объявление', '+ Подать', '#/ads/new'] },
   doska: { pre: 'doska', sub: 'Доска объявлений', href: '#/ads', label: 'doska.olk.ru — главная доски',
     add: ['Добавить объявление', '+ Добавить', '#/ads/new'], title: BOARD_TITLE, extra: doskaHeadHtml, bind: bindDoskaHead },
-  news: { pre: 'news', sub: 'Новости района', href: '#/news', label: 'news.olk.ru — главная новостей',
+  news: { pre: 'news', sub: 'Новости города', href: '#/news', label: 'news.olk.ru — главная новостей',
     add: ['Написать новость', '+ Новость', '#/admin/news/new'], staffOnly: true, title: NEWS_TITLE, extra: newsHeadHtml, bind: bindNewsHead },
   rabota: { pre: 'rabota', sub: 'Вакансии и резюме', href: '#/rabota', label: 'rabota.olk.ru — главная раздела «Работа»',
     add: ['Разместить вакансию', '+ Добавить', '#/rabota/new'], title: RABOTA_TITLE, extra: rabotaHeadHtml, bind: bindRabotaHead },
-  afisha: { pre: 'afisha', sub: 'Афиша района', href: '#/events', label: 'afisha.olk.ru — главная афиши',
+  afisha: { pre: 'afisha', sub: 'Афиша города', href: '#/events', label: 'afisha.olk.ru — главная афиши',
     add: ['Добавить событие', '+ Добавить', '#/events/new'], title: AFISHA_TITLE, extra: afishaHeadHtml, bind: bindAfishaHead },
-  catalog: { pre: 'catalog', sub: 'Справочник района', href: '#/catalog', label: 'catalog.olk.ru — главная справочника',
-    add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминского района', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() },
+  catalog: { pre: 'catalog', sub: 'Справочник города', href: '#/catalog', label: 'catalog.olk.ru — главная справочника',
+    add: ['Добавить организацию', '+ Добавить', '#/catalog/new'], title: 'catalog.olk.ru — справочник Олёкминска', extra: () => catalogHeadHtml(), bind: () => bindCatalogHead() },
   auto: { pre: 'auto', sub: 'Авто и техника', href: '#/auto', label: 'auto.olk.ru — главная раздела «Авто»',
     add: ['Продать', '+ Продать', '#/auto/new'], title: AUTO_TITLE, extra: () => autoHeadHtml(), bind: () => bindAutoHead() },
   dom: { pre: 'dom', sub: 'Недвижимость', href: '#/dom', label: 'dom.olk.ru — главная раздела «Недвижимость»',
-    add: ['Разместить объявление', '+ Добавить', '#/dom/new'], title: 'dom.olk.ru — недвижимость Олёкминского района', extra: () => domHeadHtml(), bind: () => bindDomHead() }
+    add: ['Разместить объявление', '+ Добавить', '#/dom/new'], title: 'dom.olk.ru — недвижимость Олёкминска', extra: () => domHeadHtml(), bind: () => bindDomHead() }
 };
 
 function setHead(kind) {
@@ -2782,16 +2816,6 @@ function paramsState(pre, st, keys) {
   return n;
 }
 
-// Место в «Параметрах» введено не из списка: показать подсказку, поиск не запускать
-function placeOk(pre) {
-  if (placeValue(pre + '-place') !== null) return true;
-  $(pre + '-params').hidden = false;
-  $(pre + '-pt').setAttribute('aria-expanded', 'true');
-  $(pre + '-place-err').hidden = false;
-  $(pre + '-place').focus();
-  return false;
-}
-
 function goHash(next) {
   if (location.hash === next) route(); else location.hash = next;
 }
@@ -2803,10 +2827,9 @@ function doskaHeadHtml() {
         '<button class="btn btn-accent" type="submit">Найти</button></div>' +
       '<div class="bsearch-opts"><label><input type="checkbox" id="bs-photo">с фото</label>' +
         '<button class="ptoggle" type="button" id="bs-pt" aria-expanded="false" aria-controls="bs-params">Параметры</button></div>' +
-      '<div class="bparams" id="bs-params" hidden>' +
+      '<div class="bparams four" id="bs-params" hidden>' +
         '<div><label for="bs-min">Цена от, ₽</label><input id="bs-min" type="number" inputmode="numeric" min="0"></div>' +
         '<div><label for="bs-max">до, ₽</label><input id="bs-max" type="number" inputmode="numeric" min="0"></div>' +
-        '<div class="bp-wide"><label for="bs-place">Населённый пункт</label>' + placeFieldHtml('bs-place', true) + '</div>' +
         '<div><label for="bs-deal">Тип</label><select id="bs-deal"><option value="">Все</option>' +
           Object.entries(DEALS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
         '<div><label for="bs-sort">Сначала</label><select id="bs-sort"><option value="new">новые</option><option value="cheap">дешевле</option><option value="dear">дороже</option></select></div>' +
@@ -2817,14 +2840,12 @@ function doskaHeadHtml() {
 
 function bindDoskaHead() {
   bindParamsToggle('#bs-pt', '#bs-params');
-  bindPlace('#bs-place', true);
   $('#bs').addEventListener('submit', e => {
     e.preventDefault();
-    if (!placeOk('#bs')) return;
     $('#bs-q').blur();
     goHash('#/ads' + qs({
       cat: BOARD_CAT, q: $('#bs-q').value.trim(), photo: $('#bs-photo').checked ? '1' : '',
-      min: $('#bs-min').value.trim(), max: $('#bs-max').value.trim(), place: placeValue('#bs-place'),
+      min: $('#bs-min').value.trim(), max: $('#bs-max').value.trim(),
       deal: $('#bs-deal').value, sort: $('#bs-sort').value
     }));
   });
@@ -2875,10 +2896,9 @@ function rabotaHeadHtml() {
           Object.entries(JOB_KINDS).map(([v, l], i) => '<label><input type="radio" name="rs-kind" value="' + v + '"' + (i ? '' : ' checked') + '><span>' + l + '</span></label>').join('') +
         '</span>' +
         '<button class="ptoggle" type="button" id="rs-pt" aria-expanded="false" aria-controls="rs-params">Параметры</button></div>' +
-      '<div class="bparams four" id="rs-params" hidden>' +
+      '<div class="bparams three" id="rs-params" hidden>' +
         '<div><label for="rs-min">Зарплата от, ₽</label><input id="rs-min" type="number" inputmode="numeric" min="0"></div>' +
         '<div><label for="rs-max">до, ₽</label><input id="rs-max" type="number" inputmode="numeric" min="0"></div>' +
-        '<div class="bp-wide"><label for="rs-place">Населённый пункт</label>' + placeFieldHtml('rs-place', true) + '</div>' +
         '<div><label for="rs-sort">Сначала</label><select id="rs-sort"><option value="new">новые</option><option value="dear">с большей зарплатой</option><option value="cheap">с меньшей зарплатой</option></select></div>' +
         '<div class="bp-reset" id="rs-reset" hidden><a href="#/rabota">Сбросить поиск и параметры</a></div>' +
       '</div>' +
@@ -2887,13 +2907,11 @@ function rabotaHeadHtml() {
 
 function bindRabotaHead() {
   bindParamsToggle('#rs-pt', '#rs-params');
-  bindPlace('#rs-place', true);
   const go = () => {
-    if (!placeOk('#rs')) return;
     $('#rs-q').blur();
     goHash('#/rabota' + qs({
       cat: $('#rs').querySelector('input[name=rs-kind]:checked').value, q: $('#rs-q').value.trim(),
-      min: $('#rs-min').value.trim(), max: $('#rs-max').value.trim(), place: placeValue('#rs-place'), sort: $('#rs-sort').value
+      min: $('#rs-min').value.trim(), max: $('#rs-max').value.trim(), sort: $('#rs-sort').value
     }));
   };
   $('#rs').addEventListener('submit', e => { e.preventDefault(); go(); });
@@ -2908,9 +2926,8 @@ function fillRabotaHead(st) {
   $('#rs').querySelector('input[name=rs-kind][value=' + kind + ']').checked = true;
   $('#rs-min').value = st.min || '';
   $('#rs-max').value = st.max || '';
-  setPlace('#rs-place', st.place);
   $('#rs-sort').value = st.sort || 'new';
-  const n = paramsState('#rs', st, ['min', 'max', 'place']);
+  const n = paramsState('#rs', st, ['min', 'max']);
   $('#rs-reset').hidden = !(n || st.q);
 }
 
@@ -2921,10 +2938,9 @@ function fillBoardHead(st) {
   $('#bs-photo').checked = !!st.photo;
   $('#bs-min').value = st.min || '';
   $('#bs-max').value = st.max || '';
-  setPlace('#bs-place', st.place);
   $('#bs-deal').value = st.deal || '';
   $('#bs-sort').value = st.sort || 'new';
-  const n = paramsState('#bs', st, ['min', 'max', 'place', 'deal']);
+  const n = paramsState('#bs', st, ['min', 'max', 'deal']);
   $('#bs-reset').hidden = !(n || st.q || st.photo);
 }
 
@@ -3049,7 +3065,7 @@ function boardCard(a) {
       (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
       fmtPrice(a.price, a.price_type) +
       '<span class="btitle">' + esc(a.title) + '</span>' +
-      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+      '<span class="meta">' + metaWhere(a.settlement, fmtWhen(a.bumped_at)) + '</span>' +
     '</a></div></li>';
 }
 
@@ -3103,7 +3119,7 @@ async function renderBoard(query) {
   const p = new URLSearchParams(query);
   const st = {
     cat: p.get('cat') || '', q: p.get('q') || '', photo: p.get('photo') ? '1' : '',
-    min: p.get('min') || '', max: p.get('max') || '', place: p.get('place') || '',
+    min: p.get('min') || '', max: p.get('max') || '', place: '',   // выбора сёл больше нет
     deal: DEALS[p.get('deal')] ? p.get('deal') : '', sort: p.get('sort') || 'new'
   };
   fillBoardHead(st);
@@ -3122,7 +3138,7 @@ async function renderBoard(query) {
 
   const jobs = jobIds(cats), autos = autoIds(cats), homes = domIds(cats);
   let sel = cats.bySlug[st.cat] || null;
-  if (sel && jobs.includes(sel.id)) { location.hash = '#/rabota' + qs({ cat: sel.slug }); return; }
+  if (sel && jobs.includes(sel.id)) { location.replace('#/rabota' + qs({ cat: sel.slug })); return; }
   if (sel && autos.includes(sel.id)) { location.replace(autoHashForCat(cats, sel)); return; }
   if (sel && homes.includes(sel.id)) { location.replace(domHashForCat(cats, sel)); return; }
   const hidden = jobs.concat(autos, homes); // работа, авто и недвижимость живут в своих разделах
@@ -3189,7 +3205,7 @@ async function renderRabota(query) {
   const p = new URLSearchParams(query);
   const st = {
     cat: p.get('cat') || '', q: p.get('q') || '', min: p.get('min') || '', max: p.get('max') || '',
-    place: p.get('place') || '', sort: ['cheap', 'dear'].includes(p.get('sort')) ? p.get('sort') : 'new'
+    place: '', sort: ['cheap', 'dear'].includes(p.get('sort')) ? p.get('sort') : 'new'
   };
   fillRabotaHead(st);
   app.innerHTML = '<p class="loading">Загружаем…</p>';
@@ -3209,7 +3225,7 @@ async function renderRabota(query) {
 
   // Главная раздела: свежие вакансии и свежие резюме
   if (!sel && !searching) {
-    app.innerHTML = '<h1 class="sr-only">Работа в Олёкминском районе</h1><div class="rgrid">' +
+    app.innerHTML = '<h1 class="sr-only">Работа в Олёкминске</h1><div class="rgrid">' +
       root.children.map(c =>
         '<section class="section"><div class="section-head"><h2>' + esc(c.name) + '<span class="bcount" data-cid="' + c.id + '" hidden></span></h2>' +
           '<a href="#/rabota?cat=' + c.slug + '">Все →</a></div>' +
@@ -3556,7 +3572,7 @@ function auParse(query) {
   const ints = k => [...new Set((p.get(k) || '').split(',').map(Number).filter(n => Number.isInteger(n) && n > 0))].slice(0, 30);
   const st = auEmpty(AUTO_TAB[p.get('tab')] ? p.get('tab') : 'car');
   st.min = num('min'); st.max = num('max');
-  st.place = p.get('place') || '';
+  st.place = '';   // выбора сёл больше нет
   st.photo = p.get('photo') ? '1' : '';
   st.q = (p.get('q') || '').slice(0, 100);
   if (auVeh(st.tab)) {
@@ -3810,11 +3826,12 @@ function auSelText(st) {
 }
 
 /* ----- Подписи ----- */
+// Сокращаем только круглые суммы: 250 000 → «250 тыс.», 1 500 000 → «1,5 млн»; 1 500 — как есть, без округления
 const shortRub = n => {
   n = +n;
-  if (n >= 1e6) return String(Math.round(n / 1e5) / 10).replace('.', ',') + ' млн';
-  if (n >= 1000) return Math.round(n / 1000).toLocaleString('ru-RU') + ' тыс.';
-  return n + ' ₽';
+  if (n >= 1e6 && n % 1e5 === 0) return String(n / 1e6).replace('.', ',') + ' млн';
+  if (n >= 1000 && n % 1000 === 0) return (n / 1000).toLocaleString('ru-RU') + ' тыс.';
+  return n.toLocaleString('ru-RU') + ' ₽';
 };
 function rangeText(a, b, f) {
   if (a && b) return a === b ? f(a) : f(a) + '–' + f(b);
@@ -3823,7 +3840,7 @@ function rangeText(a, b, f) {
   return '';
 }
 function priceText(a, b) {
-  const unit = x => +x >= 1e6 ? 'млн' : +x >= 1000 ? 'тыс.' : '₽';
+  const unit = x => shortRub(x).match(/(млн|тыс\.|₽)$/)[1];
   if (a && b && a !== b && unit(a) === unit(b)) return shortRub(a).replace(/ (млн|тыс\.|₽)$/, '') + '–' + shortRub(b);
   return rangeText(a, b, shortRub);
 }
@@ -3980,7 +3997,7 @@ function autoCard(a) {
       (a.deal && a.deal !== 'sell' && DEALS[a.deal] ? '<span class="deal">' + DEALS[a.deal] + '</span>' : '') +
       fmtPrice(a.price, a.price_type) +
       (line ? '<span class="au-spec">' + esc(line) + '</span>' : '') +
-      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+      '<span class="meta">' + metaWhere(a.settlement, fmtWhen(a.bumped_at)) + '</span>' +
     '</a></div></li>';
 }
 
@@ -4061,9 +4078,6 @@ function fillAutoHead(st) {
     '<button type="button" class="au-cell au-pcell" data-act="params">' + auIcon('params', 'au-ico') + '<span>Параметры</span>' +
       (extra ? '<b class="au-badge" aria-label="выбрано: ' + extra + '">' + extra + '</b>' : '') + '</button>' +
   '</div>';
-  box += '<div class="au-row"><button type="button" class="au-main" data-act="place">' + auIcon('pin', 'au-ico') +
-      '<span class="au-lab' + (st.place ? '' : ' au-ph') + '">' + esc(st.place ? placeLabel(st.place) : 'Весь район') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
-      (st.place ? '<button type="button" class="au-x" data-act="place-x" aria-label="Весь район">×</button>' : '') + '</div>';
   box += '<button type="button" class="btn btn-accent au-show" data-act="show" id="au-show">Показать объявления</button>';
   $('#au-box').innerHTML = box;
   $('#au-box').classList.toggle('vk', !!vrow);
@@ -4315,7 +4329,7 @@ function auRangeSheet({ title, a, b, dec, onDone }) {
           if (!/^\d+(\.\d+)?$/.test(v)) return null;
           let x = +v;
           if (dec === 'pow') { x = Math.round(x * 10) / 10; return x > 0 && x < 10000 ? String(x) : null; }
-          if (dec === 'm2') { x = Math.round(x * 10) / 10; return x > 0 && x <= 100000 ? String(x) : null; }
+          if (dec === 'm2' || dec === 'sot') { x = Math.round(x * 10) / 10; return x > 0 && x <= 100000 ? String(x) : null; }
           // Тонны; ввели килограммы (1500) — переводим
           if (dec === 'ton') { if (x >= 200) x = x / 1000; x = Math.round(x * 100) / 100; return x > 0 && x < 1000 ? String(x) : null; }
           if (dec === 'len') { if (x >= 100) x = x / 100; x = Math.round(x * 100) / 100; return x > 0 && x < 100 ? String(x) : null; }
@@ -4328,7 +4342,7 @@ function auRangeSheet({ title, a, b, dec, onDone }) {
       let x = val('#rs-a'), y = val('#rs-b');
       if (x === null || y === null) {
         const err = s.querySelector('#rs-err');
-        err.textContent = dec === 'm2' ? 'Введите площадь в м², например 45' : dec === 'ton' ? 'Введите тонны, например 1,5' : dec === 'len' ? 'Введите длину в метрах, например 4,6' : dec === 'pow' ? 'Введите число, например 9,9' : dec ? 'Введите объём в литрах, например 1,5' : 'Введите число';
+        err.textContent = dec === 'm2' ? 'Введите площадь в м², например 45' : dec === 'sot' ? 'Введите сотки, например 6' : dec === 'ton' ? 'Введите тонны, например 1,5' : dec === 'len' ? 'Введите длину в метрах, например 4,6' : dec === 'pow' ? 'Введите число, например 9,9' : dec ? 'Введите объём в литрах, например 1,5' : 'Введите число';
         err.hidden = false;
         return false;
       }
@@ -4663,7 +4677,6 @@ function auParamsScreen(st0) {
   function draw() {
     const top = body.scrollTop;
     let h = grp([
-      row('place', 'Населённый пункт', p.place ? placeLabel(p.place) : ''),
       auHasCls(p.tab) && row('cls', AU_CLS_NAME[p.tab], auClsName(p)),
       veh && row('brand', 'Марка, модель', auSelText(p)),
       p.tab === 'parts' && row('cat', 'Вид запчастей', PARTS_BY[p.cat] || '')
@@ -5263,7 +5276,7 @@ function bindAutoForm(app, cats, ad) {
 // Образец — Авито и Домклик. Весь раздел «Недвижимость» доски живёт здесь: #/dom (главная и поиск), #/dom/ID, #/dom/ID/edit, #/dom/new.
 // Характеристики — ad_realty (0015). Сверху «Купить | Снять | Ищут» (у «Снять» — помесячно / посуточно), шесть вкладок.
 // Заход 1: квартиры и комнаты — с полным поиском и полями формы; дома, участки, гаражи, коммерческая — пока простой лентой.
-const DOM_TITLE = 'dom.olk.ru — недвижимость Олёкминского района';
+const DOM_TITLE = 'dom.olk.ru — недвижимость Олёкминска';
 const DOM_TABS = [
   { key: 'flat', name: 'Квартиры', cat: 'kvartiry', icon: 'flat', acc: 'квартиру', form: 'Квартира' },
   { key: 'room', name: 'Комнаты', cat: 'komnaty', icon: 'room', acc: 'комнату', form: 'Комната' },
@@ -5292,6 +5305,24 @@ const R_REN = { need: 'Требует ремонта', cosmetic: 'Космети
 const R_SELLER = { owner: 'Собственник', agency: 'Агентство' };
 const R_SELLER_F = { owner: 'Только собственники', agency: 'Только агентства' };
 const R_DEALS = [['sell', 'Продать'], ['rent_out', 'Сдать'], ['buy', 'Купить'], ['rent_in', 'Снять']];
+// Заход 2: дома, участки, гаражи, коммерческая
+const R_HEAT = { stove: 'Печное', central: 'Центральное', boiler: 'Котёл', electric: 'Электрическое', none: 'Нет' };
+const R_HEAT_S = { stove: 'печное отопление', central: 'центр. отопление', boiler: 'котёл', electric: 'электроотопление', none: 'без отопления' };
+const R_WATER = { central: 'Водопровод', well: 'Колодец', borehole: 'Скважина', delivery: 'Привозная', none: 'Нет' };
+const R_WATER_S = { central: 'водопровод', well: 'колодец', borehole: 'скважина', delivery: 'привозная вода', none: 'без воды' };
+const R_SEWER = { central: 'Центральная', septic: 'Септик', yard: 'Во дворе', none: 'Нет' };
+const R_LAND = { izhs: 'ИЖС', lph: 'ЛПХ', dacha: 'Дача, СНТ', agri: 'Сельхоз', commercial: 'Коммерческое' };
+const R_LAND_F = { izhs: 'ИЖС (под дом)', lph: 'ЛПХ (подсобное хозяйство)', dacha: 'Дача, СНТ', agri: 'Сельхозназначения', commercial: 'Коммерческое' };
+const R_LAND_T = { izhs: 'ИЖС', lph: 'ЛПХ', dacha: 'дача', agri: 'сельхоз', commercial: 'коммерческий' };
+const R_GARAGE = { capital: 'Капитальный', metal: 'Металлический', box: 'Бокс', parking: 'Машиноместо' };
+const R_GARAGE_T = { capital: 'Капитальный гараж', metal: 'Металлический гараж', box: 'Гаражный бокс', parking: 'Машиноместо' };
+const R_COMM = { office: 'Офис', retail: 'Торговое', warehouse: 'Склад', production: 'Производство', catering: 'Общепит', free: 'Свободное' };
+const R_COMM_F = { office: 'Офис', retail: 'Торговое помещение', warehouse: 'Склад', production: 'Производство', catering: 'Общепит', free: 'Свободного назначения' };
+const R_COMM_T = { office: 'Офис', retail: 'Торговое помещение', warehouse: 'Склад', production: 'Производственное помещение', catering: 'Помещение под общепит', free: 'Помещение свободного назначения' };
+// Кнопки типа в блоке подбора: у участков — назначение, у гаражей и коммерческой — тип
+const DOM_TYPE = { land: ['luse', R_LAND, 'Назначение'], garage: ['gt', R_GARAGE, 'Тип гаража'], commercial: ['ct', R_COMM, 'Тип помещения'] };
+const DOM_BLD = ['flat', 'room', 'house'];      // жилое: материал, ремонт, ипотека, аренда с детьми
+const DOM_SQ = ['flat', 'room', 'house', 'garage', 'commercial'];   // есть площадь в м²
 const DOM_SORTS = [['new', 'Сначала новые'], ['cheap', 'Сначала дешевле'], ['dear', 'Сначала дороже'], ['big', 'Сначала больше площадь']];
 // Иконки вкладок — Tabler Icons (MIT): building, door, home, fence, car-garage, building-store
 const DOM_ICONS = {
@@ -5324,8 +5355,10 @@ function realtyOf(a) {
 /* ----- Состояние поиска в адресе ----- */
 // Несколько значений, от–до, переключатели. Ключи адреса: rooms, mat, comf, ren; af/at — площадь, kf/kt — кухня,
 // ff/ft — этаж, hf/ht — этажей в доме; nf — не первый, nl — не последний; mort, matcap, kids, pets, util, nodep
-const DOM_LISTS = { rooms: Object.fromEntries(R_ROOMS), mat: R_MAT, comf: R_COMF, ren: R_REN };
-const DOM_RANGES = { area: ['af', 'at'], kitchen: ['kf', 'kt'], floor: ['ff', 'ft'], floors: ['hf', 'ht'] };
+const DOM_LISTS = { rooms: Object.fromEntries(R_ROOMS), mat: R_MAT, comf: R_COMF, ren: R_REN,
+  heat: R_HEAT, water: R_WATER, sewer: R_SEWER, luse: R_LAND, gt: R_GARAGE, ct: R_COMM };
+// land — участок в сотках (у домов и участков)
+const DOM_RANGES = { area: ['af', 'at'], kitchen: ['kf', 'kt'], floor: ['ff', 'ft'], floors: ['hf', 'ht'], land: ['lf', 'lt'] };
 const DOM_FLAGS = ['nf', 'nl', 'mort', 'matcap', 'kids', 'pets', 'util', 'nodep'];
 function domEmpty(tab) {
   const st = { tab: tab || 'flat', mode: 'buy', rent: 'month', want: '', min: '', max: '', seller: '', street: '', place: '', photo: '', q: '', sort: 'new' };
@@ -5335,24 +5368,34 @@ function domEmpty(tab) {
 }
 // Какое поле есть при текущей вкладке и режиме
 function domOn(st, k) {
-  const full = domFull(st.tab), want = st.mode === 'want';
+  const t = st.tab, full = domFull(t), bld = DOM_BLD.includes(t), want = st.mode === 'want';
   switch (k) {
-    case 'rooms': return st.tab === 'flat';
-    case 'kitchen': return st.tab === 'flat' && !want;
-    case 'area': case 'floor': case 'floors': case 'nf': case 'nl': case 'mat': case 'comf': case 'ren': case 'street': return full && !want;
-    case 'mort': case 'matcap': return full && st.mode === 'buy';
-    case 'kids': case 'pets': case 'util': case 'nodep': return full && st.mode === 'rent';
-    case 'seller': return !want;
+    case 'rooms': return t === 'flat';
+    case 'kitchen': return t === 'flat' && !want;
+    case 'area': return DOM_SQ.includes(t) && !want;
+    case 'land': return (t === 'house' || t === 'land') && !want;
+    case 'floor': case 'nf': case 'nl': case 'comf': return full && !want;
+    case 'floors': case 'mat': case 'ren': return bld && !want;
+    case 'heat': case 'water': case 'sewer': return t === 'house' && !want;
+    case 'luse': return t === 'land';
+    case 'gt': return t === 'garage';
+    case 'ct': return t === 'commercial';
+    case 'street': case 'seller': return !want;
+    case 'mort': case 'matcap': return bld && st.mode === 'buy';
+    case 'kids': case 'pets': case 'util': return bld && st.mode === 'rent';
+    case 'nodep': return st.mode === 'rent';
   }
   return true;
 }
+// Сортировка «больше площадь»: у участков — по соткам
+const domBigOk = st => st.mode !== 'want';
 function domDrop(st) {
   Object.keys(DOM_LISTS).forEach(k => { if (!domOn(st, k)) st[k] = []; });
   Object.keys(DOM_RANGES).forEach(k => { if (!domOn(st, k)) DOM_RANGES[k].forEach(x => { st[x] = ''; }); });
   DOM_FLAGS.forEach(k => { if (!domOn(st, k)) st[k] = ''; });
   if (!domOn(st, 'seller')) st.seller = '';
   if (!domOn(st, 'street')) st.street = '';
-  if (st.sort === 'big' && !(domFull(st.tab) && st.mode !== 'want')) st.sort = 'new';
+  if (st.sort === 'big' && !domBigOk(st)) st.sort = 'new';
   return st;
 }
 const domDec = v => /^\d{1,6}(\.\d)?$/.test(v || '') && +v > 0 ? String(+v) : '';
@@ -5364,13 +5407,13 @@ function domParse(query) {
   if (st.mode === 'rent' && p.get('rent') === 'day') st.rent = 'day';
   if (st.mode === 'want' && ['buy', 'rent'].includes(p.get('want'))) st.want = p.get('want');
   st.min = num('min'); st.max = num('max');
-  st.place = p.get('place') || '';
+  st.place = '';   // выбора сёл больше нет
   st.photo = p.get('photo') ? '1' : '';
   st.q = (p.get('q') || '').slice(0, 100);
   st.street = (p.get('street') || '').replace(/[%_*,()\\]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 40);
   st.seller = R_SELLER[p.get('seller')] ? p.get('seller') : '';
   for (const k in DOM_LISTS) st[k] = [...new Set((p.get(k) || '').split(','))].filter(v => Object.hasOwn(DOM_LISTS[k], v));
-  ['af', 'at', 'kf', 'kt'].forEach(k => { st[k] = domDec(p.get(k)); });
+  ['af', 'at', 'kf', 'kt', 'lf', 'lt'].forEach(k => { st[k] = domDec(p.get(k)); });
   ['ff', 'ft', 'hf', 'ht'].forEach(k => { st[k] = /^\d{1,2}$/.test(p.get(k) || '') && +p.get(k) > 0 ? String(+p.get(k)) : ''; });
   DOM_FLAGS.forEach(k => { st[k] = p.get(k) ? '1' : ''; });
   const s = p.get('sort');
@@ -5397,7 +5440,8 @@ const domHeadTitle = st => (st.mode === 'want' ? (st.want === 'buy' ? 'Купя�
   DOM_TAB[st.tab].acc + (st.mode === 'rent' && st.rent === 'day' ? ' посуточно' : '');
 
 /* ----- Запросы ----- */
-const DOM_COLS = 'kind, rent, rooms, area, kitchen_area, floor, floors, material, comfort, renovation, street, seller, mortgage_ok, matcap_ok, kids_ok, pets_ok, utilities_incl, deposit, price_prev';
+const DOM_COLS = 'kind, rent, rooms, area, kitchen_area, floor, floors, material, comfort, renovation, street, seller, mortgage_ok, matcap_ok, kids_ok, pets_ok, utilities_incl, deposit, price_prev, ' +
+  'land_area, heating, water, sewer, land_use, garage_type, comm_type';
 function domDeals(st) {
   if (st.mode === 'rent') return ['rent_out'];
   if (st.mode === 'want') return st.want === 'buy' ? ['buy'] : st.want === 'rent' ? ['rent_in'] : ['buy', 'rent_in'];
@@ -5428,15 +5472,17 @@ function buildDomQuery(st, ids, from, countOnly) {
     const R = 'ad_realty.';
     if (st.mode === 'rent') q = q.eq(R + 'rent', st.rent);
     if (st.rooms.length) q = q.in(R + 'rooms', domRoomVals(st.rooms));
-    const RANGE_COL = { area: 'area', kitchen: 'kitchen_area', floor: 'floor', floors: 'floors' };
+    const RANGE_COL = { area: 'area', kitchen: 'kitchen_area', floor: 'floor', floors: 'floors', land: 'land_area' };
     for (const k in RANGE_COL) {
       const [a, b] = DOM_RANGES[k];
       if (st[a]) q = q.gte(R + RANGE_COL[k], +st[a]);
       if (st[b]) q = q.lte(R + RANGE_COL[k], +st[b]);
     }
     if (st.nf) q = q.gt(R + 'floor', 1);
-    if (st.nl) q = q.eq(R + 'last_floor', false);
-    const LIST_COL = { mat: 'material', comf: 'comfort', ren: 'renovation' };
+    // «Не последний», как и «Не первый», — только у объявлений, где этаж и этажность указаны
+    if (st.nl) q = q.not(R + 'floor', 'is', null).not(R + 'floors', 'is', null).eq(R + 'last_floor', false);
+    const LIST_COL = { mat: 'material', comf: 'comfort', ren: 'renovation', heat: 'heating', water: 'water', sewer: 'sewer',
+      luse: 'land_use', gt: 'garage_type', ct: 'comm_type' };
     for (const k in LIST_COL) if (st[k].length) q = q.in(R + LIST_COL[k], st[k]);
     if (st.seller) q = q.eq(R + 'seller', st.seller);
     if (st.street) q = q.ilike(R + 'street', '%' + st.street + '%');
@@ -5447,7 +5493,7 @@ function buildDomQuery(st, ids, from, countOnly) {
   if (countOnly) return q;
   if (st.sort === 'cheap') q = q.order('price', { ascending: true, nullsFirst: false });
   if (st.sort === 'dear') q = q.order('price', { ascending: false, nullsFirst: false });
-  if (st.sort === 'big') q = q.order('ad_realty(area)', { ascending: false, nullsFirst: false });
+  if (st.sort === 'big') q = q.order(st.tab === 'land' ? 'ad_realty(land_area)' : 'ad_realty(area)', { ascending: false, nullsFirst: false });
   return q.order('bumped_at', { ascending: false }).range(from, from + PAGE_SIZE - 1);
 }
 async function domCount(st) {
@@ -5493,6 +5539,12 @@ function realtyTitle(r) {
   const fl = r.floor ? ', ' + r.floor + (r.floors ? '/' + r.floors : '') + ' эт.' : '';
   if (r.kind === 'flat') return (r.rooms == null ? 'Квартира' : roomsWord(r.rooms)) + (r.area ? ', ' + fmtM2(r.area) : '') + fl;
   if (r.kind === 'room') return 'Комната' + (r.area ? ' ' + fmtM2(r.area) : '') + (r.rooms ? ' в ' + (r.rooms >= 5 ? 'многокомнатной' : r.rooms + '-комн.') + ' квартире' : '') + fl;
+  // «Дом 80 м², участок 6 сот.», «Участок 10 сот., ИЖС», «Капитальный гараж, 24 м²», «Офис, 50 м²»
+  const sot = x => fmtNum(x) + ' сот.';
+  if (r.kind === 'house') return 'Дом' + (r.area ? ' ' + fmtM2(r.area) : '') + (r.land_area ? ', участок ' + sot(r.land_area) : '');
+  if (r.kind === 'land') return 'Участок' + (r.land_area ? ' ' + sot(r.land_area) : '') + (r.land_use ? ', ' + R_LAND_T[r.land_use] : '');
+  if (r.kind === 'garage') return (R_GARAGE_T[r.garage_type] || 'Гараж') + (r.area ? ', ' + fmtM2(r.area) : '');
+  if (r.kind === 'commercial') return (R_COMM_T[r.comm_type] || 'Коммерческое помещение') + (r.area ? ', ' + fmtM2(r.area) : '');
   return '';
 }
 // Строка в ленте: «3/5 эт., панель, благоустр., ул. Ленина»
@@ -5502,6 +5554,8 @@ function realtyLine(r) {
     r.floor ? r.floor + (r.floors ? '/' + r.floors : '') + ' эт.' : r.floors ? r.floors + '-эт. дом' : '',
     R_MAT_S[r.material] || '',
     R_COMF_S[r.comfort] || '',
+    R_HEAT_S[r.heating] || '',
+    R_WATER_S[r.water] || '',
     streetText(r.street)
   ].filter(Boolean).join(', '));
 }
@@ -5520,14 +5574,20 @@ function realtySpecsHtml(r) {
   const rows = [
     ['Срок аренды', DOM_RENT[r.rent]],
     ['Комнат', r.kind === 'flat' && r.rooms != null ? (r.rooms === 0 ? 'Студия' : r.rooms >= 5 ? '5 и больше' : r.rooms) : ''],
-    [r.kind === 'room' ? 'Площадь комнаты' : 'Общая площадь', r.area ? fmtM2(r.area) : ''],
+    ['Тип', r.kind === 'garage' ? R_GARAGE[r.garage_type] : r.kind === 'commercial' ? R_COMM_F[r.comm_type] : ''],
+    [{ room: 'Площадь комнаты', house: 'Площадь дома', flat: 'Общая площадь' }[r.kind] || 'Площадь', r.area ? fmtM2(r.area) : ''],
+    ['Участок', r.land_area ? fmtNum(r.land_area) + ' сот.' : ''],
+    ['Назначение земли', R_LAND_F[r.land_use]],
     ['Кухня', r.kitchen_area ? fmtM2(r.kitchen_area) : ''],
     ['Комнат в квартире', r.kind === 'room' && r.rooms ? (r.rooms >= 5 ? '5 и больше' : r.rooms) : ''],
     ['Этаж', r.floor ? r.floor + (r.floors ? ' из ' + r.floors : '') : ''],
-    ['Этажей в доме', !r.floor && r.floors ? r.floors : ''],
+    [r.kind === 'house' ? 'Этажей' : 'Этажей в доме', !r.floor && r.floors ? r.floors : ''],
     ['Материал дома', R_MAT[r.material]],
     ['Благоустройство', R_COMF[r.comfort]],
     ['Ремонт', R_REN[r.renovation]],
+    ['Отопление', R_HEAT[r.heating]],
+    ['Вода', R_WATER[r.water]],
+    ['Канализация', R_SEWER[r.sewer]],
     ['Улица', streetText(r.street)],
     ['Продавец', R_SELLER[r.seller]],
     ['Ипотека', r.mortgage_ok ? 'Возможна' : ''],
@@ -5540,6 +5600,44 @@ function realtySpecsHtml(r) {
   return rows.length ? '<dl class="au-specs">' + rows.map(x => '<dt>' + esc(x[0]) + '</dt><dd>' + esc(String(x[1])) + '</dd>').join('') + '</dl>' : '';
 }
 
+// Ипотечный калькулятор (как на Домклике): считается на телефоне, всё можно менять; ставку человек вписывает сам
+function mortgageHtml(price) {
+  const f = (id, label, val, ph, mode) => '<div class="field"><label for="' + id + '">' + label + '</label><input id="' + id + '" type="text" inputmode="' + mode + '" autocomplete="off" value="' + esc(val) + '" placeholder="' + ph + '"></div>';
+  return '<section class="mcalc" id="mcalc"><h2>Ипотечный калькулятор</h2><div class="mc-grid">' +
+      f('mc-price', 'Стоимость, ₽', Math.round(+price), '', 'numeric') +
+      f('mc-down', 'Первоначальный взнос, ₽', Math.round(+price * 0.2), '', 'numeric') +
+      f('mc-rate', 'Ставка, % годовых', '', 'например, 6', 'decimal') +
+      f('mc-years', 'Срок, лет', 20, '', 'numeric') +
+    '</div><div class="mc-out" id="mc-out" aria-live="polite"></div>' +
+    '<p class="meta">Расчёт примерный: точные условия, ставку и страховку называет банк.</p></section>';
+}
+// Аннуитетный платёж: P = S · r / (1 − (1 + r)^−n), r — ставка в месяц, n — месяцев
+function mortgageCalc(price, down, rate, years) {
+  const S = price - down, n = Math.round(years * 12), r = rate / 1200;
+  if (!(price > 0) || !(n > 0) || !(S > 0) || !(rate >= 0)) return null;
+  const pay = r ? S * r / (1 - Math.pow(1 + r, -n)) : S / n;
+  return { credit: S, pay, over: pay * n - S };
+}
+function bindMortgage(box) {
+  const num = id => { const v = box.querySelector(id).value.replace(/\s/g, '').replace(',', '.'); return v === '' ? NaN : +v; };
+  const rub = x => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(Math.round(x)) + ' ₽';
+  const out = box.querySelector('#mc-out');
+  const calc = () => {
+    const price = num('#mc-price'), down = num('#mc-down') || 0, rate = num('#mc-rate'), years = num('#mc-years');
+    if (!(price > 0)) { out.innerHTML = 'Укажите стоимость.'; return; }
+    if (down >= price) { out.innerHTML = 'Взнос покрывает всю стоимость — кредит не нужен.'; return; }
+    if (isNaN(rate)) { out.innerHTML = 'Впишите ставку банка, чтобы посчитать платёж.'; return; }
+    if (rate < 0 || rate > 60) { out.innerHTML = 'Проверьте ставку: процент годовых, например 6.'; return; }
+    if (!(years >= 1 && years <= 40)) { out.innerHTML = 'Срок — от 1 до 40 лет.'; return; }
+    const m = mortgageCalc(price, down, rate, years);
+    out.innerHTML = '<span class="mc-pay">Платёж в месяц <b>' + rub(m.pay) + '</b></span>' +
+      '<span>Кредит ' + rub(m.credit) + ', взнос ' + Math.round(down / price * 100) + '%</span>' +
+      '<span>Переплата за ' + years + ' ' + plural(years, 'год', 'года', 'лет') + ': ' + rub(m.over) + '</span>';
+  };
+  box.addEventListener('input', calc);
+  calc();
+}
+
 // Карточка в ленте: фото, цена, заголовок, характеристики, село
 function domCard(a) {
   const href = '#/dom/' + a.id, r = realtyOf(a), line = realtyLine(r);
@@ -5549,7 +5647,7 @@ function domCard(a) {
       domPriceHtml(a, r) +
       '<span class="btitle au-t">' + esc(a.title) + '</span>' +
       (line ? '<span class="au-spec">' + esc(line) + '</span>' : '') +
-      '<span class="meta">' + esc(a.settlement) + ', ' + fmtWhen(a.bumped_at) + '</span>' +
+      '<span class="meta">' + metaWhere(a.settlement, fmtWhen(a.bumped_at)) + '</span>' +
     '</a></div></li>';
 }
 
@@ -5567,6 +5665,7 @@ function domHeadHtml() {
   '</div>';
 }
 
+const domAreaTitle = t => ({ room: 'Площадь комнаты, м²', house: 'Площадь дома, м²', flat: 'Общая площадь, м²' }[t] || 'Площадь, м²');
 function bindDomHead() {
   const head = $('#dm-head');
   head.addEventListener('click', e => {
@@ -5576,8 +5675,10 @@ function bindDomHead() {
     const go = patch => goHash(domHash(domDrop({ ...domCopy(st), ...patch })));
     switch (b.dataset.act) {
       case 'room': { const v = b.dataset.v; go({ rooms: st.rooms.includes(v) ? st.rooms.filter(x => x !== v) : st.rooms.concat(v) }); break; }
+      case 'type': { const k = DOM_TYPE[st.tab][0], v = b.dataset.v; go({ [k]: st[k].includes(v) ? st[k].filter(x => x !== v) : st[k].concat(v) }); break; }
+      case 'land': auRangeSheet({ title: 'Участок, соток', a: st.lf, b: st.lt, dec: 'sot', onDone: (lf, lt) => go({ lf, lt }) }); break;
       case 'price': auPriceSheet(st, (min, max) => go({ min, max })); break;
-      case 'area': auRangeSheet({ title: st.tab === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²', a: st.af, b: st.at, dec: 'm2', onDone: (af, at) => go({ af, at }) }); break;
+      case 'area': auRangeSheet({ title: domAreaTitle(st.tab), a: st.af, b: st.at, dec: 'm2', onDone: (af, at) => go({ af, at }) }); break;
       case 'params': domParamsScreen(st); break;
       case 'place': auPlaceScreen(st.place, p => go({ place: p })); break;
       case 'place-x': go({ place: '' }); break;
@@ -5617,29 +5718,35 @@ function fillDomHead(st) {
     if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     a.href = domHash({ ...domEmpty(a.dataset.tab), mode: st.mode, rent: st.rent, want: st.want, place: st.place });
   });
-  const full = domFull(st.tab), want = st.mode === 'want';
-  const area = full && !want;
-  const extra = (st.photo ? 1 : 0) + (full && st.q ? 1 : 0) + domKeys(st).filter(k => k !== 'rooms' && k !== 'area').length;
+  const t = st.tab, typ = DOM_TYPE[t];
+  // В блоке: у квартир — комнаты, у участков, гаражей, коммерческой — кнопки типа, у домов — поиск словом; площадь (у участков — сотки)
+  const areaKey = t === 'land' ? 'land' : DOM_SQ.includes(t) ? 'area' : null;
+  const area = !!areaKey && domOn(st, areaKey);
+  const headQ = t === 'house';
+  const extra = (st.photo ? 1 : 0) + (!headQ && st.q ? 1 : 0) +
+    domKeys(st).filter(k => k !== 'rooms' && !(area && k === areaKey) && !(typ && k === typ[0])).length;
   const cell = (act, label, val, ph) => '<button type="button" class="au-cell" data-act="' + act + '"><small>' + label + '</small>' +
     '<span' + (val ? '' : ' class="au-ph"') + '>' + esc(val || ph) + '</span></button>';
   let box = '';
   if (domOn(st, 'rooms')) {
     box += '<div class="au-row dm-rooms" role="group" aria-label="Комнат">' + R_ROOMS.map(([v, l]) =>
       '<button type="button" data-act="room" data-v="' + v + '" class="' + (st.rooms.includes(v) ? 'on' : '') + '" aria-pressed="' + st.rooms.includes(v) + '">' + l + '</button>').join('') + '</div>';
-  } else if (!full) {
+  } else if (typ) {
+    const [key, dict, label] = typ;
+    box += '<div class="au-row dm-rooms dm-types" data-n="' + Object.keys(dict).length + '" role="group" aria-label="' + label + '">' + Object.entries(dict).map(([v, l]) =>
+      '<button type="button" data-act="type" data-v="' + v + '" class="' + (st[key].includes(v) ? 'on' : '') + '" aria-pressed="' + st[key].includes(v) + '">' + l + '</button>').join('') + '</div>';
+  } else if (headQ) {
     box += '<form class="au-row au-q" id="dm-qf" role="search">' + auIcon('search', 'au-ico') +
       '<input id="dm-q" type="search" enterkeyhint="search" maxlength="100" placeholder="Поиск: ' + esc(DOM_TAB[st.tab].name.toLowerCase()) + '" aria-label="Поиск по объявлениям" value="' + esc(st.q) + '"></form>';
   }
   const priceLab = st.mode === 'rent' ? (st.rent === 'day' ? 'Цена за сутки' : 'Цена в месяц') : st.mode === 'want' ? 'Бюджет' : 'Цена';
   box += '<div class="au-cells' + (area ? '' : ' two') + '">' +
     cell('price', priceLab, priceText(st.min, st.max), 'любая') +
-    (area ? cell('area', 'Площадь', st.af || st.at ? rangeText(st.af, st.at, fmtNum) + ' м²' : '', 'любая') : '') +
+    (area ? (areaKey === 'land' ? cell('land', 'Участок', st.lf || st.lt ? rangeText(st.lf, st.lt, fmtNum) + ' сот.' : '', 'любой')
+      : cell('area', 'Площадь', st.af || st.at ? rangeText(st.af, st.at, fmtNum) + ' м²' : '', 'любая')) : '') +
     '<button type="button" class="au-cell au-pcell" data-act="params">' + auIcon('params', 'au-ico') + '<span>Параметры</span>' +
       (extra ? '<b class="au-badge" aria-label="выбрано: ' + extra + '">' + extra + '</b>' : '') + '</button>' +
   '</div>';
-  box += '<div class="au-row"><button type="button" class="au-main" data-act="place">' + auIcon('pin', 'au-ico') +
-      '<span class="au-lab' + (st.place ? '' : ' au-ph') + '">' + esc(st.place ? placeLabel(st.place) : 'Весь район') + '</span><span class="au-arr" aria-hidden="true">›</span></button>' +
-      (st.place ? '<button type="button" class="au-x" data-act="place-x" aria-label="Весь район">×</button>' : '') + '</div>';
   box += '<button type="button" class="btn btn-accent au-show" data-act="show" id="dm-show">Показать объявления</button>';
   $('#dm-box').innerHTML = box;
   $('#dm-box').classList.toggle('dm3', st.tab === 'room');
@@ -5650,8 +5757,9 @@ function fillDomHead(st) {
     const cid = cats.bySlug[DOM_TAB[st.tab].cat]?.id;
     const sum = f => rows.filter(r => r.category_id === cid && f(r)).reduce((s, r) => s + (Number(r.n) || 0), 0);
     const n = {
-      'dm-mode': { buy: sum(r => r.deal === 'sell'), rent: sum(r => r.deal === 'rent_out'), want: sum(r => r.deal === 'buy' || r.deal === 'rent_in') },
-      'dm-rent': { month: sum(r => r.deal === 'rent_out' && r.rent !== 'day'), day: sum(r => r.deal === 'rent_out' && r.rent === 'day') },
+      // «Снять» — только с указанным сроком аренды: лента аренды показывает лишь такие
+      'dm-mode': { buy: sum(r => r.deal === 'sell'), rent: sum(r => r.deal === 'rent_out' && !!r.rent), want: sum(r => r.deal === 'buy' || r.deal === 'rent_in') },
+      'dm-rent': { month: sum(r => r.deal === 'rent_out' && r.rent === 'month'), day: sum(r => r.deal === 'rent_out' && r.rent === 'day') },
       'dm-want': { buy: sum(r => r.deal === 'buy'), rent: sum(r => r.deal === 'rent_in') }
     };
     for (const g in n) for (const v in n[g]) {
@@ -5681,7 +5789,7 @@ async function renderDom(query) {
   if (seq !== routeSeq) return;
   const title = domHeadTitle(st);
   document.title = title.charAt(0).toUpperCase() + title.slice(1) + ' — ' + DOM_TITLE;
-  const sorts = DOM_SORTS.filter(s => s[0] !== 'big' || (domFull(st.tab) && st.mode !== 'want'));
+  const sorts = DOM_SORTS.filter(s => s[0] !== 'big' || domBigOk(st));
   const filtered = domFiltered(st);
   const deal = st.mode === 'rent' ? 'rent_out' : st.mode === 'want' ? (st.want === 'rent' ? 'rent_in' : 'buy') : 'sell';
   const newHref = '#/dom/new' + qs({ cat: DOM_TAB[st.tab].cat, deal: deal === 'sell' ? '' : deal, rent: st.mode === 'rent' && st.rent === 'day' ? 'day' : '' });
@@ -5750,12 +5858,15 @@ function domParamsScreen(st0) {
   function draw() {
     const top = body.scrollTop;
     const on = k => domOn(p, k);
-    let h = grp([row('place', 'Населённый пункт', p.place ? placeLabel(p.place) : ''), on('rooms') && row('rooms', 'Комнат', roomsText())]);
+    let h = grp([on('rooms') && row('rooms', 'Комнат', roomsText())]);
     if (on('street')) h += txt('ap-street', 'Улица', p.street, 'Например, Ленина');
+    const typ = DOM_TYPE[p.tab];
+    if (typ) h += grp([row('type', typ[2], list(typ[0], typ[1]))]);
     h += grp([
       row('price', p.mode === 'rent' ? (p.rent === 'day' ? 'Цена за сутки' : 'Цена в месяц') : p.mode === 'want' ? 'Бюджет' : 'Цена', priceText(p.min, p.max)),
-      on('area') && row('area', p.tab === 'room' ? 'Площадь комнаты' : 'Общая площадь', m2(p.af, p.at)),
-      on('kitchen') && row('kitchen', 'Площадь кухни', m2(p.kf, p.kt))
+      on('area') && row('area', domAreaTitle(p.tab).replace(', м²', ''), m2(p.af, p.at)),
+      on('kitchen') && row('kitchen', 'Площадь кухни', m2(p.kf, p.kt)),
+      on('land') && row('land', 'Участок', p.lf || p.lt ? rangeText(p.lf, p.lt, fmtNum) + ' сот.' : '')
     ]);
     h += grp([
       on('floor') && row('floor', 'Этаж', rangeText(p.ff, p.ft, x => x)),
@@ -5766,7 +5877,10 @@ function domParamsScreen(st0) {
     h += grp([
       on('mat') && row('mat', 'Материал дома', list('mat', R_MAT)),
       on('comf') && row('comf', 'Благоустройство', list('comf', R_COMF)),
-      on('ren') && row('ren', 'Ремонт', list('ren', R_REN))
+      on('ren') && row('ren', 'Ремонт', list('ren', R_REN)),
+      on('heat') && row('heat', 'Отопление', list('heat', R_HEAT)),
+      on('water') && row('water', 'Вода', list('water', R_WATER)),
+      on('sewer') && row('sewer', 'Канализация', list('sewer', R_SEWER))
     ]);
     h += grp([
       on('mort') && sw('mort', 'Ипотека возможна'),
@@ -5795,7 +5909,12 @@ function domParamsScreen(st0) {
       case 'place': auPlaceScreen(p.place, v => set({ place: v })); break;
       case 'rooms': auPick({ title: 'Комнат', multi: true, cur: p.rooms, opts: R_ROOMS.map(([v, l]) => [v, v === '4' ? '4 и больше' : l]), onDone: v => set({ rooms: v }) }); break;
       case 'price': auPriceSheet(p, (min, max) => set({ min, max })); break;
-      case 'area': auRangeSheet({ title: p.tab === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²', a: p.af, b: p.at, dec: 'm2', onDone: (af, at) => set({ af, at }) }); break;
+      case 'area': auRangeSheet({ title: domAreaTitle(p.tab), a: p.af, b: p.at, dec: 'm2', onDone: (af, at) => set({ af, at }) }); break;
+      case 'land': auRangeSheet({ title: 'Участок, соток', a: p.lf, b: p.lt, dec: 'sot', onDone: (lf, lt) => set({ lf, lt }) }); break;
+      case 'heat': picks('Отопление', R_HEAT, 'heat'); break;
+      case 'water': picks('Вода', R_WATER, 'water'); break;
+      case 'sewer': picks('Канализация', R_SEWER, 'sewer'); break;
+      case 'type': { const typ = DOM_TYPE[p.tab]; picks(typ[2], p.tab === 'land' ? R_LAND_F : p.tab === 'commercial' ? R_COMM_F : typ[1], typ[0]); break; }
       case 'kitchen': auRangeSheet({ title: 'Площадь кухни, м²', a: p.kf, b: p.kt, dec: 'm2', onDone: (kf, kt) => set({ kf, kt }) }); break;
       case 'floor': intRange('Этаж', 'ff', 'ft'); break;
       case 'floors': intRange('Этажей в доме', 'hf', 'ht'); break;
@@ -5828,37 +5947,46 @@ function domFormTopHtml(kind, deal, rent) {
   '</div>';
 }
 
-// Поля квартиры и комнаты. data-only — у кого поле есть: flat, room, full (обе), и сделка: sale (продать), rentout (сдать), offer (продать или сдать)
+// Поля недвижимости. data-only — у кого поле есть (нужны все метки): вид (flat, room, house, land, garage, commercial),
+// full — квартира или комната, bld — жильё (квартира, комната, дом), sq — есть площадь в м² (всё, кроме участка),
+// lnd — есть участок в сотках (дом, участок); сделка: sale (продать), rentout (сдать), offer (продать или сдать)
 function realtyFieldsHtml(r) {
   r = r || {};
   const num = x => x == null ? '' : fmtNum(x);
   const only = (who, html) => html.replace(/^<(div|label) class="/, '<$1 data-only="' + who + '" class="');
   const seg = (name, dict, val, label) => auSeg(name, dict, val == null ? '' : val, label);
   const inp = (id, label, val, attrs) => '<div class="field"><label for="' + id + '" id="' + id + '-l">' + label + '</label><input id="' + id + '" ' + attrs + ' value="' + esc(val) + '"></div>';
-  return '<div class="au-vblock" id="re-wrap" hidden><h2 id="re-h">Квартира</h2>' +
+  return '<div class="au-vblock" id="re-wrap"><h2 id="re-h">Квартира</h2>' +
+    only('land', seg('r-ltype', R_LAND_F, r.land_use, 'Назначение земли')) +
+    only('garage', seg('r-gtype', R_GARAGE, r.garage_type, 'Тип гаража')) +
+    only('commercial', seg('r-ctype', R_COMM_F, r.comm_type, 'Тип помещения')) +
     only('flat', seg('r-rooms', R_ROOMS_F, r.kind === 'flat' ? r.rooms : '', 'Комнат')) +
     only('room offer', seg('r-frooms', R_FROOMS, r.kind === 'room' ? (r.rooms >= 5 ? 5 : r.rooms) : '', 'Комнат в квартире')) +
-    only('full offer', '<div class="au-fgrid">' +
-      inp('r-area', 'Общая площадь, м²', num(r.area), 'type="text" inputmode="decimal" maxlength="7" placeholder="45"') +
+    only('offer', '<div class="au-fgrid">' +
+      only('sq', inp('r-area', 'Общая площадь, м²', num(r.area), 'type="text" inputmode="decimal" maxlength="7" placeholder="45"')) +
       only('flat', inp('r-kitchen', 'Кухня, м²', num(r.kitchen_area), 'type="text" inputmode="decimal" maxlength="5" placeholder="8"')) +
-      inp('r-floor', 'Этаж', r.floor ?? '', 'type="number" inputmode="numeric" min="1" max="99"') +
-      inp('r-floors', 'Этажей в доме', r.floors ?? '', 'type="number" inputmode="numeric" min="1" max="99"') +
+      only('lnd', inp('r-land', 'Участок, соток', num(r.land_area), 'type="text" inputmode="decimal" maxlength="8" placeholder="6"')) +
+      only('full', inp('r-floor', 'Этаж', r.floor ?? '', 'type="number" inputmode="numeric" min="1" max="99"')) +
+      only('bld', inp('r-floors', 'Этажей в доме', r.floors ?? '', 'type="number" inputmode="numeric" min="1" max="99"')) +
     '</div>') +
-    only('full offer', seg('r-mat', R_MAT, r.material, 'Материал дома')) +
+    only('bld offer', seg('r-mat', R_MAT, r.material, 'Материал дома')) +
     only('full offer', seg('r-comf', R_COMF, r.comfort, 'Благоустройство')) +
-    only('full offer', seg('r-ren', R_REN, r.renovation, 'Ремонт')) +
+    only('bld offer', seg('r-ren', R_REN, r.renovation, 'Ремонт')) +
+    only('house offer', seg('r-heat', R_HEAT, r.heating, 'Отопление')) +
+    only('house offer', seg('r-water', R_WATER, r.water, 'Вода')) +
+    only('house offer', seg('r-sewer', R_SEWER, r.sewer, 'Канализация')) +
     only('offer', inp('r-street', 'Улица <span class="meta">без номера дома</span>', r.street || '', 'type="text" maxlength="60" autocapitalize="words" placeholder="Например, Ленина"')) +
     only('offer', seg('r-seller', R_SELLER, r.seller, 'Кто продаёт')) +
-    only('full sale', '<div class="au-checks"><label><input type="checkbox" id="r-mort"' + (r.mortgage_ok ? ' checked' : '') + '>Ипотека возможна</label>' +
+    only('bld sale', '<div class="au-checks"><label><input type="checkbox" id="r-mort"' + (r.mortgage_ok ? ' checked' : '') + '>Ипотека возможна</label>' +
       '<label><input type="checkbox" id="r-matcap"' + (r.matcap_ok ? ' checked' : '') + '>Можно за материнский капитал</label></div>') +
-    only('full rentout', '<div class="au-checks"><label><input type="checkbox" id="r-kids"' + (r.kids_ok ? ' checked' : '') + '>Можно с детьми</label>' +
+    only('bld rentout', '<div class="au-checks"><label><input type="checkbox" id="r-kids"' + (r.kids_ok ? ' checked' : '') + '>Можно с детьми</label>' +
       '<label><input type="checkbox" id="r-pets"' + (r.pets_ok ? ' checked' : '') + '>Можно с животными</label>' +
       '<label><input type="checkbox" id="r-util"' + (r.utilities_incl ? ' checked' : '') + '>Коммунальные платежи включены в цену</label></div>') +
-    only('full rentout', '<div class="au-fgrid dm-dep">' +
+    only('rentout', '<div class="au-fgrid dm-dep">' +
       inp('r-dep', 'Залог, ₽', r.deposit ? r.deposit : '', 'type="number" inputmode="numeric" min="0" max="100000000"') +
       '<div class="au-checks"><label><input type="checkbox" id="r-nodep"' + (r.deposit === 0 ? ' checked' : '') + '>Без залога</label></div></div>') +
-    only('full', '<div class="field"><label for="r-extra">Дополнение к заголовку <span class="meta">необязательно</span></label>' +
-      '<input id="r-extra" maxlength="60" placeholder="Например, рядом со школой"><div class="hint" id="r-title"></div></div>') +
+    '<div class="field"><label for="r-extra">Дополнение к заголовку <span class="meta">необязательно</span></label>' +
+      '<input id="r-extra" maxlength="60" placeholder="Например, рядом со школой"><div class="hint" id="r-title"></div></div>' +
   '</div>';
 }
 
@@ -5871,8 +5999,8 @@ function bindDomForm(app, cats, ad) {
   const rentDeal = () => deal() === 'rent_out' || deal() === 'rent_in';
   const offer = () => deal() === 'sell' || deal() === 'rent_out';
   const full = () => domFull(kind());
-  // Поле видно (не спрятано по виду и сделке)
-  const shown = sel => { const el = app.querySelector(sel); const w = el && el.closest('[data-only]'); return !!el && (!w || !w.hidden); };
+  // Поле видно (не спрятано по виду и сделке — ни само, ни его обёртка)
+  const shown = sel => { const el = app.querySelector(sel); return !!el && !el.closest('[data-only][hidden]'); };
   const dec = (id, max) => {
     const t = $(id).value.trim().replace(/\s/g, '').replace(',', '.');
     if (t === '') return '';
@@ -5888,78 +6016,109 @@ function bindDomForm(app, cats, ad) {
   // Заголовок сам: черновик строки из видимых полей (без проверок)
   function draft() {
     const k = kind();
-    const rooms = k === 'flat' ? radio('r-rooms') : radio('r-frooms');
-    const area = shown('#r-area') ? dec('#r-area', 100000) : '';
-    const fl = shown('#r-floor') ? int('#r-floor', 1, 99) : '', fls = shown('#r-floors') ? int('#r-floors', 1, 99) : '';
-    return { kind: k, rooms: rooms == null ? null : +rooms, area: area || null, floor: fl || null, floors: fls || null };
+    const rooms = k === 'flat' ? radio('r-rooms') : k === 'room' ? radio('r-frooms') : null;
+    const v = (sel, f) => shown(sel) ? f() || null : null;
+    return {
+      kind: k, rooms: rooms == null ? null : +rooms,
+      area: v('#r-area', () => dec('#r-area', 100000)), land_area: v('#r-land', () => dec('#r-land', 1000000)),
+      floor: v('#r-floor', () => int('#r-floor', 1, 99)), floors: v('#r-floors', () => int('#r-floors', 1, 99)),
+      land_use: k === 'land' ? radio('r-ltype') : null, garage_type: k === 'garage' ? radio('r-gtype') : null, comm_type: k === 'commercial' ? radio('r-ctype') : null
+    };
   }
   function titleOf(d) {
     const extra = $('#r-extra').value.trim();
     return (realtyTitle(d) + (extra ? ', ' + extra : '')).slice(0, 120);
   }
   // Правка: дополнение к заголовку — то, что после собранной части
-  if (ad && full()) {
+  if (ad) {
     const base = realtyTitle(r0);
     if (base && ad.title.startsWith(base + ', ')) $('#r-extra').value = ad.title.slice(base.length + 2);
   }
+  const preview = () => { $('#r-title').textContent = 'Заголовок: ' + (titleOf(draft()) || '—'); };
   function sync() {
     const k = kind(), d = deal();
-    const who = [k, full() ? 'full' : '', offer() ? 'offer' : '', d === 'sell' ? 'sale' : '', d === 'rent_out' ? 'rentout' : ''].filter(Boolean);
+    const who = [k, full() ? 'full' : '', DOM_BLD.includes(k) ? 'bld' : '', DOM_SQ.includes(k) ? 'sq' : '', k === 'house' || k === 'land' ? 'lnd' : '',
+      offer() ? 'offer' : '', d === 'sell' ? 'sale' : '', d === 'rent_out' ? 'rentout' : ''].filter(Boolean);
     $('#drent-wrap').hidden = !rentDeal();
-    $('#re-wrap').hidden = !(full() || offer());
     $('#re-h').textContent = DOM_TAB[k].form === 'Коммерческая' ? 'Коммерческая недвижимость' : DOM_TAB[k].form;
     app.querySelectorAll('#re-wrap [data-only]').forEach(el => { el.hidden = !el.dataset.only.split(' ').every(t => who.includes(t)); });
-    $('#r-area-l').textContent = k === 'room' ? 'Площадь комнаты, м²' : 'Общая площадь, м²';
+    $('#r-area-l').textContent = domAreaTitle(k);
+    $('#r-area').placeholder = { room: '14', house: '80', garage: '24', commercial: '50' }[k] || '45';
+    $('#r-floors-l').textContent = k === 'house' ? 'Этажей' : 'Этажей в доме';
     $('#r-dep').disabled = $('#r-nodep').checked;
-    // Квартира и комната: заголовок собирается сам; остальное — пишут сами
-    $('#title-wrap').hidden = full();
-    $('#r-title').textContent = full() ? 'Заголовок: ' + (titleOf(draft()) || '—') : '';
+    // Заголовок у всех видов собирается сам; своё можно дописать в «Дополнение к заголовку»
+    $('#title-wrap').hidden = true;
+    preview();
     $('#r-seller-l').textContent = d === 'rent_out' ? 'Кто сдаёт' : 'Кто продаёт';
   }
   app.querySelectorAll('input[name=ddeal], input[name=drent], input[name=dkind]').forEach(x => x.addEventListener('change', sync));
-  $('#re-wrap').addEventListener('input', () => { $('#r-title').textContent = full() ? 'Заголовок: ' + (titleOf(draft()) || '—') : ''; });
+  $('#re-wrap').addEventListener('input', preview);
   $('#re-wrap').addEventListener('change', sync);
   sync();
 
   function read() {
     const k = kind(), d = deal();
     const row = { kind: k, rent: rentDeal() ? radio('drent') || 'month' : null };
-    const NO_FULL = { rooms: null, area: null, kitchen_area: null, floor: null, floors: null, material: null, comfort: null, renovation: null,
-      mortgage_ok: false, matcap_ok: false, kids_ok: false, pets_ok: false, utilities_incl: false, deposit: null };
+    // Всё, чего у вида и сделки нет, — очищаем (смена вида при правке не оставляет чужих полей)
+    const NONE = { rooms: null, area: null, kitchen_area: null, floor: null, floors: null, material: null, comfort: null, renovation: null,
+      mortgage_ok: false, matcap_ok: false, kids_ok: false, pets_ok: false, utilities_incl: false, deposit: null,
+      land_area: null, heating: null, water: null, sewer: null, land_use: null, garage_type: null, comm_type: null };
     let street = '';
     if (shown('#r-street')) {
       street = $('#r-street').value.trim().replace(/\s+/g, ' ');
       if (/\d/.test(street) && /[,\s]\d+[а-яa-z]?\s*$/i.test(street)) return { err: 'Улицу пишите без номера дома.', el: $('#r-street') };
       if (street.length === 1) return { err: 'Напишите название улицы полностью.', el: $('#r-street') };
     }
-    Object.assign(row, NO_FULL, { street: street || null, seller: shown('input[name=r-seller]') ? radio('r-seller') : null });
-    if (!full()) return { row, auto: false };
+    Object.assign(row, NONE, { street: street || null, seller: shown('input[name=r-seller]') ? radio('r-seller') : null });
+    // Тип: у участка — назначение, у гаража и коммерческой — тип (у продающих и сдающих гаражи и помещения — обязательно)
+    if (k === 'land') row.land_use = radio('r-ltype');
+    if (k === 'garage') {
+      row.garage_type = radio('r-gtype');
+      if (offer() && !row.garage_type) return { err: 'Выберите тип гаража.', el: app.querySelector('input[name=r-gtype]') };
+    }
+    if (k === 'commercial') {
+      row.comm_type = radio('r-ctype');
+      if (offer() && !row.comm_type) return { err: 'Выберите тип помещения.', el: app.querySelector('input[name=r-ctype]') };
+    }
     if (k === 'flat') {
       const rooms = radio('r-rooms');
       if (offer() && rooms == null) return { err: 'Укажите, сколько комнат.', el: app.querySelector('input[name=r-rooms]') };
       row.rooms = rooms == null ? null : +rooms;
-    } else row.rooms = shown('input[name=r-frooms]') && radio('r-frooms') ? +radio('r-frooms') : null;
+    } else if (k === 'room') row.rooms = shown('input[name=r-frooms]') && radio('r-frooms') ? +radio('r-frooms') : null;
     if (offer()) {
-      const area = dec('#r-area', 100000);
-      if (area === null || area === '') return { err: k === 'room' ? 'Укажите площадь комнаты в м², например 14.' : 'Укажите общую площадь в м², например 45.', el: $('#r-area') };
-      if (k === 'flat' && area < 8) return { err: 'Проверьте площадь: в квадратных метрах, например 45.', el: $('#r-area') };
-      row.area = area;
+      if (DOM_SQ.includes(k)) {
+        const area = dec('#r-area', 100000);
+        const need = k !== 'garage';   // у гаража площадь можно не указывать
+        if (area === null || (need && area === '')) return { err: k === 'room' ? 'Укажите площадь комнаты в м², например 14.' : k === 'house' ? 'Укажите площадь дома в м², например 80.'
+          : k === 'flat' ? 'Укажите общую площадь в м², например 45.' : 'Укажите площадь в м², например 50.', el: $('#r-area') };
+        if (k === 'flat' && area < 8) return { err: 'Проверьте площадь: в квадратных метрах, например 45.', el: $('#r-area') };
+        row.area = area === '' ? null : area;
+      }
+      if (k === 'house' || k === 'land') {
+        const land = dec('#r-land', 1000000);
+        if (land === null || (k === 'land' && land === '')) return { err: 'Укажите площадь участка в сотках, например 6.', el: $('#r-land') };
+        row.land_area = land === '' ? null : land;
+      }
       if (k === 'flat') {
         const kit = dec('#r-kitchen', 500);
         if (kit === null) return { err: 'Площадь кухни — в м², например 8.', el: $('#r-kitchen') };
-        if (kit !== '' && kit >= area) return { err: 'Кухня не может быть больше всей квартиры.', el: $('#r-kitchen') };
+        if (kit !== '' && kit >= row.area) return { err: 'Кухня не может быть больше всей квартиры.', el: $('#r-kitchen') };
         row.kitchen_area = kit === '' ? null : kit;
       }
-      const fl = int('#r-floor', 1, 99), fls = int('#r-floors', 1, 99);
-      if (fl === null) return { err: 'Этаж — число от 1 до 99.', el: $('#r-floor') };
-      if (fls === null) return { err: 'Этажей в доме — число от 1 до 99.', el: $('#r-floors') };
-      if (fl !== '' && fls !== '' && fl > fls) return { err: 'Этаж не может быть выше, чем этажей в доме.', el: $('#r-floor') };
-      row.floor = fl === '' ? null : fl;
-      row.floors = fls === '' ? null : fls;
-      row.material = radio('r-mat'); row.comfort = radio('r-comf'); row.renovation = radio('r-ren');
-      if (d === 'sell') { row.mortgage_ok = $('#r-mort').checked; row.matcap_ok = $('#r-matcap').checked; }
+      if (DOM_BLD.includes(k)) {
+        const fl = full() ? int('#r-floor', 1, 99) : '', fls = int('#r-floors', 1, 99);
+        if (fl === null) return { err: 'Этаж — число от 1 до 99.', el: $('#r-floor') };
+        if (fls === null) return { err: (k === 'house' ? 'Этажей' : 'Этажей в доме') + ' — число от 1 до 99.', el: $('#r-floors') };
+        if (fl !== '' && fls !== '' && fl > fls) return { err: 'Этаж не может быть выше, чем этажей в доме.', el: $('#r-floor') };
+        row.floor = fl === '' ? null : fl;
+        row.floors = fls === '' ? null : fls;
+        row.material = radio('r-mat'); row.renovation = radio('r-ren');
+        if (full()) row.comfort = radio('r-comf');
+        if (k === 'house') { row.heating = radio('r-heat'); row.water = radio('r-water'); row.sewer = radio('r-sewer'); }
+        if (d === 'sell') { row.mortgage_ok = $('#r-mort').checked; row.matcap_ok = $('#r-matcap').checked; }
+        if (d === 'rent_out') { row.kids_ok = $('#r-kids').checked; row.pets_ok = $('#r-pets').checked; row.utilities_incl = $('#r-util').checked; }
+      }
       if (d === 'rent_out') {
-        row.kids_ok = $('#r-kids').checked; row.pets_ok = $('#r-pets').checked; row.utilities_incl = $('#r-util').checked;
         if ($('#r-nodep').checked) row.deposit = 0;
         else {
           const dep = int('#r-dep', 0, 100000000);
@@ -6175,7 +6334,7 @@ async function renderNewsList(query) {
       '<div class="bhead"><h1>' + (st.q ? 'Поиск «' + esc(st.q) + '»' : esc(cat.name)) + '</h1></div>';
     if (st.q) html += '<p class="bfound" id="bfound">Считаем…</p>';
   } else {
-    html += '<h1 class="sr-only">Новости Олёкминского района</h1>';
+    html += '<h1 class="sr-only">Новости Олёкминска</h1>';
   }
   app.innerHTML = html + '<ul class="nfeed" id="list"></ul><div id="list-state"></div>';
 
@@ -6712,7 +6871,10 @@ function whenRange(when) {
     else { a = ykAddDays(today, 6 - wd); b = ykAddDays(a, 2); }
   }
   else if (when === 'week') b = ykAddDays(today, 7);
-  else if (when === 'month') b = ykAddDays(today, 31);
+  else if (when === 'month') {               // до конца календарного месяца
+    const [y, m] = today.split('-').map(Number);
+    b = m === 12 ? (y + 1) + '-01-01' : y + '-' + String(m + 1).padStart(2, '0') + '-01';
+  }
   else return null;
   return { from: ykStart(a).toISOString(), to: ykStart(b).toISOString() };
 }
@@ -6758,7 +6920,7 @@ function eventRow(e, opts = {}) {
     : t ? esc(t) : '<small>весь день</small>';
   const info = [
     e.place ? esc(e.place) : '',
-    e.settlement && e.settlement !== 'Олёкминск' ? esc(placeLabel(e.settlement)) : (!e.place ? 'Олёкминск' : ''),
+    esc(placeShort(e.settlement)),
     !going && ek !== sk ? 'по ' + esc(dayLabel(ek)) : '',
     e.price_text ? esc(e.price_text) : ''
   ].filter(Boolean).join(' · ');
@@ -6781,7 +6943,6 @@ function afishaHeadHtml() {
       '<div class="bparams" id="es-params" hidden>' +
         '<div><label for="es-when">Когда</label><select id="es-when"><option value="">Все дни</option>' +
           Object.entries(WHENS).map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('') + '</select></div>' +
-        '<div class="bp-wide"><label for="es-place">Населённый пункт</label>' + placeFieldHtml('es-place', true) + '</div>' +
         '<div class="bp-reset" id="es-reset" hidden><a href="#/events">Сбросить поиск и параметры</a></div>' +
       '</div>' +
     '</form>' +
@@ -6790,11 +6951,9 @@ function afishaHeadHtml() {
 
 function bindAfishaHead() {
   bindParamsToggle('#es-pt', '#es-params');
-  bindPlace('#es-place', true);
   const go = () => {
-    if (!placeOk('#es')) return;
     $('#es-q').blur();
-    goHash('#/events' + qs({ cat: AFISHA_ST.cat, q: $('#es-q').value.trim(), when: $('#es-when').value, place: placeValue('#es-place') }));
+    goHash('#/events' + qs({ cat: AFISHA_ST.cat, q: $('#es-q').value.trim(), when: $('#es-when').value }));
   };
   $('#es').addEventListener('submit', e => { e.preventDefault(); go(); });
   $('#es-when').addEventListener('change', go); // «Когда» применяется сразу
@@ -6803,14 +6962,13 @@ function bindAfishaHead() {
 // Поиск, параметры и рубрики в шапке афиши. st: { cat, q, when, place }
 function fillAfishaHead(st) {
   if (HEAD_KIND !== 'afisha') return;
-  AFISHA_ST = { cat: st.cat || '', q: st.q || '', when: WHENS[st.when] ? st.when : '', place: st.place || '' };
+  AFISHA_ST = { cat: st.cat || '', q: st.q || '', when: WHENS[st.when] ? st.when : '', place: '' };
   $('#es-q').value = AFISHA_ST.q;
   $('#es-when').value = AFISHA_ST.when;
-  setPlace('#es-place', AFISHA_ST.place);
-  const n = paramsState('#es', AFISHA_ST, ['when', 'place']);
+  const n = paramsState('#es', AFISHA_ST, ['when']);
   $('#es-reset').hidden = !(n || AFISHA_ST.q);
   if (!sb) return;
-  const keep = { q: AFISHA_ST.q, when: AFISHA_ST.when, place: AFISHA_ST.place };
+  const keep = { q: AFISHA_ST.q, when: AFISHA_ST.when };
   loadEventCats().then(cats => {
     if (HEAD_KIND !== 'afisha') return;
     $('#es-cats').innerHTML = '<a class="chip' + (!AFISHA_ST.cat ? ' on' : '') + '" href="#/events' + qs(keep) + '">Все</a>' +
@@ -6824,7 +6982,7 @@ async function renderAfisha(query) {
   const app = $('#app');
   const seq = routeSeq;
   const p = new URLSearchParams(query);
-  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), when: WHENS[p.get('when')] ? p.get('when') : '', place: p.get('place') || '' };
+  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), when: WHENS[p.get('when')] ? p.get('when') : '', place: '' };
   fillAfishaHead(st);
   app.innerHTML = '<p class="loading">Загружаем афишу…</p>';
   let cats;
@@ -6842,8 +7000,8 @@ async function renderAfisha(query) {
       ? '<div class="crumbs"><a href="#/events">Вся афиша</a></div>' +
         '<div class="bhead"><h1>' + esc(title) + '</h1><a href="' + addHref + '">+ Добавить событие</a></div>' +
         '<p class="bfound" id="bfound">Считаем…</p>'
-      : '<h1 class="sr-only">Афиша Олёкминского района</h1>' +
-        '<div class="bhead ehome"><p>Концерты, спектакли, праздники и встречи в Олёкминске и наслегах.</p>' +
+      : '<h1 class="sr-only">Афиша Олёкминска</h1>' +
+        '<div class="bhead ehome"><p>Концерты, спектакли, праздники и встречи в Олёкминске.</p>' +
           (session ? '<a href="#/events/my">Мои события</a>' : '') + '</div>') +
     '<ul class="efeed" id="list"></ul><div id="list-state"></div>' +
     '<p class="eadd">Знаете о событии, которого нет в афише? <a href="' + addHref + '">Добавьте его</a> — после проверки оно появится здесь.</p>';
@@ -6928,7 +7086,7 @@ async function renderEventView(id) {
   fillAfishaHead({ cat: cat?.slug || '' });
   document.title = e.title + ' — afisha.olk.ru';
 
-  const where = [e.place, e.settlement ? placeLabel(e.settlement) : ''].filter(Boolean).map(esc).join(', ');
+  const where = [e.place, placeShort(e.settlement)].filter(Boolean).map(esc).join(', ') || 'Олёкминск';
   const mod = staff ? '<section class="mod-box" id="mod"><h2>Модерация <span class="status ' + e.status + '">' + EVENT_STATUS[e.status] + '</span></h2>' +
     '<div class="mod-actions">' +
       (e.status !== 'published' ? '<button class="btn btn-accent" type="button" data-mod="published">' + (e.status === 'hidden' ? 'Вернуть в афишу' : 'Опубликовать') + '</button>' : '') +
@@ -7063,14 +7221,13 @@ async function renderEventForm(editId) {
       '<div class="field"><label for="e-title">Название</label><input id="e-title" maxlength="200" value="' + esc(ev?.title || '') + '" placeholder="Например, концерт ансамбля «Олёкма»"></div>' +
       '<div class="field"><label for="e-cat">Рубрика</label><select id="e-cat"><option value="">Выберите рубрику</option>' +
         cats.map(c => '<option value="' + c.id + '"' + (ev?.category_id === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '</select></div>' +
-      '<div class="frow"><div class="field"><label for="e-date">Дата</label><input id="e-date" type="date" value="' + s.date + '"' + (staff ? '' : ' min="' + ykAddDays(today, -1) + '"') + '></div>' +
+      '<div class="frow"><div class="field"><label for="e-date">Дата</label><input id="e-date" type="date" value="' + s.date + '"' + (staff || ev ? '' : ' min="' + today + '"') + '></div>' +
         '<div class="field"><label for="e-time">Начало</label><input id="e-time" type="time" value="' + s.time + '"></div></div>' +
       '<div id="end-box"' + (ev?.ends_at ? '' : ' hidden') + '><div class="frow">' +
         '<div class="field"><label for="e-edate">Дата окончания</label><input id="e-edate" type="date" value="' + en.date + '"></div>' +
         '<div class="field"><label for="e-etime">Окончание</label><input id="e-etime" type="time" value="' + en.time + '"></div></div>' +
         '<div class="hint end-hint">Если событие идёт несколько дней (выставка, ярмарка), укажите последний день.</div></div>' +
       '<p class="end-toggle"><button class="linkbtn" type="button" id="end-tg">' + (ev?.ends_at ? 'Убрать окончание' : '+ Указать окончание') + '</button></p>' +
-      '<div class="field"><label for="e-place">Населённый пункт</label>' + placeFieldHtml('e-place', false) + '</div>' +
       '<div class="field"><label for="e-where">Место проведения</label><input id="e-where" maxlength="200" value="' + esc(ev?.place || '') + '" placeholder="Например, Дом культуры, ул. Молодёжная, 7"></div>' +
       '<div class="field"><label for="e-price">Стоимость</label><input id="e-price" maxlength="100" value="' + esc(ev?.price_text || '') + '" placeholder="Например, 500 ₽, детям 300 ₽">' +
         '<div class="hint"><button class="linkbtn" type="button" id="e-free">Вход свободный</button></div></div>' +
@@ -7083,8 +7240,6 @@ async function renderEventForm(editId) {
       '<div class="form-links"><a href="' + (ev ? '#/events/' + ev.id : '#/events') + '">Отменить</a>' + (!staff ? '<a href="#/events/my">Мои события</a>' : '') + '</div>' +
     '</form>';
 
-  setPlace('#e-place', ev?.settlement || 'Олёкминск');
-  bindPlace('#e-place', false);
   const msg = $('#msg');
 
   const endBox = $('#end-box'), endTg = $('#end-tg');
@@ -7145,7 +7300,6 @@ async function renderEventForm(editId) {
     if (!endBox.hidden && ($('#e-edate').value || $('#e-etime').value)) {
       ends_at = ykIso($('#e-edate').value || $('#e-date').value, $('#e-etime').value || '23:59');
     }
-    const settlement = placeValue('#e-place');
     const place = $('#e-where').value.trim();
     const price_text = $('#e-price').value.trim();
     const description = desc.value.trim();
@@ -7153,10 +7307,9 @@ async function renderEventForm(editId) {
     if (title.length < 3) return setMsg(msg, 'Напишите название: хотя бы 3 символа.');
     if (!category_id) return setMsg(msg, 'Выберите рубрику.');
     if (!starts_at) return setMsg(msg, 'Укажите дату события.');
-    if (!staff && new Date(starts_at) < new Date(ykStart(today).getTime() - 864e5)) return setMsg(msg, 'Эта дата уже прошла. Проверьте дату.');
     if (ends_at && new Date(ends_at) < new Date(starts_at)) return setMsg(msg, 'Окончание не может быть раньше начала.');
-    if (settlement === null) { $('#e-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
-    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
+    // Прошло — если закончилось (или, без окончания, началось) раньше сегодняшнего дня; идущую выставку править можно
+    if (!staff && new Date(ends_at || starts_at) < ykStart(today)) return setMsg(msg, 'Эта дата уже прошла. Проверьте дату.');
     if (processing) return setMsg(msg, 'Подождите, фото ещё обрабатывается.');
 
     const btn = $('#e-submit'), label = btn.textContent;
@@ -7178,7 +7331,7 @@ async function renderEventForm(editId) {
         }
         cover_url = sb.storage.from('events').getPublicUrl(path).data.publicUrl;
       }
-      const fields = { title, category_id, starts_at, ends_at, settlement, place: place || null, price_text: price_text || null, description, cover_url };
+      const fields = { title, category_id, starts_at, ends_at, place: place || null, price_text: price_text || null, description, cover_url };
       let id = ev?.id;
       if (ev) {
         const { error } = await sb.from('events').update(fields).eq('id', ev.id);
@@ -7340,7 +7493,7 @@ const ORG_ICONS = {
   '_mail': 'M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0 M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28',
   '_org': 'M3 21l18 0 M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4 M5 21l0 -10.15 M19 21l0 -10.15 M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4'
 };
-const CATALOG_TITLE = 'catalog.olk.ru — справочник Олёкминского района';
+const CATALOG_TITLE = 'catalog.olk.ru — справочник Олёкминска';
 const ORG_STATUS = { pending: 'На проверке', published: 'Опубликовано', rejected: 'Отклонено', hidden: 'Скрыто' };
 const ORG_LIST_FIELDS = 'id, name, address, settlement, phones, hours, category_id, logo_url';
 const ORG_FIELDS = 'id, submitted_by, category_id, name, description, address, settlement, phones, website, vk, email, keywords, hours, hours_note, logo_url, lat, lng, status, reject_reason, views, needs_review, created_at, updated_at';
@@ -7473,7 +7626,7 @@ function orgLogo(o, cats, size) {
 function orgRow(o, cats) {
   const st = orgOpenState(o.hours);
   const c = cats.byId[o.category_id];
-  const where = [o.address, o.settlement && o.settlement !== 'Олёкминск' ? placeLabel(o.settlement) : (!o.address ? 'Олёкминск' : '')]
+  const where = [o.address, placeShort(o.settlement)]
     .filter(Boolean).map(esc).join(', ');
   const ph = (o.phones || [])[0];
   return '<li><a class="orow" href="#/catalog/' + o.id + '">' + orgLogo(o, cats, 'sm') +
@@ -7515,22 +7668,14 @@ function catalogHeadHtml() {
   return '<form class="bsearch" id="cs" role="search">' +
       '<div class="bsearch-row"><input id="cs-q" type="search" placeholder="Название, услуга, телефон" aria-label="Поиск по справочнику" enterkeyhint="search">' +
         '<button class="btn btn-accent" type="submit">Найти</button></div>' +
-      '<div class="bsearch-opts"><label><input type="checkbox" id="cs-open">Открыто сейчас</label>' +
-        '<button class="ptoggle" type="button" id="cs-pt" aria-expanded="false" aria-controls="cs-params">Параметры</button></div>' +
-      '<div class="bparams" id="cs-params" hidden>' +
-        '<div class="bp-wide"><label for="cs-place">Населённый пункт</label>' + placeFieldHtml('cs-place', true) + '</div>' +
-        '<div class="bp-reset" id="cs-reset" hidden><a href="#/catalog">Сбросить поиск и параметры</a></div>' +
-      '</div>' +
+      '<div class="bsearch-opts"><label><input type="checkbox" id="cs-open">Открыто сейчас</label></div>' +
     '</form>';
 }
 
 function bindCatalogHead() {
-  bindParamsToggle('#cs-pt', '#cs-params');
-  bindPlace('#cs-place', true);
   const go = () => {
-    if (!placeOk('#cs')) return;
     $('#cs-q').blur();
-    goHash('#/catalog' + qs({ cat: CATALOG_ST.cat, q: $('#cs-q').value.trim(), open: $('#cs-open').checked ? '1' : '', place: placeValue('#cs-place') }));
+    goHash('#/catalog' + qs({ cat: CATALOG_ST.cat, q: $('#cs-q').value.trim(), open: $('#cs-open').checked ? '1' : '' }));
   };
   $('#cs').addEventListener('submit', e => { e.preventDefault(); go(); });
   $('#cs-open').addEventListener('change', go); // «Открыто сейчас» применяется сразу
@@ -7539,12 +7684,9 @@ function bindCatalogHead() {
 // st: { cat, q, open, place }
 function fillCatalogHead(st) {
   if (HEAD_KIND !== 'catalog') return;
-  CATALOG_ST = { cat: st.cat || '', q: st.q || '', open: st.open ? '1' : '', place: st.place || '' };
+  CATALOG_ST = { cat: st.cat || '', q: st.q || '', open: st.open ? '1' : '', place: '' };
   $('#cs-q').value = CATALOG_ST.q;
   $('#cs-open').checked = !!CATALOG_ST.open;
-  setPlace('#cs-place', CATALOG_ST.place);
-  const n = paramsState('#cs', CATALOG_ST, ['place']);
-  $('#cs-reset').hidden = !(n || CATALOG_ST.q || CATALOG_ST.open);
 }
 
 /* ----- Главная справочника, раздел, рубрика, поиск ----- */
@@ -7555,7 +7697,7 @@ async function renderCatalog(query) {
   const app = $('#app');
   const seq = routeSeq;
   const p = new URLSearchParams(query);
-  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), open: p.get('open') === '1' ? '1' : '', place: p.get('place') || '' };
+  const st = { cat: p.get('cat') || '', q: (p.get('q') || '').trim(), open: p.get('open') === '1' ? '1' : '', place: '' };
   fillCatalogHead(st);
   app.innerHTML = '<p class="loading">Загружаем справочник…</p>';
   let cats;
@@ -7568,8 +7710,8 @@ async function renderCatalog(query) {
 
   if (!(cat || st.q || st.open || st.place)) {
     app.innerHTML =
-      '<h1 class="sr-only">Справочник организаций Олёкминского района</h1>' +
-      '<div class="bhead ehome"><p>Адреса, телефоны и часы работы организаций Олёкминска и района.</p>' +
+      '<h1 class="sr-only">Справочник организаций Олёкминска</h1>' +
+      '<div class="bhead ehome"><p>Адреса, телефоны и часы работы организаций Олёкминска.</p>' +
         (session ? '<a href="#/catalog/my">Мои организации</a>' : '') + '</div>' +
       '<div class="ephones"><b>Экстренные службы</b><div>' +
         EMERGENCY.map(([n, name]) => '<a href="tel:' + n + '" aria-label="' + esc(name) + ': ' + n + '"><b>' + n + '</b> ' + esc(EMERG_SHORT[n] || name) + '</a>').join('') +
@@ -7680,7 +7822,7 @@ async function renderOrgView(id) {
 
   const stt = orgOpenState(o.hours);
   const phones = (o.phones || []).filter(Boolean);
-  const addr = [placeLabel(o.settlement || 'Олёкминск'), o.address].filter(Boolean).join(', ');
+  const addr = [placeShort(o.settlement), o.address].filter(Boolean).join(', ');
   const facts = [
     hasHours(o.hours) || o.hours_note ? '<li><b>Часы работы</b><span>' +
       (stt ? '<span class="ostate ' + (stt.open ? 'on' : 'off') + '">' + esc(stt.text) + '</span>' : '') +
@@ -7852,7 +7994,6 @@ async function renderOrgForm(editId, query) {
       '<div class="field"><label for="o-sec">Раздел</label><select id="o-sec"><option value="">Выберите раздел</option>' +
         cats.top.map(c => '<option value="' + c.id + '"' + (preTop?.id === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '</select></div>' +
       '<div class="field"><label for="o-cat">Рубрика</label><select id="o-cat"></select></div>' +
-      '<div class="field"><label for="o-place">Населённый пункт</label>' + placeFieldHtml('o-place', false) + '</div>' +
       '<div class="field"><label for="o-addr">Адрес</label><input id="o-addr" maxlength="200" value="' + esc(org?.address || '') + '" placeholder="Например, ул. Ленина, 12, 2 этаж"></div>' +
       '<div class="field"><span class="flabel">Телефоны</span><div id="o-phones"></div>' +
         '<button class="linkbtn" type="button" id="o-ph-add">+ Ещё телефон</button>' +
@@ -7883,8 +8024,6 @@ async function renderOrgForm(editId, query) {
     '</form>';
 
   const msg = $('#msg');
-  setPlace('#o-place', org?.settlement || 'Олёкминск');
-  bindPlace('#o-place', false);
 
   // Рубрики выбранного раздела
   const sec = $('#o-sec'), catSel = $('#o-cat');
@@ -8024,7 +8163,6 @@ async function renderOrgForm(editId, query) {
     if ($('#o-website2').value) return; // бот заполнил скрытое поле
     const name = $('#o-name').value.trim();
     const category_id = +catSel.value || null;
-    const settlement = placeValue('#o-place');
     const address = $('#o-addr').value.trim();
     const phones = [...phBox.querySelectorAll('.o-phone')].map(i => i.value.trim()).filter(Boolean);
     const hours_note = $('#o-hnote').value.trim();
@@ -8041,8 +8179,6 @@ async function renderOrgForm(editId, query) {
     if (name.length < 2) return setMsg(msg, 'Напишите название организации.');
     if (!+sec.value) return setMsg(msg, 'Выберите раздел.');
     if (!category_id) return setMsg(msg, 'Выберите рубрику.');
-    if (settlement === null) { $('#o-place-err').hidden = false; return setMsg(msg, 'Выберите населённый пункт из списка.'); }
-    if (!settlement) return setMsg(msg, 'Укажите населённый пункт.');
     if (!phones.length && !address) return setMsg(msg, 'Укажите хотя бы телефон или адрес, чтобы вас могли найти.');
     const badPhone = phones.find(p => phoneDigits(p).length < 5);
     if (badPhone) return setMsg(msg, 'Проверьте номер «' + badPhone + '»: в нём слишком мало цифр.');
@@ -8069,7 +8205,7 @@ async function renderOrgForm(editId, query) {
         logo_url = sb.storage.from('orgs').getPublicUrl(path).data.publicUrl;
       }
       const fields = {
-        name, category_id, settlement, address: address || null, phones, hours: hr.hours, hours_note: hours_note || null,
+        name, category_id, address: address || null, phones, hours: hr.hours, hours_note: hours_note || null,
         keywords: keywords || null, description: description || null, website: website || null, vk: vk || null, email: email || null, logo_url
       };
       let id = org?.id;
