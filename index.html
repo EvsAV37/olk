@@ -643,6 +643,46 @@
   .admtabs a.on { color: var(--ink); border-bottom-color: var(--accent); }
   .badge-n { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 6px; border-radius: 999px; background: var(--berry); color: #fff; font-size: 12px; line-height: 20px; text-align: center; vertical-align: 2px; }
   .badge-n[hidden] { display: none; }
+  /* Жалобы и модерация */
+  .admtabs { overflow-x: auto; scrollbar-width: none; }
+  .admtabs::-webkit-scrollbar { display: none; }
+  .admtabs a { white-space: nowrap; flex: none; }
+  .rep-host { margin-top: 12px; }
+  .rep-btn { color: var(--mute); }
+  .c-tools .rep-btn { font-weight: 400; }
+  .rep-form { margin-top: 10px; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
+  .rep-h { font-weight: 600; margin: 0 0 8px; }
+  .rep-form .seg { gap: 6px; margin-bottom: 12px; }
+  .rep-form .seg span { font-size: 14px; padding: 6px 12px; }
+  .rep-form .field textarea { min-height: 70px; }
+  .rep-form .hint { font-size: 13px; color: var(--mute); margin: -4px 0 12px; }
+  .rep-form .mod-actions .btn, .ad-side .rep-form .btn { margin-top: 0; width: auto; }
+  .rep-done { margin: 10px 0 0; }
+  .mod-note { font-size: 14px; color: var(--mute); margin: -4px 0 10px; }
+  .mod-author { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 15px; }
+  .mod-author .status { margin: 0 0 0 4px; }
+  .mod-author .rep-form { flex-basis: 100%; margin-top: 4px; }
+  .obj-reps { font-size: 14px; margin: 0 0 12px; padding: 8px 12px; border-radius: var(--radius); background: var(--err-bg); border: 1px solid var(--err-line); }
+  .obj-reps .linkbtn { display: block; margin-top: 4px; }
+  .rep-q { font-size: 14px; color: var(--ink); margin-top: 3px; overflow-wrap: anywhere; }
+  .rep-item { padding: 12px 0 14px; }
+  .rep-item .status { margin-right: 6px; }
+  .rep-title { font-weight: 600; font-size: 17px; margin: 4px 0 2px; overflow-wrap: anywhere; }
+  .rep-kinds-line { font-size: 14px; font-weight: 600; color: var(--berry); margin-top: 4px; }
+  .rep-acts { margin-top: 10px; }
+  .rep-acts .btn { flex: 0 1 auto; padding: 8px 12px; font-size: 14px; }
+  .rep-item .rep-form { max-width: 640px; }
+  .usr-search { display: flex; gap: 8px; max-width: 560px; margin: 0 0 10px; }
+  .usr-search input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+  .usr-search .btn { flex: none; padding: 10px 16px; }
+  .usr-row { display: flex; gap: 12px; padding: 12px 0; align-items: flex-start; }
+  .usr-row .avatar { width: 40px; height: 40px; background: var(--thumb); color: var(--mute); }
+  .usr-main { flex: 1; min-width: 0; }
+  .usr-main .meta { overflow-wrap: anywhere; }
+  .usr-main .badge { margin-left: 6px; }
+  .usr-rep { color: var(--berry); font-weight: 600; }
+  .usr-ban { font-size: 14px; color: var(--err-ink); margin-top: 2px; overflow-wrap: anywhere; }
+  .ad-reason { font-size: 14px; color: var(--err-ink); margin: 2px 0 4px; }
   .frow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 12px; }
   .frow input { min-width: 0; }
   .field input[type="date"], .field input[type="time"] { -webkit-appearance: none; appearance: none; min-height: 48px; text-align: left; }
@@ -1777,7 +1817,7 @@ async function renderProfile() {
       '<h1>Профиль' + (ROLE_NAMES[profile.role] ? '<span class="badge">' + ROLE_NAMES[profile.role] + '</span>' : '') + '</h1>' +
       '<p class="facts">' + esc(session.user.email) + ', на сайте с ' + dayMonFmt.format(created) + ' ' + created.getFullYear() + '</p>' +
       '<p><a href="#/ads/my">Мои объявления →</a><br><a href="#/events/my">Мои события →</a><br><a href="#/catalog/my">Мои организации →</a>' + (isStaff() ? '<br><a href="#/admin">Админка →</a>' : '') + '</p>' +
-      (profile.is_banned ? '<div class="msg err">Ваш аккаунт заблокирован модератором. Публиковать объявления и комментарии нельзя.</div>' : '') +
+      (bannedNow(profile) ? bannedNoteHtml(profile) : '') +
       '<div id="msg"></div>' +
       '<div class="avatar-row"><span id="ava">' + avatarHtml(profile, 'lg') + '</span>' +
         '<div class="actions">' +
@@ -2205,12 +2245,13 @@ function hoursUntilBump(ad) {
   return left > 0 ? Math.ceil(left / 3600e3) : 0;
 }
 
-// own — смотрит автор (поднимать и продлевать может только он; персонал правит, снимает и удаляет)
-function ownerToolsHtml(ad, base = 'ads', own = true) {
+// own — смотрит автор (поднимать и продлевать может только он; персонал правит, снимает и удаляет).
+// locked — автор заблокирован модератором: остаётся только «Удалить»
+function ownerToolsHtml(ad, base = 'ads', own = true, locked = false) {
   const expired = new Date(ad.expires_at) < new Date();
   const wait = hoursUntilBump(ad);
   let html = '<div class="owner-tools">';
-  if (ad.status !== 'blocked') {
+  if (ad.status !== 'blocked' && !locked) {
     html += '<a class="btn btn-line" href="#/' + base + '/' + ad.id + '/edit">Изменить</a>';
     if (ad.status === 'active') {
       if (own) html += wait
@@ -2276,7 +2317,7 @@ async function renderAdView(id, base = 'ads') {
   app.innerHTML = '<p class="loading">Загружаем объявление…</p>';
   const [cats, res] = await Promise.all([
     loadCats().catch(() => null),
-    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url)' +
+    sb.from('ads').select('id, author_id, category_id, title, description, price, price_type, deal, settlement, contact_phone, status, block_reason, views, bumped_at, expires_at, created_at, ad_photos(id, path, sort), profiles(display_name, avatar_url, role, is_banned, banned_until)' +
       (base === 'auto' ? ', ad_vehicles(*)' : base === 'dom' ? ', ad_realty(*)' : ''))
       .eq('id', id).maybeSingle()
   ]);
@@ -2300,8 +2341,11 @@ async function renderAdView(id, base = 'ads') {
     if (!seen) sb.rpc('increment_ad_views', { p_id: ad.id }).then(() => {}, () => {});
   }
 
+  const locked = isOwner && bannedNow(profile);
   let notice = '';
-  if (ad.status === 'blocked') notice = '<div class="msg err">Объявление заблокировано модератором и не видно другим.</div>';
+  if (ad.status === 'blocked') notice = '<div class="msg err">Объявление заблокировано модератором и не видно другим.' +
+    (isOwner ? (ad.block_reason ? ' Причина: ' + esc(ad.block_reason) + '.' : '') + ' Изменить его нельзя, можно только удалить.' : '') + '</div>';
+  else if (locked) notice = '<div class="msg err">Ваш аккаунт заблокирован модератором ' + esc(banTerm(profile)) + ', объявление не видно другим.</div>';
   else if (ad.status === 'closed') notice = '<div class="msg err">Объявление снято с публикации и не видно другим.</div>';
   else if (expired) notice = '<div class="msg err">Срок публикации истёк, объявление не видно другим. Продлите его, чтобы вернуть в ленту.</div>';
 
@@ -2360,9 +2404,32 @@ async function renderAdView(id, base = 'ads') {
         (phoneDigits ? '<div id="phone"><button class="btn btn-accent" id="show-phone">Показать телефон</button></div>' : '') +
         '<div class="seller">' + avatarHtml(seller, '') + '<div><b>' + esc(seller.display_name || 'Пользователь') + '</b>' +
           '<div class="meta">на olk.ru</div></div></div>' +
-        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad, base, isOwner) + '</div>' : '') +
+        ((isOwner || isStaff) ? '<div id="tools">' + ownerToolsHtml(ad, base, isOwner, locked) + '</div>' : '') +
+        (ad.status === 'active' && !expired && canReport(ad.author_id) ? '<div class="rep-host" data-rep-host>' + reportBtnHtml('ad', ad.id, 'Пожаловаться на объявление') + '</div>' : '') +
       '</aside>' +
     '</div>';
+  // Модерация: заблокировать или вернуть объявление, жалобы на него, автор
+  if (isStaff && !isOwner) {
+    app.querySelector('.crumbs').insertAdjacentHTML('afterend', '<section class="mod-box" id="admod" data-rep-host><h2>Модерация <span class="status ' + ad.status + '">' +
+      (ad.status === 'blocked' ? 'Заблокировано' : ad.status === 'closed' ? 'Снято' : expired ? 'Срок истёк' : 'Опубликовано') + '</span></h2>' +
+      (ad.status === 'blocked' && ad.block_reason ? '<p class="mod-note">Причина: ' + esc(ad.block_reason) + '</p>' : '') +
+      '<div id="admod-rep"></div>' +
+      '<div class="mod-actions">' + (ad.status === 'blocked'
+        ? '<button class="btn btn-accent" type="button" data-m="unblock">Разблокировать объявление</button>'
+        : '<button class="btn btn-danger" type="button" data-m="block">Заблокировать объявление</button>') + '</div>' +
+      authorModHtml(seller, ad.author_id) + '</section>');
+    const box = $('#admod'), again = () => renderAdView(id, base).then(showFlash);
+    loadObjReports($('#admod-rep'), 'ad', ad.id, again);
+    bindAuthorMod(box, $('#msg'), again);
+    box.querySelector('[data-m]').addEventListener('click', async ev => {
+      const b = ev.currentTarget;
+      if (b.dataset.m === 'block') return openBlockForm(b, ad.id, again);
+      b.disabled = true;
+      try { await unblockAd(ad); flashMsg = { text: 'Объявление разблокировано и снова видно всем.', ok: true }; again(); }
+      catch (err) { console.error(err); b.disabled = false; setMsg($('#msg'), ruError(err)); }
+    });
+  }
+  bindReports(app, base + '/' + ad.id);
 
   if ($('#mcalc')) bindMortgage($('#mcalc'));
   const gal = $('#gal'), galN = $('#gal-n');
@@ -2399,26 +2466,28 @@ async function renderMyAds() {
   const app = $('#app');
   app.innerHTML = '<p class="loading">Загружаем ваши объявления…</p>';
   const { data, error } = await sb.from('ads')
-    .select('id, author_id, category_id, title, price, price_type, settlement, status, views, bumped_at, expires_at, ad_photos(path, sort)')
+    .select('id, author_id, category_id, title, price, price_type, settlement, status, block_reason, views, bumped_at, expires_at, ad_photos(path, sort)')
     .eq('author_id', session.user.id)
     .order('created_at', { ascending: false });
   if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
 
   const cats = await loadCats().catch(() => null);
   const ads = data.map(mapAd);
+  const locked = bannedNow(profile);
   const statusOf = a => a.status === 'blocked' ? ['blocked', 'Заблокировано']
     : a.status === 'closed' ? ['', 'Снято']
     : new Date(a.expires_at) < new Date() ? ['', 'Срок истёк'] : ['active', 'Активно'];
 
   app.innerHTML =
     '<div class="page-head"><h1>Мои объявления</h1><a href="#/ads/new">Подать новое</a></div>' +
-    '<div id="msg"></div>' +
+    (locked ? bannedNoteHtml(profile) : '') + '<div id="msg"></div>' +
     (ads.length ? '<ul class="my-list">' + ads.map(a => {
       const [cls, label] = statusOf(a);
       return '<li data-id="' + a.id + '">' +
         adItem(a, adBase(cats, a.category_id)).replace(/^<li>|<\/li>$/g, '') +
         '<div class="meta"><span class="status ' + cls + '">' + label + '</span>' + a.views + ' ' + plural(a.views, 'просмотр', 'просмотра', 'просмотров') + '</div>' +
-        ownerToolsHtml(a, adBase(cats, a.category_id)) + '</li>';
+        (a.status === 'blocked' ? '<div class="ad-reason">' + (a.block_reason ? 'Причина: ' + esc(a.block_reason) + '. ' : '') + 'Изменить нельзя, можно только удалить.</div>' : '') +
+        ownerToolsHtml(a, adBase(cats, a.category_id), true, locked) + '</li>';
     }).join('') + '</ul>'
     : '<p class="empty">У вас пока нет объявлений. <a href="#/ads/new">Подайте первое</a>.</p>');
 
@@ -2468,9 +2537,16 @@ async function renderAdForm(query, editId, base = 'ads') {
       ad = data ? mapAd(data) : null;
       if (!ad) { app.innerHTML = '<div class="stub"><h1>Объявление не найдено</h1><p>Возможно, оно удалено.</p></div>'; return; }
     }
+    if (!profile) { profile = await fetchProfile(); updateHeader(); }
   } catch (e) {
     app.innerHTML = '<div class="notice err">' + esc(ruError(e)) + '</div>';
     return;
+  }
+  if (!isStaff()) {
+    const back = ad ? '#/' + base + '/' + ad.id : '#/' + base;
+    if (bannedNow(profile)) return bannedStub(app, back);
+    if (ad && ad.author_id !== session.user.id) { app.innerHTML = '<div class="stub"><h1>Нет доступа</h1><p>Изменить объявление может только тот, кто его подал.</p><a class="btn btn-brand" href="' + back + '">К объявлению</a></div>'; return; }
+    if (ad && ad.status === 'blocked') { app.innerHTML = '<div class="stub"><h1>Объявление заблокировано</h1><p>Модератор заблокировал это объявление' + (ad.block_reason ? ' (причина: ' + esc(ad.block_reason) + ')' : '') + ', изменить его нельзя. Его можно удалить.</p><a class="btn btn-brand" href="#/ads/my">Мои объявления</a></div>'; return; }
   }
 
   // Предвыбор раздела: из объявления или из ссылки (?cat=rabota)
@@ -6200,7 +6276,7 @@ const NEWS_STATUS = { draft: 'Черновик', published: 'Опубликов�
 const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M8 3h8l-1 7 3 3v2H6v-2l3-3z"/></svg>';
 
 function isStaff() {
-  return !!profile && (profile.role === 'admin' || profile.role === 'moderator') && !profile.is_banned;
+  return !!profile && (profile.role === 'admin' || profile.role === 'moderator') && !bannedNow(profile);
 }
 
 // Рубрики почти не меняются: держим в браузере 12 часов (при изменении рубрик менять ключ)
@@ -6415,7 +6491,7 @@ async function loadComments(box, t) {
   const seq = routeSeq;
   if (!box.innerHTML) box.innerHTML = '<h2>Комментарии</h2><p class="loading">Загружаем…</p>';
   const { data, error } = await sb.from('comments')
-    .select('id, author_id, body, is_hidden, created_at, profiles(display_name, avatar_url)')
+    .select('id, author_id, body, is_hidden, created_at, profiles(display_name, avatar_url, is_banned, banned_until)')
     .eq(t.col, t.id).order('created_at').order('id').limit(500);
   if (seq !== routeSeq || !box.isConnected) return;
   if (error) {
@@ -6430,17 +6506,19 @@ async function loadComments(box, t) {
   const items = data.map(c => {
     const p = c.profiles || {};
     const tools = (c.author_id === me ? '<button class="linkbtn danger" type="button" data-del="' + c.id + '">Удалить</button>' : '') +
-      (staff ? '<button class="linkbtn" type="button" data-hide="' + c.id + '" data-v="' + (c.is_hidden ? '' : '1') + '">' + (c.is_hidden ? 'Вернуть' : 'Скрыть') + '</button>' : '');
+      (staff ? '<button class="linkbtn" type="button" data-hide="' + c.id + '" data-v="' + (c.is_hidden ? '' : '1') + '">' + (c.is_hidden ? 'Вернуть' : 'Скрыть') + '</button>' : '') +
+      (session && !c.is_hidden && canReport(c.author_id) ? reportBtnHtml('comment', c.id) : '');
     return '<li' + (c.is_hidden ? ' class="is-hidden"' : '') + '>' + avatarHtml(p, '') +
-      '<div class="c-main"><div class="c-head"><b>' + esc(p.display_name || 'Пользователь') + '</b><span class="meta">' + fmtWhen(c.created_at) + '</span></div>' +
+      '<div class="c-main" data-rep-host><div class="c-head"><b>' + esc(p.display_name || 'Пользователь') + '</b><span class="meta">' + fmtWhen(c.created_at) + '</span></div>' +
       (c.is_hidden ? '<div class="c-flag">' + (staff ? 'Скрыт: читатели его не видят' : 'Скрыт модератором: другие его не видят') + '</div>' : '') +
+      (staff && bannedNow(p) ? '<div class="c-flag">Автор заблокирован: читатели не видят</div>' : '') +
       '<p class="c-text">' + esc(c.body) + '</p>' +
       (tools ? '<div class="c-tools">' + tools + '</div>' : '') + '</div></li>';
   }).join('');
 
   let form;
   if (!session) form = '<p class="c-login"><a href="#/login?next=' + encodeURIComponent(t.next) + '">Войдите</a>, чтобы написать комментарий.</p>';
-  else if (profile?.is_banned) form = '<p class="c-login">Ваш аккаунт заблокирован модератором, комментировать нельзя.</p>';
+  else if (bannedNow(profile)) form = '<p class="c-login">Ваш аккаунт заблокирован модератором ' + esc(banTerm(profile)) + ', комментировать нельзя.</p>';
   else form = '<form class="c-form" id="c-form" novalidate><div class="field"><label for="c-body">Ваш комментарий</label>' +
     '<textarea id="c-body" maxlength="2000" rows="3"></textarea></div>' +
     '<button class="btn btn-accent" type="submit">Отправить</button></form>';
@@ -6473,6 +6551,7 @@ async function loadComments(box, t) {
     if (error) { b.disabled = false; return setMsg(msg, ruError(error)); }
     loadComments(box, t);
   }));
+  bindReports(box, t.next);
 }
 
 function routeNews(query, parts) {
@@ -6796,6 +6875,8 @@ async function routeAdmin(query, parts) {
   if (parts[0] === 'news' && /^\d+$/.test(parts[1] || '')) return renderNewsEditor(+parts[1]);
   if (parts[0] === 'events' && !parts[1]) return renderAdminEvents(query);
   if (parts[0] === 'catalog' && !parts[1]) return renderAdminOrgs(query);
+  if (parts[0] === 'reports' && !parts[1]) return renderAdminReports();
+  if (parts[0] === 'users' && !parts[1]) return renderAdminUsers(query);
   renderStub('404');
 }
 
@@ -7066,7 +7147,7 @@ async function renderEventView(id) {
   const seq = routeSeq;
   app.innerHTML = '<p class="loading">Загружаем событие…</p>';
   const { data: e, error } = await sb.from('events')
-    .select('id, author_id, title, description, starts_at, ends_at, place, settlement, price_text, cover_url, status, reject_reason, views, created_at, event_categories(name, slug), profiles(display_name)')
+    .select('id, author_id, title, description, starts_at, ends_at, place, settlement, price_text, cover_url, status, reject_reason, views, created_at, event_categories(name, slug), profiles(display_name, role, is_banned, banned_until)')
     .eq('id', id).maybeSingle();
   if (seq !== routeSeq) return;
   if (error) { app.innerHTML = '<div class="notice err">' + esc(ruError(error)) + '</div>'; return; }
@@ -7096,6 +7177,7 @@ async function renderEventView(id) {
     '<form class="mod-reject" id="mod-reject" hidden novalidate><div class="field"><label for="mod-reason">Причина отказа (её увидит автор)</label>' +
       '<textarea id="mod-reason" class="short" maxlength="500" placeholder="Например: нет даты или места, это реклама, событие уже прошло"></textarea></div>' +
       '<div class="mod-actions"><button class="btn btn-danger" type="submit">Отклонить</button><button class="btn btn-line" type="button" id="mod-cancel">Отмена</button></div></form>' +
+      '<div id="mod-rep"></div>' + authorModHtml(e.profiles, e.author_id) +
     '</section>' : '';
 
   app.innerHTML =
@@ -7118,6 +7200,7 @@ async function renderEventView(id) {
         ((own && e.status !== 'hidden') || staff ? '<a class="btn btn-line" href="#/events/' + e.id + '/edit">Изменить</a>' : '') +
         ((own && e.status !== 'hidden') || staff ? '<button class="btn btn-danger" type="button" id="ev-del">Удалить</button>' : '') +
       '</div>' +
+      (e.status === 'published' && canReport(e.author_id) ? '<div class="rep-host" data-rep-host>' + reportBtnHtml('event', e.id, 'Пожаловаться на событие') + '</div>' : '') +
     '</article>' +
     (e.status === 'published' ? '<section class="comments" id="comments"></section>' : '');
 
@@ -7159,6 +7242,12 @@ async function renderEventView(id) {
     });
   }
 
+  bindReports(app, 'events/' + e.id);
+  if (staff) {
+    const again = () => { if (seq === routeSeq) renderEventView(e.id).then(showFlash); };
+    loadObjReports($('#mod-rep'), 'event', e.id, again);
+    bindAuthorMod($('#mod'), msg, again);
+  }
   if (e.status === 'published') loadComments($('#comments'), { col: 'event_id', id: e.id, next: 'events/' + e.id });
 }
 
@@ -7202,7 +7291,7 @@ async function renderEventForm(editId) {
   if (editId && !ev) return stub('Событие не найдено', 'Возможно, его уже удалили.');
   if (ev && !staff && ev.author_id !== session.user.id) return stub('Нет доступа', 'Изменить событие может только тот, кто его добавил.');
   if (ev && !staff && ev.status === 'hidden') return stub('Событие скрыто', 'Модератор скрыл это событие, изменить его нельзя.');
-  if (profile?.is_banned) return stub('Аккаунт заблокирован', 'Модератор заблокировал ваш аккаунт, добавлять события нельзя.');
+  if (bannedNow(profile)) return bannedStub(app, '#/events');
 
   const s = ykInputs(ev?.starts_at), en = ykInputs(ev?.ends_at);
   const cover = { url: ev?.cover_url || null, blob: null, thumb: null, preview: null };
@@ -7417,11 +7506,15 @@ function adminTabs(on) {
   return '<nav class="admtabs" aria-label="Что модерировать">' +
     tab('news', '#/admin', 'Новости') + tab('events', '#/admin/events', 'Афиша', 'adm-pending') +
     tab('catalog', '#/admin/catalog', 'Справочник', 'adm-pending-org') +
+    tab('reports', '#/admin/reports', 'Жалобы', 'adm-pending-rep') + tab('users', '#/admin/users', 'Пользователи') +
   '</nav>';
 }
 
-// Числа на вкладках: заявки в афишу; заявки и изменённые карточки справочника
+// Числа на вкладках: заявки в афишу; заявки и изменённые карточки справочника; объекты с жалобами
 function loadPendingCount() {
+  // На телефоне вкладки не помещаются: прокрутить ряд так, чтобы открытая была видна
+  const tabs = $('.admtabs'), on = tabs && tabs.querySelector('a.on');
+  if (on && tabs.scrollWidth > tabs.clientWidth) tabs.scrollLeft = on.offsetLeft - tabs.offsetLeft - (tabs.clientWidth - on.offsetWidth) / 2;
   const put = (id, count) => {
     const el = $('#' + id);
     if (!el) return;
@@ -7432,6 +7525,7 @@ function loadPendingCount() {
     .then(({ count }) => put('adm-pending', count), () => {});
   sb.from('organizations').select('id', { count: 'exact', head: true }).or('status.eq.pending,and(status.eq.published,needs_review.is.true)')
     .then(({ count }) => put('adm-pending-org', count), () => {});
+  sb.rpc('open_reports_count').then(({ data }) => put('adm-pending-rep', data), () => {});
 }
 
 function renderAdminEvents(query) {
@@ -7463,6 +7557,326 @@ function renderAdminEvents(query) {
         '. Подано ' + fmtWhen(e.created_at) + (e.profiles?.display_name ? ', автор: ' + esc(e.profiles.display_name) : '') +
       '</span></a></li>').join(''),
     emptyHtml: '<p class="empty">' + (status === 'pending' ? 'Новых заявок нет.' : 'Здесь пока пусто.') + '</p>'
+  });
+}
+
+/* ---------------- Жалобы и модерация ---------------- */
+// Заблокирован ли сейчас: блокировка на срок, срок истёк — уже нет
+function bannedNow(p) {
+  return !!p && !!p.is_banned && (!p.banned_until || new Date(p.banned_until) > new Date());
+}
+// «до 27 октября 2026, 21:30» или «навсегда»
+function banTerm(p) {
+  return p && p.banned_until ? 'до ' + fullDate(p.banned_until) : 'навсегда';
+}
+function bannedNoteHtml(p) {
+  return '<div class="msg err" id="ban-note">Ваш аккаунт заблокирован модератором ' + esc(banTerm(p)) + '.' +
+    (p.ban_reason ? ' Причина: ' + esc(p.ban_reason) + '.' : '') +
+    ' Пока блокировка действует, публиковать и менять объявления, события, организации и комментарии нельзя, а ваши публикации не видны другим.</div>';
+}
+function bannedStub(app, back) {
+  app.innerHTML = '<div class="stub"><h1>Аккаунт заблокирован</h1><p>Модератор заблокировал ваш аккаунт ' + esc(banTerm(profile)) + '.' +
+    (profile.ban_reason ? ' Причина: ' + esc(profile.ban_reason) + '.' : '') + ' Пока блокировка действует, публиковать и менять ничего нельзя.</p>' +
+    '<a class="btn btn-brand" href="' + back + '">Назад</a></div>';
+}
+
+const REPORT_KINDS = {
+  ad: [['fraud', 'Мошенничество'], ['prohibited', 'Запрещённый товар или услуга'], ['wrong', 'Неверная цена или описание'],
+       ['sold', 'Уже продано, неактуально'], ['abuse', 'Спам или оскорбления'], ['other', 'Другое']],
+  event: [['wrong', 'Неверные дата, место или цена'], ['sold', 'Отменено или уже прошло'], ['fraud', 'Обман или мошенничество'],
+          ['abuse', 'Спам или оскорбления'], ['other', 'Другое']],
+  comment: [['abuse', 'Спам или оскорбления'], ['fraud', 'Мошенничество'], ['other', 'Другое']]
+};
+const REPORT_KIND_NAME = { fraud: 'Мошенничество', prohibited: 'Запрещённое', wrong: 'Неверные данные', sold: 'Неактуально',
+  abuse: 'Спам, оскорбления', other: 'Другое', inaccuracy: 'Неточность' };
+const ENTITY_NAME = { ad: 'Объявление', event: 'Событие', comment: 'Комментарий', organization: 'Организация', news: 'Новость' };
+const BLOCK_REASONS = ['Мошенничество', 'Запрещённый товар или услуга', 'Неверная цена или описание', 'Повтор объявления', 'Не тот раздел', 'Спам или оскорбления'];
+let formSeq = 0;
+
+// Кнопка «Пожаловаться» — гостю, чужому, не персоналу и не заблокированному
+function canReport(authorId) {
+  return !(session && session.user.id === authorId) && !isStaffRole() && !bannedNow(profile);
+}
+function isStaffRole() { return ['admin', 'moderator'].includes(profile?.role); }
+function reportBtnHtml(entity, id, label) {
+  return '<button class="linkbtn rep-btn" type="button" data-report="' + entity + '" data-rid="' + id + '">' + (label || 'Пожаловаться') + '</button>';
+}
+
+// Форма жалобы под кнопкой: причина из списка, у «Другого» — обязательный текст
+function openReportForm(btn, next) {
+  if (!session) { requireLogin(next); return; }
+  const entity = btn.dataset.report, id = +btn.dataset.rid;
+  const host = btn.closest('[data-rep-host]') || btn.parentElement;
+  const old = host.querySelector('.rep-form');
+  if (old) { old.remove(); return; }
+  const u = 'rp' + (++formSeq);
+  host.insertAdjacentHTML('beforeend', '<form class="rep-form" novalidate><p class="rep-h">Почему жалуетесь?</p>' +
+    '<div class="seg">' + REPORT_KINDS[entity].map(([v, l]) => '<label><input type="radio" name="' + u + '" value="' + v + '"><span>' + l + '</span></label>').join('') + '</div>' +
+    '<div class="field"><label for="' + u + '-t">Подробнее (необязательно)</label><textarea id="' + u + '-t" class="short" maxlength="500"></textarea></div>' +
+    '<div class="rep-msg"></div><div class="mod-actions"><button class="btn btn-brand" type="submit">Отправить жалобу</button>' +
+    '<button class="btn btn-line" type="button" data-x>Отмена</button></div></form>');
+  const f = host.querySelector('.rep-form'), box = f.querySelector('.rep-msg'), lab = f.querySelector('label[for="' + u + '-t"]');
+  f.querySelector('[data-x]').addEventListener('click', () => f.remove());
+  f.addEventListener('change', () => {
+    lab.textContent = f.querySelector('input:checked')?.value === 'other' ? 'Опишите, что не так' : 'Подробнее (необязательно)';
+  });
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const kind = f.querySelector('input:checked')?.value;
+    let reason = f.querySelector('textarea').value.trim();
+    if (!kind) return setMsg(box, 'Выберите причину.');
+    if (kind === 'other' && reason.length < 3) return setMsg(box, 'Опишите, что не так: хотя бы пару слов.');
+    if (reason.length < 3) reason = '';
+    const b = f.querySelector('button[type=submit]');
+    b.disabled = true;
+    const { error } = await sb.from('reports').insert({ entity, entity_id: id, reporter_id: session.user.id, kind, reason: reason || null });
+    if (error && !/duplicate key/i.test(error.message || '')) { b.disabled = false; return setMsg(box, ruError(error)); }
+    f.outerHTML = '<div class="msg ok rep-done" role="status">' + (error ? 'Вы уже жаловались на это. Модератор проверит.' : 'Спасибо! Модератор проверит жалобу.') + '</div>';
+    btn.hidden = true;
+  });
+}
+function bindReports(root, next) {
+  root.querySelectorAll('[data-report]').forEach(b => b.addEventListener('click', () => openReportForm(b, next)));
+}
+
+async function resolveReports(entity, id, resolution) {
+  const { error } = await sb.from('reports').update({ is_resolved: true, resolution })
+    .eq('entity', entity).eq('entity_id', id).eq('is_resolved', false);
+  if (error) throw error;
+}
+
+// Блокировка пользователя: 7 дней, 30 дней или навсегда, причину он увидит
+async function setBan(userId, days, reason) {
+  const patch = days === null ? { is_banned: false }
+    : { is_banned: true, banned_until: days ? new Date(Date.now() + days * 864e5).toISOString() : null, ban_reason: reason };
+  const { data, error } = await sb.from('profiles').update(patch).eq('id', userId).select('id');
+  if (error) throw error;
+  if (!data || !data.length) throw new Error('Нет прав на это действие.');
+}
+function openBanForm(btn, userId, onDone) {
+  const host = btn.closest('[data-rep-host]') || btn.parentElement;
+  const old = host.querySelector('.ban-form');
+  if (old) { old.remove(); return; }
+  const u = 'bn' + (++formSeq);
+  host.insertAdjacentHTML('beforeend', '<form class="rep-form ban-form" novalidate><p class="rep-h">Заблокировать пользователя</p>' +
+    '<div class="seg">' + [['7', '7 дней'], ['30', '30 дней'], ['0', 'Навсегда']].map(([v, l], i) =>
+      '<label><input type="radio" name="' + u + '" value="' + v + '"' + (i ? '' : ' checked') + '><span>' + l + '</span></label>').join('') + '</div>' +
+    '<div class="field"><label for="' + u + '-r">Причина (её увидит пользователь)</label><textarea id="' + u + '-r" class="short" maxlength="500" placeholder="Например: мошенничество, спам, оскорбления"></textarea></div>' +
+    '<p class="hint">Пока блокировка действует, он не сможет публиковать, а всё, что он опубликовал, не будет видно другим.</p>' +
+    '<div class="rep-msg"></div><div class="mod-actions"><button class="btn btn-danger" type="submit">Заблокировать</button>' +
+    '<button class="btn btn-line" type="button" data-x>Отмена</button></div></form>');
+  const f = host.querySelector('.ban-form'), box = f.querySelector('.rep-msg');
+  f.querySelector('[data-x]').addEventListener('click', () => f.remove());
+  f.querySelector('textarea').focus();
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const reason = f.querySelector('textarea').value.trim();
+    if (reason.length < 3) return setMsg(box, 'Напишите причину: пользователь её увидит.');
+    const b = f.querySelector('button[type=submit]');
+    b.disabled = true;
+    try { await setBan(userId, +f.querySelector('input:checked').value, reason); onDone(); }
+    catch (err) { console.error(err); b.disabled = false; setMsg(box, ruError(err)); }
+  });
+}
+
+// Строка «Автор: … [Заблокировать автора]» в блоке модерации
+function canBanUser(uid, role) {
+  return !!uid && session?.user.id !== uid && (!role || role === 'user' || profile?.role === 'admin');
+}
+function authorModHtml(p, uid) {
+  if (!uid) return '';
+  const banned = bannedNow(p);
+  return '<div class="mod-author" data-rep-host><span>Автор: <b>' + esc(p?.display_name || 'Пользователь') + '</b>' +
+    (banned ? ' <span class="status blocked">заблокирован ' + esc(banTerm(p)) + '</span>' : '') + '</span>' +
+    (canBanUser(uid, p?.role) ? '<button class="linkbtn' + (banned ? '' : ' danger') + '" type="button" data-ban="' + uid + '"' + (banned ? '' : ' data-v="1"') + '>' +
+      (banned ? 'Разблокировать' : 'Заблокировать автора') + '</button>' : '') + '</div>';
+}
+function bindAuthorMod(root, msgBox, onDone) {
+  root.querySelectorAll('[data-ban]').forEach(b => b.addEventListener('click', async () => {
+    if (b.dataset.v) return openBanForm(b, b.dataset.ban, () => {
+      flashMsg = { text: 'Пользователь заблокирован, его публикации скрыты.', ok: true }; onDone('ban');
+    });
+    if (!confirm('Разблокировать пользователя? Его публикации снова станут видны.')) return;
+    b.disabled = true;
+    try { await setBan(b.dataset.ban, null); flashMsg = { text: 'Пользователь разблокирован.', ok: true }; onDone('unban'); }
+    catch (err) { console.error(err); b.disabled = false; setMsg(msgBox, ruError(err)); }
+  }));
+}
+
+// Блокировка объявления: причина из списка + пояснение; открытые жалобы на него закрываются
+function openBlockForm(btn, adId, onDone) {
+  const host = btn.closest('[data-rep-host]') || btn.parentElement;
+  const old = host.querySelector('.block-form');
+  if (old) { old.remove(); return; }
+  const u = 'bl' + (++formSeq);
+  host.insertAdjacentHTML('beforeend', '<form class="rep-form block-form" novalidate><p class="rep-h">Причина блокировки (её увидит автор)</p>' +
+    '<div class="seg">' + BLOCK_REASONS.map(l => '<label><input type="radio" name="' + u + '" value="' + esc(l) + '"><span>' + l + '</span></label>').join('') + '</div>' +
+    '<div class="field"><label for="' + u + '-t">Пояснение (необязательно)</label><textarea id="' + u + '-t" class="short" maxlength="300"></textarea></div>' +
+    '<div class="rep-msg"></div><div class="mod-actions"><button class="btn btn-danger" type="submit">Заблокировать</button>' +
+    '<button class="btn btn-line" type="button" data-x>Отмена</button></div></form>');
+  const f = host.querySelector('.block-form'), box = f.querySelector('.rep-msg');
+  f.querySelector('[data-x]').addEventListener('click', () => f.remove());
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const r = f.querySelector('input:checked')?.value, t = f.querySelector('textarea').value.trim();
+    if (!r && t.length < 3) return setMsg(box, 'Выберите причину или напишите её.');
+    const b = f.querySelector('button[type=submit]');
+    b.disabled = true;
+    try {
+      const { data, error } = await sb.from('ads').update({ status: 'blocked', block_reason: [r, t].filter(Boolean).join(': ') }).eq('id', adId).select('id');
+      if (error) throw error;
+      if (!data.length) throw new Error('Нет прав на это действие.');
+      await resolveReports('ad', adId, 'done');
+      flashMsg = { text: 'Объявление заблокировано. Автор увидит причину.', ok: true };
+      onDone();
+    } catch (err) { console.error(err); b.disabled = false; setMsg(box, ruError(err)); }
+  });
+}
+async function unblockAd(ad) {
+  const patch = { status: 'active' };
+  if (new Date(ad.expires_at) < new Date()) patch.expires_at = new Date(Date.now() + 30 * 864e5).toISOString();
+  const { error } = await sb.from('ads').update(patch).eq('id', ad.id);
+  if (error) throw error;
+}
+
+// «Мошенничество ×2, Другое»
+function kindsText(kinds) {
+  const n = {};
+  (kinds || []).forEach(k => { n[k] = (n[k] || 0) + 1; });
+  return Object.entries(n).sort((a, b) => b[1] - a[1]).map(([k, c]) => (REPORT_KIND_NAME[k] || k) + (c > 1 ? ' ×' + c : '')).join(', ');
+}
+
+// Открытые жалобы этого объекта — в блоке модерации на его странице
+function loadObjReports(box, entity, id, onChange) {
+  sb.from('reports').select('kind, reason, created_at').eq('entity', entity).eq('entity_id', id).eq('is_resolved', false)
+    .order('created_at', { ascending: false }).then(({ data, error }) => {
+      if (error || !box.isConnected || !data?.length) return;
+      box.innerHTML = '<div class="obj-reps"><b>' + data.length + ' ' + plural(data.length, 'жалоба', 'жалобы', 'жалоб') + ':</b> ' + esc(kindsText(data.map(r => r.kind))) +
+        data.filter(r => r.reason).slice(0, 3).map(r => '<div class="rep-q">«' + esc(r.reason) + '»</div>').join('') +
+        '<button class="linkbtn" type="button" data-dismiss>Отклонить жалобы</button></div>';
+      box.querySelector('[data-dismiss]').addEventListener('click', async ev => {
+        ev.currentTarget.disabled = true;
+        try { await resolveReports(entity, id, 'dismissed'); flashMsg = { text: 'Жалобы отклонены.', ok: true }; onChange(); }
+        catch (err) { console.error(err); ev.currentTarget.disabled = false; }
+      });
+    }, () => {});
+}
+
+/* ----- Админка: жалобы ----- */
+async function renderAdminReports() {
+  const app = $('#app');
+  const seq = routeSeq;
+  document.title = 'Жалобы — админка';
+  app.innerHTML = '<div class="page-head"><h1>Админка</h1></div>' + adminTabs('reports') +
+    '<div id="msg"></div><div id="rlist"><p class="loading">Загружаем жалобы…</p></div>';
+  loadPendingCount();
+  const [res, cats] = await Promise.all([sb.rpc('open_reports'), loadCats().catch(() => null)]);
+  if (seq !== routeSeq) return;
+  const list = $('#rlist');
+  if (res.error) { list.innerHTML = '<div class="notice err">' + esc(ruError(res.error)) + '</div>'; return; }
+  const rows = res.data || [];
+  if (!rows.length) { list.innerHTML = '<p class="empty">Новых жалоб нет.</p>'; return; }
+  const ST = { active: 'опубликовано', blocked: 'заблокировано', closed: 'снято', published: 'опубликовано', hidden: 'скрыто',
+    pending: 'на проверке', rejected: 'отклонено', shown: 'виден', draft: 'черновик' };
+  list.innerHTML = '<p class="bfound">' + rows.length + ' ' + plural(rows.length, 'объект', 'объекта', 'объектов') + ' с жалобами, сверху — где жалоб больше.</p>' +
+    '<ul class="adm-list rep-list">' + rows.map((r, i) => {
+      const gone = r.title == null;
+      const href = r.entity === 'ad' ? '#/' + (cats ? adBase(cats, r.category_id) : 'ads') + '/' + r.entity_id : r.link ? '#/' + r.link : '';
+      const live = ['active', 'published', 'shown'].includes(r.obj_status);
+      const acts = [];
+      if (!gone && live) {
+        if (r.entity === 'ad') acts.push('<button class="btn btn-danger" type="button" data-a="block">Заблокировать объявление</button>');
+        if (r.entity === 'event') acts.push('<button class="btn btn-danger" type="button" data-a="hide">Скрыть из афиши</button>');
+        if (r.entity === 'comment') acts.push('<button class="btn btn-danger" type="button" data-a="hide">Скрыть комментарий</button>');
+        if (r.entity === 'organization') acts.push('<a class="btn btn-accent" href="#/catalog/' + r.entity_id + '/edit">Исправить</a>',
+          '<button class="btn btn-line" type="button" data-a="hide">Скрыть из справочника</button>');
+      }
+      acts.push(gone || !live || r.entity === 'organization'
+        ? '<button class="btn btn-line" type="button" data-a="done">' + (r.entity === 'organization' && live ? 'Исправлено' : 'Закрыть жалобы') + '</button>'
+        : '<button class="btn btn-line" type="button" data-a="dismiss">Отклонить жалобы</button>');
+      if (!gone && !r.author_banned && canBanUser(r.author_id, r.author_role) && r.entity !== 'organization')
+        acts.push('<button class="btn btn-line" type="button" data-a="ban">Заблокировать автора</button>');
+      return '<li class="rep-item" data-i="' + i + '" data-rep-host>' +
+        '<div class="meta"><span class="status">' + ENTITY_NAME[r.entity] + '</span>' +
+          (gone ? 'удалено' : esc(ST[r.obj_status] || r.obj_status || '')) + ', последняя жалоба ' + esc(fmtWhen(r.last_at)) + '</div>' +
+        '<div class="rep-title">' + (gone ? '<i>Объект удалён</i>' : href ? '<a href="' + esc(href) + '">' + esc(r.title) + '</a>' : esc(r.title)) + '</div>' +
+        (r.context ? '<div class="meta">Комментарий к «' + esc(r.context) + '»</div>' : '') +
+        '<div class="rep-kinds-line">' + r.n + ' ' + plural(r.n, 'жалоба', 'жалобы', 'жалоб') + ': ' + esc(kindsText(r.kinds)) + '</div>' +
+        (r.reasons || []).map(x => '<div class="rep-q">«' + esc(x) + '»</div>').join('') +
+        (r.author_id ? '<div class="meta">Автор: <b>' + esc(r.author_name || 'Пользователь') + '</b>' + (r.author_banned ? ' <span class="status blocked">заблокирован</span>' : '') + '</div>' : '') +
+        '<div class="mod-actions rep-acts">' + acts.join('') + '</div></li>';
+    }).join('') + '</ul>';
+
+  const again = () => { if (seq === routeSeq) renderAdminReports().then(showFlash); };
+  list.querySelectorAll('.rep-item').forEach(li => {
+    const r = rows[+li.dataset.i];
+    li.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', async () => {
+      const a = b.dataset.a;
+      if (a === 'block') return openBlockForm(b, r.entity_id, again);
+      if (a === 'ban') return openBanForm(b, r.author_id, async () => {
+        await resolveReports(r.entity, r.entity_id, 'done').catch(() => {});
+        flashMsg = { text: 'Автор заблокирован, его публикации скрыты.', ok: true }; again();
+      });
+      b.disabled = true;
+      try {
+        if (a === 'hide') {
+          const tbl = { event: 'events', comment: 'comments', organization: 'organizations' }[r.entity];
+          const { error } = await sb.from(tbl).update(r.entity === 'comment' ? { is_hidden: true } : { status: 'hidden' }).eq('id', r.entity_id);
+          if (error) throw error;
+        }
+        await resolveReports(r.entity, r.entity_id, a === 'dismiss' ? 'dismissed' : 'done');
+        flashMsg = { text: a === 'dismiss' ? 'Жалобы отклонены.' : a === 'hide' ? 'Скрыто, жалобы закрыты.' : 'Жалобы закрыты.', ok: true };
+        again();
+      } catch (err) { console.error(err); b.disabled = false; setMsg($('#msg'), ruError(err)); }
+    }));
+  });
+}
+
+/* ----- Админка: пользователи ----- */
+function renderAdminUsers(query) {
+  const app = $('#app');
+  const p = new URLSearchParams(query);
+  const q = (p.get('q') || '').trim(), banned = p.get('banned') === '1';
+  document.title = 'Пользователи — админка';
+  const href = o => '#/admin/users' + qs({ q: o.q ?? q, banned: (o.banned ?? banned) ? '1' : '' });
+  app.innerHTML = '<div class="page-head"><h1>Админка</h1></div>' + adminTabs('users') +
+    '<form class="usr-search" id="usr-f" role="search"><input type="search" id="usr-q" placeholder="Имя или почта" aria-label="Имя или почта" value="' + esc(q) + '">' +
+      '<button class="btn btn-brand" type="submit">Найти</button></form>' +
+    '<nav class="chips" aria-label="Кого показать"><a class="chip' + (banned ? '' : ' on') + '" href="' + href({ banned: false }) + '">Все</a>' +
+      '<a class="chip' + (banned ? ' on' : '') + '" href="' + href({ banned: true }) + '">Заблокированные</a></nav>' +
+    '<div id="msg"></div><ul class="adm-list usr-list" id="list"></ul><div id="list-state"></div>';
+  loadPendingCount();
+  $('#usr-f').addEventListener('submit', e => { e.preventDefault(); goHash(href({ q: $('#usr-q').value.trim() })); });
+  const users = {};
+  startFeed({
+    listEl: $('#list'), stateEl: $('#list-state'),
+    fetchPage: (from, size) => sb.rpc('staff_users', { p_q: q, p_banned: banned, p_limit: size, p_offset: from }),
+    renderItems: rows => rows.map(u => {
+      users[u.id] = u;
+      return '<li class="usr-row" data-uid="' + u.id + '">' + avatarHtml(u, '') + '<div class="usr-main" data-rep-host>' +
+        '<div><b>' + esc(u.display_name) + '</b>' + (ROLE_NAMES[u.role] ? '<span class="badge">' + ROLE_NAMES[u.role] + '</span>' : '') + '</div>' +
+        '<div class="meta">' + esc(u.email || '') + ', на сайте с ' + esc(dayLabel(ykDay(new Date(u.created_at)))) + ', ' +
+          u.n_ads + ' ' + plural(u.n_ads, 'объявление', 'объявления', 'объявлений') +
+          (u.n_reports ? ', <span class="usr-rep">' + u.n_reports + ' ' + plural(u.n_reports, 'жалоба', 'жалобы', 'жалоб') + ' на него</span>' : '') + '</div>' +
+        (u.banned ? '<div class="usr-ban">Заблокирован ' + esc(banTerm(u)) + (u.ban_reason ? ': ' + esc(u.ban_reason) : '') + '</div>' : '') +
+        (canBanUser(u.id, u.role) ? '<button class="linkbtn' + (u.banned ? '' : ' danger') + '" type="button" data-ban="' + u.id + '"' + (u.banned ? '' : ' data-v="1"') + '>' +
+          (u.banned ? 'Разблокировать' : 'Заблокировать') + '</button>' : '') +
+        '</div></li>';
+    }).join(''),
+    emptyHtml: '<p class="empty">' + (q ? 'Никого не нашлось.' : banned ? 'Заблокированных нет.' : 'Пользователей пока нет.') + '</p>'
+  });
+  // Кнопки появляются по мере подгрузки — один обработчик на весь список
+  $('#list').addEventListener('click', async e => {
+    const b = e.target.closest('[data-ban]');
+    if (!b) return;
+    const again = () => renderAdminUsers(query) || showFlash();
+    if (b.dataset.v) return openBanForm(b, b.dataset.ban, () => {
+      flashMsg = { text: 'Пользователь заблокирован, его публикации скрыты.', ok: true }; renderAdminUsers(query); showFlash();
+    });
+    if (!confirm('Разблокировать пользователя? Его публикации снова станут видны.')) return;
+    b.disabled = true;
+    try { await setBan(b.dataset.ban, null); flashMsg = { text: 'Пользователь разблокирован.', ok: true }; again(); }
+    catch (err) { console.error(err); b.disabled = false; setMsg($('#msg'), ruError(err)); }
   });
 }
 
@@ -7794,7 +8208,7 @@ async function renderOrgView(id) {
   let o, cats;
   try {
     const [res, c] = await Promise.all([
-      sb.from('organizations').select(ORG_FIELDS + ', profiles(display_name)').eq('id', id).maybeSingle(),
+      sb.from('organizations').select(ORG_FIELDS + ', profiles(display_name, role, is_banned, banned_until)').eq('id', id).maybeSingle(),
       loadOrgCats()
     ]);
     if (res.error) throw res.error;
@@ -7847,6 +8261,7 @@ async function renderOrgView(id) {
       '<textarea id="mod-reason" class="short" maxlength="500" placeholder="Например: нет телефона и адреса, не та рубрика, такая организация уже есть"></textarea></div>' +
       '<div class="mod-actions"><button class="btn btn-danger" type="submit">Отклонить</button><button class="btn btn-line" type="button" id="mod-cancel">Отмена</button></div></form>' +
     (o.profiles?.display_name ? '<p class="meta">Добавил: ' + esc(o.profiles.display_name) + ', ' + esc(fmtWhen(o.created_at)) + '</p>' : '') +
+    '<div id="mod-rep"></div>' + authorModHtml(o.profiles, o.submitted_by) +
     '</section>' : '';
 
   const canEdit = (own && o.status !== 'hidden') || staff;
@@ -7868,7 +8283,7 @@ async function renderOrgView(id) {
         (o.status === 'published' ? '<button class="btn btn-line" type="button" id="share">Поделиться</button>' : '') +
         (canEdit ? '<a class="btn btn-line" href="#/catalog/' + o.id + '/edit">Изменить</a><button class="btn btn-danger" type="button" id="org-del">Удалить</button>' : '') +
       '</div>' +
-      (o.status === 'published' && !own ? '<p class="oreport"><button class="linkbtn" type="button" id="rep-tg">Сообщить о неточности</button></p>' +
+      (o.status === 'published' && canReport(o.submitted_by) ? '<p class="oreport"><button class="linkbtn" type="button" id="rep-tg">Сообщить о неточности</button></p>' +
         '<form class="form wide" id="rep" hidden novalidate><div class="field"><label for="rep-text">Что не так?</label>' +
           '<textarea id="rep-text" class="short" maxlength="500" placeholder="Например: сменился телефон, организация переехала или закрылась"></textarea></div>' +
           '<div id="rep-msg"></div><div class="mod-actions"><button class="btn btn-brand" type="submit">Отправить</button><button class="btn btn-line" type="button" id="rep-cancel">Отмена</button></div></form>' : '') +
@@ -7929,12 +8344,17 @@ async function renderOrgView(id) {
       if (reason.length < 3) return setMsg($('#rep-msg'), 'Напишите, что не так: хотя бы пару слов.');
       const b = rep.querySelector('button[type=submit]');
       b.disabled = true;
-      const { error: err } = await sb.from('reports').insert({ entity: 'organization', entity_id: o.id, reporter_id: session.user.id, reason });
+      const { error: err } = await sb.from('reports').insert({ entity: 'organization', entity_id: o.id, reporter_id: session.user.id, kind: 'inaccuracy', reason });
       b.disabled = false;
       if (err && !/duplicate key/i.test(err.message || '')) return setMsg($('#rep-msg'), ruError(err));
       rep.hidden = true;
       setMsg(msg, err ? 'Вы уже сообщали об этой организации. Модератор проверит.' : 'Спасибо! Модератор проверит и исправит карточку.', true);
     });
+  }
+  if (staff) {
+    const again = () => { if (seq === routeSeq) renderOrgView(o.id).then(showFlash); };
+    loadObjReports($('#mod-rep'), 'organization', o.id, again);
+    bindAuthorMod($('#mod'), msg, again);
   }
 }
 
@@ -7972,7 +8392,7 @@ async function renderOrgForm(editId, query) {
   if (editId && !org) return stub('Организация не найдена', 'Возможно, её уже удалили.');
   if (org && !staff && org.submitted_by !== session.user.id) return stub('Нет доступа', 'Изменить карточку может только тот, кто её добавил.');
   if (org && !staff && org.status === 'hidden') return stub('Организация скрыта', 'Модератор скрыл эту организацию, изменить её нельзя.');
-  if (profile?.is_banned) return stub('Аккаунт заблокирован', 'Модератор заблокировал ваш аккаунт, добавлять организации нельзя.');
+  if (bannedNow(profile)) return bannedStub(app, '#/catalog');
 
   // Раздел и рубрика: из карточки или из адреса (?cat=…)
   const pre = org ? cats.byId[org.category_id] : cats.bySlug[new URLSearchParams(query).get('cat') || ''];
